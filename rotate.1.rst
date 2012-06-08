@@ -47,7 +47,7 @@ The script relies on ``xrandr`` to get the information, so this has to work.
 EXAMPLE
 =======
 
-To rotate the screen to the left (and later back again), use::
+To rotate the screen to the right (and later back again), use::
 
     rotate
 
