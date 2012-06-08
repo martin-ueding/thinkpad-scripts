@@ -15,6 +15,10 @@ Type::
 
     # make install
 
+If you want to have the manual page installed, type ``make`` before you run
+``make install``. This needs to have ``rst2man`` from ``python-docutils``
+installed.
+
 Usage
 =====
 
