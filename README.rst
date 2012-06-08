@@ -33,3 +33,16 @@ like so::
     rotate right
     rotate flip
     rotate normal
+
+License
+=======
+
+I took this script from a `forums entry
+<http://forum.thinkpads.com/viewtopic.php?f=43&t=104228>`_ where the original
+author said:
+
+    “Put this in a file blah.sh anywhere, and do whatever you want with it!”
+
+The changes that I made to that script are licensed unter the `Expat License
+<http://www.jclark.com/xml/copying.txt>`_, so you are welcome do use it as
+you like.
