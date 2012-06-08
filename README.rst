@@ -5,8 +5,12 @@ ThinkPad Rotate
 ###############
 
 This script is intended for the Lenovo ThinkPad X220 Tablet which features a
-Wacom pen and touch screen. With this script, you can rotate the screen in
-any direction you like and it will also rotate the pen and touch input.
+Wacom pen and touch screen. With this script, you can rotate the screen in any
+direction you like and it will also rotate the pen and touch input.
+
+It will also disable the trackpoint (the xinput id is automatically queried) so
+that the back of the screen does not move your mouse if there is any force on
+the side of the screen.
 
 Installation
 ============
