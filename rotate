@@ -54,3 +54,21 @@ case "$setto" in
 		rotate_do ccw
 		;;
 esac
+
+# Enable and disable the Trackpoint.
+# First, find the id of the trackpoint.
+id=$(xinput list | grep TrackPoint | grep --only-matching -P 'id=(\d+)' | cut -c 4-)
+
+rotate_toggle() {
+	xinput set-prop $1 "Device Enabled" "$2"
+	echo "Toggling input device $1 to $2."
+}
+
+case "$setto" in
+	normal)
+		rotate_toggle "$id" 1
+		;;
+	*)
+		rotate_toggle "$id" 0
+		;;
+esac
