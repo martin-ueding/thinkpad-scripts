@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Find the line in "xrandr -q --verbose" output that contains current screen
+# orientation and "strip" out current orientation.
+
+rotation="$(xrandr -q --verbose | grep 'connected' | egrep -o  '\) (normal|left|inverted|right) \(' | egrep -o '(normal|left|inverted|right)')"
+
+# Using current screen orientation proceed to rotate screen and input tools.
+
+if [[ -n "$1" ]]
+then
+	setto="$1"
+	echo "User chose to set to $setto."
+else
+	case "$rotation" in
+		normal)
+			setto=left
+			echo "Using default, setting to $setto."
+			;;
+		*)
+			setto=normal
+			echo "Using default, reverting to normal."
+	esac
+fi
+
+case "$setto" in
+	normal)
+		xrandr -o normal
+		xsetwacom set "Wacom ISDv4 E6 Pen stylus" rotate none
+		xsetwacom set "Wacom ISDv4 E6 Finger touch" rotate none
+		xsetwacom set "Wacom ISDv4 E6 Pen eraser" rotate none
+		;;
+	right)
+		xrandr -o right
+		xsetwacom set "Wacom ISDv4 E6 Pen stylus" rotate cw
+		xsetwacom set "Wacom ISDv4 E6 Finger touch" rotate cw
+		xsetwacom set "Wacom ISDv4 E6 Pen eraser" rotate cw
+		;;
+	flip)
+		xrandr -o inverted
+		xsetwacom set "Wacom ISDv4 E6 Pen stylus" rotate half
+		xsetwacom set "Wacom ISDv4 E6 Finger touch" rotate half
+		xsetwacom set "Wacom ISDv4 E6 Pen eraser" rotate half
+		;;
+	left)
+		xrandr -o left
+		xsetwacom set "Wacom ISDv4 E6 Pen stylus" rotate ccw
+		xsetwacom set "Wacom ISDv4 E6 Finger touch" rotate ccw
+		xsetwacom set "Wacom ISDv4 E6 Pen eraser" rotate ccw
+		;;
+esac
