@@ -21,3 +21,4 @@ X-DBUS-ServiceName=
 X-DBUS-StartupType=none
 X-KDE-SubstituteUID=false
 X-KDE-Username=
+Categories=System
