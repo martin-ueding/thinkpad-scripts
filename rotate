@@ -28,30 +28,29 @@ else
 	esac
 fi
 
+rotate_do() {
+	for device in "Wacom ISDv4 E6 Pen stylus" "Wacom ISDv4 E6 Finger touch" "Wacom ISDv4 E6 Pen eraser"
+	do
+		xsetwacom set "$device" rotate none
+	done
+}
+
 # Perform the actual rotation.
 case "$setto" in
 	normal)
 		xrandr -o normal
-		xsetwacom set "Wacom ISDv4 E6 Pen stylus" rotate none
-		xsetwacom set "Wacom ISDv4 E6 Finger touch" rotate none
-		xsetwacom set "Wacom ISDv4 E6 Pen eraser" rotate none
+		rotate_do none
 		;;
 	right)
 		xrandr -o right
-		xsetwacom set "Wacom ISDv4 E6 Pen stylus" rotate cw
-		xsetwacom set "Wacom ISDv4 E6 Finger touch" rotate cw
-		xsetwacom set "Wacom ISDv4 E6 Pen eraser" rotate cw
+		rotate_do cw
 		;;
 	flip)
 		xrandr -o inverted
-		xsetwacom set "Wacom ISDv4 E6 Pen stylus" rotate half
-		xsetwacom set "Wacom ISDv4 E6 Finger touch" rotate half
-		xsetwacom set "Wacom ISDv4 E6 Pen eraser" rotate half
+		rotate_do half
 		;;
 	left)
 		xrandr -o left
-		xsetwacom set "Wacom ISDv4 E6 Pen stylus" rotate ccw
-		xsetwacom set "Wacom ISDv4 E6 Finger touch" rotate ccw
-		xsetwacom set "Wacom ISDv4 E6 Pen eraser" rotate ccw
+		rotate_do ccw
 		;;
 esac
