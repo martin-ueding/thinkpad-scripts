@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Script orignally from http://forum.thinkpads.com/viewtopic.php?p=676101#p676101.
+# Changes Copyright © 2012 Martin Ueding <dev@martin-ueding.de>
+
 # Find the line in "xrandr -q --verbose" output that contains current screen
 # orientation and "strip" out current orientation.
 
