@@ -40,8 +40,8 @@ License
 =======
 
 I took this script from a `forums entry
-<http://forum.thinkpads.com/viewtopic.php?f=43&t=104228>`_ where the original
-author said:
+<http://forum.thinkpads.com/viewtopic.php?p=676101#p676101>`_ where the
+original author said:
 
     “Put this in a file blah.sh anywhere, and do whatever you want with it!”
 
