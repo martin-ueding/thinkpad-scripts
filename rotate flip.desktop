@@ -1,0 +1,20 @@
+[Desktop Entry]
+Comment[de]=
+Comment=
+Exec=rotate flip
+GenericName[de]=
+GenericName=
+Icon=object-flip-vertical
+MimeType=
+Name[de]=rotate flip
+Name=rotate flip
+NoDisplay=true
+Path=
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=none
+X-KDE-SubstituteUID=false
+X-KDE-Username=

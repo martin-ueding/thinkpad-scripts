@@ -1,0 +1,23 @@
+[Desktop Entry]
+Comment[de]=
+Comment=
+Comment[en_US]=
+Exec=rotate
+GenericName[de]=
+GenericName=
+GenericName[en_US]=
+Icon=object-rotate-left
+MimeType=
+Name[de]=rotate
+Name=rotate
+Name[en_US]=rotate
+NoDisplay=true
+Path=
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=none
+X-KDE-SubstituteUID=false
+X-KDE-Username=
