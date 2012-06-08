@@ -10,6 +10,8 @@ rotation="$(xrandr -q --verbose | grep 'connected' | egrep -o  '\) (normal|left|
 
 # Using current screen orientation proceed to rotate screen and input tools.
 
+# If the user specified a rotation, set it to that. If not, use left or default
+# orientation.
 if [[ -n "$1" ]]
 then
 	setto="$1"
@@ -26,6 +28,7 @@ else
 	esac
 fi
 
+# Perform the actual rotation.
 case "$setto" in
 	normal)
 		xrandr -o normal
