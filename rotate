@@ -19,7 +19,7 @@ then
 else
 	case "$rotation" in
 		normal)
-			setto=left
+			setto=right
 			echo "Using default, setting to $setto."
 			;;
 		*)
