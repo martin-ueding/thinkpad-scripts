@@ -11,3 +11,4 @@ all: rotate.1.gz
 install:
 	install rotate "$(DESTDIR)/usr/bin/"
 	if [ -f rotate.1.gz ]; then cp rotate.1.gz "$(DESTDIR)/usr/share/man/man1/"; fi
+	cp -v *.desktop "$(DESTDIR)/usr/share/applications/"
