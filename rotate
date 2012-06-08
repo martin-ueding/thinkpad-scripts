@@ -31,7 +31,7 @@ fi
 rotate_do() {
 	for device in "Wacom ISDv4 E6 Pen stylus" "Wacom ISDv4 E6 Finger touch" "Wacom ISDv4 E6 Pen eraser"
 	do
-		xsetwacom set "$device" rotate none
+		xsetwacom set "$device" rotate "$1"
 	done
 }
 
