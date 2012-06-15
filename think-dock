@@ -16,10 +16,14 @@ then
 	exit 2
 fi
 
-case "$1"
+case "$1" in
 	on)
 		xrandr --output "$internal" --mode 1366x768
 		xrandr --output "$external" --mode 1920x1200 --right-of "$internal"
+		;;
+	off)
+		xrandr --output "$internal" --mode 1366x768
+		xrandr --output "$external" --off
 		;;
 esac
 
