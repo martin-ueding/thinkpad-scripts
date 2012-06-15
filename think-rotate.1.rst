@@ -64,4 +64,6 @@ To specify the direction, you can use::
 SEE ALSO
 ========
 
-- `GitHub Repository <https://github.com/martin-ueding/think-rotate>`_
+- `GitHub Repository`_
+
+.. _`GitHub Repository`: https://github.com/martin-ueding/think-rotate
