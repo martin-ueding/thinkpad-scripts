@@ -1,0 +1,29 @@
+#!/bin/bash
+# Copyright (c) 2012 Martin Ueding <dev@martin-ueding.de>
+
+# TODO Add License.
+
+set -e
+set -u
+
+if [[ -z "${1:-}" ]]
+then
+	echo "usage: think-dock on|off"
+	echo "See “man think-dock” for more details."
+	exit 2
+fi
+
+case "$1"
+	on)
+		internal="LVDS1"
+		external="HDMI2"
+
+		xrandr --output "$internal" --mode 1366x768
+		xrandr --output "$external" --mode 1920x1200 --right-of "$internal"
+		;;
+esac
+
+for device in "Wacom ISDv4 E6 Pen stylus" "Wacom ISDv4 E6 Finger touch" "Wacom ISDv4 E6 Pen eraser"
+do
+	xsetwacom set "$device" MapToOutput "$internal"
+done
