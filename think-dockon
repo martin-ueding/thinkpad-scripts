@@ -1,0 +1,10 @@
+#!/bin/bash
+# Copyright (c) 2012 Martin Ueding <dev@martin-ueding.de>
+
+# TODO Add License.
+
+set -e
+set -u
+
+xrandr --output LVDS1 --mode 1366x768
+xrandr --output HDMI1 --mode 1920x1200 --right-of LVDS1
