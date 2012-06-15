@@ -11,3 +11,8 @@ external="HDMI2"
 
 xrandr --output "$internal" --mode 1366x768
 xrandr --output "$external" --mode 1920x1200 --right-of "$internal"
+
+for device in "Wacom ISDv4 E6 Pen stylus" "Wacom ISDv4 E6 Finger touch" "Wacom ISDv4 E6 Pen eraser"
+do
+	xsetwacom set "$device" MapToOutput "$internal"
+done
