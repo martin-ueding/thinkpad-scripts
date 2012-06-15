@@ -1,6 +1,6 @@
-######
-rotate
-######
+############
+think-rotate
+############
 
 *******************************************
 ThinkPad X220 Tablet screen rotation script
@@ -16,7 +16,7 @@ SYNOPSIS
 
 ::
 
-    rotate [direction]
+    think-rotate [direction]
 
 DESCRIPTION
 ===========
@@ -49,14 +49,14 @@ EXAMPLE
 
 To rotate the screen to the right (and later back again), use::
 
-    rotate
+    think-rotate
 
 To specify the direction, you can use::
 
-    rotate left
-    rotate right
-    rotate flip
-    rotate normal
+    think-rotate left
+    think-rotate right
+    think-rotate flip
+    think-rotate normal
 
 SEE ALSO
 ========
