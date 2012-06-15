@@ -1,3 +1,5 @@
+.. Copyright © 2012 Martin Ueding <dev@martin-ueding.de>
+
 ############
 think-rotate
 ############
