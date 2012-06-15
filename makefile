@@ -3,6 +3,7 @@
 all: think-rotate.1.gz
 
 %.1.gz: %.1
+	$(RM) $@
 	gzip $<
 
 %.1: %.1.rst
