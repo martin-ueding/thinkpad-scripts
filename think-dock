@@ -6,6 +6,9 @@
 set -e
 set -u
 
+internal="LVDS1"
+external="HDMI2"
+
 if [[ -z "${1:-}" ]]
 then
 	echo "usage: think-dock on|off"
@@ -15,9 +18,6 @@ fi
 
 case "$1"
 	on)
-		internal="LVDS1"
-		external="HDMI2"
-
 		xrandr --output "$internal" --mode 1366x768
 		xrandr --output "$external" --mode 1920x1200 --right-of "$internal"
 		;;
