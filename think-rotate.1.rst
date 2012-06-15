@@ -34,6 +34,7 @@ OPTIONS
 
 direction
     The direction can be any of:
+
     - flip
     - left
     - none
