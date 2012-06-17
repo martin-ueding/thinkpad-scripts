@@ -12,7 +12,6 @@ ThinkPad X220 Tablet screen rotation script
 :Date: 2012-06-08
 :Manual section: 1
 
-
 SYNOPSIS
 ========
 
