@@ -10,8 +10,8 @@ all: think-rotate.1.gz think-dock.1.gz
 	rst2man $< $@
 
 install:
-	install think-rotate "$(DESTDIR)/usr/bin/"
-	install think-dock "$(DESTDIR)/usr/bin/"
-	if [ -f think-rotate.1.gz ]; then cp think-rotate.1.gz "$(DESTDIR)/usr/share/man/man1/"; fi
 	if [ -f think-dock.1.gz ]; then cp think-dock.1.gz "$(DESTDIR)/usr/share/man/man1/"; fi
+	if [ -f think-rotate.1.gz ]; then cp think-rotate.1.gz "$(DESTDIR)/usr/share/man/man1/"; fi
 	install -m 644 *.desktop "$(DESTDIR)/usr/share/applications/"
+	install think-dock "$(DESTDIR)/usr/bin/"
+	install think-rotate "$(DESTDIR)/usr/bin/"
