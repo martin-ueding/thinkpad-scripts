@@ -15,3 +15,4 @@ install:
 	install -m 644 *.desktop "$(DESTDIR)/usr/share/applications/"
 	install think-dock "$(DESTDIR)/usr/bin/"
 	install think-rotate "$(DESTDIR)/usr/bin/"
+	install think-touchpad "$(DESTDIR)/usr/bin/"
