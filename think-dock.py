@@ -32,7 +32,11 @@ def main():
     print external, resolution, is_enabled
 
     if is_enabled:
-        pass
+		subprocess.check_call(["xrandr", "--output", internal, "--mode", "1366x768", "--primary"])
+		subprocess.check_call(["xrandr", "--output", external, "--off"])
+    else:
+		subprocess.check_call(["xrandr", "--output", internal, "--mode", "1366x768"])
+		subprocess.check_call(["xrandr", "--output", external, "--mode", resolution, "--right-of", internal, "--primary"])
 
 def find_external(internal):
     """
