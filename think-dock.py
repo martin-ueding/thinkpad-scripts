@@ -38,6 +38,8 @@ def find_external(internal):
     """
     Finds the port which has the external monitor attached.
 
+    :param internal: Name of internal monitor, e. g. ``LVDS1``.
+    :type internal: str
     :return: Name of the interface, maximum resolution and whether the screen
         is enabled.
     :rtype: Tuple
