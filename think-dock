@@ -18,7 +18,10 @@ set -e
 set -u
 
 internal="LVDS1"
-external="HDMI2"
+
+# Dynamically find the external display by searching for connected displays
+# that are not the internal one.
+external=$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal")
 
 if [[ -z "${1:-}" ]]
 then
@@ -29,11 +32,11 @@ fi
 
 case "$1" in
 	on)
-		xrandr --output "$internal" --mode 1366x768
-		xrandr --output "$external" --mode 1920x1200 --right-of "$internal" --primary
+		xrandr --output "$internal" --auto
+		xrandr --output "$external" --auto --right-of "$internal" --primary
 		;;
 	off)
-		xrandr --output "$internal" --mode 1366x768 --primary
+		xrandr --output "$internal" --auto --primary
 		xrandr --output "$external" --off
 		;;
 esac
