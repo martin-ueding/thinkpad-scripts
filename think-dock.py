@@ -38,6 +38,9 @@ def main():
 		subprocess.check_call(["xrandr", "--output", internal, "--auto"])
 		subprocess.check_call(["xrandr", "--output", external, "--auto", "--right-of", internal, "--primary"])
 
+    for device in ["Wacom ISDv4 E6 Pen stylus", "Wacom ISDv4 E6 Finger touch", "Wacom ISDv4 E6 Pen eraser"]:
+        subprocess.check_call(["xsetwacom", "set", device, "MapToOutput", internal])
+
 def find_external(internal):
     """
     Finds the port which has the external monitor attached.
