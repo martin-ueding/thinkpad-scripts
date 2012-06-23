@@ -24,18 +24,17 @@ __docformat__ = "restructuredtext en"
 
 def main():
     internal = "LVDS1"
-    externals = ["HDMI1", "HDMI2"]
 
     options = _parse_args()
 
-    external, resolution, is_enabled = find_external(internal, externals)
+    external, resolution, is_enabled = find_external(internal)
 
     print external, resolution, is_enabled
 
-    if is_connected:
+    if is_enabled:
         pass
 
-def find_external(internal, externals):
+def find_external(internal):
     """
     Finds the port which has the external monitor attached.
 
