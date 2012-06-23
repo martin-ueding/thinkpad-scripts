@@ -23,6 +23,8 @@ internal="LVDS1"
 # that are not the internal one.
 external=$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal")
 
+echo "External display $external found."
+
 if [[ -z "${1:-}" ]]
 then
 	echo "usage: think-dock on|off"
