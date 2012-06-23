@@ -27,16 +27,16 @@ def main():
 
     options = _parse_args()
 
-    external, resolution, is_enabled = find_external(internal)
+    external, is_enabled = find_external(internal)
 
-    print external, resolution, is_enabled
+    print external, is_enabled
 
     if is_enabled:
-		subprocess.check_call(["xrandr", "--output", internal, "--mode", "1366x768", "--primary"])
+		subprocess.check_call(["xrandr", "--output", internal, "--auto", "--primary"])
 		subprocess.check_call(["xrandr", "--output", external, "--off"])
     else:
-		subprocess.check_call(["xrandr", "--output", internal, "--mode", "1366x768"])
-		subprocess.check_call(["xrandr", "--output", external, "--mode", resolution, "--right-of", internal, "--primary"])
+		subprocess.check_call(["xrandr", "--output", internal, "--auto"])
+		subprocess.check_call(["xrandr", "--output", external, "--auto", "--right-of", internal, "--primary"])
 
 def find_external(internal):
     """
@@ -44,8 +44,7 @@ def find_external(internal):
 
     :param internal: Name of internal monitor, e. g. ``LVDS1``.
     :type internal: str
-    :return: Name of the interface, maximum resolution and whether the screen
-        is enabled.
+    :return: Name of the interface and whether the screen is enabled.
     :rtype: Tuple
     """
     xrandr = subprocess.check_output(["xrandr"]).split("\n")
@@ -68,12 +67,11 @@ def find_external(internal):
             if port == internal:
                 continue
 
-            resolution = word_list[lineno+1][0]
             selected_frequency = word_list[lineno+1][1]
 
             is_enabled = "*" in selected_frequency
 
-            return port, resolution, is_enabled
+            return port, is_enabled
 
     return None, None
 
