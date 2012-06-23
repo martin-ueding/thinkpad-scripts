@@ -30,10 +30,10 @@ fi
 case "$1" in
 	on)
 		xrandr --output "$internal" --mode 1366x768
-		xrandr --output "$external" --mode 1920x1200 --right-of "$internal"
+		xrandr --output "$external" --mode 1920x1200 --right-of "$internal" --primary
 		;;
 	off)
-		xrandr --output "$internal" --mode 1366x768
+		xrandr --output "$internal" --mode 1366x768 --primary
 		xrandr --output "$external" --off
 		;;
 esac
