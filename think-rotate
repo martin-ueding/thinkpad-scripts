@@ -32,6 +32,10 @@ if [[ -n "$1" ]]
 then
 	setto="$1"
 	echo "User chose to set to $setto."
+elif [[ "$1" = "$rotation" ]]
+then
+	echo "You try to rotate into the direction it it, reverting to normal."
+	setto=normal
 else
 	case "$rotation" in
 		normal)
