@@ -43,6 +43,8 @@ else
 fi
 
 rotate_do() {
+	echo "Rotating Wacom devices to $1."
+
 	for device in "Wacom ISDv4 E6 Pen stylus" "Wacom ISDv4 E6 Finger touch" "Wacom ISDv4 E6 Pen eraser"
 	do
 		xsetwacom set "$device" rotate "$1"
