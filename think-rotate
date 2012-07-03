@@ -21,8 +21,6 @@
 
 rotation="$(xrandr -q --verbose | grep 'connected' | egrep -o  '\) (normal|left|inverted|right) \(' | egrep -o '(normal|left|inverted|right)')"
 
-# Using current screen orientation proceed to rotate screen and input tools.
-
 # If the user specified a rotation, set it to that. If not, use left or default
 # orientation.
 if [[ -n "$1" ]]
