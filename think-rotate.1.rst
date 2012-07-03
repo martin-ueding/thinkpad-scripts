@@ -41,6 +41,15 @@ direction
     - none
     - right
 
+EXIT STATUS
+===========
+
+0
+    Everything went okay.
+
+2
+    User specified a direction that is not known.
+
 ENVIRONMENT
 ===========
 

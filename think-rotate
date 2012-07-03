@@ -66,6 +66,7 @@ case "$setto" in
 		;;
 	*)
 		echo "You specified a direction that is not known. Try either normal, right, flip or left."
+		exit 2
 esac
 
 # Enable and disable the Trackpoint.
