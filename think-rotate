@@ -64,6 +64,8 @@ case "$setto" in
 		xrandr -o left
 		rotate_do ccw
 		;;
+	*)
+		echo "You specified a direction that is not known. Try either normal, right, flip or left."
 esac
 
 # Enable and disable the Trackpoint.
