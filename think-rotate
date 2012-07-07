@@ -18,6 +18,8 @@
 
 set -e
 
+primary=LVDS1
+
 # Find the line in "xrandr -q --verbose" output that contains current screen
 # orientation and "strip" out current orientation.
 rotation="$(xrandr -q --verbose | grep 'connected' | egrep -o  '\) (normal|left|inverted|right) \(' | egrep -o '(normal|left|inverted|right)')"
@@ -54,19 +56,19 @@ rotate_do() {
 # Perform the actual rotation.
 case "$setto" in
 	normal)
-		xrandr -o normal
+		xrandr --output "$primary" --rotate normal
 		rotate_do none
 		;;
 	right)
-		xrandr -o right
+		xrandr --output "$primary" --rotate right
 		rotate_do cw
 		;;
 	flip)
-		xrandr -o inverted
+		xrandr --output "$primary" --rotate inverted
 		rotate_do half
 		;;
 	left)
-		xrandr -o left
+		xrandr --output "$primary" --rotate left
 		rotate_do ccw
 		;;
 	*)
