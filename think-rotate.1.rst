@@ -30,6 +30,10 @@ It will also disable the trackpoint (the xinput id is automatically queried) so
 that the back of the screen does not move your mouse if there is any force on
 the side of the screen.
 
+If the screen is already rotated (say left) and you call ``think-rotate left``,
+the screen will be reverted to the normal orientation. That way, you can use
+this script as a toggle.
+
 OPTIONS
 =======
 
