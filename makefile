@@ -17,3 +17,7 @@ install:
 	install think-dock "$(DESTDIR)/usr/bin/"
 	install think-rotate "$(DESTDIR)/usr/bin/"
 	install think-touchpad "$(DESTDIR)/usr/bin/"
+
+clean:
+	$(RM) *.1
+	$(RM) *.1.gz
