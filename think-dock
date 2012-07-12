@@ -20,8 +20,10 @@ set -u
 internal="LVDS1"
 
 # Dynamically find the external display by searching for connected displays
-# that are not the internal one.
-external=$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal")
+# that are not the internal one. If there is no external display is connected,
+# this will fail and cause the whole script to fail.
+external=$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v
+"$internal")
 
 echo "External display $external found."
 
