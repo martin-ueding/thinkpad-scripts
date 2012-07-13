@@ -40,10 +40,18 @@ OPTIONS
 direction
     The direction can be any of:
 
+    - ccw
+    - cw
     - flip
+    - half
     - left
     - none
+    - normal
     - right
+
+    Since the Wacom tools and ``xrandr`` have different names, this program
+    accepts all of them, so that you do not have to learn yet another set of
+    directions.
 
 EXIT STATUS
 ===========
