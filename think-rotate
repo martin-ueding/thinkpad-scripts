@@ -20,8 +20,8 @@ set -e
 
 internal=LVDS1
 
-# Find the line in "xrandr -q --verbose" output that contains current screen
-# orientation and "strip" out current orientation.
+# Find the line in ``xrandr -q --verbose`` output that contains current screen
+# orientation and strip out current orientation.
 rotation="$(xrandr -q --verbose | grep 'connected' | grep "$internal" | egrep -o  '\) (normal|left|inverted|right) \(' | egrep -o '(normal|left|inverted|right)')"
 
 echo "Current status is $rotation."
