@@ -55,19 +55,19 @@ rotate_do() {
 
 # Perform the actual rotation.
 case "$setto" in
-	normal)
+	none|normal)
 		xrandr_rotation=normal
 		wacom_rotation=none
 		;;
-	right)
+	cw|right)
 		xrandr_rotation=right
 		wacom_rotation=cw
 		;;
-	flip)
+	half|inverted|flip)
 		xrandr_rotation=right
 		wacom_rotation=half
 		;;
-	left)
+	ccw|left)
 		xrandr_rotation=left
 		wacom_rotation=ccw
 		;;
