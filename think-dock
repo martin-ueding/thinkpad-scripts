@@ -36,10 +36,12 @@ fi
 
 case "$1" in
 	on)
+		# Set the screens to the right setting.
 		xrandr --output "$internal" --auto
 		xrandr --output "$external" --auto --right-of "$internal" --primary
 		;;
 	off)
+		# Disable the external screen and make the internal the primary again.
 		xrandr --output "$internal" --auto --primary
 		xrandr --output "$external" --off
 		;;
