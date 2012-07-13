@@ -50,9 +50,6 @@ else
 	esac
 fi
 
-rotate_do() {
-}
-
 # Perform the actual rotation.
 case "$setto" in
 	none|normal)
