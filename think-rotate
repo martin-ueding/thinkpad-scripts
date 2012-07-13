@@ -20,11 +20,19 @@ set -e
 
 internal=LVDS1
 
+###############################################################################
+#                               current status                                #
+###############################################################################
+
 # Find the line in ``xrandr -q --verbose`` output that contains current screen
 # orientation and strip out current orientation.
 rotation="$(xrandr -q --verbose | grep 'connected' | grep "$internal" | egrep -o  '\) (normal|left|inverted|right) \(' | egrep -o '(normal|left|inverted|right)')"
 
 echo "Current status is $rotation."
+
+###############################################################################
+#                                new rotation                                 #
+###############################################################################
 
 # If the user specified a rotation, set it to that. If not, use left or default
 # orientation.
@@ -88,6 +96,10 @@ do
 	xsetwacom set "$device" rotate "$wacom_rotation"
 done
 
+###############################################################################
+#                              virtual keyboard                               #
+###############################################################################
+
 # Start the virtual keyboard ``kvkbd``, if it is installed.
 if type kvkbd
 then
@@ -106,7 +118,11 @@ then
 	fi
 fi
 
-# Enable and disable the Trackpoint. First, find the id of the trackpoint.
+###############################################################################
+#                           TrackPoint and TouchPad                           #
+###############################################################################
+
+# Enable and disable the TrackPoint. First, find the id of the TrackPoint.
 trackpoint_id="$(xinput list | grep TrackPoint | grep --only-matching -P 'id=(\d+)' | cut -c 4-)"
 touchpad_id="$(xinput list | grep TouchPad | grep --only-matching -P 'id=(\d+)' | cut -c 4-)"
 
