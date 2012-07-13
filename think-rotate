@@ -82,6 +82,25 @@ case "$setto" in
 		exit 2
 esac
 
+# Start the virtual keyboard ``kvkbd``, if it is installed.
+if type kvkbd
+then
+	if [[ "$setto" = "normal" ]]
+	then
+		# So the user reverts back to normal. Kill the virtual keyboard (if it
+		# is running), since it does not make any sense to use that any more.
+		if pgrep kvkbd
+		then
+			killall kvkbd
+		fi
+	else
+		# The user rotated the screen. Start the virtual keyboard since he
+		# might need it.
+		kvkbd
+	fi
+fi
+
+
 # Enable and disable the Trackpoint.
 # First, find the id of the trackpoint.
 trackpoint_id="$(xinput list | grep TrackPoint | grep --only-matching -P 'id=(\d+)' | cut -c 4-)"
