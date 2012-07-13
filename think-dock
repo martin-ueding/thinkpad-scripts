@@ -22,8 +22,7 @@ internal="LVDS1"
 # Dynamically find the external display by searching for connected displays
 # that are not the internal one. If there is no external display connected,
 # this will fail and cause the whole script to fail.
-external=$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v
-"$internal")
+external=$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal")
 
 echo "External display $external found."
 
