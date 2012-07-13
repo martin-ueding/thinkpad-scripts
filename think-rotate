@@ -84,7 +84,8 @@ esac
 
 # Enable and disable the Trackpoint.
 # First, find the id of the trackpoint.
-id="$(xinput list | grep TrackPoint | grep --only-matching -P 'id=(\d+)' | cut -c 4-)"
+trackpoint_id="$(xinput list | grep TrackPoint | grep --only-matching -P 'id=(\d+)' | cut -c 4-)"
+touchpad_id="$(xinput list | grep TouchPad | grep --only-matching -P 'id=(\d+)' | cut -c 4-)"
 
 rotate_toggle() {
 	xinput set-prop "$1" "Device Enabled" "$2"
@@ -93,9 +94,11 @@ rotate_toggle() {
 
 case "$setto" in
 	normal)
-		rotate_toggle "$id" 1
+		rotate_toggle "$trackpoint_id" 1
+		rotate_toggle "$touchpad_id" 1
 		;;
 	*)
-		rotate_toggle "$id" 0
+		rotate_toggle "$trackpoint_id" 0
+		rotate_toggle "$touchpad_id" 0
 		;;
 esac
