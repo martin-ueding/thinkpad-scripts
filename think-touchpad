@@ -15,8 +15,6 @@
 # this program. If not, see <http://www.gnu.org/licenses/>.
 
 toggle() {
-	xinput set-prop "$1" "Device Enabled" "$2"
-	echo "Toggling input device $1 to $2."
 }
 
 # Find the ID of the TouchPad.
@@ -25,7 +23,10 @@ id="$(xinput list | grep TouchPad | grep --only-matching -P 'id=(\d+)' | cut -c 
 # Check whether this device is disabled.
 if xinput --list "$id" | grep -i disabled
 then
-	toggle "$id" 1
+	toggle_to=1
 else
-	toggle "$id" 0
+	toggle_to=0
 fi
+
+echo "Toggling input device $id to $toggle_to."
+xinput set-prop "$id" "Device Enabled" "$toggle_to"
