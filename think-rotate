@@ -106,7 +106,6 @@ then
 	fi
 fi
 
-
 # Enable and disable the Trackpoint. First, find the id of the trackpoint.
 trackpoint_id="$(xinput list | grep TrackPoint | grep --only-matching -P 'id=(\d+)' | cut -c 4-)"
 touchpad_id="$(xinput list | grep TouchPad | grep --only-matching -P 'id=(\d+)' | cut -c 4-)"
