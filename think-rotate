@@ -69,7 +69,7 @@ case "$setto" in
 		wacom_rotation=ccw
 		;;
 	*)
-		echo "You specified a direction that is not known. Try either normal, right, flip or left."
+		echo "You specified a direction that is not known. Try either normal, right, flip or left. See think-rotate(1) for more information."
 		exit 2
 esac
 
