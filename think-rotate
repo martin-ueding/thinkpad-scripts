@@ -54,7 +54,7 @@ else
 	esac
 fi
 
-# Perform the actual rotation.
+# Translate directions into ``xrandr`` and ``xsetwacom`` names.
 case "$setto" in
 	none|normal)
 		xrandr_rotation=normal
@@ -77,8 +77,10 @@ case "$setto" in
 		exit 2
 esac
 
+# Perform the actual rotation.
 xrandr --output "$internal" --rotate "$xrandr_rotation"
 
+# Rotate the Wacom devices.
 echo "Rotating Wacom devices to $wacom_rotation."
 
 for device in "Wacom ISDv4 E6 Pen stylus" "Wacom ISDv4 E6 Finger touch" "Wacom ISDv4 E6 Pen eraser"
