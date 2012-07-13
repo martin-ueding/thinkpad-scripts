@@ -51,36 +51,39 @@ else
 fi
 
 rotate_do() {
-	echo "Rotating Wacom devices to $1."
-
-	for device in "Wacom ISDv4 E6 Pen stylus" "Wacom ISDv4 E6 Finger touch" "Wacom ISDv4 E6 Pen eraser"
-	do
-		xsetwacom set "$device" rotate "$1"
-	done
 }
 
 # Perform the actual rotation.
 case "$setto" in
 	normal)
-		xrandr --output "$internal" --rotate normal
-		rotate_do none
+		xrandr_rotation=normal
+		wacom_rotation=none
 		;;
 	right)
-		xrandr --output "$internal" --rotate right
-		rotate_do cw
+		xrandr_rotation=right
+		wacom_rotation=cw
 		;;
 	flip)
-		xrandr --output "$internal" --rotate inverted
-		rotate_do half
+		xrandr_rotation=right
+		wacom_rotation=half
 		;;
 	left)
-		xrandr --output "$internal" --rotate left
-		rotate_do ccw
+		xrandr_rotation=left
+		wacom_rotation=ccw
 		;;
 	*)
 		echo "You specified a direction that is not known. Try either normal, right, flip or left."
 		exit 2
 esac
+
+xrandr --output "$internal" --rotate "$xrandr_rotation"
+
+echo "Rotating Wacom devices to $wacom_rotation."
+
+for device in "Wacom ISDv4 E6 Pen stylus" "Wacom ISDv4 E6 Finger touch" "Wacom ISDv4 E6 Pen eraser"
+do
+	xsetwacom set "$device" rotate "$wacom_rotation"
+done
 
 # Start the virtual keyboard ``kvkbd``, if it is installed.
 if type kvkbd
