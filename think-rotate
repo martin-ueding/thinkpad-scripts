@@ -30,15 +30,19 @@ echo "Current status is $rotation."
 # orientation.
 if [[ -n "$1" ]]
 then
+	# The users specified a rotation. Set the screen to that state if the
+	# current state is not the desired one. If the desired one is the current,
+	# go back. This allows to toggle with the same call.
 	if [[ "$1" = "$rotation" ]]
 	then
-		echo "You try to rotate into the direction it it, reverting to normal."
+		echo "You try to rotate into the direction it is, reverting to normal."
 		setto=normal
 	else
 		setto="$1"
 		echo "User chose to set to $setto."
 	fi
 else
+	# The user did not specify anything. Set it to right or revert.
 	case "$rotation" in
 		normal)
 			setto=right
