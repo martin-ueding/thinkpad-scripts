@@ -101,23 +101,20 @@ then
 fi
 
 
-# Enable and disable the Trackpoint.
-# First, find the id of the trackpoint.
+# Enable and disable the Trackpoint. First, find the id of the trackpoint.
 trackpoint_id="$(xinput list | grep TrackPoint | grep --only-matching -P 'id=(\d+)' | cut -c 4-)"
 touchpad_id="$(xinput list | grep TouchPad | grep --only-matching -P 'id=(\d+)' | cut -c 4-)"
 
-rotate_toggle() {
-	xinput set-prop "$1" "Device Enabled" "$2"
-	echo "Toggling input device $1 to $2."
-}
+# Set the mode to which the input devices should be set.
+if [[ "$setto" = "normal" ]]
+then
+	input_to=1
+else
+	input_to=0
+fi
 
-case "$setto" in
-	normal)
-		rotate_toggle "$trackpoint_id" 1
-		rotate_toggle "$touchpad_id" 1
-		;;
-	*)
-		rotate_toggle "$trackpoint_id" 0
-		rotate_toggle "$touchpad_id" 0
-		;;
-esac
+for device in "$trackpoint_id" "$touchpad_id"
+do
+	echo "Toggling input device $device to $input_to."
+	xinput set-prop "$device" "Device Enabled" "$input_to"
+done
