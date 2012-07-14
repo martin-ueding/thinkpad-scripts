@@ -55,6 +55,8 @@ case "$1" in
 		xrandr --output "$internal" --auto --primary
 		xrandr --output "$external" --off
 
+		pactl set-sink-volume 0 50%
+
 		if [[ "$disable_wifi" = "true" ]]
 		then
 			nmcli nm wifi on
