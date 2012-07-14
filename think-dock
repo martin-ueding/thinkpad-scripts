@@ -17,9 +17,23 @@
 set -e
 set -u
 
+###############################################################################
+#                                   options                                   #
+###############################################################################
+
+# Whether to disable the wifi when going onto the docking station.
 disable_wifi=true
+
+# The name of the internal display.
 internal="LVDS1"
+
+# Whether to unmute when going onto the docking station. Usually, the speakers
+# are muted in the field, but at home you want to have sound.
 unmute=true
+
+###############################################################################
+#                            find external screen                             #
+###############################################################################
 
 # Dynamically find the external display by searching for connected displays
 # that are not the internal one. If there is no external display connected,
@@ -69,6 +83,10 @@ case "$1" in
 		fi
 		;;
 esac
+
+###############################################################################
+#                                Wacom devices                                #
+###############################################################################
 
 # Set the Wacom devices to the internal screen. If this is not done, they are
 # streched out over both screens which makes no sense.
