@@ -17,6 +17,8 @@
 set -e
 set -u
 
+disable_wifi=true
+
 internal="LVDS1"
 
 # Dynamically find the external display by searching for connected displays
@@ -42,11 +44,21 @@ case "$1" in
 		# Enable audio and set it to full volume.
 		pactl set-sink-volume 0 100%
 		pactl set-sink-mute 0 0
+
+		if [[ "$disable_wifi" = "true" ]]
+		then
+			nmcli nm wifi off
+		fi
 		;;
 	off)
 		# Disable the external screen and make the internal the primary again.
 		xrandr --output "$internal" --auto --primary
 		xrandr --output "$external" --off
+
+		if [[ "$disable_wifi" = "true" ]]
+		then
+			nmcli nm wifi on
+		fi
 		;;
 esac
 
