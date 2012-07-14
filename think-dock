@@ -38,6 +38,10 @@ case "$1" in
 		# Set the screens to the right setting.
 		xrandr --output "$internal" --auto
 		xrandr --output "$external" --auto --right-of "$internal" --primary
+
+		# Enable audio and set it to full volume.
+		pactl set-sink-volume 0 100%
+		pactl set-sink-mute 0 0
 		;;
 	off)
 		# Disable the external screen and make the internal the primary again.
