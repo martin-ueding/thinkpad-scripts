@@ -91,7 +91,7 @@ xrandr --output "$internal" --rotate "$xrandr_rotation"
 # Rotate the Wacom devices.
 echo "Rotating Wacom devices to $wacom_rotation."
 
-for device in "Wacom ISDv4 E6 Pen stylus" "Wacom ISDv4 E6 Finger touch" "Wacom ISDv4 E6 Pen eraser"
+xsetwacom list devices | sed 's/id: .*//' | while read device
 do
 	xsetwacom set "$device" rotate "$wacom_rotation"
 done
