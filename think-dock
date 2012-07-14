@@ -72,7 +72,7 @@ esac
 
 # Set the Wacom devices to the internal screen. If this is not done, they are
 # streched out over both screens which makes no sense.
-for device in "Wacom ISDv4 E6 Pen stylus" "Wacom ISDv4 E6 Finger touch" "Wacom ISDv4 E6 Pen eraser"
+xsetwacom list devices | sed 's/id: .*//' | while read device
 do
 	xsetwacom set "$device" MapToOutput "$internal"
 done
