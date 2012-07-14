@@ -42,10 +42,13 @@ case "$1" in
 		xrandr --output "$external" --auto --right-of "$internal" --primary
 
 		# Enable audio and set it to full volume.
-		pactl set-sink-volume 0 100%
-		pactl set-sink-mute 0 0
+		if [[ "$unmute" = "true" ]] && type pactl > /dev/null 2>&1
+		then
+			pactl set-sink-volume 0 100%
+			pactl set-sink-mute 0 0
+		fi
 
-		if [[ "$disable_wifi" = "true" ]]
+		if [[ "$disable_wifi" = "true" ]] && type nmcli > /dev/null 2>&1
 		then
 			nmcli nm wifi off
 		fi
@@ -55,9 +58,12 @@ case "$1" in
 		xrandr --output "$internal" --auto --primary
 		xrandr --output "$external" --off
 
-		pactl set-sink-volume 0 50%
+		if [[ "$unmute" = "true" ]] && type pactl > /dev/null 2>&1
+		then
+			pactl set-sink-volume 0 50%
+		fi
 
-		if [[ "$disable_wifi" = "true" ]]
+		if [[ "$disable_wifi" = "true" ]] && type nmcli > /dev/null 2>&1
 		then
 			nmcli nm wifi on
 		fi
