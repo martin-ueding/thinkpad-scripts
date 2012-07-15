@@ -31,6 +31,10 @@ internal="LVDS1"
 # are muted in the field, but at home you want to have sound.
 unmute=true
 
+# The settings for the loudness on the dock and off the dock.
+dock_loudness="100%"
+undock_loudness="50%"
+
 ###############################################################################
 #                            find external screen                             #
 ###############################################################################
@@ -58,7 +62,7 @@ case "$1" in
 		# Enable audio and set it to full volume.
 		if [[ "$unmute" = "true" ]] && type pactl > /dev/null 2>&1
 		then
-			pactl set-sink-volume 0 100%
+			pactl set-sink-volume 0 "$dock_loudness"
 			pactl set-sink-mute 0 0
 		fi
 
@@ -74,7 +78,7 @@ case "$1" in
 
 		if [[ "$unmute" = "true" ]] && type pactl > /dev/null 2>&1
 		then
-			pactl set-sink-volume 0 50%
+			pactl set-sink-volume 0 "$undock_loudness"
 		fi
 
 		if [[ "$disable_wifi" = "true" ]] && type nmcli > /dev/null 2>&1
