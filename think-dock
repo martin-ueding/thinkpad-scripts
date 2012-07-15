@@ -35,6 +35,12 @@ unmute=true
 dock_loudness="100%"
 undock_loudness="50%"
 
+# Whether to change the brightness of the internal monitor when docking.
+set_brightness=true
+
+# The value to set the brightness to. Needs to be given as a percentage.
+brightness="60%"
+
 ###############################################################################
 #                            find external screen                             #
 ###############################################################################
@@ -69,6 +75,14 @@ case "$1" in
 		if [[ "$disable_wifi" = "true" ]] && type nmcli > /dev/null 2>&1
 		then
 			nmcli nm wifi off
+		fi
+
+		# Set the brightness to a given percentage. My external monitor
+		# obviously has the same brightness all the time, so the internal
+		# should have a fixed one as well.
+		if [[ "$set_brightness" = "true" ]] && type xbacklight > /dev/null 2>&1
+		then
+			xbacklight -set "$brightness"
 		fi
 		;;
 	off)
