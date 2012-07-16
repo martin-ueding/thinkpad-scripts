@@ -24,6 +24,22 @@ This program sets the screen resolution correctly when putting the ThinkPad
 onto the docking station. It also sets the Wacom input devices to act on the
 internal screen only.
 
+When docking, the following things are done:
+
+- Activating the external monitor.
+- Setting the external monitor as primary monitor.
+- Deactivate the wireless connection.
+- Set the Wacom devices to the internal screen only.
+- Set the brightness to a fixed value, currently 60%.
+- Unmute the speakers and set the volume to 100%.
+
+When undocking, the following things are done:
+
+- Deactivating external monitor.
+- Setting the internal monitor as primary monitor.
+- Activating the wireless connection.
+- Set the speakers to some medium volume, currently 50%.
+
 OPTIONS
 =======
 
