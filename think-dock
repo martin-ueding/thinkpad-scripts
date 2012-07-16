@@ -41,6 +41,22 @@ set_brightness=true
 # The value to set the brightness to. Needs to be given as a percentage.
 brightness="60%"
 
+relative_positon="right"
+
+###############################################################################
+#                                 config file                                 #
+###############################################################################
+
+# Now import the configuration file if there is one. That will replace any
+# options set above.
+
+configfile="$HOME/.config/think-rotate/dock.sh"
+
+if [[ -f "$configfile" ]]
+then
+	source "$configfile"
+fi
+
 ###############################################################################
 #                            find external screen                             #
 ###############################################################################
@@ -66,7 +82,7 @@ case "$1" in
 	on)
 		# Set the screens to the right setting.
 		xrandr --output "$internal" --auto
-		xrandr --output "$external" --auto --right-of "$internal" --primary
+		xrandr --output "$external" --auto "--${relative_positon}-of" "$internal" --primary
 
 		# Enable audio and set it to full volume.
 		if [[ "$unmute" = "true" ]] && type pactl > /dev/null 2>&1

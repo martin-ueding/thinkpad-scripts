@@ -58,6 +58,38 @@ EXIT STATUS
 2
     User did not specify ``on`` or ``off``.
 
+FILES
+=====
+
+You can create a config file in ``$HOME/.config/think-rotate/dock.sh``, which
+is a simple Bash script that is going to be sourced from ``think-dock``. You
+can set the following options:
+
+``disable_wifi``
+    Whether to set the wifi. Set it to ``true`` or something else.
+
+``internal``
+    The ``xrandr`` name for the internal monitor.
+
+``unmute``
+    Whether to change the volume. Set it to ``true`` or something else.
+
+``dock_loudness``
+    Volume to set to when docking. Set it to a percentage like ``100%``.
+
+``undock_loundess``
+    Volume to set to when undocking. Set it to a percentage like ``50%``.
+
+``set_brightness``
+    Whether to change the brightness. Set it to ``true`` or something else.
+
+``brightness``
+    Brightness to set to when docking. Set it to a percentage like ``60%``.
+
+``relative_positon``
+    Where to set the external monitor. Set it to ``right`` or ``left`` or
+    anything else that ``xrandr`` supports with a ``--*-of`` argument.
+
 EXAMPLE
 =======
 
