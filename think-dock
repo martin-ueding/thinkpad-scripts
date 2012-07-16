@@ -75,9 +75,12 @@ case "$1" in
 			pactl set-sink-mute 0 0
 		fi
 
-		# FIXME Only disable the wifi, if the computer is connected via
-		# ethernet (eth0).
-		if [[ "$disable_wifi" = "true" ]] && type nmcli > /dev/null 2>&1
+		# Disable the wireless connection, if the user specified the option,
+		# the ``nmcli`` tool is available and the computer is actually
+		# connected to the ethernet.
+		if [[ "$disable_wifi" = "true" ]] \
+			&& type nmcli > /dev/null 2>&1 \
+			&& [[ "$(cat "/sys/class/net/eth0/carrier")" = 1 ]]
 		then
 			nmcli nm wifi off
 		fi
