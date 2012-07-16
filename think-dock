@@ -98,11 +98,13 @@ case "$1" in
 		xrandr --output "$internal" --auto --primary
 		xrandr --output "$external" --off
 
+		# Set the loudness a little lower so that they do not sound screaming.
 		if [[ "$unmute" = "true" ]] && type pactl > /dev/null 2>&1
 		then
 			pactl set-sink-volume 0 "$undock_loudness"
 		fi
 
+		# Enable the wireless connection.
 		if [[ "$disable_wifi" = "true" ]] && type nmcli > /dev/null 2>&1
 		then
 			nmcli nm wifi on
@@ -115,7 +117,7 @@ esac
 ###############################################################################
 
 # Set the Wacom devices to the internal screen. If this is not done, they are
-# streched out over both screens which makes no sense.
+# stretched out over both screens which makes no sense.
 xsetwacom list devices | sed 's/id: .*//' | while read device
 do
 	xsetwacom set "$device" MapToOutput "$internal"
