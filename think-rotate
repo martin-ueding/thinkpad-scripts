@@ -73,7 +73,7 @@ case "$setto" in
 		wacom_rotation=cw
 		;;
 	half|inverted|flip)
-		xrandr_rotation=right
+		xrandr_rotation=inverted
 		wacom_rotation=half
 		;;
 	ccw|left)
