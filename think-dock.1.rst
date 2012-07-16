@@ -54,7 +54,7 @@ EXIT STATUS
 0
     Everything okay.
 1
-    Some error, probably because here was no external monitor connected.
+    Some error, probably because there was no external monitor connected.
 2
     User did not specify ``on`` or ``off``.
 
