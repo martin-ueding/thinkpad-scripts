@@ -27,7 +27,10 @@ internal screen only.
 OPTIONS
 =======
 
-
+on|off
+    If you have it sitting on the docking station and want it to dock, use
+    ``on``. Otherwise use ``off`` before you take the ThinkPad off the docking
+    station.
 
 EXIT STATUS
 ===========
