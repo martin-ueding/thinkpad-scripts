@@ -62,8 +62,15 @@ FILES
 =====
 
 You can create a config file in ``$HOME/.config/think-rotate/dock.sh``, which
-is a simple Bash script that is going to be sourced from ``think-dock``. You
-can set the following options:
+is a simple Bash script that is going to be sourced from ``think-dock``.
+
+A sample config would look like this::
+
+    dock_loudness="50%"
+    disable_wifi=false
+    relative_position=left
+
+You can set the following options:
 
 ``disable_wifi``
     Whether to set the wifi. Set it to ``true`` or something else.
