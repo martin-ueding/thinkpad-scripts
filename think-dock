@@ -85,7 +85,7 @@ case "${1:-auto}" in
 		then
 			# The external monitor is connected. If the display is enabled, it
 			# is time to un-dock. If it is not enable, it is time to dock.
-			if xrandr | grep "$internal" | grep -vF 'connected (normal left inverted' > /dev/null
+			if xrandr | grep "$external" | grep -vF 'connected (normal left inverted' > /dev/null
 			then
 				# The display is enabled. Time to un-dock.
 				echo "Display is enabled."
@@ -104,8 +104,6 @@ case "${1:-auto}" in
 esac
 
 echo "Will set to $setto."
-
-exit
 
 case "$setto" in
 	on)
