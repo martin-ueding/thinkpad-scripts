@@ -35,7 +35,7 @@ unmute=true
 dock_loudness="100%"
 undock_loudness="50%"
 
-# Whether to change the brightness of the internal monitor when docking.
+# Whether to change the brightness of the internal display when docking.
 set_brightness=true
 
 # The value to set the brightness to. Needs to be given as a percentage.
@@ -58,7 +58,7 @@ then
 fi
 
 ###############################################################################
-#                            find external screen                             #
+#                            find external display                            #
 ###############################################################################
 
 # Dynamically find the external display by searching for connected displays
@@ -83,7 +83,7 @@ case "${1:-auto}" in
 	auto)
 		if [[ -n "${external:-}" ]]
 		then
-			# The external monitor is connected. If the display is enabled, it
+			# The external display is connected. If the display is enabled, it
 			# is time to un-dock. If it is not enable, it is time to dock.
 			if xrandr | grep "$external" | grep -vF 'connected (normal left inverted' > /dev/null
 			then
@@ -96,9 +96,9 @@ case "${1:-auto}" in
 				setto=on
 			fi
 		else
-			# There is no external monitor attached. The notebook is probably
+			# There is no external display attached. The notebook is probably
 			# already un-docked, but lets dock it off again.
-			echo "No external monitor attached."
+			echo "No external display attached."
 			setto=off
 		fi
 esac
@@ -107,7 +107,7 @@ echo "Will set to $setto."
 
 case "$setto" in
 	on)
-		# Set the screens to the right setting.
+		# Set the displays to the right setting.
 		xrandr --output "$internal" --auto
 		xrandr --output "$external" --auto "--${relative_positon}-of" "$internal" --primary
 
@@ -128,7 +128,7 @@ case "$setto" in
 			nmcli nm wifi off
 		fi
 
-		# Set the brightness to a given percentage. My external monitor
+		# Set the brightness to a given percentage. My external display
 		# obviously has the same brightness all the time, so the internal
 		# should have a fixed one as well.
 		if [[ "$set_brightness" = "true" ]] && type xbacklight > /dev/null 2>&1
@@ -137,7 +137,7 @@ case "$setto" in
 		fi
 		;;
 	off)
-		# Disable the external screen and make the internal the primary again.
+		# Disable the external display and make the internal the primary again.
 		xrandr --output "$internal" --auto --primary
 
 		if [[ -n "${external:-}" ]]
@@ -163,8 +163,8 @@ esac
 #                                Wacom devices                                #
 ###############################################################################
 
-# Set the Wacom devices to the internal screen. If this is not done, they are
-# stretched out over both screens which makes no sense.
+# Set the Wacom devices to the internal display. If this is not done, they are
+# stretched out over both displays which makes no sense.
 xsetwacom list devices | sed 's/id: .*//' | while read device
 do
 	xsetwacom set "$device" MapToOutput "$internal"
