@@ -71,13 +71,13 @@ else
 	echo "No external display found."
 fi
 
-exit
-
 case "${1:-auto}" in
 	on)
+		echo "User set to on."
 		setto=on
 		;;
 	off)
+		echo "User set to off."
 		setto=off
 		;;
 	auto)
@@ -88,17 +88,24 @@ case "${1:-auto}" in
 			if xrandr | grep "$internal" | grep -vF 'connected (normal left inverted' > /dev/null
 			then
 				# The display is enabled. Time to un-dock.
+				echo "Display is enabled."
 				setto=off
 			else
 				# The display is not enabled. Time to dock.
+				echo "Display is disabled."
 				setto=on
 			fi
 		else
 			# There is no external monitor attached. The notebook is probably
 			# already un-docked, but lets dock it off again.
+			echo "No external monitor attached."
 			setto=off
 		fi
 esac
+
+echo "Will set to $setto."
+
+exit
 
 case "$setto" in
 	on)
