@@ -119,3 +119,5 @@ the external screen going.
 
 When you are done, call ``think-dock off`` before you disconnect to get the
 internal screen back again.
+
+Or you can just call ``think-dock`` and it will do the right think probably.
