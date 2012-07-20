@@ -117,7 +117,11 @@ case "$1" in
 	off)
 		# Disable the external screen and make the internal the primary again.
 		xrandr --output "$internal" --auto --primary
-		xrandr --output "$external" --off
+
+		if [[ -n "${external:-}" ]]
+		then
+			xrandr --output "$external" --off
+		fi
 
 		# Set the loudness a little lower so that they do not sound screaming.
 		if [[ "$unmute" = "true" ]] && type pactl > /dev/null 2>&1
