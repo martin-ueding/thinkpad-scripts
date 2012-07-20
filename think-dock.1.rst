@@ -15,7 +15,7 @@ SYNOPSIS
 
 ::
 
-    think-dock on|off
+    think-dock [on|off]
 
 DESCRIPTION
 ===========
@@ -23,6 +23,20 @@ DESCRIPTION
 This program sets the screen resolution correctly when putting the ThinkPad
 onto the docking station. It also sets the Wacom input devices to act on the
 internal screen only.
+
+It deduces what to do automatically. There are three cases:
+
+display attached and enabled
+    Computer is currently docked and will get un-docked (off).
+display attached and disabled
+    Computer is in the docking station but not docked. The script will dock
+    (on).
+display not attached
+    Computer is not in the docking station. The script will do all the
+    un-docking actions to make sure that it is in the right state.
+
+what it does
+------------
 
 When docking, the following things are done:
 
@@ -54,9 +68,7 @@ EXIT STATUS
 0
     Everything okay.
 1
-    Some error, probably because there was no external monitor connected.
-2
-    User did not specify ``on`` or ``off``.
+    Some error.
 
 FILES
 =====
