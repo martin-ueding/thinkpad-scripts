@@ -1,3 +1,9 @@
+.. Copyright © 2012 Martin Ueding <dev@martin-ueding.de>
+
+#########
+changelog
+#########
+
 v1.3
     - Optional config file for ``think-dock``.
 
