@@ -62,6 +62,8 @@ on|off
     ``on``. Otherwise use ``off`` before you take the ThinkPad off the docking
     station.
 
+    You can omit this option and the script will guess what to do.
+
 EXIT STATUS
 ===========
 
