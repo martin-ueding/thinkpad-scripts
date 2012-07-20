@@ -54,3 +54,9 @@ I took this script from a `forums entry`_ where the original author said:
 The changes that I made to that script are licensed unter the GPLv2+.
 
 .. _`forums entry`: http://forum.thinkpads.com/viewtopic.php?p=676101#p676101
+
+Contact
+=======
+
+I am Martin Ueding and you can contact me at dev@martin-ueding.de if you have
+any questions.
