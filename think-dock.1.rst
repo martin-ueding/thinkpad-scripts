@@ -114,10 +114,9 @@ You can set the following options:
 EXAMPLE
 =======
 
-When you have it sitting on the docking station, call ``think-dock on`` to get
-the external screen going.
+You can just call ``think-dock`` and it will do the right think probably.
 
+If you want, you can tell the script what to do: When you have it sitting on
+the docking station, call ``think-dock on`` to get the external screen going.
 When you are done, call ``think-dock off`` before you disconnect to get the
 internal screen back again.
-
-Or you can just call ``think-dock`` and it will do the right think probably.
