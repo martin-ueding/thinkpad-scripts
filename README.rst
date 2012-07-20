@@ -60,3 +60,9 @@ Contact
 
 I am Martin Ueding and you can contact me at dev@martin-ueding.de if you have
 any questions.
+
+Website
+=======
+
+There is also a project website at
+http://martin-ueding.de/projects/think-rotate.
