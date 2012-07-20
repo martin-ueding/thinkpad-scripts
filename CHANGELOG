@@ -4,6 +4,9 @@
 changelog
 #########
 
+v1.4.3
+    - Disable the wireless connection on docking.
+
 v1.4.2
     - Fix commands in ``.desktop`` files.
 
