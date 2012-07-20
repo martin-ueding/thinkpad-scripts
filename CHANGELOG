@@ -30,8 +30,8 @@ v1.1
     - Query Wacom devices automatically.
 
 v1.0
-    This is the first release with a version number. It contains a couple fixes and
-    improvements compared to previous (before 2012-07-13) versions of these
+    This is the first release with a version number. It contains a couple fixes
+    and improvements compared to previous (before 2012-07-13) versions of these
     scripts.
 
     - Accept other names for the rotation.
