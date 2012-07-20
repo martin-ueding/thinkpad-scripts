@@ -26,23 +26,11 @@ installed.
 Usage
 =====
 
-By default, it will rotate to the left, since you can use the battery as a
-nice handle then. If you invoke it without any arguments, it will rotate the
-screen to the left or back to normal::
+Please see the individual manual pages for details on each program:
 
-    rotate
-
-And then later on::
-
-    rotate
-
-If you want to rotate it to other directions, you can specify the direction,
-like so::
-
-    rotate left
-    rotate right
-    rotate flip
-    rotate normal
+- think-dock.1.rst
+- think-rotate.1.rst
+- think-touchpad.1.rst
 
 License
 =======
