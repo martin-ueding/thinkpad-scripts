@@ -1,0 +1,39 @@
+v1.3
+    - Optional config file for ``think-dock``.
+v1.2.2
+    - Fix flip direction.
+v1.2.1
+    - Disable wireless only when eth0 connected.
+    - Document options.
+v1.2
+    - Change display brightness on docking.
+v1.1
+    - Check whether programs are there before using them.
+    - Create directories on ``make install``.
+    - Disable wifi when going onto the docking station.
+    - Enable sound on docking.
+    - Lower the volume after docking.
+    - Query Wacom devices automatically.
+v1.0
+    This is the first release with a version number. It contains a couple fixes and
+    improvements compared to previous (before 2012-07-13) versions of these
+    scripts.
+
+    - Accept other names for the rotation.
+    - Disable the trackpad as well.
+    - Start and stop the virtual keyboard.
+    - Try to go back automatically, if a rotation is already set.
+    - Use ``--rotation`` instead of ``-o``. This will only rotate the internal
+      screen and not any attached screens as well.
+
+Way before 2012-07-13, those are significant changes in the history:
+
+    - Add desktop files.
+    - Also set Wacom hardware correctly.
+    - Determine resolution automatically.
+    - Disable trackpoint when switching.
+    - Dynamically find external display.
+    - Limit Wacom devices to internal screen.
+    - Set external monitor as primary.
+
+.. vim: ft=rst
