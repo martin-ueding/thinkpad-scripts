@@ -1,12 +1,16 @@
 v1.3
     - Optional config file for ``think-dock``.
+
 v1.2.2
     - Fix flip direction.
+
 v1.2.1
     - Disable wireless only when eth0 connected.
     - Document options.
+
 v1.2
     - Change display brightness on docking.
+
 v1.1
     - Check whether programs are there before using them.
     - Create directories on ``make install``.
@@ -14,6 +18,7 @@ v1.1
     - Enable sound on docking.
     - Lower the volume after docking.
     - Query Wacom devices automatically.
+
 v1.0
     This is the first release with a version number. It contains a couple fixes and
     improvements compared to previous (before 2012-07-13) versions of these
