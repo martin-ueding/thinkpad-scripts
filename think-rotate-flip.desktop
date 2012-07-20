@@ -1,6 +1,6 @@
 [Desktop Entry]
 Categories=System;
-Exec=rotate flip
+Exec=think-rotate flip
 GenericName=Flip screen vertically
 Icon=object-flip-vertical
 Name=rotate flip

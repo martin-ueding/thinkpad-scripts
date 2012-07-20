@@ -1,6 +1,6 @@
 [Desktop Entry]
 Categories=System;
-Exec=rotate
+Exec=think-rotate
 GenericName=Rotate screen left
 Icon=object-rotate-left
 Name=rotate
