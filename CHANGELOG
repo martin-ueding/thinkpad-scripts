@@ -4,6 +4,9 @@
 changelog
 #########
 
+v1.4.1
+    - Install ``.desktop`` files.
+
 v1.4
     - Query the state of the whole system automatically and determine the right
       action. You can still specify ``on`` or ``off``, if you want to.
