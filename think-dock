@@ -22,7 +22,7 @@ set -u
 ###############################################################################
 
 # Whether to disable the wifi when going onto the docking station.
-disable_wifi=true
+disable_wifi=false
 
 # The name of the internal display.
 internal="LVDS1"
@@ -73,17 +73,34 @@ fi
 
 exit
 
-if [[ -z "${1:-}" ]]
-then
-	echo "usage: think-dock on|off"
-	echo "See “man think-dock” for more details."
-	exit 2
-fi
+case "${1:-auto}" in
+	on)
+		setto=on
+		;;
+	off)
+		setto=off
+		;;
+	auto)
+		if [[ -n "${external:-}" ]]
+		then
+			# The external monitor is connected. If the display is enabled, it
+			# is time to un-dock. If it is not enable, it is time to dock.
+			if xrandr | grep "$internal" | grep -vF 'connected (normal left inverted'
+			then
+				# The display is enabled. Time to un-dock.
+				setto=off
+			else
+				# The display is not enabled. Time to dock.
+				setto=on
+			fi
+		else
+			# There is no external monitor attached. The notebook is probably
+			# already un-docked, but lets dock it off again.
+			setto=off
+		fi
+esac
 
-# TODO Try to deduce the action to perform from the current state of the
-# system. If the external monitor is connected, but not active, it is probably
-# time to dock. If it is active, it is probably time to undock.
-case "$1" in
+case "$setto" in
 	on)
 		# Set the screens to the right setting.
 		xrandr --output "$internal" --auto
