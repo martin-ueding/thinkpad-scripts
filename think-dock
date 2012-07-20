@@ -73,11 +73,11 @@ fi
 
 case "${1:-auto}" in
 	on)
-		echo "User set to on."
+		echo "Docking, since user said so."
 		setto=on
 		;;
 	off)
-		echo "User set to off."
+		echo "Un-docking, since user said so."
 		setto=off
 		;;
 	auto)
@@ -88,22 +88,20 @@ case "${1:-auto}" in
 			if xrandr | grep "$external" | grep -vF 'connected (normal left inverted' > /dev/null
 			then
 				# The display is enabled. Time to un-dock.
-				echo "Display is enabled."
+				echo "Un-docking since $external is connected and enabled."
 				setto=off
 			else
 				# The display is not enabled. Time to dock.
-				echo "Display is disabled."
+				echo "Docking, since $external is connected but disabled."
 				setto=on
 			fi
 		else
 			# There is no external display attached. The notebook is probably
 			# already un-docked, but lets dock it off again.
-			echo "No external display attached."
+			echo "Un-docking since no external display is attached."
 			setto=off
 		fi
 esac
-
-echo "Will set to $setto."
 
 case "$setto" in
 	on)
