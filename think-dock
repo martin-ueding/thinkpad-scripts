@@ -64,9 +64,14 @@ fi
 # Dynamically find the external display by searching for connected displays
 # that are not the internal one. If there is no external display connected,
 # this will fail and cause the whole script to fail.
-external=$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal")
+if external=$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal")
+then
+	echo "External display $external found."
+else
+	echo "No external display found."
+fi
 
-echo "External display $external found."
+exit
 
 if [[ -z "${1:-}" ]]
 then
