@@ -73,11 +73,17 @@ fi
 
 case "${1:-auto}" in
 	on)
-		echo "Docking, since user said so."
-		setto=on
+		if [[ -n "${external:-}" ]]
+		then
+			echo "Un-docking, since user said “on“ but no external monitor is connected."
+			setto=off
+		else
+			echo "Docking, since user said “on” and external monitor is connected."
+			setto=on
+		fi
 		;;
 	off)
-		echo "Un-docking, since user said so."
+		echo "Un-docking, since user said “off”."
 		setto=off
 		;;
 	auto)
