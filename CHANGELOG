@@ -4,6 +4,13 @@
 changelog
 #########
 
+v1.4.4
+    - Even if the user calls ``think-dock on``, do not dock if there is no
+      external monitor attached. This might be the case when the ``think-dock
+      on`` is called automatically without any prior checks. If the script
+      would dock either way, it might disable wireless (although that is only
+      done when ``eth0`` is connected) and set the volume to a wrong setting.
+
 v1.4.3
     - Disable the wireless connection on docking.
 
