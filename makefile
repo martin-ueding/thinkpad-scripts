@@ -36,6 +36,7 @@ install:
 	#
 	install -d "$(DESTDIR)/usr/bin/"
 	install think-dock -t "$(DESTDIR)/usr/bin/"
+	install think-dock-hook -t "$(DESTDIR)/usr/bin/"
 	install think-rotate -t "$(DESTDIR)/usr/bin/"
 	install think-touchpad -t "$(DESTDIR)/usr/bin/"
 	install -d "$(DESTDIR)/lib/udev/rules.d/"

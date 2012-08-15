@@ -1,4 +1,4 @@
-KERNEL=="dock.0", ATTR{docked}=="0", RUN+="/usr/bin/think-dock off"
-KERNEL=="dock.0", ATTR{docked}=="1", RUN+="/usr/bin/think-dock on"
+KERNEL=="dock.0", ATTR{docked}=="0", RUN+="/usr/bin/think-dock-hook off"
+KERNEL=="dock.0", ATTR{docked}=="1", RUN+="/usr/bin/think-dock-hook on"
 
 # vim: ft=udevrules
