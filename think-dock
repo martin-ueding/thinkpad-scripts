@@ -107,7 +107,7 @@ logger -t "think-dock" -- "Now changing to $setto with ${1:-auto} mode." &
 case "$setto" in
 	on)
 		# Set the displays to the right setting.
-		xrandr --output "$internal" --auto
+		xrandr --output "$internal" --auto &
 		xrandr --output "$external" --auto "--${relative_positon}-of" \
 			"$internal" --primary &
 
@@ -138,7 +138,7 @@ case "$setto" in
 		;;
 	off)
 		# Disable the external display and make the internal the primary again.
-		xrandr --output "$internal" --auto --primary
+		xrandr --output "$internal" --auto --primary &
 
 		if [[ -n "${external:-}" ]]
 		then
@@ -167,5 +167,5 @@ esac
 # stretched out over both displays which makes no sense.
 xsetwacom list devices | sed 's/id: .*//' | while read device
 do
-	xsetwacom set "$device" MapToOutput "$internal"
+	xsetwacom set "$device" MapToOutput "$internal" &
 done
