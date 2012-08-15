@@ -1,3 +1,6 @@
+KERNEL=="dock.0", ATTR{docked}=="0", RUN+="/usr/bin/logger -t think-dock Event caught: off"
+KERNEL=="dock.0", ATTR{docked}=="1", RUN+="/usr/bin/logger -t think-dock Event caught: on"
+
 KERNEL=="dock.0", ATTR{docked}=="0", RUN+="/usr/bin/think-dock-hook off"
 KERNEL=="dock.0", ATTR{docked}=="1", RUN+="/usr/bin/think-dock-hook on"
 

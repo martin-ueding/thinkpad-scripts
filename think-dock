@@ -14,8 +14,12 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see http://www.gnu.org/licenses/.
 
+logger -t think-dock -- "Script starting up ($1) …"
+
 set -e
 set -u
+
+echo "Running as $USER."
 
 ###############################################################################
 #                                   options                                   #
@@ -161,3 +165,5 @@ xsetwacom list devices | sed 's/id: .*//' | while read device
 do
 	xsetwacom set "$device" MapToOutput "$internal"
 done
+
+logger -t think-dock -- "Script finishing …"
