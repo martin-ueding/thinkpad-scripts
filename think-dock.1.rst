@@ -24,18 +24,12 @@ This program sets the screen resolution correctly when putting the ThinkPad
 onto the docking station. It also sets the Wacom input devices to act on the
 internal screen only.
 
-It deduces what to do automatically. There are three cases:
+It deduces what to do automatically, if no option is given. If it is docked, it
+will perform the docking action. When you pressed the eject button on the
+docking station, it will un-dock.
 
-display attached and enabled
-    Computer is currently docked and will get un-docked (off).
-
-display attached and disabled
-    Computer is in the docking station but not docked. The script will dock
-    (on).
-
-display not attached
-    Computer is not in the docking station. The script will do all the
-    un-docking actions to make sure that it is in the right state.
+There will be an udev rule installed that will automatically dock it when set
+onto the station and un-dock when you press the eject button.
 
 what it does
 ------------
