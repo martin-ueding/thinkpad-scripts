@@ -84,7 +84,8 @@ case "${1:-auto}" in
 esac
 
 # Write the determined action into the system log.
-logger -t "think-dock" -- "Now changing to $setto with ${1:-auto} mode." &
+logger -t "think-dock" -- "Now changing to $setto with ${1:-auto} mode."
+
 # Dynamically find the external display by searching for connected displays
 # that are not the internal one. If there is no external display connected,
 # that will result in an empty variable.
