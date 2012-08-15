@@ -88,7 +88,7 @@ case "${1:-auto}" in
 		# Check the kernel whether the ThinkPad is on the docking station.
 		kernel_docked="$(cat /sys/devices/platform/dock.0/docked)"
 
-		if (( kernel_docked = 1 ))
+		if (( kernel_docked == 1 ))
 		then
 			# The display is not enabled. Time to dock.
 			echo "Docking, since computer is already docked."
