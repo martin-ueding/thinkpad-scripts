@@ -107,15 +107,15 @@ logger -t "think-dock" -- "Now changing to $setto with ${1:-auto} mode." &
 case "$setto" in
 	on)
 		# Set the displays to the right setting.
-		xrandr --output "$internal" --auto &
+		xrandr --output "$internal" --auto
 		xrandr --output "$external" --auto "--${relative_positon}-of" \
-			"$internal" --primary &
+			"$internal" --primary
 
 		# Enable audio and set it to full volume.
 		if [[ "$unmute" = "true" ]] && type pactl > /dev/null 2>&1
 		then
-			pactl set-sink-volume 0 "$dock_loudness" &
-			pactl set-sink-mute 0 0 &
+			pactl set-sink-volume 0 "$dock_loudness"
+			pactl set-sink-mute 0 0
 		fi
 
 		# Disable the wireless connection, if the user specified the option,
@@ -125,7 +125,7 @@ case "$setto" in
 			&& type nmcli > /dev/null 2>&1 \
 			&& [[ "$(cat "/sys/class/net/eth0/carrier")" = 1 ]]
 		then
-			nmcli nm wifi off &
+			nmcli nm wifi off
 		fi
 
 		# Set the brightness to a given percentage. My external display
@@ -133,28 +133,28 @@ case "$setto" in
 		# should have a fixed one as well.
 		if [[ "$set_brightness" = "true" ]] && type xbacklight > /dev/null 2>&1
 		then
-			xbacklight -set "$brightness" &
+			xbacklight -set "$brightness"
 		fi
 		;;
 	off)
 		# Disable the external display and make the internal the primary again.
-		xrandr --output "$internal" --auto --primary &
+		xrandr --output "$internal" --auto --primary
 
 		if [[ -n "${external:-}" ]]
 		then
-			xrandr --output "$external" --off &
+			xrandr --output "$external" --off
 		fi
 
 		# Set the loudness a little lower so that they do not sound screaming.
 		if [[ "$unmute" = "true" ]] && type pactl > /dev/null 2>&1
 		then
-			pactl set-sink-volume 0 "$undock_loudness" &
+			pactl set-sink-volume 0 "$undock_loudness"
 		fi
 
 		# Enable the wireless connection.
 		if [[ "$disable_wifi" = "true" ]] && type nmcli > /dev/null 2>&1
 		then
-			nmcli nm wifi on &
+			nmcli nm wifi on
 		fi
 		;;
 esac
@@ -167,5 +167,5 @@ esac
 # stretched out over both displays which makes no sense.
 xsetwacom list devices | sed 's/id: .*//' | while read device
 do
-	xsetwacom set "$device" MapToOutput "$internal" &
+	xsetwacom set "$device" MapToOutput "$internal"
 done
