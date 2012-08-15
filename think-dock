@@ -71,9 +71,6 @@ else
 	echo "No external display found."
 fi
 
-# Check the kernel whether the ThinkPad is on the docking station.
-kernel_docked="$(cat /sys/devices/platform/dock.0/docked)"
-
 case "${1:-auto}" in
 	on)
 		echo "Docking, since user said so."
@@ -84,24 +81,22 @@ case "${1:-auto}" in
 		setto=off
 		;;
 	auto)
-		if [[ -n "${external:-}" ]]
+		# Sleep since the docking needs some time to change. This is just a
+		# HACK against a race condition, but it should work.
+		sleep 1
+
+		# Check the kernel whether the ThinkPad is on the docking station.
+		kernel_docked="$(cat /sys/devices/platform/dock.0/docked)"
+
+		if (( kernel_docked = 1 ))
 		then
-			# The external display is connected. If the display is enabled, it
-			# is time to un-dock. If it is not enable, it is time to dock.
-			if xrandr | grep "$external" | grep -vF 'connected (normal left inverted' > /dev/null
-			then
-				# The display is enabled. Time to un-dock.
-				echo "Un-docking since $external is connected and enabled."
-				setto=off
-			else
-				# The display is not enabled. Time to dock.
-				echo "Docking, since $external is connected but disabled."
-				setto=on
-			fi
+			# The display is not enabled. Time to dock.
+			echo "Docking, since computer is already docked."
+			setto=on
 		else
-			# There is no external display attached. The notebook is probably
-			# already un-docked, but lets dock it off again.
-			echo "Un-docking since no external display is attached."
+			# The notebook is probably already un-docked. So it is time to
+			# un-dock.
+			echo "Un-docking since computer is not docked."
 			setto=off
 		fi
 esac
