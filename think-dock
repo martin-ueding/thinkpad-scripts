@@ -43,13 +43,8 @@ brightness="60%"
 
 relative_positon="right"
 
-###############################################################################
-#                                 config file                                 #
-###############################################################################
-
 # Now import the configuration file if there is one. That will replace any
 # options set above.
-
 configfile="$HOME/.config/think-rotate/dock.sh"
 
 if [[ -f "$configfile" ]]
@@ -57,20 +52,7 @@ then
 	source "$configfile"
 fi
 
-###############################################################################
-#                            find external display                            #
-###############################################################################
-
-# Dynamically find the external display by searching for connected displays
-# that are not the internal one. If there is no external display connected,
-# that will result in an empty variable.
-if external="$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal")"
-then
-	echo "External display $external found."
-else
-	echo "No external display found."
-fi
-
+# Determine the action.
 case "${1:-auto}" in
 	on)
 		echo "Docking, since user said so."
@@ -103,6 +85,15 @@ esac
 
 # Write the determined action into the system log.
 logger -t "think-dock" -- "Now changing to $setto with ${1:-auto} mode." &
+# Dynamically find the external display by searching for connected displays
+# that are not the internal one. If there is no external display connected,
+# that will result in an empty variable.
+if external="$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal")"
+then
+	echo "External display $external found."
+else
+	echo "No external display found."
+fi
 
 case "$setto" in
 	on)
