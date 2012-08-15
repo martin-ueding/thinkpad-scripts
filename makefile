@@ -38,6 +38,9 @@ install:
 	install think-dock -t "$(DESTDIR)/usr/bin/"
 	install think-rotate -t "$(DESTDIR)/usr/bin/"
 	install think-touchpad -t "$(DESTDIR)/usr/bin/"
+	install -d "$(DESTDIR)/lib/udev/rules.d/"
+	install 81-thinkpad-dock.rules -t "$(DESTDIR)/lib/udev/rules.d/"
+
 
 clean:
 	$(RM) *.1

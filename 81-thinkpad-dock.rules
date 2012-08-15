@@ -1,0 +1,3 @@
+KERNEL=="dock.0", ACTION=="change", RUN+="/usr/bin/think-dock"
+
+# vim: ft=udevrules
