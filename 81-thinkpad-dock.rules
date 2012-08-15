@@ -1,3 +1,4 @@
-KERNEL=="dock.0", ACTION=="change", RUN+="/usr/bin/think-dock"
+KERNEL=="dock.0", ATTR{docked}=="0", RUN+="/usr/bin/think-rotate off"
+KERNEL=="dock.0", ATTR{docked}=="1", RUN+="/usr/bin/think-rotate on"
 
 # vim: ft=udevrules
