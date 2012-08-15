@@ -71,6 +71,9 @@ else
 	echo "No external display found."
 fi
 
+# Check the kernel whether the ThinkPad is on the docking station.
+kernel_docked="$(cat /sys/devices/platform/dock.0/docked)"
+
 case "${1:-auto}" in
 	on)
 		echo "Docking, since user said so."
