@@ -101,6 +101,9 @@ case "${1:-auto}" in
 		fi
 esac
 
+# Write the determined action into the system log.
+logger -t "think-dock" -- "Now changing to $setto with ${1:-auto} mode."
+
 case "$setto" in
 	on)
 		# Set the displays to the right setting.
