@@ -28,9 +28,11 @@ It deduces what to do automatically. There are three cases:
 
 display attached and enabled
     Computer is currently docked and will get un-docked (off).
+
 display attached and disabled
     Computer is in the docking station but not docked. The script will dock
     (on).
+
 display not attached
     Computer is not in the docking station. The script will do all the
     un-docking actions to make sure that it is in the right state.
