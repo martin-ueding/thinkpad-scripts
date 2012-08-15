@@ -105,7 +105,8 @@ case "$setto" in
 	on)
 		# Set the displays to the right setting.
 		xrandr --output "$internal" --auto
-		xrandr --output "$external" --auto "--${relative_positon}-of" "$internal" --primary
+		xrandr --output "$external" --auto "--${relative_positon}-of" \
+			"$internal" --primary
 
 		# Enable audio and set it to full volume.
 		if [[ "$unmute" = "true" ]] && type pactl > /dev/null 2>&1
