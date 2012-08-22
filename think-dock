@@ -26,7 +26,7 @@ echo "Running as $USER."
 ###############################################################################
 
 # Whether to disable the wifi when going onto the docking station.
-disable_wifi=false
+disable_wifi=true
 
 # The name of the internal display.
 internal="LVDS1"
