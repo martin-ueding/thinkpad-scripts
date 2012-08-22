@@ -35,6 +35,6 @@ esac
 
 date >> "$logfile"
 
-su -c "bash -x /usr/bin/think-dock $setto" "$user" >> "$logfile" 2>&1 &
+su -c "bash -x /usr/bin/think-dock $setto" --login "$user" >> "$logfile" 2>&1 &
 
 disown
