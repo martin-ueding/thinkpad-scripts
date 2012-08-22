@@ -17,6 +17,8 @@
 set -e
 set -u
 
+logfile="/var/log/think-dock.log"
+
 # Find the user who is currently logged in on the primary screen.
 user="$(who -u | grep -F '(:0)' | head -n 1 | awk '{print $1}')"
 
@@ -31,8 +33,8 @@ case "$1" in
 		;;
 esac
 
-date >> /root/think-dock.log
+date >> "$logfile"
 
-su -c "bash -x /usr/bin/think-dock $setto" "$user" >> /root/think-dock.log 2>&1 &
+su -c "bash -x /usr/bin/think-dock $setto" "$user" >> "$logfile" 2>&1 &
 
 disown
