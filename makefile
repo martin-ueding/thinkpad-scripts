@@ -28,6 +28,8 @@ install:
 	if [ -f think-touchpad.1.gz ]; then install -d "$(DESTDIR)/usr/share/man/man1/"; cp think-touchpad.1.gz "$(DESTDIR)/usr/share/man/man1/"; fi
 	#
 	install -d "$(DESTDIR)/usr/share/applications/"
+	install -m 644 think-dock-off.desktop -t "$(DESTDIR)/usr/share/applications/"
+	install -m 644 think-dock-on.desktop -t "$(DESTDIR)/usr/share/applications/"
 	install -m 644 think-rotate-flip.desktop -t "$(DESTDIR)/usr/share/applications/"
 	install -m 644 think-rotate-left.desktop -t "$(DESTDIR)/usr/share/applications/"
 	install -m 644 think-rotate.desktop -t "$(DESTDIR)/usr/share/applications/"
