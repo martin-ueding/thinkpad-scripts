@@ -4,6 +4,10 @@
 changelog
 #########
 
+v2.0
+    - Use the kernel to determine what the docking status is.
+    - Add ``udev`` rules to perform the docking action.
+
 v1.5
     - Desktop files for think-dock.
 
