@@ -2,7 +2,7 @@
 Categories=System;
 Exec=think-rotate
 GenericName=Rotate screen left
-Icon=object-rotate-left
+Icon=object-rotate-right
 Name=rotate
 NoDisplay=true
 StartupNotify=false
