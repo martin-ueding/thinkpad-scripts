@@ -31,6 +31,6 @@ case "$1" in
 		;;
 esac
 
-su -c "DISPLAY=:0.0 bash -x /usr/bin/think-dock $setto" --login "$user" &
+su -c "DISPLAY=:0.0 /usr/bin/think-dock $setto" --login "$user" &
 
 disown
