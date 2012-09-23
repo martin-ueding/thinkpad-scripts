@@ -163,7 +163,7 @@ esac
 
 # Set the Wacom devices to the internal display. If this is not done, they are
 # stretched out over both displays which makes no sense.
-xsetwacom list devices | sed 's/id: .*//' | while read device
+xsetwacom list devices | grep 'Wacom ISD' | sed 's/id: .*//' | while read device
 do
 	xsetwacom set "$device" MapToOutput "$internal"
 done
