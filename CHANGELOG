@@ -4,6 +4,10 @@
 changelog
 #########
 
+v2.1
+    - Only set Wacom screen devices. That way, any attached Wacom graphics
+      tablet is not affected by the docking.
+
 v2.0
     - Use the kernel to determine what the docking status is.
     - Add ``udev`` rules to perform the docking action.
