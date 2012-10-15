@@ -102,14 +102,6 @@ fi
 
 case "$setto" in
 	on)
-		# Set the brightness to a given percentage. My external display
-		# obviously has the same brightness all the time, so the internal
-		# should have a fixed one as well.
-		if [[ "$set_brightness" = "true" ]] && type xbacklight > /dev/null 2>&1
-		then
-			xbacklight -set "$brightness"
-		fi
-
 		(
 		# Enable audio and set it to full volume.
 		if [[ "$unmute" = "true" ]] && type pactl > /dev/null 2>&1
@@ -120,12 +112,21 @@ case "$setto" in
 		) &
 
 		(
+		# Set the brightness to a given percentage. My external display
+		# obviously has the same brightness all the time, so the internal
+		# should have a fixed one as well.
+		if [[ "$set_brightness" = "true" ]] && type xbacklight > /dev/null 2>&1
+		then
+			xbacklight -set "$brightness"
+		fi
+
 		# Set the displays to the right setting.
 		xrandr --output "$internal" --auto
 		xrandr --output "$external" --auto "--${relative_positon}-of" \
 			"$internal" --primary
 		) &
 
+		(
 		# Disable the wireless connection, if the user specified the option,
 		# the ``nmcli`` tool is available and the computer is actually
 		# connected to the ethernet.
@@ -136,7 +137,7 @@ case "$setto" in
 			nmcli nm wifi off
 		fi
 
-		(
+
 		# Reboot the wired connection since that sometimes go bad.
 		if type nmcli &> /dev/null && nmcli con | grep DHCP &> /dev/null
 		then
