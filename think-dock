@@ -126,6 +126,14 @@ case "$setto" in
 			nmcli nm wifi off
 		fi
 
+		# Reboot the wired connection since that sometimes go bad.
+		if type nmcli &> /dev/null && nmcli con | grep DHCP &> /dev/null
+		then
+			nmcli con down id DHCP
+			nmcli con up id DHCP
+		fi
+
+
 		# Set the brightness to a given percentage. My external display
 		# obviously has the same brightness all the time, so the internal
 		# should have a fixed one as well.
