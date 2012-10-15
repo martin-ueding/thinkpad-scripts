@@ -4,6 +4,10 @@
 changelog
 #########
 
+v2.2
+    - Background most tasks so that they run in parallel. This should speed up
+      docking.
+
 v2.1
     - Only set Wacom screen devices. That way, any attached Wacom graphics
       tablet is not affected by the docking.
