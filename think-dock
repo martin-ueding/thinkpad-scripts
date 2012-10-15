@@ -146,9 +146,9 @@ case "$setto" in
 		fi
 		) &
 
-		wait
 		;;
 	off)
+		(
 		# Disable the external display and make the internal the primary again.
 		xrandr --output "$internal" --auto --primary
 
@@ -156,18 +156,24 @@ case "$setto" in
 		then
 			xrandr --output "$external" --off
 		fi
+		) &
 
+		(
 		# Set the loudness a little lower so that they do not sound screaming.
 		if [[ "$unmute" = "true" ]] && type pactl > /dev/null 2>&1
 		then
 			pactl set-sink-volume 0 "$undock_loudness"
 		fi
+		) &
 
+		(
 		# Enable the wireless connection.
 		if [[ "$disable_wifi" = "true" ]] && type nmcli > /dev/null 2>&1
 		then
 			nmcli nm wifi on
 		fi
+		) &
+
 		;;
 esac
 
@@ -175,11 +181,15 @@ esac
 #                                Wacom devices                                #
 ###############################################################################
 
+(
 # Set the Wacom devices to the internal display. If this is not done, they are
 # stretched out over both displays which makes no sense.
 xsetwacom list devices | grep 'Wacom ISD' | sed 's/id: .*//' | while read device
 do
 	xsetwacom set "$device" MapToOutput "$internal"
 done
+) &
+
+wait
 
 logger -t think-dock -- "Script finishing …"
