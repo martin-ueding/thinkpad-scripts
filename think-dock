@@ -102,38 +102,6 @@ fi
 
 case "$setto" in
 	on)
-		# Set the displays to the right setting.
-		xrandr --output "$internal" --auto
-		xrandr --output "$external" --auto "--${relative_positon}-of" \
-			"$internal" --primary
-
-		# Enable audio and set it to full volume.
-		if [[ "$unmute" = "true" ]] && type pactl > /dev/null 2>&1
-		then
-			pactl set-sink-volume 0 "$dock_loudness"
-			pactl set-sink-mute 0 0
-		fi
-
-		# Disable the wireless connection, if the user specified the option,
-		# the ``nmcli`` tool is available and the computer is actually
-		# connected to the ethernet.
-		if [[ "$disable_wifi" = "true" ]] \
-			&& type nmcli > /dev/null 2>&1 \
-			&& [[ "$(cat "/sys/class/net/eth0/carrier")" = 1 ]]
-		then
-			# FIXME This does not work if invoked via the ``su -c '…' user``
-			# command from think-dock-hook.
-			nmcli nm wifi off
-		fi
-
-		# Reboot the wired connection since that sometimes go bad.
-		if type nmcli &> /dev/null && nmcli con | grep DHCP &> /dev/null
-		then
-			nmcli con down id DHCP
-			nmcli con up id DHCP
-		fi
-
-
 		# Set the brightness to a given percentage. My external display
 		# obviously has the same brightness all the time, so the internal
 		# should have a fixed one as well.
@@ -141,6 +109,43 @@ case "$setto" in
 		then
 			xbacklight -set "$brightness"
 		fi
+
+		(
+		# Enable audio and set it to full volume.
+		if [[ "$unmute" = "true" ]] && type pactl > /dev/null 2>&1
+		then
+			pactl set-sink-volume 0 "$dock_loudness"
+			pactl set-sink-mute 0 0
+		fi
+		) &
+
+		(
+		# Set the displays to the right setting.
+		xrandr --output "$internal" --auto
+		xrandr --output "$external" --auto "--${relative_positon}-of" \
+			"$internal" --primary
+		) &
+
+		# Disable the wireless connection, if the user specified the option,
+		# the ``nmcli`` tool is available and the computer is actually
+		# connected to the ethernet.
+		if [[ "$disable_wifi" = "true" ]] && type nmcli > /dev/null 2>&1 && [[ "$(cat "/sys/class/net/eth0/carrier")" = 1 ]]
+		then
+			# FIXME This does not work if invoked via the ``su -c '…' user``
+			# command from think-dock-hook.
+			nmcli nm wifi off
+		fi
+
+		(
+		# Reboot the wired connection since that sometimes go bad.
+		if type nmcli &> /dev/null && nmcli con | grep DHCP &> /dev/null
+		then
+			nmcli con down id DHCP
+			nmcli con up id DHCP
+		fi
+		) &
+
+		wait
 		;;
 	off)
 		# Disable the external display and make the internal the primary again.
