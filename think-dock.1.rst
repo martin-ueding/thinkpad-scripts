@@ -103,7 +103,7 @@ You can set the following options:
 ``brightness``
     Brightness to set to when docking. Set it to a percentage like ``60%``.
 
-``relative_positon``
+``relative_position``
     Where to set the external monitor. Set it to ``right`` or ``left`` or
     anything else that ``xrandr`` supports with a ``--*-of`` argument.
 
