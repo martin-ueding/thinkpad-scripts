@@ -45,7 +45,7 @@ set_brightness=true
 # The value to set the brightness to. Needs to be given as a percentage.
 brightness="60%"
 
-relative_positon="right"
+relative_position="right"
 
 # Now import the configuration file if there is one. That will replace any
 # options set above.
@@ -122,7 +122,7 @@ case "$setto" in
 
 		# Set the displays to the right setting.
 		xrandr --output "$internal" --auto
-		xrandr --output "$external" --auto "--${relative_positon}-of" \
+		xrandr --output "$external" --auto "--${relative_position}-of" \
 			"$internal" --primary
 		) &
 
