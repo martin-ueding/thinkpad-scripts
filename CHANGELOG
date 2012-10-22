@@ -4,6 +4,9 @@
 changelog
 #########
 
+v2.2.1
+    - Fix spelling typo in ``relative_position``. Thanks to Jim Turner!
+
 v2.2
     - Background most tasks so that they run in parallel. This should speed up
       docking.
