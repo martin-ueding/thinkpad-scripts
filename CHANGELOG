@@ -4,6 +4,10 @@
 changelog
 #########
 
+v2.3
+    - Add support for other virtual keyboards. Thanks to Jim Turner!
+    - Use shorter redirection (``&>`` instead of ``2>&!``).
+
 v2.2.1
     - Fix spelling typo in ``relative_position``. Thanks to Jim Turner!
 
