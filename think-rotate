@@ -18,7 +18,24 @@
 
 set -e
 
-internal=LVDS1
+###############################################################################
+#                                   options                                   #
+###############################################################################
+
+# The name of the internal display.
+internal="LVDS1"
+
+# The name of the virtual keyboard.
+virtual_kbd="kvkbd"
+
+# Now import the configuration file if there is one. That will replace any
+# options set above.
+configfile="$HOME/.config/think-rotate/rotate.sh"
+
+if [[ -f "$configfile" ]]
+then
+	source "$configfile"
+fi
 
 ###############################################################################
 #                               current status                                #
@@ -100,21 +117,21 @@ done
 #                              virtual keyboard                               #
 ###############################################################################
 
-# Start the virtual keyboard ``kvkbd``, if it is installed.
-if type kvkbd > /dev/null 2>&1
+# Start the virtual keyboard, if it is installed.
+if type "$virtual_kbd" > /dev/null 2>&1
 then
 	if [[ "$setto" = "normal" ]]
 	then
 		# So the user reverts back to normal. Kill the virtual keyboard (if it
 		# is running), since it does not make any sense to use that any more.
-		if pgrep kvkbd > /dev/null 2>&1
+		if pgrep "$virtual_kbd" > /dev/null 2>&1
 		then
-			killall kvkbd
+			killall "$virtual_kbd"
 		fi
 	else
 		# The user rotated the screen. Start the virtual keyboard since he
 		# might need it.
-		kvkbd > /dev/null 2>&1
+		"$virtual_kbd" > /dev/null 2>&1 &
 	fi
 fi
 

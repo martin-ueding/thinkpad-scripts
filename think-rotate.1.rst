@@ -30,6 +30,9 @@ It will also disable the trackpoint (the xinput id is automatically queried) so
 that the back of the screen does not move your mouse if there is any force on
 the side of the screen.
 
+Finally, it will start the virtual keyboard (``kvkbd`` by default) when the
+screen is rotated and kill it when the screen is rotated back to normal.
+
 If the screen is already rotated (say left) and you call ``think-rotate left``,
 the screen will be reverted to the normal orientation. That way, you can use
 this script as a toggle.
@@ -66,6 +69,21 @@ ENVIRONMENT
 ===========
 
 The script relies on ``xrandr`` to get the information, so this has to work.
+
+FILES
+=====
+
+You can create a config file in ``$HOME/.config/think-rotate/rotate.sh``, which
+is a simple Bash script that is going to be sourced from ``think-rotate``.
+
+A sample config would look like this::
+
+    virtual_kbd="cellwriter"
+
+You can set the following option:
+
+``virtual_kbd``
+    Command to start the virtual keyboard.
 
 EXAMPLE
 =======
