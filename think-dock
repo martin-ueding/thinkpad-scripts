@@ -104,7 +104,7 @@ case "$setto" in
 	on)
 		(
 		# Enable audio and set it to full volume.
-		if [[ "$unmute" = "true" ]] && type pactl > /dev/null 2>&1
+		if [[ "$unmute" = "true" ]] && type pactl &> /dev/null
 		then
 			pactl set-sink-volume 0 "$dock_loudness"
 			pactl set-sink-mute 0 0
@@ -115,7 +115,7 @@ case "$setto" in
 		# Set the brightness to a given percentage. My external display
 		# obviously has the same brightness all the time, so the internal
 		# should have a fixed one as well.
-		if [[ "$set_brightness" = "true" ]] && type xbacklight > /dev/null 2>&1
+		if [[ "$set_brightness" = "true" ]] && type xbacklight &> /dev/null
 		then
 			xbacklight -set "$brightness"
 		fi
@@ -130,7 +130,7 @@ case "$setto" in
 		# Disable the wireless connection, if the user specified the option,
 		# the ``nmcli`` tool is available and the computer is actually
 		# connected to the ethernet.
-		if [[ "$disable_wifi" = "true" ]] && type nmcli > /dev/null 2>&1 && [[ "$(cat "/sys/class/net/eth0/carrier")" = 1 ]]
+		if [[ "$disable_wifi" = "true" ]] && type nmcli &> /dev/null && [[ "$(cat "/sys/class/net/eth0/carrier")" = 1 ]]
 		then
 			# FIXME This does not work if invoked via the ``su -c '…' user``
 			# command from think-dock-hook.
@@ -160,7 +160,7 @@ case "$setto" in
 
 		(
 		# Set the loudness a little lower so that they do not sound screaming.
-		if [[ "$unmute" = "true" ]] && type pactl > /dev/null 2>&1
+		if [[ "$unmute" = "true" ]] && type pactl &> /dev/null
 		then
 			pactl set-sink-volume 0 "$undock_loudness"
 		fi
@@ -168,7 +168,7 @@ case "$setto" in
 
 		(
 		# Enable the wireless connection.
-		if [[ "$disable_wifi" = "true" ]] && type nmcli > /dev/null 2>&1
+		if [[ "$disable_wifi" = "true" ]] && type nmcli &> /dev/null
 		then
 			nmcli nm wifi on
 		fi

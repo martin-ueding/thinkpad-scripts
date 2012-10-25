@@ -118,20 +118,20 @@ done
 ###############################################################################
 
 # Start the virtual keyboard, if it is installed.
-if type "$virtual_kbd" > /dev/null 2>&1
+if type "$virtual_kbd" &> /dev/null
 then
 	if [[ "$setto" = "normal" ]]
 	then
 		# So the user reverts back to normal. Kill the virtual keyboard (if it
 		# is running), since it does not make any sense to use that any more.
-		if pgrep "$virtual_kbd" > /dev/null 2>&1
+		if pgrep "$virtual_kbd" &> /dev/null
 		then
 			killall "$virtual_kbd"
 		fi
 	else
 		# The user rotated the screen. Start the virtual keyboard since he
 		# might need it.
-		"$virtual_kbd" > /dev/null 2>&1 &
+		"$virtual_kbd" &> /dev/null &
 	fi
 fi
 
