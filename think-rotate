@@ -111,6 +111,7 @@ echo "Rotating Wacom devices to $wacom_rotation."
 xsetwacom list devices | sed 's/id: .*//' | while read device
 do
 	xsetwacom set "$device" rotate "$wacom_rotation"
+	xsetwacom set "$device" MapToOutput "$internal"
 done
 
 ###############################################################################
