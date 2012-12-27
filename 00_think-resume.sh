@@ -14,24 +14,12 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see http://www.gnu.org/licenses/.
 
-disable_touch=false
-
-# Now import the configuration file if there is one. That will replace any
-# options set above.
-configfile="$HOME/.config/think-rotate/startup.sh"
-
-if [[ -f "$configfile" ]]
-then
-	source "$configfile"
-fi
-
-# Enable/disable touch
-if [[ "$disable_touch" = "true" ]]
-then
-	think-touch off
-else
-	think-touch on
-fi
-
-# Set key codes so that bezel rotation key is assignable
-setkeycodes 6e 109 6d 104 69 28 6b 01 6c 120
+case "$1" in
+	resume|thaw)
+		think-resume
+		;;
+	suspend|hibernate)
+	        ;;
+	*)
+		;;
+esac

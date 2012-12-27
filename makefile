@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see http://www.gnu.org/licenses/.
 
-all: think-rotate.1.gz think-dock.1.gz think-touchpad.1.gz think-touch.1.gz think-startup.1.gz
+all: think-rotate.1.gz think-dock.1.gz think-touchpad.1.gz think-touch.1.gz think-resume.1.gz think-startup.1.gz
 
 %.1.gz: %.1
 	$(RM) $@
@@ -27,6 +27,7 @@ install:
 	if [ -f think-rotate.1.gz ]; then install -d "$(DESTDIR)/usr/share/man/man1/"; cp think-rotate.1.gz "$(DESTDIR)/usr/share/man/man1/"; fi
 	if [ -f think-touchpad.1.gz ]; then install -d "$(DESTDIR)/usr/share/man/man1/"; cp think-touchpad.1.gz "$(DESTDIR)/usr/share/man/man1/"; fi
 	if [ -f think-touch.1.gz ]; then install -d "$(DESTDIR)/usr/share/man/man1/"; cp think-touch.1.gz "$(DESTDIR)/usr/share/man/man1/"; fi
+	if [ -f think-resume.1.gz ]; then install -d "$(DESTDIR)/usr/share/man/man1/"; cp think-resume.1.gz "$(DESTDIR)/usr/share/man/man1/"; fi
 	if [ -f think-startup.1.gz ]; then install -d "$(DESTDIR)/usr/share/man/man1/"; cp think-startup.1.gz "$(DESTDIR)/usr/share/man/man1/"; fi
 	#
 	install -d "$(DESTDIR)/usr/share/applications/"
@@ -42,9 +43,11 @@ install:
 	install think-rotate -t "$(DESTDIR)/usr/bin/"
 	install think-touchpad -t "$(DESTDIR)/usr/bin/"
 	install think-touch -t "$(DESTDIR)/usr/bin/"
+	install think-resume -t "$(DESTDIR)/usr/bin/"
 	install think-startup -t "$(DESTDIR)/usr/bin/"
 	install -d "$(DESTDIR)/lib/udev/rules.d/"
 	install 81-thinkpad-dock.rules -t "$(DESTDIR)/lib/udev/rules.d/"
+	install 00_think-resume.sh -t "$(DESTDIR)/etc/pm/sleep.d/"
 	if ! grep -q "think-startup" "$(DESTDIR)/etc/rc.local"; then sed -i '$$ithink-startup' "$(DESTDIR)/etc/rc.local"; fi
 
 clean:
