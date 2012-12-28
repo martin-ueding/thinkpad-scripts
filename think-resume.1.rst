@@ -25,7 +25,8 @@ It allows the user to disable the touch screen at these times (depending on the
 value of ``disable_touch``).
 
 There will be a script installed in ``/etc/pm/sleep.d`` that will automatically
-run ``think-resume`` when the system resumes.
+run ``think-resume`` as the user logged in on the primary screen when the system
+resumes.
 
 EXIT STATUS
 ===========

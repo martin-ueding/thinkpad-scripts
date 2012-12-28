@@ -20,21 +20,13 @@ SYNOPSIS
 DESCRIPTION
 ===========
 
-This program runs various commands on system startup. It sets the key codes of
-the bezel keys on the Thinkpad X220 Tablet so that they are assignable for
-various things, such as rotating the screen. It also allows the user to disable
-the touch screen on startup.
+This program runs various commands on system startup. It allows the user to
+disable the touch screen at that time (depending on the value of
+``disable_touch``).
 
 There will be a line installed in ``/etc/rc.local`` that will automatically run
-``think-startup`` when the system starts.
-
-what it does
-------------
-
-When called, the following things are done:
-
-- Set the key codes of the bezel keys so that they are assignable.
-- Depending on the value of ``disable_touch``, enable/disable the touch screen.
+``think-startup`` as the user logged in on the primary screen when the system
+starts.
 
 EXIT STATUS
 ===========

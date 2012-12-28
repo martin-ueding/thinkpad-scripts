@@ -19,7 +19,11 @@ Type::
 
     # make install
 
-If you want to have the manual page installed, type ``make`` before you run
+This will install the scripts to ``/usr/bin/`` and add the necessary hooks so
+that they are run automatically. It also places a line in ``/etc/rc.local`` that
+fixes the key codes for the bezel keys.
+
+If you want to have the manual pages installed, type ``make`` before you run
 ``make install``. This needs to have ``rst2man`` from ``python-docutils``
 installed.
 
@@ -31,6 +35,9 @@ Please see the individual manual pages for details on each program:
 - think-dock.1.rst
 - think-rotate.1.rst
 - think-touchpad.1.rst
+- think-touch.1.rst
+- think-resume.1.rst
+- think-startup.1.rst
 
 License
 =======
