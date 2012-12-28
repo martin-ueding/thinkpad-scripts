@@ -32,6 +32,3 @@ then
 else
 	think-touch on
 fi
-
-# Set key codes so that bezel rotation key is assignable
-setkeycodes 6e 109 6d 104 69 28 6b 01 6c 120

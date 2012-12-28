@@ -47,14 +47,9 @@ is a simple Bash script that is going to be sourced from ``think-touch``.
 
 A sample config would look like this::
 
-    default_display=":0"
     id="Wacom ISDv4 E6 Finger touch"
 
 You can set the following options:
-
-``default_display``
-    The string describing the X display that the touch screen is on. The
-    default is ``:0``
 
 ``id``
     The ``xinput`` id of the touch screen device. The default is

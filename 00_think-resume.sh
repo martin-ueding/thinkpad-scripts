@@ -16,7 +16,7 @@
 
 case "$1" in
 	resume|thaw)
-		think-resume
+		think-resume-hook
 		;;
 	suspend|hibernate)
 	        ;;
