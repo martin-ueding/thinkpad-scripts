@@ -22,28 +22,27 @@ all:
 	make -C doc
 
 install:
-	#
 	install -d "$(DESTDIR)/usr/share/applications/"
 	for desktopfile in $(desktopfiles); do \
 		install -m 644 "$$desktopfile" -t "$(DESTDIR)/usr/share/applications/"; \
 		done
-	#
+#
 	install -d "$(DESTDIR)/usr/bin/"
 	for script in $(scripts); do \
 		install "$$script" -t "$(DESTDIR)/usr/bin/"; \
 		done
-	#
+#
 	install -d "$(DESTDIR)/lib/udev/rules.d/"
 	install 81-thinkpad-dock.rules -t "$(DESTDIR)/lib/udev/rules.d/"
-	#
+#
 	install -d "$(DESTDIR)/etc/pm/sleep.d/"
 	install 00_think-resume.sh -t "$(DESTDIR)/etc/pm/sleep.d/"
-	#
+#
 	install -d "$(DESTDIR)/etc/init.d/"
 	install think-keycodes -t "$(DESTDIR)/etc/init.d/"
-	# FIXME What happens if we are not installing it to the actual system, but
-	# some other DESTDIR, like when packaging this? The package install script
-	# would need to run the following line then.
+# FIXME What happens if we are not installing it to the actual system, but some
+# other DESTDIR, like when packaging this? The package install script would
+# need to run the following line then.
 	if [[ -z "$(DESTDIR)" ]]; then update-rc.d think-keycodes defaults; fi
 
 	make -C doc install
