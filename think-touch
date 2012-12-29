@@ -1,0 +1,47 @@
+#!/bin/bash
+# Copyright © 2012 Jim Turner <jturner314@gmail.com>
+
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation, either version 2 of the License, or (at your option)
+# any later version.
+
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+# more details.
+
+# You should have received a copy of the GNU General Public License along with
+# this program. If not, see http://www.gnu.org/licenses/.
+
+id="Wacom ISDv4 E6 Finger touch"
+
+# Now import the configuration file if there is one. That will replace any
+# options set above.
+configfile="$HOME/.config/think-rotate/touch.sh"
+
+if [[ -f "$configfile" ]]
+then
+	source "$configfile"
+fi
+
+case "${1:-auto}" in
+	on)
+		setto=1
+		;;
+	off)
+		setto=0
+		;;
+	auto)
+		# Default is to toggle on/off
+		if xinput --list "$id" | grep -i disabled
+		then
+			setto=1
+		else
+			setto=0
+		fi
+		;;
+esac
+
+echo "Setting input device $id to \"Device Enabled\" $setto."
+xinput set-prop "$id" "Device Enabled" "$setto"

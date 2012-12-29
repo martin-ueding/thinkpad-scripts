@@ -1,0 +1,35 @@
+#!/bin/bash
+# Copyright © 2012 Jim Turner <jturner314@gmail.com>
+
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation, either version 2 of the License, or (at your option)
+# any later version.
+
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+# more details.
+
+# You should have received a copy of the GNU General Public License along with
+# this program. If not, see http://www.gnu.org/licenses/.
+
+disable_touch=false
+
+# Now import the configuration file if there is one. That will replace any
+# options set above.
+configfile="$HOME/.config/think-rotate/resume.sh"
+
+if [[ -f "$configfile" ]]
+then
+	source "$configfile"
+fi
+
+# Enable/disable touch. Note that disabling touch must be done on every resume
+# because touch is automatically enabled by the system on each resume.
+if [[ "$disable_touch" = "true" ]]
+then
+	think-touch off
+else
+	think-touch on
+fi
