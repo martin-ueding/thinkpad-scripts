@@ -47,6 +47,7 @@ install:
 	install think-resume-hook -t "$(DESTDIR)/usr/bin/"
 	install think-startup -t "$(DESTDIR)/usr/bin/"
 	install think-startup-hook -t "$(DESTDIR)/usr/bin/"
+	#
 	install -d "$(DESTDIR)/lib/udev/rules.d/"
 	install 81-thinkpad-dock.rules -t "$(DESTDIR)/lib/udev/rules.d/"
 	install 00_think-resume.sh -t "$(DESTDIR)/etc/pm/sleep.d/"
