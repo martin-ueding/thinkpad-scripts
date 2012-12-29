@@ -15,18 +15,13 @@
 
 SHELL = /bin/bash
 
-desktopfiles = think-dock-off.desktop think-dock-on.desktop think-rotate-flip.desktop think-rotate-left.desktop think-rotate.desktop
 scripts = think-dock think-dock-hook think-resume think-resume-hook think-rotate think-startup think-startup-hook think-touch think-touchpad
 
 all:
+	make -C desktop
 	make -C doc
 
 install:
-	install -d "$(DESTDIR)/usr/share/applications/"
-	for desktopfile in $(desktopfiles); do \
-		install -m 644 "$$desktopfile" -t "$(DESTDIR)/usr/share/applications/"; \
-		done
-#
 	install -d "$(DESTDIR)/usr/bin/"
 	for script in $(scripts); do \
 		install "$$script" -t "$(DESTDIR)/usr/bin/"; \
@@ -45,7 +40,9 @@ install:
 # need to run the following line then.
 	if [[ -z "$(DESTDIR)" ]]; then update-rc.d think-keycodes defaults; fi
 
+	make -C desktop install
 	make -C doc install
 
 clean:
+	make -C desktop clean
 	make -C doc clean
