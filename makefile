@@ -15,7 +15,11 @@
 
 SHELL = /bin/bash
 
-all: think-rotate.1.gz think-dock.1.gz think-touchpad.1.gz think-touch.1.gz think-resume.1.gz think-startup.1.gz
+manuals = think-rotate.1.gz think-dock.1.gz think-touchpad.1.gz think-touch.1.gz think-resume.1.gz think-startup.1.gz
+desktopfiles = think-dock-off.desktop think-dock-on.desktop think-rotate-flip.desktop think-rotate-left.desktop think-rotate.desktop
+scripts = think-dock think-dock-hook think-resume think-resume-hook think-rotate think-startup think-startup-hook think-touch think-touchpad
+
+all: $(manuals)
 
 %.1.gz: %.1
 	$(RM) $@
@@ -25,30 +29,25 @@ all: think-rotate.1.gz think-dock.1.gz think-touchpad.1.gz think-touch.1.gz thin
 	rst2man $< $@
 
 install:
-	if [ -f think-dock.1.gz ]; then install -d "$(DESTDIR)/usr/share/man/man1/"; cp think-dock.1.gz "$(DESTDIR)/usr/share/man/man1/"; fi
-	if [ -f think-rotate.1.gz ]; then install -d "$(DESTDIR)/usr/share/man/man1/"; cp think-rotate.1.gz "$(DESTDIR)/usr/share/man/man1/"; fi
-	if [ -f think-touchpad.1.gz ]; then install -d "$(DESTDIR)/usr/share/man/man1/"; cp think-touchpad.1.gz "$(DESTDIR)/usr/share/man/man1/"; fi
-	if [ -f think-touch.1.gz ]; then install -d "$(DESTDIR)/usr/share/man/man1/"; cp think-touch.1.gz "$(DESTDIR)/usr/share/man/man1/"; fi
-	if [ -f think-resume.1.gz ]; then install -d "$(DESTDIR)/usr/share/man/man1/"; cp think-resume.1.gz "$(DESTDIR)/usr/share/man/man1/"; fi
-	if [ -f think-startup.1.gz ]; then install -d "$(DESTDIR)/usr/share/man/man1/"; cp think-startup.1.gz "$(DESTDIR)/usr/share/man/man1/"; fi
+	for manual in $(manuals); \
+		do \
+		if [[ -f "$$manual" ]]; \
+		then \
+		install -d "$(DESTDIR)/usr/share/man/man1/"; cp "$$manual" "$(DESTDIR)/usr/share/man/man1/"; \
+		fi; \
+		done
 	#
 	install -d "$(DESTDIR)/usr/share/applications/"
-	install -m 644 think-dock-off.desktop -t "$(DESTDIR)/usr/share/applications/"
-	install -m 644 think-dock-on.desktop -t "$(DESTDIR)/usr/share/applications/"
-	install -m 644 think-rotate-flip.desktop -t "$(DESTDIR)/usr/share/applications/"
-	install -m 644 think-rotate-left.desktop -t "$(DESTDIR)/usr/share/applications/"
-	install -m 644 think-rotate.desktop -t "$(DESTDIR)/usr/share/applications/"
+	for desktopfile in $(desktopfiles); \
+		do \
+		install -m 644 "$$desktopfile" -t "$(DESTDIR)/usr/share/applications/"; \
+		done
 	#
 	install -d "$(DESTDIR)/usr/bin/"
-	install think-dock -t "$(DESTDIR)/usr/bin/"
-	install think-dock-hook -t "$(DESTDIR)/usr/bin/"
-	install think-rotate -t "$(DESTDIR)/usr/bin/"
-	install think-touchpad -t "$(DESTDIR)/usr/bin/"
-	install think-touch -t "$(DESTDIR)/usr/bin/"
-	install think-resume -t "$(DESTDIR)/usr/bin/"
-	install think-resume-hook -t "$(DESTDIR)/usr/bin/"
-	install think-startup -t "$(DESTDIR)/usr/bin/"
-	install think-startup-hook -t "$(DESTDIR)/usr/bin/"
+	for script in $(scripts); \
+		do \
+		install "$$script" -t "$(DESTDIR)/usr/bin/"; \
+		done
 	#
 	install -d "$(DESTDIR)/lib/udev/rules.d/"
 	install 81-thinkpad-dock.rules -t "$(DESTDIR)/lib/udev/rules.d/"
