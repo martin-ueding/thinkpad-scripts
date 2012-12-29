@@ -27,8 +27,9 @@
 case "$1" in
 	start|restart|force-reload)
 		setkeycodes 6e 109 6d 104 69 28 6b 01 6c 120
+		;;
 
-		*)
+	*)
 		echo "Action $1 is not implemented"
 		;;
 esac
