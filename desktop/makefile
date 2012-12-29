@@ -15,7 +15,7 @@
 
 SHELL = /bin/bash
 
-desktopfiles = think-dock-off.desktop think-dock-on.desktop think-rotate-flip.desktop think-rotate-left.desktop think-rotate.desktop
+desktopfiles = $(wildcard *.desktop)
 
 all:
 
