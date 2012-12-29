@@ -1,0 +1,10 @@
+[Desktop Entry]
+Categories=System;
+Exec=think-keycodes
+GenericName=ThinkPad Keycodes
+Icon=input-keyboard
+Name=think keycodes
+NoDisplay=true
+StartupNotify=false
+Terminal=false
+Type=Application
