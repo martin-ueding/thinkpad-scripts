@@ -29,7 +29,7 @@ case "$1" in
 		setkeycodes 6e 109 6d 104 69 28 6b 01 6c 120
 		;;
 
-	*)
+	stop|status)
 		echo "Action $1 is not implemented"
 		;;
 esac
