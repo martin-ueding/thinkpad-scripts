@@ -15,6 +15,8 @@
 
 SHELL = /bin/bash
 
+.PHONY: all install clean
+
 all:
 	make -C bin
 	make -C desktop

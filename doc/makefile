@@ -15,6 +15,8 @@
 
 SHELL = /bin/bash
 
+.PHONY: all install clean
+
 manuals_rst = $(wildcard *.rst)
 manuals_gz = $(manuals_rst:.rst=.gz)
 

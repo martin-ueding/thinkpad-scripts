@@ -15,6 +15,8 @@
 
 SHELL = /bin/bash
 
+.PHONY: all install clean
+
 desktopfiles = $(wildcard *.desktop)
 
 all:
