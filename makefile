@@ -33,7 +33,8 @@ install:
 		do \
 		if [[ -f "$$manual" ]]; \
 		then \
-		install -d "$(DESTDIR)/usr/share/man/man1/"; cp "$$manual" "$(DESTDIR)/usr/share/man/man1/"; \
+		install -d "$(DESTDIR)/usr/share/man/man1/"; \
+		cp "$$manual" -t "$(DESTDIR)/usr/share/man/man1/"; \
 		fi; \
 		done
 	#
