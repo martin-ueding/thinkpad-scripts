@@ -55,7 +55,10 @@ install:
 	#
 	install -d "$(DESTDIR)/etc/pm/sleep.d/"
 	install 00_think-resume.sh -t "$(DESTDIR)/etc/pm/sleep.d/"
-	if ! grep -q "setkeycodes 6e 109 6d 104 69 28 6b 01 6c 120" "$(DESTDIR)/etc/rc.local"; then sed -i '$$isetkeycodes 6e 109 6d 104 69 28 6b 01 6c 120' "$(DESTDIR)/etc/rc.local"; fi
+	#
+	install -d "$(DESTDIR)/etc/init.d/"
+	install think-keycodes -t "$(DESTDIR)/etc/init.d/"
+	if [[ -z "$(DESTDIR)" ]]; then update-rc.d think-keycodes defaults; fi
 	#
 	if ! grep -q "think-startup" "$(DESTDIR)/etc/rc.local"; then sed -i '$$ithink-startup-hook' "$(DESTDIR)/etc/rc.local"; fi
 
