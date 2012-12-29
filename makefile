@@ -15,7 +15,7 @@
 
 SHELL = /bin/bash
 
-scripts = think-dock think-dock-hook think-resume think-resume-hook think-rotate think-startup think-startup-hook think-touch think-touchpad
+scripts = think-dock think-dock-hook think-resume think-resume-hook think-rotate think-touch think-touchpad
 
 all:
 	make -C desktop
