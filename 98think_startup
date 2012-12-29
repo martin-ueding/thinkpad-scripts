@@ -14,14 +14,4 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see http://www.gnu.org/licenses/.
 
-set -e
-set -u
-
-# Find the user who is currently logged in on the primary screen.
-user="$(who -u | grep -F '(:0)' | head -n 1 | awk '{print $1}')"
-
-logger -t think-startup -- "Using user $user."
-
-su -c "DISPLAY=:0.0 /usr/bin/think-startup" --login "$user" &
-
-disown
+think-startup

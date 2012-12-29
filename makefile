@@ -46,12 +46,11 @@ install:
 	install think-resume -t "$(DESTDIR)/usr/bin/"
 	install think-resume-hook -t "$(DESTDIR)/usr/bin/"
 	install think-startup -t "$(DESTDIR)/usr/bin/"
-	install think-startup-hook -t "$(DESTDIR)/usr/bin/"
 	install -d "$(DESTDIR)/lib/udev/rules.d/"
 	install 81-thinkpad-dock.rules -t "$(DESTDIR)/lib/udev/rules.d/"
 	install 00_think-resume.sh -t "$(DESTDIR)/etc/pm/sleep.d/"
+	install 98think_startup -t "$(DESTDIR)/etc/X11/Xsession.d/"
 	if ! grep -q "setkeycodes 6e 109 6d 104 69 28 6b 01 6c 120" "$(DESTDIR)/etc/rc.local"; then sed -i '$$isetkeycodes 6e 109 6d 104 69 28 6b 01 6c 120' "$(DESTDIR)/etc/rc.local"; fi
-	if ! grep -q "think-startup" "$(DESTDIR)/etc/rc.local"; then sed -i '$$ithink-startup-hook' "$(DESTDIR)/etc/rc.local"; fi
 
 clean:
 	$(RM) *.1

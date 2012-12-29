@@ -24,9 +24,9 @@ This program runs various commands on system startup. It allows the user to
 disable the touch screen at that time (depending on the value of
 ``disable_touch``).
 
-There will be a line installed in ``/etc/rc.local`` that will automatically run
-``think-startup`` as the user logged in on the primary screen when the system
-starts.
+There will be a script installed in ``/etc/X11/Xsession.d/`` that will
+automatically run ``think-startup`` as the user logged in on the primary screen
+when X starts.
 
 EXIT STATUS
 ===========
