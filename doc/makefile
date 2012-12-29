@@ -15,7 +15,8 @@
 
 SHELL = /bin/bash
 
-manuals = think-rotate.1.gz think-dock.1.gz think-touchpad.1.gz think-touch.1.gz think-resume.1.gz
+manuals_rst = $(wildcard *.rst)
+manuals_gz = $(manuals_rst:.rst=.gz)
 
 all: $(manuals)
 
