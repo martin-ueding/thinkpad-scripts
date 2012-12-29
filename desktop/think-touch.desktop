@@ -1,0 +1,9 @@
+[Desktop Entry]
+Categories=System;
+Exec=think-touch
+GenericName=ThinkPad Touchscreen toggle
+Name=think touch
+NoDisplay=true
+StartupNotify=false
+Terminal=false
+Type=Application
