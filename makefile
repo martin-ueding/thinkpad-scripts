@@ -13,6 +13,8 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see http://www.gnu.org/licenses/.
 
+SHELL = /bin/bash
+
 all: think-rotate.1.gz think-dock.1.gz think-touchpad.1.gz think-touch.1.gz think-resume.1.gz think-startup.1.gz
 
 %.1.gz: %.1
