@@ -14,3 +14,10 @@
 #
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see http://www.gnu.org/licenses/.
+
+### BEGIN INIT INFO
+# Default-Start: 2 3 4 5
+# Short-Description: Sets keycodes for ThinkPad X220
+### END INIT INFO
+
+setkeycodes 6e 109 6d 104 69 28 6b 01 6c 120
