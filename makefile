@@ -62,8 +62,6 @@ install:
 	# some other DESTDIR, like when packaging this? The package install script
 	# would need to run the following line then.
 	if [[ -z "$(DESTDIR)" ]]; then update-rc.d think-keycodes defaults; fi
-	#
-	if ! grep -q "think-startup" "$(DESTDIR)/etc/rc.local"; then sed -i '$$ithink-startup-hook' "$(DESTDIR)/etc/rc.local"; fi
 
 clean:
 	$(RM) *.1
