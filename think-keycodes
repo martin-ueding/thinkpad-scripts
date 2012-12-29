@@ -16,8 +16,19 @@
 # this program. If not, see http://www.gnu.org/licenses/.
 
 ### BEGIN INIT INFO
+# Provides:
+# Required-Start: $all
+# Required-Stop:
 # Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
 # Short-Description: Sets keycodes for ThinkPad X220
 ### END INIT INFO
 
-setkeycodes 6e 109 6d 104 69 28 6b 01 6c 120
+case "$1" in
+	start|restart|force-reload)
+		setkeycodes 6e 109 6d 104 69 28 6b 01 6c 120
+
+		*)
+		echo "Action $1 is not implemented"
+		;;
+esac
