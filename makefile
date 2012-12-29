@@ -29,24 +29,20 @@ all: $(manuals)
 	rst2man $< $@
 
 install:
-	for manual in $(manuals); \
-		do \
-		if [[ -f "$$manual" ]]; \
-		then \
+	for manual in $(manuals); do \
+		if [[ -f "$$manual" ]]; then \
 		install -d "$(DESTDIR)/usr/share/man/man1/"; \
 		cp "$$manual" -t "$(DESTDIR)/usr/share/man/man1/"; \
 		fi; \
 		done
 	#
 	install -d "$(DESTDIR)/usr/share/applications/"
-	for desktopfile in $(desktopfiles); \
-		do \
+	for desktopfile in $(desktopfiles); do \
 		install -m 644 "$$desktopfile" -t "$(DESTDIR)/usr/share/applications/"; \
 		done
 	#
 	install -d "$(DESTDIR)/usr/bin/"
-	for script in $(scripts); \
-		do \
+	for script in $(scripts); do \
 		install "$$script" -t "$(DESTDIR)/usr/bin/"; \
 		done
 	#
