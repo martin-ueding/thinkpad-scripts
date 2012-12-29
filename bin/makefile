@@ -15,23 +15,21 @@
 
 SHELL = /bin/bash
 
+scripts = $(wildcard think-*)
+
 all:
-	make -C bin
-	make -C desktop
-	make -C doc
 
 install:
-	install -d "$(DESTDIR)/lib/udev/rules.d/"
-	install 81-thinkpad-dock.rules -t "$(DESTDIR)/lib/udev/rules.d/"
+	install -d "$(DESTDIR)/usr/bin/"
+	for script in $(scripts); do \
+		install "$$script" -t "$(DESTDIR)/usr/bin/"; \
+		done
 #
-	install -d "$(DESTDIR)/etc/pm/sleep.d/"
-	install 00_think-resume.sh -t "$(DESTDIR)/etc/pm/sleep.d/"
-
-	make -C bin install
-	make -C desktop install
-	make -C doc install
+	install -d "$(DESTDIR)/etc/init.d/"
+	install think-keycodes -t "$(DESTDIR)/etc/init.d/"
+# FIXME What happens if we are not installing it to the actual system, but some
+# other DESTDIR, like when packaging this? The package install script would
+# need to run the following line then.
+	if [[ -z "$(DESTDIR)" ]]; then update-rc.d think-keycodes defaults; fi
 
 clean:
-	make -C bin clean
-	make -C desktop clean
-	make -C doc clean
