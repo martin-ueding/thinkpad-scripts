@@ -4,6 +4,11 @@
 changelog
 #########
 
+v2.4.1
+    - Actually install makefiles
+    - Implement required actions in ``init.d`` script to that Debian lintian
+      does not complain
+
 v2.4
     - Fix bezel keyboard codes, so that they are usable. (Jim Turner)
     - Add script to toggle touch screen. (Jim Turner)
