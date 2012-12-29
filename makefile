@@ -15,26 +15,13 @@
 
 SHELL = /bin/bash
 
-manuals = think-rotate.1.gz think-dock.1.gz think-touchpad.1.gz think-touch.1.gz think-resume.1.gz think-startup.1.gz
 desktopfiles = think-dock-off.desktop think-dock-on.desktop think-rotate-flip.desktop think-rotate-left.desktop think-rotate.desktop
 scripts = think-dock think-dock-hook think-resume think-resume-hook think-rotate think-startup think-startup-hook think-touch think-touchpad
 
-all: $(manuals)
-
-%.1.gz: %.1
-	$(RM) $@
-	gzip $<
-
-%.1: %.1.rst
-	rst2man $< $@
+all:
+	make -C doc
 
 install:
-	for manual in $(manuals); do \
-		if [[ -f "$$manual" ]]; then \
-		install -d "$(DESTDIR)/usr/share/man/man1/"; \
-		cp "$$manual" -t "$(DESTDIR)/usr/share/man/man1/"; \
-		fi; \
-		done
 	#
 	install -d "$(DESTDIR)/usr/share/applications/"
 	for desktopfile in $(desktopfiles); do \
@@ -59,6 +46,7 @@ install:
 	# would need to run the following line then.
 	if [[ -z "$(DESTDIR)" ]]; then update-rc.d think-keycodes defaults; fi
 
+	make -C doc install
+
 clean:
-	$(RM) *.1
-	$(RM) *.1.gz
+	make -C doc clean
