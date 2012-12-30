@@ -60,3 +60,6 @@ EXAMPLES
 
 You can just call ``think-touch`` to toggle the touch screen; otherwise
 state on/off explicitly with ``think-touch on`` or ``think-touch off``.
+
+If you want to disable touch automatically on startup and resume of your system,
+see the man page for ``think-resume``.
