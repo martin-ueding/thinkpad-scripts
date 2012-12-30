@@ -49,8 +49,10 @@ A sample config would look like this::
 You can set the following options:
 
 ``disable_touch``
-    Whether to enable/disable the touch screen. Set it to ``true`` or something
-    else.
+    Whether to enable/disable the touch screen on resume. Set it to ``true`` or
+    something else. Note that to disable touch at startup, you should set it up
+    manually through your desktop environment's configuration tool by adding a
+    call to ``think-touch off`` in the startup procedure.
 
 EXAMPLE
 =======
