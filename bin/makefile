@@ -1,4 +1,4 @@
-# Copyright © 2012 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
 
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the Free
@@ -33,5 +33,8 @@ install:
 # other DESTDIR, like when packaging this? The package install script would
 # need to run the following line then.
 	if [[ -z "$(DESTDIR)" ]]; then update-rc.d think-keycodes defaults; fi
+#
+	install -d "$(DESTDIR)/usr/bin/
+	install think-mutemic -t "$(DESTDIR)/usr/bin/"
 
 clean:
