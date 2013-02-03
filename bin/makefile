@@ -34,7 +34,7 @@ install:
 # need to run the following line then.
 	if [[ -z "$(DESTDIR)" ]]; then update-rc.d think-keycodes defaults; fi
 #
-	install -d "$(DESTDIR)/usr/bin/
+	install -d "$(DESTDIR)/usr/bin/"
 	install think-mutemic -t "$(DESTDIR)/usr/bin/"
 
 clean:
