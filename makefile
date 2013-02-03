@@ -1,4 +1,4 @@
-# Copyright © 2012 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
 
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the Free
@@ -28,7 +28,7 @@ install:
 #
 	install -d "$(DESTDIR)/etc/pm/sleep.d/"
 	install 00_think-resume.sh -t "$(DESTDIR)/etc/pm/sleep.d/"
-
+#
 	make -C bin install
 	make -C desktop install
 	make -C doc install
