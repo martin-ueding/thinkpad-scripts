@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script orignally from http://forum.thinkpads.com/viewtopic.php?p=676101#p676101.
-# Changes Copyright © 2012 Martin Ueding <dev@martin-ueding.de>
+# Changes Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
 
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the Free
@@ -108,7 +108,7 @@ xrandr --output "$internal" --rotate "$xrandr_rotation"
 # Rotate the Wacom devices.
 echo "Rotating Wacom devices to $wacom_rotation."
 
-xsetwacom list devices | sed 's/id: .*//' | while read device
+xsetwacom list devices | grep 'Wacom ISD' | sed 's/id: .*//' | while read device
 do
 	xsetwacom set "$device" rotate "$wacom_rotation"
 	xsetwacom set "$device" MapToOutput "$internal"
