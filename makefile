@@ -29,6 +29,9 @@ install:
 	install -d "$(DESTDIR)/etc/pm/sleep.d/"
 	install 00_think-resume.sh -t "$(DESTDIR)/etc/pm/sleep.d/"
 #
+	install -d "$(DESTDIR)/etc/acpi/events/"
+	install think-mutemic-acpi-hook -t "$(DESTDIR)/etc/acpi/events/"
+#
 	make -C bin install
 	make -C desktop install
 	make -C doc install

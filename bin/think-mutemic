@@ -1,0 +1,25 @@
+#!/bin/bash
+# Taken from http://askubuntu.com/a/137278
+# Licensed under CC-BY-SA
+# Changes Copyright © 2013 Martin Ueding <dev@martin-ueding.de>
+
+# Find the user who is currently logged in on the primary screen.
+user="$(who -u | grep -F '(:0)' | head -n 1 | awk '{print $1}')"
+
+input_device="'Capture'"
+if amixer sget "$input_device,0" | grep '\[on\]'
+then
+	amixer sset "$input_device,0" toggle
+	echo "0 blink" > /proc/acpi/ibm/led
+	if type kdialog
+	then
+		su "$user" -c 'DISPLAY=":0.0" kdialog --passivepopup "Mic off" 1'
+	fi
+else
+	amixer sset "$input_device,0" toggle
+	if type kdialog
+	then
+		su "$user" -c 'DISPLAY=":0.0" kdialog --passivepopup "Mic on" 1'
+	fi
+	echo "0 on" > /proc/acpi/ibm/led
+fi
