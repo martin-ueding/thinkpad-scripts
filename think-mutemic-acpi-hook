@@ -3,4 +3,4 @@
 # Changes Copyright © 2013 Martin Ueding <dev@martin-ueding.de>
 
 event=ibm/hotkey HKEY 00000080 0000101b
-action=/etc/acpi/think-mutemic
+action=/usr/bin/think-mutemic
