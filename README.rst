@@ -6,7 +6,7 @@ ThinkPad Rotate
 
 :License (Code): GPLv2_
 :License (Text): CC-BY_
-:Tags: Bash, Python, ThinkPad
+:Tags: Bash, ThinkPad
 
 .. contents::
     :local:
