@@ -94,7 +94,7 @@ You can set the following options:
 ``dock_loudness``
     Volume to set to when docking. Set it to a percentage like ``100%``.
 
-``undock_loundess``
+``undock_loudness``
     Volume to set to when undocking. Set it to a percentage like ``50%``.
 
 ``set_brightness``
