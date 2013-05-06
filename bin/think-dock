@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright © 2012 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
 
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the Free
@@ -71,19 +71,27 @@ case "${1:-auto}" in
 		# HACK against a race condition, but it should work.
 		sleep 1
 
-		# Check the kernel whether the ThinkPad is on the docking station.
-		kernel_docked="$(cat /sys/devices/platform/dock.0/docked)"
+		for dockfile in /sys/devices/platform/dock.*/docked
+		do
+			# Check the kernel whether the ThinkPad is on the docking station.
+			kernel_docked="$(cat "$dockfile")"
 
-		if (( kernel_docked == 1 ))
+			if (( kernel_docked == 1 ))
+			then
+				# The display is not enabled. Time to dock.
+				echo "Docking, found a dock that is docked."
+				setto=on
+				break
+			else
+				# The notebook is probably already un-docked. So it is time to
+				# un-dock.
+				setto=off
+			fi
+		done
+
+		if [[ "$setto" == off ]]
 		then
-			# The display is not enabled. Time to dock.
-			echo "Docking, since computer is already docked."
-			setto=on
-		else
-			# The notebook is probably already un-docked. So it is time to
-			# un-dock.
-			echo "Un-docking since computer is not docked."
-			setto=off
+			echo "Un-docking, since no dock is connected."
 		fi
 esac
 
