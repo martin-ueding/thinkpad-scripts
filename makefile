@@ -22,6 +22,7 @@ install:
 	make -C bin install
 	make -C desktop install
 	make -C doc install
+	make -C lib install
 
 clean:
 	make -C bin clean
