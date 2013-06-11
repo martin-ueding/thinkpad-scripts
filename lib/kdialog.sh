@@ -20,6 +20,12 @@ kdialog-init() {
 		return
 	fi
 
+	# Abort, it kdialog is not installed.
+	if ! type kdialog &> /dev/null
+	then
+		kdialog=false
+	fi
+
 	kdialog_handle="$(kdialog --title "$1" --progressbar "Start" "$2")"
 	kdialog_number=0
 }
