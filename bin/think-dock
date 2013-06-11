@@ -6,6 +6,18 @@ logger -t think-dock -- "Script starting up ($@) …"
 set -e
 set -u
 
+for import in kdialog.sh
+do
+	for dir in lib /usr/share/think-rotate
+	do
+		importfile="$dir/$import"
+		if [[ -f "$importfile" ]]
+		then
+			. "$importfile"
+		fi
+	done
+done
+
 echo "Running as $USER."
 
 ###############################################################################
@@ -43,7 +55,10 @@ then
 	source "$configfile"
 fi
 
+kdialog-init $"think-dock" 9
+
 # Determine the action.
+kdialog-update $"Determining action"
 case "${1:-auto}" in
 	on)
 		echo "Docking, since user said so."
@@ -83,11 +98,13 @@ case "${1:-auto}" in
 esac
 
 # Write the determined action into the system log.
+kdialog-update $"Writing to syslog"
 logger -t "think-dock" -- "Now changing to $setto with ${1:-auto} mode."
 
 # Dynamically find the external display by searching for connected displays
 # that are not the internal one. If there is no external display connected,
 # that will result in an empty variable.
+kdialog-update $"Find external display"
 if external="$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal")"
 then
 	echo "External display $external found."
@@ -104,6 +121,7 @@ case "$setto" in
 			pactl set-sink-volume 0 "$dock_loudness"
 			pactl set-sink-mute 0 0
 		fi
+		kdialog-update $"Enabled audio"
 		) &
 
 		(
@@ -114,11 +132,13 @@ case "$setto" in
 		then
 			xbacklight -set "$brightness"
 		fi
+		kdialog-update $"Set brightness"
 
 		# Set the displays to the right setting.
 		xrandr --output "$internal" --auto
 		xrandr --output "$external" --auto "--${relative_position}-of" \
 			"$internal" --primary
+		kdialog-update $"Set external monitor"
 		) &
 
 		(
@@ -131,6 +151,7 @@ case "$setto" in
 			# command from think-dock-hook.
 			nmcli nm wifi off
 		fi
+		kdialog-update $"Turn wireless off"
 
 
 		# Reboot the wired connection since that sometimes go bad.
@@ -139,6 +160,7 @@ case "$setto" in
 			nmcli con down id DHCP
 			nmcli con up id DHCP
 		fi
+		kdialog-update $"Restart LAN connection"
 		) &
 
 		;;
@@ -151,6 +173,7 @@ case "$setto" in
 		then
 			xrandr --output "$external" --off
 		fi
+		kdialog-update $"Make the internal display the primary"
 		) &
 
 		(
@@ -159,6 +182,7 @@ case "$setto" in
 		then
 			pactl set-sink-volume 0 "$undock_loudness"
 		fi
+		kdialog-update $"Reduce volume"
 		) &
 
 		(
@@ -167,6 +191,7 @@ case "$setto" in
 		then
 			nmcli nm wifi on
 		fi
+		kdialog-update $"Enable wireless connection"
 		) &
 
 		;;
@@ -183,8 +208,12 @@ xsetwacom list devices | grep 'Wacom ISD' | sed 's/id: .*//' | while read device
 do
 	xsetwacom set "$device" MapToOutput "$internal"
 done
+kdialog-update $"Map Wacom devices"
 ) &
 
 wait
 
+kdialog-update $"Writing to syslog"
 logger -t think-dock -- "Script finishing …"
+
+kdialog-exit
