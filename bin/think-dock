@@ -4,7 +4,6 @@
 logger -t think-dock -- "Script starting up ($@) …"
 
 set -e
-set -u
 
 for import in kdialog.sh
 do
