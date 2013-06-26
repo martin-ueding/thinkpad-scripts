@@ -4,6 +4,9 @@
 changelog
 #########
 
+v2.6
+    - Support for ``kdialog`` status.
+
 v2.5.2
     - Update the ACPI hooks to find other docks as well
 
