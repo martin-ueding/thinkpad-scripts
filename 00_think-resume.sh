@@ -6,7 +6,7 @@ case "$1" in
 		think-resume-hook
 		;;
 	suspend|hibernate)
-	        ;;
+		;;
 	*)
 		;;
 esac
