@@ -1,7 +1,7 @@
 .. Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
 
 #########
-changelog
+Changelog
 #########
 
 v2.6
@@ -107,5 +107,3 @@ Way before 2012-07-13, those are significant changes in the history:
 - Dynamically find external display.
 - Limit Wacom devices to internal screen.
 - Set external monitor as primary.
-
-.. vim: ft=rst
