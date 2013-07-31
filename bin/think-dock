@@ -49,6 +49,11 @@ relative_position="right"
 # options set above.
 configfile="$HOME/.config/think-rotate/dock.sh"
 
+predock_hook="$HOME/.config/think-rotate/hooks/predock"
+preundock_hook="$HOME/.config/think-rotate/hooks/preundock"
+postdock_hook="$HOME/.config/think-rotate/hooks/postdock"
+postundock_hook="$HOME/.config/think-rotate/hooks/postundock"
+
 if [[ -f "$configfile" ]]
 then
 	source "$configfile"
@@ -99,6 +104,22 @@ esac
 # Write the determined action into the system log.
 kdialog-update $"Writing to syslog"
 logger -t "think-dock" -- "Now changing to $setto with ${1:-auto} mode."
+
+kdialog-update $"Executing pre-hooks"
+case "$setto" in
+    on)
+        if [[ -f "$predock_hook" ]]
+        then
+            "$predock_hook"
+        fi
+        ;;
+    off)
+        if [[ -f "$preundock_hook" ]]
+        then
+            "$preundock_hook"
+        fi
+        ;;
+esac
 
 # Dynamically find the external display by searching for connected displays
 # that are not the internal one. If there is no external display connected,
@@ -211,6 +232,22 @@ kdialog-update $"Map Wacom devices"
 ) &
 
 wait
+
+kdialog-update $"Executing post-hooks"
+case "$setto" in
+    on)
+        if [[ -f "$postdock_hook" ]]
+        then
+            "$postdock_hook"
+        fi
+        ;;
+    off)
+        if [[ -f "$postundock_hook" ]]
+        then
+            "$postundock_hook"
+        fi
+        ;;
+esac
 
 kdialog-update $"Writing to syslog"
 logger -t think-dock -- "Script finishing …"
