@@ -6,6 +6,7 @@ Changelog
 
 v2.7
     - **Added**: Hooks
+    - **Added**: ``on|off`` for the ``think-touchpad`` script
 
 v2.6
     - Support for ``kdialog`` status.
