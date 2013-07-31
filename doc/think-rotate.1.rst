@@ -1,4 +1,4 @@
-.. Copyright © 2012 Martin Ueding <dev@martin-ueding.de>
+.. Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
 
 ############
 think-rotate
@@ -73,6 +73,9 @@ The script relies on ``xrandr`` to get the information, so this has to work.
 FILES
 =====
 
+Config
+------
+
 You can create a config file in ``$HOME/.config/think-rotate/rotate.sh``, which
 is a simple Bash script that is going to be sourced from ``think-rotate``.
 
@@ -84,6 +87,14 @@ You can set the following option:
 
 ``virtual_kbd``
     Command to start the virtual keyboard.
+
+Hooks
+-----
+
+You can add scripts to be called before and after with the following files:
+
+- ``~/.config/think-rotate/hooks/prerotate``
+- ``~/.config/think-rotate/hooks/postrotate``
 
 EXAMPLE
 =======
