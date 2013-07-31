@@ -59,7 +59,7 @@ then
 	source "$configfile"
 fi
 
-kdialog-init $"think-dock" 9
+kdialog-init $"think-dock" 11
 
 # Determine the action.
 kdialog-update $"Determining action"
