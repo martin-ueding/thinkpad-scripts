@@ -31,14 +31,23 @@ virtual_kbd="kvkbd"
 # options set above.
 configfile="$HOME/.config/think-rotate/rotate.sh"
 
+prerotate_hook="$HOME/.config/think-rotate/hooks/prerotate"
+postrotate_hook="$HOME/.config/think-rotate/hooks/postrotate"
+
 if [[ -f "$configfile" ]]
 then
 	source "$configfile"
 fi
 
-kdialog-init $"think-rotate" 6
+kdialog-init $"think-rotate" 8
 
 kdialog-update $"Reading config file"
+
+kdialog-update $"Executing pre-hooks"
+if [[ -f "$prerotate_hook" ]]
+then
+    "$prerotate_hook"
+fi
 
 ###############################################################################
 #                               current status                                #
@@ -171,5 +180,11 @@ do
 	echo "Toggling input device $device to $input_to."
 	xinput set-prop "$device" "Device Enabled" "$input_to"
 done
+
+kdialog-update $"Executing post-hooks"
+if [[ -f "$postrotate_hook" ]]
+then
+    "$postrotate_hook"
+fi
 
 kdialog-exit
