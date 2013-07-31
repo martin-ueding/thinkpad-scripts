@@ -71,6 +71,9 @@ EXIT STATUS
 FILES
 =====
 
+Config
+------
+
 You can create a config file in ``$HOME/.config/think-rotate/dock.sh``, which
 is a simple Bash script that is going to be sourced from ``think-dock``.
 
@@ -106,6 +109,14 @@ You can set the following options:
 ``relative_position``
     Where to set the external monitor. Set it to ``right`` or ``left`` or
     anything else that ``xrandr`` supports with a ``--*-of`` argument.
+
+Hooks
+-----
+
+There are hooks, called before and after the main script. It gets a single command line argument, ``on`` or ``off``.
+
+- ``~/.config/think-rotate/hooks/predock``
+- ``~/.config/think-rotate/hooks/postdock``
 
 EXAMPLE
 =======
