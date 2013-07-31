@@ -1,4 +1,4 @@
-.. Copyright © 2012 Martin Ueding <dev@martin-ueding.de>
+.. Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
 
 ##############
 think-touchpad
@@ -24,6 +24,14 @@ DESCRIPTION
 
 This scripts toggles the TrackPad. It is designed to work on ThinkPads, but it
 will probably work on almost all laptops.
+
+OPTIONS
+=======
+
+on|off
+    If you want to enable the touchpad, use ``on``. Otherwise use ``off``.
+
+    If you omit this option, the script will toggle the touchpad on/off.
 
 SEE ALSO
 ========
