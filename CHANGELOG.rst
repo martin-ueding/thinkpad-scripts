@@ -5,7 +5,7 @@ Changelog
 #########
 
 v2.7
-    - Adding hooks
+    - **Added**: Hooks
 
 v2.6
     - Support for ``kdialog`` status.
