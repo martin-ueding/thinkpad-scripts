@@ -4,6 +4,9 @@
 Changelog
 #########
 
+v2.7.1
+    - Close KDialog progress bar when the script fails (via ``trap``)
+
 v2.7
     - **Added**: Hooks
     - **Added**: ``on|off`` for the ``think-touchpad`` script
