@@ -19,6 +19,8 @@ done
 
 echo "Running as $USER."
 
+trap kdialog-exit EXIT
+
 ###############################################################################
 #                                   options                                   #
 ###############################################################################
@@ -229,5 +231,3 @@ fi
 
 kdialog-update $"Writing to syslog"
 logger -t think-dock -- "Script finishing …"
-
-kdialog-exit
