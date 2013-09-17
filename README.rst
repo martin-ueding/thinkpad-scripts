@@ -135,4 +135,7 @@ Website
 There is also a project website at
 http://martin-ueding.de/projects/think-rotate.
 
+.. _CC-BY: https://creativecommons.org/licenses/by/3.0/
+.. _GPLv2: http://opensource.org/licenses/gpl-2.0.php
+
 .. vim: spell
