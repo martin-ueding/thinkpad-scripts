@@ -2,9 +2,12 @@
 
 SHELL = /bin/bash
 
+po := $(wildcard locale/*/LC_MESSAGES/think-rotate.po)
+mo := $(po:.po=.mo)
+
 .PHONY: all install clean
 
-all:
+all: $(mo)
 	make -C bin
 	make -C desktop
 	make -C doc
@@ -19,6 +22,10 @@ install:
 	install -d "$(DESTDIR)/etc/acpi/events/"
 	install think-mutemic-acpi-hook -t "$(DESTDIR)/etc/acpi/events/"
 #
+	install -d "$(DESTDIR)/usr/share/locale/de/LC_MESSAGES"
+	install locale/de/LC_MESSAGES/think-rotate.mo -t "$(DESTDIR)/usr/share/locale/de/LC_MESSAGES"
+#
+#
 	make -C bin install
 	make -C desktop install
 	make -C doc install
@@ -31,3 +38,6 @@ clean:
 
 locale/think-rotate.pot: bin/*
 	xgettext --language Shell -o $@ $^
+
+%.mo: %.po
+	msgfmt -o $@ $^
