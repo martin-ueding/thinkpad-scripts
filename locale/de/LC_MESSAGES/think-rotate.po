@@ -17,174 +17,181 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Language: de_DE\n"
+"X-Source-Language: C\n"
 
 #: bin/think-dock:22
 #, sh-format
 msgid "Running as $USER."
-msgstr ""
+msgstr "Laufe als $USER."
 
 #: bin/think-dock:64
 msgid "think-dock"
-msgstr ""
+msgstr "think-dock"
 
 #: bin/think-dock:67
 msgid "Determining action"
-msgstr ""
+msgstr "Bestimme Aktion"
 
 #: bin/think-dock:70
 msgid "Docking, since user said so."
-msgstr ""
+msgstr "Docking, da der Benutzer dies so möchte."
 
 #: bin/think-dock:74
 msgid "Un-docking, since user said so."
-msgstr ""
+msgstr "Un-docking, da der Benutzer dies so möchte."
 
 #: bin/think-dock:90
 msgid "Docking, found a dock that is docked."
-msgstr ""
+msgstr "Docking, habe ein Dock gefunden, das angedockt ist."
 
 #: bin/think-dock:102
 msgid "Un-docking, since no dock is connected."
-msgstr ""
+msgstr "Un-docking, da kein Dock verbunden ist."
 
 #: bin/think-dock:107 bin/think-dock:234
 msgid "Writing to syslog"
-msgstr ""
+msgstr "Schreibe ins syslog"
 
 #: bin/think-dock:110 bin/think-rotate:50
 msgid "Executing pre-hooks"
-msgstr ""
+msgstr "Führe pre-hooks aus"
 
 #: bin/think-dock:119
 msgid "Find external display"
-msgstr ""
+msgstr "Finde externen Monitor"
 
 #: bin/think-dock:122
 #, sh-format
 msgid "External display $external found."
-msgstr ""
+msgstr "Externen Monitor $external gefunden."
 
 #: bin/think-dock:124
 msgid "No external display found."
-msgstr ""
+msgstr "Keine externen Monitore gefunden."
 
 #: bin/think-dock:136
 msgid "Enabled audio"
-msgstr ""
+msgstr "Aktivierte Audio"
 
 #: bin/think-dock:147
 msgid "Set brightness"
-msgstr ""
+msgstr "Setzte Helligkeit"
 
 #: bin/think-dock:153
 msgid "Set external monitor"
-msgstr ""
+msgstr "Setzte externen Monitor"
 
 #: bin/think-dock:166
 msgid "Turn wireless off"
-msgstr ""
+msgstr "Schaltete WLAN ab"
 
 #: bin/think-dock:175
 msgid "Restart LAN connection"
-msgstr ""
+msgstr "Startete LAN-Verbindung neu"
 
 #: bin/think-dock:188
 msgid "Make the internal display the primary"
-msgstr ""
+msgstr "Setze den internen Monitor als den Primären"
 
 #: bin/think-dock:197
 msgid "Reduce volume"
-msgstr ""
+msgstr "Reduziere Lautstärke"
 
 #: bin/think-dock:206
 msgid "Enable wireless connection"
-msgstr ""
+msgstr "Aktiviere WLAN"
 
 #: bin/think-dock:223
 msgid "Map Wacom devices"
-msgstr ""
+msgstr "Ordne Wacom-Geräte zu"
 
 #: bin/think-dock:228 bin/think-rotate:188
 msgid "Executing post-hooks"
-msgstr ""
+msgstr "Führe post-hooks aus"
 
 #: bin/think-rotate:46
 msgid "think-rotate"
-msgstr ""
+msgstr "think-rotate"
 
 #: bin/think-rotate:48
 msgid "Reading config file"
-msgstr ""
+msgstr "Lese Konfigurationsdatei"
 
 #: bin/think-rotate:60
 msgid "Finding current rotation"
-msgstr ""
+msgstr "Finde aktuelle Rotation"
 
 #: bin/think-rotate:66
 #, sh-format
 msgid "Current status is $rotation."
-msgstr ""
+msgstr "Aktueller Status ist $rotation."
 
 #: bin/think-rotate:72
 msgid "Infering new rotation"
-msgstr ""
+msgstr "Berechne neue Rotation"
 
 #: bin/think-rotate:83
 msgid "You try to rotate into the direction it is, reverting to normal."
 msgstr ""
+"Sie versuchen in die Richtung zu drehen, in die schon gedreht ist. Kehre zu "
+"normal zurück."
 
 #: bin/think-rotate:87
 #, sh-format
 msgid "User chose to set to $setto."
-msgstr ""
+msgstr "Benutzer wählte $setto."
 
 #: bin/think-rotate:94
 #, sh-format
 msgid "Using default, setting to $setto."
-msgstr ""
+msgstr "Benutze Standard, setze auf $sette."
 
 #: bin/think-rotate:98
 msgid "Using default, reverting to normal."
-msgstr ""
+msgstr "Benutze Standard, kehre zu normal zurück."
 
 #: bin/think-rotate:121
 msgid ""
 "You specified a direction that is not known. Try either normal, right, flip "
 "or left. See think-rotate(1) for more information."
 msgstr ""
+"Sie haben eine Richtung angegeben ist, die nicht bekannt ist. Versuchen Sie "
+"entweder normal, right, flip oder left. Schauen Sie in think-rotate(1) für "
+"weitere Informationen nach."
 
 #: bin/think-rotate:126
 msgid "Rotating screen"
-msgstr ""
+msgstr "Drehe Bildschirminhalt"
 
 #: bin/think-rotate:130
 #, sh-format
 msgid "Rotating Wacom devices to $wacom_rotation."
-msgstr ""
+msgstr "Drehe Wacom-Geräte nach $wacom_rotation."
 
 #: bin/think-rotate:132
 msgid "Rotating Wacom devices"
-msgstr ""
+msgstr "Drehe Wacom-Geräte"
 
 #: bin/think-rotate:144
 msgid "Starting or killing virtual keyboard"
-msgstr ""
+msgstr "Starte oder beende virtuelle Tastatur"
 
 #: bin/think-rotate:168
 msgid "Enabling/Disabling TrackPoint and TouchPad"
-msgstr ""
+msgstr "Aktiviere oder Deaktiviere TrackPoint und TouchPad"
 
 #: bin/think-rotate:184
 #, sh-format
 msgid "Toggling input device $device to $input_to."
-msgstr ""
+msgstr "Schalte Eingabegerät $device auf $input_to um."
 
 #: bin/think-touch:35
 #, sh-format
 msgid "Setting input device $id to \\"
-msgstr ""
+msgstr "Setze Eingabegerät $id auf \\"
 
 #: bin/think-touchpad:27
 #, sh-format
 msgid "Toggling input device $id to $toggle_to."
-msgstr ""
+msgstr "Schalte Eingabegerät $id auf $toggle_to."
