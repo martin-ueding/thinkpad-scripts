@@ -5,6 +5,8 @@
 
 set -e
 
+TEXTDOMAIN=think-rotate
+
 for import in kdialog.sh
 do
 	for dir in lib /usr/share/think-rotate
@@ -61,7 +63,7 @@ kdialog-update $"Finding current rotation"
 # orientation and strip out current orientation.
 rotation="$(xrandr -q --verbose | grep 'connected' | grep "$internal" | egrep -o  '\) (normal|left|inverted|right) \(' | egrep -o '(normal|left|inverted|right)')"
 
-echo "Current status is $rotation."
+echo $"Current status is $rotation."
 
 ###############################################################################
 #                                new rotation                                 #
@@ -78,22 +80,22 @@ then
 	# go back. This allows to toggle with the same call.
 	if [[ "$1" = "$rotation" ]]
 	then
-		echo "You try to rotate into the direction it is, reverting to normal."
+		echo $"You try to rotate into the direction it is, reverting to normal."
 		setto=normal
 	else
 		setto="$1"
-		echo "User chose to set to $setto."
+		echo $"User chose to set to $setto."
 	fi
 else
 	# The user did not specify anything. Set it to right or revert.
 	case "$rotation" in
 		normal)
 			setto=right
-			echo "Using default, setting to $setto."
+			echo $"Using default, setting to $setto."
 			;;
 		*)
 			setto=normal
-			echo "Using default, reverting to normal."
+			echo $"Using default, reverting to normal."
 	esac
 fi
 
@@ -116,7 +118,7 @@ case "$setto" in
 		wacom_rotation=ccw
 		;;
 	*)
-		echo "You specified a direction that is not known. Try either normal, right, flip or left. See think-rotate(1) for more information."
+		echo $"You specified a direction that is not known. Try either normal, right, flip or left. See think-rotate(1) for more information."
 		exit 2
 esac
 
@@ -125,7 +127,7 @@ kdialog-update $"Rotating screen"
 xrandr --output "$internal" --rotate "$xrandr_rotation"
 
 # Rotate the Wacom devices.
-echo "Rotating Wacom devices to $wacom_rotation."
+echo $"Rotating Wacom devices to $wacom_rotation."
 
 kdialog-update $"Rotating Wacom devices"
 
@@ -179,7 +181,7 @@ fi
 
 for device in "$trackpoint_id" "$touchpad_id"
 do
-	echo "Toggling input device $device to $input_to."
+	echo $"Toggling input device $device to $input_to."
 	xinput set-prop "$device" "Device Enabled" "$input_to"
 done
 

@@ -1,6 +1,8 @@
 #!/bin/bash
 # Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
 
+TEXTDOMAIN=think-rotate
+
 logger -t think-dock -- "Script starting up ($@) …"
 
 set -e
@@ -17,7 +19,7 @@ do
 	done
 done
 
-echo "Running as $USER."
+echo $"Running as $USER."
 
 trap kdialog-exit EXIT
 
@@ -65,11 +67,11 @@ kdialog-init $"think-dock" 11
 kdialog-update $"Determining action"
 case "${1:-auto}" in
 	on)
-		echo "Docking, since user said so."
+		echo $"Docking, since user said so."
 		setto=on
 		;;
 	off)
-		echo "Un-docking, since user said so."
+		echo $"Un-docking, since user said so."
 		setto=off
 		;;
 	auto)
@@ -85,7 +87,7 @@ case "${1:-auto}" in
 			if (( kernel_docked == 1 ))
 			then
 				# The display is not enabled. Time to dock.
-				echo "Docking, found a dock that is docked."
+				echo $"Docking, found a dock that is docked."
 				setto=on
 				break
 			else
@@ -97,7 +99,7 @@ case "${1:-auto}" in
 
 		if [[ "$setto" == off ]]
 		then
-			echo "Un-docking, since no dock is connected."
+			echo $"Un-docking, since no dock is connected."
 		fi
 esac
 
@@ -117,9 +119,9 @@ fi
 kdialog-update $"Find external display"
 if external="$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal")"
 then
-	echo "External display $external found."
+	echo $"External display $external found."
 else
-	echo "No external display found."
+	echo $"No external display found."
 fi
 
 case "$setto" in

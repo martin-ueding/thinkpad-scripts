@@ -4,6 +4,8 @@
 set -e
 set -u
 
+TEXTDOMAIN=think-rotate
+
 # Find the user who is currently logged in on the primary screen.
 user="$(who -u | grep -F '(:0)' | head -n 1 | awk '{print $1}')"
 

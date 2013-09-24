@@ -1,0 +1,190 @@
+# German translations for PACKAGE package
+# German messages for PACKAGE.
+# Copyright (C) 2013 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Martin Ueding <dev@martin-ueding.de>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-24 22:31+0200\n"
+"PO-Revision-Date: 2013-09-24 22:32+0200\n"
+"Last-Translator: Martin Ueding <dev@martin-ueding.de>\n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: bin/think-dock:22
+#, sh-format
+msgid "Running as $USER."
+msgstr ""
+
+#: bin/think-dock:64
+msgid "think-dock"
+msgstr ""
+
+#: bin/think-dock:67
+msgid "Determining action"
+msgstr ""
+
+#: bin/think-dock:70
+msgid "Docking, since user said so."
+msgstr ""
+
+#: bin/think-dock:74
+msgid "Un-docking, since user said so."
+msgstr ""
+
+#: bin/think-dock:90
+msgid "Docking, found a dock that is docked."
+msgstr ""
+
+#: bin/think-dock:102
+msgid "Un-docking, since no dock is connected."
+msgstr ""
+
+#: bin/think-dock:107 bin/think-dock:234
+msgid "Writing to syslog"
+msgstr ""
+
+#: bin/think-dock:110 bin/think-rotate:50
+msgid "Executing pre-hooks"
+msgstr ""
+
+#: bin/think-dock:119
+msgid "Find external display"
+msgstr ""
+
+#: bin/think-dock:122
+#, sh-format
+msgid "External display $external found."
+msgstr ""
+
+#: bin/think-dock:124
+msgid "No external display found."
+msgstr ""
+
+#: bin/think-dock:136
+msgid "Enabled audio"
+msgstr ""
+
+#: bin/think-dock:147
+msgid "Set brightness"
+msgstr ""
+
+#: bin/think-dock:153
+msgid "Set external monitor"
+msgstr ""
+
+#: bin/think-dock:166
+msgid "Turn wireless off"
+msgstr ""
+
+#: bin/think-dock:175
+msgid "Restart LAN connection"
+msgstr ""
+
+#: bin/think-dock:188
+msgid "Make the internal display the primary"
+msgstr ""
+
+#: bin/think-dock:197
+msgid "Reduce volume"
+msgstr ""
+
+#: bin/think-dock:206
+msgid "Enable wireless connection"
+msgstr ""
+
+#: bin/think-dock:223
+msgid "Map Wacom devices"
+msgstr ""
+
+#: bin/think-dock:228 bin/think-rotate:188
+msgid "Executing post-hooks"
+msgstr ""
+
+#: bin/think-rotate:46
+msgid "think-rotate"
+msgstr ""
+
+#: bin/think-rotate:48
+msgid "Reading config file"
+msgstr ""
+
+#: bin/think-rotate:60
+msgid "Finding current rotation"
+msgstr ""
+
+#: bin/think-rotate:66
+#, sh-format
+msgid "Current status is $rotation."
+msgstr ""
+
+#: bin/think-rotate:72
+msgid "Infering new rotation"
+msgstr ""
+
+#: bin/think-rotate:83
+msgid "You try to rotate into the direction it is, reverting to normal."
+msgstr ""
+
+#: bin/think-rotate:87
+#, sh-format
+msgid "User chose to set to $setto."
+msgstr ""
+
+#: bin/think-rotate:94
+#, sh-format
+msgid "Using default, setting to $setto."
+msgstr ""
+
+#: bin/think-rotate:98
+msgid "Using default, reverting to normal."
+msgstr ""
+
+#: bin/think-rotate:121
+msgid ""
+"You specified a direction that is not known. Try either normal, right, flip "
+"or left. See think-rotate(1) for more information."
+msgstr ""
+
+#: bin/think-rotate:126
+msgid "Rotating screen"
+msgstr ""
+
+#: bin/think-rotate:130
+#, sh-format
+msgid "Rotating Wacom devices to $wacom_rotation."
+msgstr ""
+
+#: bin/think-rotate:132
+msgid "Rotating Wacom devices"
+msgstr ""
+
+#: bin/think-rotate:144
+msgid "Starting or killing virtual keyboard"
+msgstr ""
+
+#: bin/think-rotate:168
+msgid "Enabling/Disabling TrackPoint and TouchPad"
+msgstr ""
+
+#: bin/think-rotate:184
+#, sh-format
+msgid "Toggling input device $device to $input_to."
+msgstr ""
+
+#: bin/think-touch:35
+#, sh-format
+msgid "Setting input device $id to \\"
+msgstr ""
+
+#: bin/think-touchpad:27
+#, sh-format
+msgid "Toggling input device $id to $toggle_to."
+msgstr ""

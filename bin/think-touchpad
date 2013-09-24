@@ -1,6 +1,8 @@
 #!/bin/bash
 # Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
 
+TEXTDOMAIN=think-rotate
+
 # Find the id of the TouchPad.
 id="$(xinput list | grep TouchPad | grep --only-matching -P 'id=(\d+)' | cut -c 4-)"
 
@@ -22,5 +24,5 @@ case "${1:-auto}" in
 		;;
 esac
 
-echo "Toggling input device $id to $toggle_to."
+echo $"Toggling input device $id to $toggle_to."
 xinput set-prop "$id" "Device Enabled" "$toggle_to"

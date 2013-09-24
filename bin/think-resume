@@ -1,6 +1,8 @@
 #!/bin/bash
 # Copyright © 2012 Jim Turner <jturner314@gmail.com>
 
+TEXTDOMAIN=think-rotate
+
 disable_touch=false
 
 # Now import the configuration file if there is one. That will replace any
