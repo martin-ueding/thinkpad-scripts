@@ -4,6 +4,9 @@
 Changelog
 #########
 
+v2.8
+    - Translate to German
+
 v2.7.1
     - Close KDialog progress bar when the script fails (via ``trap``)
 
