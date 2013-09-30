@@ -3,7 +3,12 @@
 
 TEXTDOMAIN=think-rotate
 
-logger -t think-dock -- "Script starting up ($@) …"
+mylogger() {
+    echo "$@"
+    logger -t think-dock -i -- "$@"
+}
+
+mylogger "Script starting up (args: $@) …"
 
 set -e
 
@@ -19,7 +24,9 @@ do
 	done
 done
 
-echo $"Running as $USER."
+mylogger $"Running as user $USER."
+mylogger $"\$HOME is set to ${HOME-}."
+mylogger $"\$HOME is now set to ${HOME=/home/$USER}."
 
 trap kdialog-exit EXIT
 
@@ -105,7 +112,7 @@ esac
 
 # Write the determined action into the system log.
 kdialog-update $"Writing to syslog"
-logger -t "think-dock" -- "Now changing to $setto with ${1:-auto} mode."
+mylogger "Now changing to $setto with ${1:-auto} mode."
 
 kdialog-update $"Executing pre-hooks"
 if [[ -f "$predock_hook" ]]
@@ -119,9 +126,9 @@ fi
 kdialog-update $"Find external display"
 if external="$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal")"
 then
-	echo $"External display $external found."
+	mylogger $"External display $external found."
 else
-	echo $"No external display found."
+	mylogger $"No external display found."
 fi
 
 case "$setto" in
@@ -232,4 +239,4 @@ then
 fi
 
 kdialog-update $"Writing to syslog"
-logger -t think-dock -- "Script finishing …"
+mylogger "Script finishing …"
