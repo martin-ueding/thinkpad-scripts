@@ -34,6 +34,8 @@ trap kdialog-exit EXIT
 #                                   options                                   #
 ###############################################################################
 
+mylogger $"Setting variables."
+
 # Whether to disable the wifi when going onto the docking station.
 disable_wifi=true
 
@@ -63,6 +65,8 @@ configfile="$HOME/.config/think-rotate/dock.sh"
 predock_hook="$HOME/.config/think-rotate/hooks/predock"
 postdock_hook="$HOME/.config/think-rotate/hooks/postdock"
 
+mylogger $"Sourcing config file."
+
 if [[ -f "$configfile" ]]
 then
 	source "$configfile"
@@ -71,14 +75,15 @@ fi
 kdialog-init $"think-dock" 11
 
 # Determine the action.
+mylogger $"Determining action"
 kdialog-update $"Determining action"
 case "${1:-auto}" in
 	on)
-		echo $"Docking, since user said so."
+		mylogger $"Docking, since user said so."
 		setto=on
 		;;
 	off)
-		echo $"Un-docking, since user said so."
+		mylogger $"Un-docking, since user said so."
 		setto=off
 		;;
 	auto)
@@ -94,7 +99,7 @@ case "${1:-auto}" in
 			if (( kernel_docked == 1 ))
 			then
 				# The display is not enabled. Time to dock.
-				echo $"Docking, found a dock that is docked."
+				mylogger $"Docking, found a dock that is docked."
 				setto=on
 				break
 			else
@@ -106,13 +111,13 @@ case "${1:-auto}" in
 
 		if [[ "$setto" == off ]]
 		then
-			echo $"Un-docking, since no dock is connected."
+			mylogger $"Un-docking, since no dock is connected."
 		fi
 esac
 
 # Write the determined action into the system log.
-kdialog-update $"Writing to syslog"
 mylogger "Now changing to $setto with ${1:-auto} mode."
+kdialog-update $"Writing to syslog"
 
 kdialog-update $"Executing pre-hooks"
 if [[ -f "$predock_hook" ]]
@@ -123,6 +128,7 @@ fi
 # Dynamically find the external display by searching for connected displays
 # that are not the internal one. If there is no external display connected,
 # that will result in an empty variable.
+mylogger $"Find external display"
 kdialog-update $"Find external display"
 if external="$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal")"
 then
