@@ -4,6 +4,10 @@
 Changelog
 #########
 
+v2.8.1
+    - More logging to syslog
+    - Disable ``kdialog`` for ACPI hooks since that does now work well
+
 v2.8
     - Translate to German
 
