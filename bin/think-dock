@@ -75,8 +75,9 @@ fi
 kdialog-init $"think-dock" 11
 
 # Determine the action.
-mylogger $"Determining action"
+mylogger $"Determining action: ${1:-auto}"
 kdialog-update $"Determining action"
+mylogger $"Updated kdialog box"
 case "${1:-auto}" in
 	on)
 		mylogger $"Docking, since user said so."
