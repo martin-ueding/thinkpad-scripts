@@ -72,6 +72,8 @@ then
 	source "$configfile"
 fi
 
+mylogger $"\$kdialog is set to ${kdialog}."
+
 kdialog-init $"think-dock" 11
 
 # Determine the action.
