@@ -1,0 +1,4 @@
+# Thinkpad X220_Tablet
+keyboard:dmi:bvn*:bvr*:bd*:svnLENOVO*:pn*:pvrThinkPadX220Tablet*
+ KEYBOARD_KEY_67=cyclewindows                           # bezel circular arrow
+ KEYBOARD_KEY_6c=scale                                  # rotate screen

@@ -16,6 +16,10 @@ install:
 	install -d "$(DESTDIR)/lib/udev/rules.d/"
 	install -m 644 81-thinkpad-dock.rules -t "$(DESTDIR)/lib/udev/rules.d/"
 #
+	install -d "$(DESTDIR)/lib/udev/hwdb.d/"
+	install -m 644 90-X220T-keyboard.hwdb -t "$(DESTDIR)/lib/udev/hwdb.d/"
+	udevadm hwdb --update
+#
 	install -d "$(DESTDIR)/etc/acpi/events/"
 	install think-mutemic-acpi-hook -t "$(DESTDIR)/etc/acpi/events/"
 #
