@@ -19,4 +19,10 @@ install with::
     make
     make install
 
+Packagers will also need to add the following line, run as root, to their post
+installation hook to update the udev hardware database with the information in
+``90-X220T-keyboard.hwdb``::
+
+    udevadm hwdb --update
+
 .. vim: spell
