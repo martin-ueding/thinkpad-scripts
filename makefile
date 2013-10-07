@@ -18,9 +18,6 @@ install:
 #
 	install -d "$(DESTDIR)/lib/udev/hwdb.d/"
 	install -m 644 90-X220T-keyboard.hwdb -t "$(DESTDIR)/lib/udev/hwdb.d/"
-# FIXME What happens if we are not installing it to the actual system, but some
-# other DESTDIR, like when packaging this? The package install script would
-# need to run the following line then.
 	if [[ -z "$(DESTDIR)" ]]; then udevadm hwdb --update; fi
 #
 	install -d "$(DESTDIR)/etc/acpi/events/"
