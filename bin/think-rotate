@@ -43,6 +43,9 @@ internal="LVDS1"
 # The name of the virtual keyboard.
 virtual_kbd="kvkbd"
 
+# Default rotation.
+default_rotation=right
+
 # Now import the configuration file if there is one. That will replace any
 # options set above.
 configfile="$HOME/.config/think-rotate/rotate.sh"
@@ -104,7 +107,7 @@ else
     # The user did not specify anything. Set it to right or revert.
     case "$rotation" in
         normal)
-            setto=${default_rotation:right}
+            setto=${default_rotation}
             mylogger $"Using default, setting to $setto."
             ;;
         *)

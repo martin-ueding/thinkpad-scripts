@@ -106,6 +106,10 @@ You can set the following option:
 ``internal``
     The ``xrandr`` name for the internal monitor. *Default: LVDS1*.
 
+``default_rotation``
+    Default rotation if device is in normal rotation and no arguments are
+    given. *Default: right*.
+
 Hooks
 -----
 
