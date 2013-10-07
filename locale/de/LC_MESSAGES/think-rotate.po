@@ -21,40 +21,38 @@ msgstr ""
 "X-Source-Language: C\n"
 
 #: bin/think-dock:28 bin/think-rotate:30
-#, fuzzy, sh-format
+#, sh-format
 msgid "Running as user $USER."
-msgstr "Laufe als $USER."
+msgstr "Laufe als Benutzer $USER."
 
 #: bin/think-dock:29 bin/think-rotate:31
 msgid "\\$HOME is set to ${HOME-}."
-msgstr ""
+msgstr "\\$HOME ist auf ${HOME-} gesetzt."
 
 #: bin/think-dock:30 bin/think-rotate:32
 msgid "\\$HOME is now set to ${HOME=/home/$USER}."
-msgstr ""
+msgstr "\\$HOME is nun auf ${HOME=/home/$USER} gesetzt."
 
 #: bin/think-dock:38
 msgid "Setting variables."
-msgstr ""
+msgstr "Setze Variablen."
 
 #: bin/think-dock:69
-#, fuzzy
 msgid "Sourcing config file."
-msgstr "Lese Konfigurationsdatei"
+msgstr "Lese Konfigurationsdatei."
 
 #: bin/think-dock:76
 #, sh-format
 msgid "\\$kdialog is set to ${kdialog}."
-msgstr ""
+msgstr "\\$kdialog ist auf ${kdialog} gesetzt."
 
 #: bin/think-dock:78
 msgid "think-dock"
 msgstr "think-dock"
 
 #: bin/think-dock:81
-#, fuzzy
 msgid "Determining action: ${1:-auto}"
-msgstr "Bestimme Aktion"
+msgstr "Bestimme Aktion: ${1:-auto}"
 
 #: bin/think-dock:82
 msgid "Determining action"
@@ -62,7 +60,7 @@ msgstr "Bestimme Aktion"
 
 #: bin/think-dock:83
 msgid "Updated kdialog box"
-msgstr ""
+msgstr "Aktualisiere kdialog Box"
 
 #: bin/think-dock:86
 msgid "Docking, since user said so."
@@ -216,12 +214,12 @@ msgstr "Schalte Eingabegerät $device auf $input_to um."
 #: bin/think-rotate-hook:14
 #, sh-format
 msgid "Using user $user."
-msgstr ""
+msgstr "Benutze Benutzer $user."
 
 #: bin/think-rotate-hook:27
 #, sh-format
 msgid "Will run “$command”."
-msgstr ""
+msgstr "Führe nun Kommando „$command“ aus."
 
 #: bin/think-touch:36
 #, sh-format
