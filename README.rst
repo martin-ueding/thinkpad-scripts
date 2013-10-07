@@ -7,8 +7,8 @@ ThinkPad Rotate
 Website
 =======
 
-All information about the scripts and what they do, is on my website:
-http://martin-ueding.de/en/projects/think-rotate#pk_campaign=git.
+All information about the scripts and what they do, is on the `project website
+<http://martin-ueding.de/en/projects/think-rotate#pk_campaign=git>`_.
 
 Dependencies
 ============
