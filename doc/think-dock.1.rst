@@ -10,7 +10,6 @@ set the screens when going to and from the docking station
 **********************************************************
 
 :Author: Martin Ueding <dev@martin-ueding.de>
-:Date: 2012-02-27
 :Manual section: 1
 
 SYNOPSIS
