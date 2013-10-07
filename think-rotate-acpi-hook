@@ -1,2 +1,5 @@
 event=video/tabletmode TBLT 0000008A 0000000[01]
 action=/usr/bin/think-rotate-hook %e
+
+event=ibm/hotkey HKEY 00000080 0000500[9a]
+action=/usr/bin/think-rotate-hook %e

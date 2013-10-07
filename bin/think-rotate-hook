@@ -13,10 +13,10 @@ user="$(who -u | grep -F '(:0)' | head -n 1 | awk '{print $1}')"
 logger -t think-rotate -- "Using user $user."
 
 case "$4" in
-	00000001)
-		setto=right
+	00000001|00005009)
+		setto=
 		;;
-	00000000)
+	00000000|0000500a)
 		setto=normal
 		;;
 esac
