@@ -21,7 +21,7 @@ Build
 Run
 ---
 
-- udev
+- udev >= 196
 
 Installation
 ============
