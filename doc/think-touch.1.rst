@@ -10,7 +10,6 @@ enable/disable the touch screen
 *******************************
 
 :Author: Jim Turner <jturner314@gmail.com>
-:Date: 2012-12-27
 :Manual section: 1
 
 SYNOPSIS
