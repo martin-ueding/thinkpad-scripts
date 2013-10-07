@@ -16,14 +16,14 @@ mylogger "Script starting up (args: $@) …"
 
 for import in kdialog.sh
 do
-	for dir in lib /usr/share/think-rotate
-	do
-		importfile="$dir/$import"
-		if [[ -f "$importfile" ]]
-		then
-			. "$importfile"
-		fi
-	done
+    for dir in lib /usr/share/think-rotate
+    do
+        importfile="$dir/$import"
+        if [[ -f "$importfile" ]]
+        then
+            . "$importfile"
+        fi
+    done
 done
 
 mylogger $"Running as user $USER."
@@ -51,7 +51,7 @@ postrotate_hook="$HOME/.config/think-rotate/hooks/postrotate"
 
 if [[ -f "$configfile" ]]
 then
-	source "$configfile"
+    source "$configfile"
 fi
 
 kdialog-init $"think-rotate" 8
@@ -88,51 +88,51 @@ kdialog-update $"Infering new rotation"
 # orientation.
 if [[ -n "$1" ]]
 then
-	# The users specified a rotation. Set the screen to that state if the
-	# current state is not the desired one. If the desired one is the current,
-	# go back. This allows to toggle with the same call.
-	if [[ "$1" = "$rotation" ]]
-	then
-		mylogger $"You try to rotate into the direction it is, reverting to normal."
-		setto=normal
-	else
-		setto="$1"
-		mylogger $"User chose to set to $setto."
-	fi
+    # The users specified a rotation. Set the screen to that state if the
+    # current state is not the desired one. If the desired one is the current,
+    # go back. This allows to toggle with the same call.
+    if [[ "$1" = "$rotation" ]]
+    then
+        mylogger $"You try to rotate into the direction it is, reverting to normal."
+        setto=normal
+    else
+        setto="$1"
+        mylogger $"User chose to set to $setto."
+    fi
 else
-	# The user did not specify anything. Set it to right or revert.
-	case "$rotation" in
-		normal)
-			setto=${default_rotation:right}
-			mylogger $"Using default, setting to $setto."
-			;;
-		*)
-			setto=normal
-			mylogger $"Using default, reverting to normal."
-	esac
+    # The user did not specify anything. Set it to right or revert.
+    case "$rotation" in
+        normal)
+            setto=${default_rotation:right}
+            mylogger $"Using default, setting to $setto."
+            ;;
+        *)
+            setto=normal
+            mylogger $"Using default, reverting to normal."
+    esac
 fi
 
 # Translate directions into ``xrandr`` and ``xsetwacom`` names.
 case "$setto" in
-	none|normal)
-		xrandr_rotation=normal
-		wacom_rotation=none
-		;;
-	cw|right)
-		xrandr_rotation=right
-		wacom_rotation=cw
-		;;
-	half|inverted|flip)
-		xrandr_rotation=inverted
-		wacom_rotation=half
-		;;
-	ccw|left)
-		xrandr_rotation=left
-		wacom_rotation=ccw
-		;;
-	*)
-		mylogger $"You specified a direction that is not known. Try either normal, right, flip or left. See think-rotate(1) for more information."
-		exit 2
+    none|normal)
+        xrandr_rotation=normal
+        wacom_rotation=none
+        ;;
+    cw|right)
+        xrandr_rotation=right
+        wacom_rotation=cw
+        ;;
+    half|inverted|flip)
+        xrandr_rotation=inverted
+        wacom_rotation=half
+        ;;
+    ccw|left)
+        xrandr_rotation=left
+        wacom_rotation=ccw
+        ;;
+    *)
+        mylogger $"You specified a direction that is not known. Try either normal, right, flip or left. See think-rotate(1) for more information."
+        exit 2
 esac
 
 # Perform the actual rotation.
@@ -146,8 +146,8 @@ kdialog-update $"Rotating Wacom devices to $wacom_rotation."
 
 xsetwacom list devices | grep 'Wacom ISD' | sed 's/id: .*//' | while read device
 do
-	xsetwacom set "$device" rotate "$wacom_rotation"
-	xsetwacom set "$device" MapToOutput "$internal"
+    xsetwacom set "$device" rotate "$wacom_rotation"
+    xsetwacom set "$device" MapToOutput "$internal"
 done
 
 ###############################################################################
@@ -160,19 +160,19 @@ kdialog-update $"Starting or killing virtual keyboard"
 # Start the virtual keyboard, if it is installed.
 if type "$virtual_kbd" &> /dev/null
 then
-	if [[ "$setto" = "normal" ]]
-	then
-		# So the user reverts back to normal. Kill the virtual keyboard (if it
-		# is running), since it does not make any sense to use that any more.
-		if pgrep "$virtual_kbd" &> /dev/null
-		then
-			killall "$virtual_kbd"
-		fi
-	else
-		# The user rotated the screen. Start the virtual keyboard since he
-		# might need it.
-		"$virtual_kbd" &> /dev/null &
-	fi
+    if [[ "$setto" = "normal" ]]
+    then
+        # So the user reverts back to normal. Kill the virtual keyboard (if it
+        # is running), since it does not make any sense to use that any more.
+        if pgrep "$virtual_kbd" &> /dev/null
+        then
+            killall "$virtual_kbd"
+        fi
+    else
+        # The user rotated the screen. Start the virtual keyboard since he
+        # might need it.
+        "$virtual_kbd" &> /dev/null &
+    fi
 fi
 
 ###############################################################################
@@ -189,15 +189,15 @@ touchpad_id="$(xinput list | grep TouchPad | grep --only-matching -P 'id=(\d+)' 
 # Set the mode to which the input devices should be set.
 if [[ "$setto" = "normal" ]]
 then
-	input_to=1
+    input_to=1
 else
-	input_to=0
+    input_to=0
 fi
 
 for device in "$trackpoint_id" "$touchpad_id"
 do
-	mylogger $"Toggling input device $device to $input_to."
-	xinput set-prop "$device" "Device Enabled" "$input_to"
+    mylogger $"Toggling input device $device to $input_to."
+    xinput set-prop "$device" "Device Enabled" "$input_to"
 done
 
 mylogger $"Executing post-hooks"

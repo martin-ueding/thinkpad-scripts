@@ -14,14 +14,14 @@ mylogger "Script starting up (args: $@) …"
 
 for import in kdialog.sh
 do
-	for dir in lib /usr/share/think-rotate
-	do
-		importfile="$dir/$import"
-		if [[ -f "$importfile" ]]
-		then
-			. "$importfile"
-		fi
-	done
+    for dir in lib /usr/share/think-rotate
+    do
+        importfile="$dir/$import"
+        if [[ -f "$importfile" ]]
+        then
+            . "$importfile"
+        fi
+    done
 done
 
 mylogger $"Running as user $USER."
@@ -69,7 +69,7 @@ mylogger $"Sourcing config file."
 
 if [[ -f "$configfile" ]]
 then
-	source "$configfile"
+    source "$configfile"
 fi
 
 mylogger $"\$kdialog is set to ${kdialog}."
@@ -81,41 +81,41 @@ mylogger $"Determining action: ${1:-auto}"
 kdialog-update $"Determining action"
 mylogger $"Updated kdialog box"
 case "${1:-auto}" in
-	on)
-		mylogger $"Docking, since user said so."
-		setto=on
-		;;
-	off)
-		mylogger $"Un-docking, since user said so."
-		setto=off
-		;;
-	auto)
-		# Sleep since the docking needs some time to change. This is just a
-		# HACK against a race condition, but it should work.
-		sleep 1
+    on)
+        mylogger $"Docking, since user said so."
+        setto=on
+        ;;
+    off)
+        mylogger $"Un-docking, since user said so."
+        setto=off
+        ;;
+    auto)
+        # Sleep since the docking needs some time to change. This is just a
+        # HACK against a race condition, but it should work.
+        sleep 1
 
-		for dockfile in /sys/devices/platform/dock.*/docked
-		do
-			# Check the kernel whether the ThinkPad is on the docking station.
-			kernel_docked="$(cat "$dockfile")"
+        for dockfile in /sys/devices/platform/dock.*/docked
+        do
+            # Check the kernel whether the ThinkPad is on the docking station.
+            kernel_docked="$(cat "$dockfile")"
 
-			if (( kernel_docked == 1 ))
-			then
-				# The display is not enabled. Time to dock.
-				mylogger $"Docking, found a dock that is docked."
-				setto=on
-				break
-			else
-				# The notebook is probably already un-docked. So it is time to
-				# un-dock.
-				setto=off
-			fi
-		done
+            if (( kernel_docked == 1 ))
+            then
+                # The display is not enabled. Time to dock.
+                mylogger $"Docking, found a dock that is docked."
+                setto=on
+                break
+            else
+                # The notebook is probably already un-docked. So it is time to
+                # un-dock.
+                setto=off
+            fi
+        done
 
-		if [[ "$setto" == off ]]
-		then
-			mylogger $"Un-docking, since no dock is connected."
-		fi
+        if [[ "$setto" == off ]]
+        then
+            mylogger $"Un-docking, since no dock is connected."
+        fi
 esac
 
 # Write the determined action into the system log.
@@ -135,94 +135,94 @@ mylogger $"Find external display"
 kdialog-update $"Find external display"
 if external="$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal")"
 then
-	mylogger $"External display $external found."
+    mylogger $"External display $external found."
 else
-	mylogger $"No external display found."
+    mylogger $"No external display found."
 fi
 
 case "$setto" in
-	on)
-		(
-		# Enable audio and set it to full volume.
-		if [[ "$unmute" = "true" ]] && type pactl &> /dev/null
-		then
-			pactl set-sink-volume 0 "$dock_loudness"
-			pactl set-sink-mute 0 0
-		fi
-		kdialog-update $"Enabled audio"
-		) &
+    on)
+        (
+        # Enable audio and set it to full volume.
+        if [[ "$unmute" = "true" ]] && type pactl &> /dev/null
+        then
+            pactl set-sink-volume 0 "$dock_loudness"
+            pactl set-sink-mute 0 0
+        fi
+        kdialog-update $"Enabled audio"
+        ) &
 
-		(
-		# Set the brightness to a given percentage. My external display
-		# obviously has the same brightness all the time, so the internal
-		# should have a fixed one as well.
-		if [[ "$set_brightness" = "true" ]] && type xbacklight &> /dev/null
-		then
-			xbacklight -set "$brightness"
-		fi
-		kdialog-update $"Set brightness"
+        (
+        # Set the brightness to a given percentage. My external display
+        # obviously has the same brightness all the time, so the internal
+        # should have a fixed one as well.
+        if [[ "$set_brightness" = "true" ]] && type xbacklight &> /dev/null
+        then
+            xbacklight -set "$brightness"
+        fi
+        kdialog-update $"Set brightness"
 
-		# Set the displays to the right setting.
-		xrandr --output "$internal" --auto
-		xrandr --output "$external" --auto "--${relative_position}-of" \
-			"$internal" --primary
-		kdialog-update $"Set external monitor"
-		) &
+        # Set the displays to the right setting.
+        xrandr --output "$internal" --auto
+        xrandr --output "$external" --auto "--${relative_position}-of" \
+            "$internal" --primary
+        kdialog-update $"Set external monitor"
+        ) &
 
-		(
-		# Disable the wireless connection, if the user specified the option,
-		# the ``nmcli`` tool is available and the computer is actually
-		# connected to the ethernet.
-		if [[ "$disable_wifi" = "true" ]] && type nmcli &> /dev/null && grep 1 /sys/class/net/e*/carrier
-		then
-			# FIXME This does not work if invoked via the ``su -c '…' user``
-			# command from think-dock-hook.
-			nmcli nm wifi off
-		fi
-		kdialog-update $"Turn wireless off"
+        (
+        # Disable the wireless connection, if the user specified the option,
+        # the ``nmcli`` tool is available and the computer is actually
+        # connected to the ethernet.
+        if [[ "$disable_wifi" = "true" ]] && type nmcli &> /dev/null && grep 1 /sys/class/net/e*/carrier
+        then
+            # FIXME This does not work if invoked via the ``su -c '…' user``
+            # command from think-dock-hook.
+            nmcli nm wifi off
+        fi
+        kdialog-update $"Turn wireless off"
 
 
-		# Reboot the wired connection since that sometimes go bad.
-		if type nmcli &> /dev/null && nmcli con | grep DHCP &> /dev/null
-		then
-			nmcli con down id DHCP
-			nmcli con up id DHCP
-		fi
-		kdialog-update $"Restart LAN connection"
-		) &
+        # Reboot the wired connection since that sometimes go bad.
+        if type nmcli &> /dev/null && nmcli con | grep DHCP &> /dev/null
+        then
+            nmcli con down id DHCP
+            nmcli con up id DHCP
+        fi
+        kdialog-update $"Restart LAN connection"
+        ) &
 
-		;;
-	off)
-		(
-		# Disable the external display and make the internal the primary again.
-		xrandr --output "$internal" --auto --primary
+        ;;
+    off)
+        (
+        # Disable the external display and make the internal the primary again.
+        xrandr --output "$internal" --auto --primary
 
-		if [[ -n "${external:-}" ]]
-		then
-			xrandr --output "$external" --off
-		fi
-		kdialog-update $"Make the internal display the primary"
-		) &
+        if [[ -n "${external:-}" ]]
+        then
+            xrandr --output "$external" --off
+        fi
+        kdialog-update $"Make the internal display the primary"
+        ) &
 
-		(
-		# Set the loudness a little lower so that they do not sound screaming.
-		if [[ "$unmute" = "true" ]] && type pactl &> /dev/null
-		then
-			pactl set-sink-volume 0 "$undock_loudness"
-		fi
-		kdialog-update $"Reduce volume"
-		) &
+        (
+        # Set the loudness a little lower so that they do not sound screaming.
+        if [[ "$unmute" = "true" ]] && type pactl &> /dev/null
+        then
+            pactl set-sink-volume 0 "$undock_loudness"
+        fi
+        kdialog-update $"Reduce volume"
+        ) &
 
-		(
-		# Enable the wireless connection.
-		if [[ "$disable_wifi" = "true" ]] && type nmcli &> /dev/null
-		then
-			nmcli nm wifi on
-		fi
-		kdialog-update $"Enable wireless connection"
-		) &
+        (
+        # Enable the wireless connection.
+        if [[ "$disable_wifi" = "true" ]] && type nmcli &> /dev/null
+        then
+            nmcli nm wifi on
+        fi
+        kdialog-update $"Enable wireless connection"
+        ) &
 
-		;;
+        ;;
 esac
 
 ###############################################################################
@@ -234,7 +234,7 @@ esac
 # stretched out over both displays which makes no sense.
 xsetwacom list devices | grep 'Wacom ISD' | sed 's/id: .*//' | while read device
 do
-	xsetwacom set "$device" MapToOutput "$internal"
+    xsetwacom set "$device" MapToOutput "$internal"
 done
 kdialog-update $"Map Wacom devices"
 ) &

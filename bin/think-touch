@@ -11,25 +11,25 @@ configfile="$HOME/.config/think-rotate/touch.sh"
 
 if [[ -f "$configfile" ]]
 then
-	source "$configfile"
+    source "$configfile"
 fi
 
 case "${1:-auto}" in
-	on)
-		setto=1
-		;;
-	off)
-		setto=0
-		;;
-	auto)
-		# Default is to toggle on/off
-		if xinput --list "$id" | grep -i disabled
-		then
-			setto=1
-		else
-			setto=0
-		fi
-		;;
+    on)
+        setto=1
+        ;;
+    off)
+        setto=0
+        ;;
+    auto)
+        # Default is to toggle on/off
+        if xinput --list "$id" | grep -i disabled
+        then
+            setto=1
+        else
+            setto=0
+        fi
+        ;;
 esac
 
 echo $"Setting input device $id to \"Device Enabled\" $setto."

@@ -12,12 +12,12 @@ user="$(who -u | grep -F '(:0)' | head -n 1 | awk '{print $1}')"
 logger -t think-dock -- "Using user $user."
 
 case "$1" in
-	on)
-		setto=on
-		;;
-	off)
-		setto=off
-		;;
+    on)
+        setto=on
+        ;;
+    off)
+        setto=off
+        ;;
 esac
 
 su -c "DISPLAY=:0.0 kdialog=false /usr/bin/think-dock $setto" --login "$user" &

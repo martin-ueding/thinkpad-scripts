@@ -7,13 +7,13 @@ TEXTDOMAIN=think-rotate
 id="$(xinput list | grep TouchPad | grep --only-matching -P 'id=(\d+)' | cut -c 4-)"
 
 case "${1:-auto}" in
-	on)
-		toggle_to=1
-		;;
-	off)
-		toggle_to=0
-		;;
-	auto)
+    on)
+        toggle_to=1
+        ;;
+    off)
+        toggle_to=0
+        ;;
+    auto)
         # Check whether this device is disabled.
         if xinput --list "$id" | grep -i disabled
         then
@@ -21,7 +21,7 @@ case "${1:-auto}" in
         else
             toggle_to=0
         fi
-		;;
+        ;;
 esac
 
 echo $"Toggling input device $id to $toggle_to."
