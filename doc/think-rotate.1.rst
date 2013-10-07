@@ -10,7 +10,6 @@ ThinkPad X220 Tablet screen rotation script
 *******************************************
 
 :Author: Martin Ueding <dev@martin-ueding.de>
-:Date: 2012-06-08
 :Manual section: 1
 
 SYNOPSIS

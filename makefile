@@ -45,7 +45,7 @@ clean:
 	$(RM) locale/*/LC_MESSAGES/*.mo
 
 locale/think-rotate.pot: bin/*
-	xgettext --language Shell -o $@ $^
+	xgettext --language Shell --from-code=utf-8 -o $@ $^
 
 %.mo: %.po
 	msgfmt -o $@ $^
