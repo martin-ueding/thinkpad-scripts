@@ -13,6 +13,9 @@ Motivation for this project is on the `project website
 Dependencies
 ============
 
+These dependencies refer to Debian packages, but should have similar names in
+other distributions.
+
 Build
 -----
 
