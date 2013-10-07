@@ -31,4 +31,8 @@ You can build and install with::
     make
     make install
 
+If you set a ``DESTDIR``, you will also need to run::
+
+    service acpid restart
+
 .. vim: spell
