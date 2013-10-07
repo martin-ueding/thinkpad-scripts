@@ -1,0 +1,2 @@
+event=video/tabletmode TBLT 0000008A 0000000[01]
+action=/usr/bin/think-rotate-hook %e

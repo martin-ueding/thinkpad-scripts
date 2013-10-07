@@ -18,6 +18,7 @@ install:
 #
 	install -d "$(DESTDIR)/etc/acpi/events/"
 	install think-mutemic-acpi-hook -t "$(DESTDIR)/etc/acpi/events/"
+	install think-rotate-acpi-hook -t "$(DESTDIR)/etc/acpi/events/"
 #
 	install -d "$(DESTDIR)/usr/share/locale/de/LC_MESSAGES"
 	for mofile in $(mo); \
