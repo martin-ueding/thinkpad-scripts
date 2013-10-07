@@ -86,6 +86,17 @@ A sample config would look like this::
 
 You can set the following option:
 
+``kdialog``
+    If this is set to ``true``, a GUI progress bar will be shown. This needs
+    ``kdialog`` installed. When this script is called from
+    ``think-rotate-hook``, ``kdialog`` has some problem. Therefore,
+    ``think-rotate-hook`` disables kdialog by settings ``kdialog=false`` when
+    calling the script. If you define it in you configuration file, make sure
+    not to overwrite an already set value. You can do this with the following
+    line::
+
+        kdialog="${kdialog:-true}"
+
 ``virtual_kbd``
     Command to start the virtual keyboard.
 

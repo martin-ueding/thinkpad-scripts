@@ -112,6 +112,10 @@ You can set the following options:
     Where to set the external monitor. Set it to ``right`` or ``left`` or
     anything else that ``xrandr`` supports with a ``--*-of`` argument.
 
+``kdialog``
+    Please see the appropriate section in think-rotate(1), it has the same
+    option.
+
 Hooks
 -----
 
