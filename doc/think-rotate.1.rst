@@ -97,8 +97,14 @@ You can set the following option:
 
         kdialog="${kdialog:-true}"
 
+    *Default:*.
+
 ``virtual_kbd``
-    Command to start the virtual keyboard.
+    Command to start the virtual keyboard. Choices are (among others) ``kvkbd``
+    for KDE, ``cellwriter``, ``onboard``. *Default: kvkbd*.
+
+``internal``
+    The ``xrandr`` name for the internal monitor. *Default: LVDS1*.
 
 Hooks
 -----
