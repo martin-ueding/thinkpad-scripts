@@ -19,11 +19,13 @@ other distributions.
 Build
 -----
 
+- gettext
 - python-docutils
 
 Run
 ---
 
+- acpid
 - udev
 
 Installation
