@@ -38,6 +38,7 @@ clean:
 	make -C bin clean
 	make -C desktop clean
 	make -C doc clean
+	$(RM) locale/*/LC_MESSAGES/*.mo
 
 locale/think-rotate.pot: bin/*
 	xgettext --language Shell -o $@ $^
