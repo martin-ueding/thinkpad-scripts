@@ -1,6 +1,7 @@
 #!/bin/bash
 # Copyright © 2013 Jim Turner <jturner314@gmail.com>
 # Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
+# Licensed under The GNU Public License Version 2 (or later)
 
 TEXTDOMAIN=think-rotate
 
