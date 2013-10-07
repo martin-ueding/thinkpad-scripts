@@ -1,6 +1,8 @@
 #!/bin/bash
 # Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
 
+set -e
+
 TEXTDOMAIN=think-rotate
 
 mylogger() {
@@ -9,8 +11,6 @@ mylogger() {
 }
 
 mylogger "Script starting up (args: $@) …"
-
-set -e
 
 for import in kdialog.sh
 do

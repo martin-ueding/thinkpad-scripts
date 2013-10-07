@@ -7,6 +7,13 @@ set -e
 
 TEXTDOMAIN=think-rotate
 
+mylogger() {
+    echo "$@"
+    logger -t think-rotate -i -- "$@"
+}
+
+mylogger "Script starting up (args: $@) …"
+
 for import in kdialog.sh
 do
 	for dir in lib /usr/share/think-rotate
@@ -18,6 +25,10 @@ do
 		fi
 	done
 done
+
+mylogger $"Running as user $USER."
+mylogger $"\$HOME is set to ${HOME-}."
+mylogger $"\$HOME is now set to ${HOME=/home/$USER}."
 
 trap kdialog-exit EXIT
 
@@ -44,9 +55,9 @@ then
 fi
 
 kdialog-init $"think-rotate" 8
-
 kdialog-update $"Reading config file"
 
+mylogger $"Executing pre-hooks"
 kdialog-update $"Executing pre-hooks"
 if [[ -f "$prerotate_hook" ]]
 then
@@ -57,18 +68,20 @@ fi
 #                               current status                                #
 ###############################################################################
 
+mylogger $"Finding current rotation"
 kdialog-update $"Finding current rotation"
 
 # Find the line in ``xrandr -q --verbose`` output that contains current screen
 # orientation and strip out current orientation.
 rotation="$(xrandr -q --verbose | grep 'connected' | grep "$internal" | egrep -o  '\) (normal|left|inverted|right) \(' | egrep -o '(normal|left|inverted|right)')"
 
-echo $"Current status is $rotation."
+mylogger $"Current status is $rotation."
 
 ###############################################################################
 #                                new rotation                                 #
 ###############################################################################
 
+mylogger $"Infering new rotation"
 kdialog-update $"Infering new rotation"
 
 # If the user specified a rotation, set it to that. If not, use left or default
@@ -80,22 +93,22 @@ then
 	# go back. This allows to toggle with the same call.
 	if [[ "$1" = "$rotation" ]]
 	then
-		echo $"You try to rotate into the direction it is, reverting to normal."
+		mylogger $"You try to rotate into the direction it is, reverting to normal."
 		setto=normal
 	else
 		setto="$1"
-		echo $"User chose to set to $setto."
+		mylogger $"User chose to set to $setto."
 	fi
 else
 	# The user did not specify anything. Set it to right or revert.
 	case "$rotation" in
 		normal)
 			setto=${default_rotation:right}
-			echo $"Using default, setting to $setto."
+			mylogger $"Using default, setting to $setto."
 			;;
 		*)
 			setto=normal
-			echo $"Using default, reverting to normal."
+			mylogger $"Using default, reverting to normal."
 	esac
 fi
 
@@ -118,18 +131,18 @@ case "$setto" in
 		wacom_rotation=ccw
 		;;
 	*)
-		echo $"You specified a direction that is not known. Try either normal, right, flip or left. See think-rotate(1) for more information."
+		mylogger $"You specified a direction that is not known. Try either normal, right, flip or left. See think-rotate(1) for more information."
 		exit 2
 esac
 
 # Perform the actual rotation.
+mylogger $"Rotating screen"
 kdialog-update $"Rotating screen"
 xrandr --output "$internal" --rotate "$xrandr_rotation"
 
 # Rotate the Wacom devices.
-echo $"Rotating Wacom devices to $wacom_rotation."
-
-kdialog-update $"Rotating Wacom devices"
+mylogger $"Rotating Wacom devices to $wacom_rotation."
+kdialog-update $"Rotating Wacom devices to $wacom_rotation."
 
 xsetwacom list devices | grep 'Wacom ISD' | sed 's/id: .*//' | while read device
 do
@@ -141,6 +154,7 @@ done
 #                              virtual keyboard                               #
 ###############################################################################
 
+mylogger $"Starting or killing virtual keyboard"
 kdialog-update $"Starting or killing virtual keyboard"
 
 # Start the virtual keyboard, if it is installed.
@@ -165,6 +179,7 @@ fi
 #                           TrackPoint and TouchPad                           #
 ###############################################################################
 
+mylogger $"Enabling/Disabling TrackPoint and TouchPad"
 kdialog-update $"Enabling/Disabling TrackPoint and TouchPad"
 
 # Enable and disable the TrackPoint. First, find the id of the TrackPoint.
@@ -181,10 +196,11 @@ fi
 
 for device in "$trackpoint_id" "$touchpad_id"
 do
-	echo $"Toggling input device $device to $input_to."
+	mylogger $"Toggling input device $device to $input_to."
 	xinput set-prop "$device" "Device Enabled" "$input_to"
 done
 
+mylogger $"Executing post-hooks"
 kdialog-update $"Executing post-hooks"
 if [[ -f "$postrotate_hook" ]]
 then
