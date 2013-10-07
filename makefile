@@ -22,7 +22,10 @@ install:
 	if [[ -z "$(DESTDIR)" ]]; then service acpid restart; fi
 #
 	install -d "$(DESTDIR)/usr/share/locale/de/LC_MESSAGES"
-	install locale/de/LC_MESSAGES/think-rotate.mo -t "$(DESTDIR)/usr/share/locale/de/LC_MESSAGES"
+	for mofile in $(mo); \
+	    do \
+	    cp "$$mofile" "$(DESTDIR)/usr/share/$$mofile"; \
+	    done
 #
 #
 	make -C bin install
