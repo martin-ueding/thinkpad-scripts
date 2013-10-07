@@ -88,33 +88,35 @@ A sample config would look like this::
 You can set the following options:
 
 ``disable_wifi``
-    Whether to set the wifi. Set it to ``true`` or something else.
+    Whether to set the wifi. *Default:
+    true*.
 
 ``internal``
-    The ``xrandr`` name for the internal monitor.
+    The ``xrandr`` name for the internal monitor. *Default: LVDS1*.
 
 ``unmute``
-    Whether to change the volume. Set it to ``true`` or something else.
+    Whether to change the volume. *Default: true*.
 
 ``dock_loudness``
-    Volume to set to when docking. Set it to a percentage like ``100%``.
+    Volume to set to when docking. *Default: 100%*.
 
 ``undock_loudness``
-    Volume to set to when undocking. Set it to a percentage like ``50%``.
+    Volume to set to when undocking. *Default: 50%*.
 
 ``set_brightness``
-    Whether to change the brightness. Set it to ``true`` or something else.
+    Whether to change the brightness. *Default: true*.
 
 ``brightness``
-    Brightness to set to when docking. Set it to a percentage like ``60%``.
+    Brightness to set to when docking. *Default: 60%*.
 
 ``relative_position``
     Where to set the external monitor. Set it to ``right`` or ``left`` or
     anything else that ``xrandr`` supports with a ``--*-of`` argument.
+    *Default: right*.
 
 ``kdialog``
     Please see the appropriate section in think-rotate(1), it has the same
-    option.
+    option. *Default:*.
 
 Hooks
 -----
