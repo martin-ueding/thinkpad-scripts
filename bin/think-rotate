@@ -90,7 +90,7 @@ else
 	# The user did not specify anything. Set it to right or revert.
 	case "$rotation" in
 		normal)
-			setto=right
+			setto=${default_rotation:right}
 			echo $"Using default, setting to $setto."
 			;;
 		*)
