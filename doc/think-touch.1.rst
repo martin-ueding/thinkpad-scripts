@@ -1,3 +1,6 @@
+..  Copyright © 2012 Jim Turner <jturner314@gmail.com>
+    Licensed under The GNU Public License Version 2 (or later)
+
 ###########
 think-touch
 ###########

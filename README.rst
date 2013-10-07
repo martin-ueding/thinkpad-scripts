@@ -7,20 +7,25 @@ ThinkPad Rotate
 Website
 =======
 
-All information about the scripts and what they do, is on my website:
-http://martin-ueding.de/en/projects/think-rotate#pk_campaign=git.
+Motivation for this project is on the `project website
+<http://martin-ueding.de/en/projects/think-rotate#pk_campaign=git>`_.
 
 Dependencies
 ============
 
+These dependencies refer to Debian packages, but should have similar names in
+other distributions.
+
 Build
 -----
 
+- gettext
 - python-docutils
 
 Run
 ---
 
+- acpid
 - udev >= 196
 
 Installation
@@ -31,10 +36,32 @@ You can build and install with::
     make
     make install
 
+If you set a ``DESTDIR``, you will also need to run::
+
+    service acpid restart
+
 Packagers will also need to add the following line, run as root, to their post
 installation hook to update the udev hardware database with the information in
 ``90-X220T-keyboard.hwdb``::
 
     udevadm hwdb --update
+
+Manual / How To Use
+===================
+
+We document the usage and configuration of the programs in their manual pages. If you have the software installed, you can just use ``man think-rotate`` to read it.
+
+In case that you want it read online, you can use the following links:
+
+- `think-dock
+  <https://github.com/martin-ueding/think-rotate/blob/master/doc/think-dock.1.rst>`_
+- `think-mutemic
+  <https://github.com/martin-ueding/think-rotate/blob/master/doc/think-mutemic.1.rst>`_
+- `think-rotate
+  <https://github.com/martin-ueding/think-rotate/blob/master/doc/think-rotate.1.rst>`_
+- `think-touch
+  <https://github.com/martin-ueding/think-rotate/blob/master/doc/think-touch.1.rst>`_
+- `think-touchpad
+  <https://github.com/martin-ueding/think-rotate/blob/master/doc/think-touchpad.1.rst>`_
 
 .. vim: spell

@@ -1,4 +1,5 @@
-.. Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
+..  Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
+    Licensed under The GNU Public License Version 2 (or later)
 
 ############
 think-rotate
@@ -85,8 +86,29 @@ A sample config would look like this::
 
 You can set the following option:
 
+``kdialog``
+    If this is set to ``true``, a GUI progress bar will be shown. This needs
+    ``kdialog`` installed. When this script is called from
+    ``think-rotate-hook``, ``kdialog`` has some problem. Therefore,
+    ``think-rotate-hook`` disables kdialog by settings ``kdialog=false`` when
+    calling the script. If you define it in you configuration file, make sure
+    not to overwrite an already set value. You can do this with the following
+    line::
+
+        kdialog="${kdialog:-true}"
+
+    *Default:*.
+
 ``virtual_kbd``
-    Command to start the virtual keyboard.
+    Command to start the virtual keyboard. Choices are (among others) ``kvkbd``
+    for KDE, ``cellwriter``, ``onboard``. *Default: kvkbd*.
+
+``internal``
+    The ``xrandr`` name for the internal monitor. *Default: LVDS1*.
+
+``default_rotation``
+    Default rotation if device is in normal rotation and no arguments are
+    given. *Default: right*.
 
 Hooks
 -----

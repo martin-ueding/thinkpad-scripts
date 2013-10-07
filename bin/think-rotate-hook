@@ -1,6 +1,7 @@
 #!/bin/bash
 # Copyright © 2013 Jim Turner <jturner314@gmail.com>
 # Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
+# Licensed under The GNU Public License Version 2 (or later)
 
 TEXTDOMAIN=think-rotate
 
@@ -13,12 +14,12 @@ user="$(who -u | grep -F '(:0)' | head -n 1 | awk '{print $1}')"
 logger -t think-rotate-hook -i -- $"Using user $user."
 
 case "$4" in
-	00000001|00005009)
-		setto=
-		;;
-	00000000|0000500a)
-		setto=normal
-		;;
+    00000001|00005009)
+        setto=
+        ;;
+    00000000|0000500a)
+        setto=normal
+        ;;
 esac
 
 command="DISPLAY=:0.0 kdialog=false /usr/bin/think-rotate $setto"
