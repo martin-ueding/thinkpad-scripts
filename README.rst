@@ -14,7 +14,9 @@ Dependencies
 ============
 
 These dependencies refer to Debian and Arch Linux packages, but should have
-similar names in other distributions.
+similar names in other distributions. ``yum`` in Fedora and ``zypper`` in
+openSUSE have a search for “provides”. In openSUSE, you could use the ``cnf``
+tool to find out the package.
 
 Build
 -----
