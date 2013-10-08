@@ -38,10 +38,10 @@ These programs are required for the execution of the scripts.
 ============== ======================== ==================
 Needed Program Debian package           Arch Linux package
 ============== ======================== ==================
-               acpid                    acpid
+*acpid*        acpid                    acpid
 amixer         alsa-utils               alsa-utils
 nmcli          network-manager          networkmanager
-               udev                     systemd
+*udev*         udev                     systemd
 xsetwacom      xserver-xorg-input-wacom xf86-input-wacom
 xbacklight     xbacklight               xorg-xbacklight
 xinput         xinput                   xorg-xinput
