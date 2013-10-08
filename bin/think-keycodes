@@ -20,6 +20,6 @@ case "$1" in
         ;;
 
     stop|status)
-        echo "Action $1 is not implemented"
+        echo $"Action $1 is not implemented"
         ;;
 esac
