@@ -78,7 +78,9 @@ If you set a ``DESTDIR``, you will also need to run::
 Manual / How To Use
 ===================
 
-We document the usage and configuration of the programs in their manual pages. If you have the software installed, you can just use ``man think-rotate`` to read it.
+We document the usage and configuration of the programs in their manual pages.
+If you have the software installed, you can just use ``man think-rotate`` to
+read it.
 
 In case that you want it read online, you can use the following links:
 
