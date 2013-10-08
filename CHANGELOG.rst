@@ -4,6 +4,15 @@
 Changelog
 #########
 
+v2.9
+    - **Added**: ACPI hook to call ``think-rotate`` (Jim Turner)
+    - **Added**: Support for systemd network inferface names (Jim Turner)
+    - **Removed**: ``think-resume`` (Jim Turner)
+    - Use syslog in ``think-dock``
+    - Update documentation
+    - State all dependencies (Debian package names)
+    - Change indentation to four spaces instead of a single tab
+
 v2.8.1
     - More logging to syslog
     - Disable ``kdialog`` for ACPI hooks since that does now work well

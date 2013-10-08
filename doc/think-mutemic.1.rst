@@ -6,7 +6,6 @@ think-mutemic
 #############
 
 :Author: Martin Ueding <dev@martin-ueding.de>
-:Date: 2013-02-03
 :Manual section: 1
 
 SYNOPSIS
