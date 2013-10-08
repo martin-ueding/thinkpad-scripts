@@ -19,6 +19,8 @@ similar names in other distributions.
 Build
 -----
 
+These programs are needed during the build process.
+
 ==============  =============== ==================
 Needed Program  Debian package  Arch Linux package
 ==============  =============== ==================
@@ -28,6 +30,8 @@ rst2man         python-docutils python-docutils
 
 Run
 ---
+
+These programs are required for the execution of the scripts.
 
 ============== ======================== ==================
 Needed Program Debian package           Arch Linux package
@@ -45,6 +49,9 @@ setkeycodes    kbd                      *not applicable*
 
 Optional
 ~~~~~~~~
+
+These programs enhance the functionality of the scripts, but are not strictly
+required.
 
 =========================== ============== ================ ==================
 For                         Needed Program Debian package   Arch Linux package
