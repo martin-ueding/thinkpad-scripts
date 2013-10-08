@@ -23,12 +23,12 @@ Build
 
 These programs are needed during the build process.
 
-==============  =============== ==================
-Needed Program  Debian package  Arch Linux package
-==============  =============== ==================
-xgettext        gettext         gettext
-rst2man         python-docutils python-docutils
-==============  =============== ==================
+================ =============== ==================
+Needed Program   Debian package  Arch Linux package
+================ =============== ==================
+msgfmt, xgettext gettext         gettext
+rst2man          python-docutils python-docutils
+================ =============== ==================
 
 Run
 ---
@@ -84,7 +84,9 @@ installation hook to update the udev hardware database with the information in
 Manual / How To Use
 ===================
 
-We document the usage and configuration of the programs in their manual pages. If you have the software installed, you can just use ``man think-rotate`` to read it.
+We document the usage and configuration of the programs in their manual pages.
+If you have the software installed, you can just use ``man think-rotate`` to
+read it.
 
 In case that you want it read online, you can use the following links:
 
