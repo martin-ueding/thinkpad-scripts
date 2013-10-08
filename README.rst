@@ -23,12 +23,12 @@ Build
 
 These programs are needed during the build process.
 
-==============  =============== ==================
-Needed Program  Debian package  Arch Linux package
-==============  =============== ==================
-xgettext        gettext         gettext
-rst2man         python-docutils python-docutils
-==============  =============== ==================
+================ =============== ==================
+Needed Program   Debian package  Arch Linux package
+================ =============== ==================
+msgfmt, xgettext gettext         gettext
+rst2man          python-docutils python-docutils
+================ =============== ==================
 
 Run
 ---
