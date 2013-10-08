@@ -13,20 +13,55 @@ Motivation for this project is on the `project website
 Dependencies
 ============
 
-These dependencies refer to Debian packages, but should have similar names in
-other distributions.
+These dependencies refer to Debian and Arch Linux packages, but should have
+similar names in other distributions. ``yum`` in Fedora and ``zypper`` in
+openSUSE have a search for “provides”. In openSUSE, you could use the ``cnf``
+tool to find out the package.
 
 Build
 -----
 
-- gettext
-- python-docutils
+These programs are needed during the build process.
+
+==============  =============== ==================
+Needed Program  Debian package  Arch Linux package
+==============  =============== ==================
+xgettext        gettext         gettext
+rst2man         python-docutils python-docutils
+==============  =============== ==================
 
 Run
 ---
 
-- acpid
-- udev >= 196
+These programs are required for the execution of the scripts.
+
+============== ======================== ================== =======
+Needed Program Debian package           Arch Linux package Version
+============== ======================== ================== =======
+               acpid                    acpid
+amixer         alsa-utils               alsa-utils
+nmcli          network-manager          networkmanager
+               udev                     systemd            >= 196
+xsetwacom      xserver-xorg-input-wacom xf86-input-wacom
+xbacklight     xbacklight               xorg-xbacklight
+xinput         xinput                   xorg-xinput
+xrandr         x11-xserver-utils        xorg-xrandr
+setkeycodes    kbd                      *not applicable*
+============== ======================== ================== =======
+
+Optional
+~~~~~~~~
+
+These programs enhance the functionality of the scripts, but are not strictly
+required.
+
+=========================== ============== ================ ==================
+For                         Needed Program Debian package   Arch Linux package
+=========================== ============== ================ ==================
+volume control when docking pactl          pulseaudio-utils libpulse
+showing dialog boxes        kdialog        kde-baseapps-bin kdebase-kdialog
+virtual keyboard            kvkbd          kvkbd            kvkbd
+=========================== ============== ================ ==================
 
 Installation
 ============
