@@ -19,39 +19,40 @@ similar names in other distributions.
 Build
 -----
 
-=============== ==================
-Debian package  Arch Linux package
-=============== ==================
-gettext         gettext
-python-docutils python-docutils
-=============== ==================
+==============  =============== ==================
+Needed Program  Debian package  Arch Linux package
+==============  =============== ==================
+xgettext        gettext         gettext
+rst2man         python-docutils python-docutils
+==============  =============== ==================
 
 Run
 ---
 
-======================== ==================
-Debian package           Arch Linux package
-======================== ==================
-acpid                    acpid
-alsa-utils               alsa-utils
-network-manager          networkmanager
-udev                     systemd
-xserver-xorg-input-wacom xf86-input-wacom
-xbacklight               xorg-xbacklight
-xinput                   xorg-xinput
-xrandr                   xorg-xrandr
-======================== ==================
+============== ======================== ==================
+Needed Program Debian package           Arch Linux package
+============== ======================== ==================
+               acpid                    acpid
+amixer         alsa-utils               alsa-utils
+nmcli          network-manager          networkmanager
+               udev                     systemd
+xsetwacom      xserver-xorg-input-wacom xf86-input-wacom
+xbacklight     xbacklight               xorg-xbacklight
+xinput         xinput                   xorg-xinput
+xrandr         x11-xserver-utils        xorg-xrandr
+setkeycodes    kbd                      *not applicable*
+============== ======================== ==================
 
 Optional
---------
+~~~~~~~~
 
-=========================== ================ ==================
-For                         Debian package   Arch Linux package
-=========================== ================ ==================
-volume control when docking pulseaudio-utils libpulse
-showing dialog boxes        kde-baseapps-bin kdebase-kdialog
-virtual keyboard            kvkbd            kvkbd
-=========================== ================ ==================
+=========================== ============== ================ ==================
+For                         Needed Program Debian package   Arch Linux package
+=========================== ============== ================ ==================
+volume control when docking pactl          pulseaudio-utils libpulse
+showing dialog boxes        kdialog        kde-baseapps-bin kdebase-kdialog
+virtual keyboard            kvkbd          kvkbd            kvkbd
+=========================== ============== ================ ==================
 
 Installation
 ============
