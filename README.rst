@@ -13,20 +13,45 @@ Motivation for this project is on the `project website
 Dependencies
 ============
 
-These dependencies refer to Debian packages, but should have similar names in
-other distributions.
+These dependencies refer to Debian and Arch Linux packages, but should have
+similar names in other distributions.
 
 Build
 -----
 
-- gettext
-- python-docutils
+=============== ==================
+Debian package  Arch Linux package
+=============== ==================
+gettext         gettext
+python-docutils python-docutils
+=============== ==================
 
 Run
 ---
 
-- acpid
-- udev
+======================== ==================
+Debian package           Arch Linux package
+======================== ==================
+acpid                    acpid
+alsa-utils               alsa-utils
+network-manager          networkmanager
+udev                     systemd
+xserver-xorg-input-wacom xf86-input-wacom
+xbacklight               xorg-xbacklight
+xinput                   xorg-xinput
+xrandr                   xorg-xrandr
+======================== ==================
+
+Optional
+--------
+
+=========================== ================ ==================
+For                         Debian package   Arch Linux package
+=========================== ================ ==================
+volume control when docking pulseaudio-utils libpulse
+showing dialog boxes        kde-baseapps-bin kdebase-kdialog
+virtual keyboard            kvkbd            kvkbd
+=========================== ================ ==================
 
 Installation
 ============
