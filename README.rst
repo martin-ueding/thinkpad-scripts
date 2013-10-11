@@ -10,6 +10,38 @@ Website
 Motivation for this project is on the `project website
 <http://martin-ueding.de/en/projects/think-rotate#pk_campaign=git>`_.
 
+Installation
+============
+
+From Package
+------------
+
+On Ubuntu and its derivatives, you can install from `Martin's PPA`_::
+
+    $ sudo -s
+    # add-apt-repository ppa:martin-ueding/stable
+    # apt-get update
+    # apt-get install think-rotate
+
+On Arch Linux, you can install the ``think-rotate`` package from the AUR_
+(coming soon).
+
+.. _Martin's PPA: https://launchpad.net/~martin-ueding/+archive/stable
+.. _AUR: http://aur.archlinux.org
+
+Build Manually
+--------------
+
+First install all the dependencies, listed in the following section.  Then, you
+can build and install with::
+
+    $ make
+    # make install
+
+If you set a ``DESTDIR``, you will also need to run::
+
+    # service acpid restart
+
 Dependencies
 ============
 
@@ -62,18 +94,6 @@ volume control when docking pactl          pulseaudio-utils libpulse
 showing dialog boxes        kdialog        kde-baseapps-bin kdebase-kdialog
 virtual keyboard            kvkbd          kvkbd            kvkbd
 =========================== ============== ================ ==================
-
-Installation
-============
-
-You can build and install with::
-
-    make
-    make install
-
-If you set a ``DESTDIR``, you will also need to run::
-
-    service acpid restart
 
 Manual / How To Use
 ===================
