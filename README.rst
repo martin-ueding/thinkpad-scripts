@@ -10,6 +10,38 @@ Website
 Motivation for this project is on the `project website
 <http://martin-ueding.de/en/projects/think-rotate#pk_campaign=git>`_.
 
+Installation
+============
+
+From Package
+------------
+
+On Ubuntu and its derivatives, you can install from `Martin's PPA`_::
+
+    $ sudo -s
+    # add-apt-repository ppa:martin-ueding/stable
+    # apt-get update
+    # apt-get install think-rotate
+
+On Arch Linux, you can install the ``think-rotate`` package from the AUR_
+(coming soon).
+
+.. _Martin's PPA: https://launchpad.net/~martin-ueding/+archive/stable
+.. _AUR: http://aur.archlinux.org
+
+Build Manually
+--------------
+
+First install all the dependencies, listed in the following section.  Then, you
+can build and install with::
+
+    $ make
+    # make install
+
+If you set a ``DESTDIR``, you will also need to run::
+
+    # service acpid restart
+
 Dependencies
 ============
 
@@ -60,20 +92,16 @@ For                         Needed Program Debian package   Arch Linux package
 =========================== ============== ================ ==================
 volume control when docking pactl          pulseaudio-utils libpulse
 showing dialog boxes        kdialog        kde-baseapps-bin kdebase-kdialog
+showing dialog boxes        qdbus          qdbus            qt4
 virtual keyboard            kvkbd          kvkbd            kvkbd
 =========================== ============== ================ ==================
 
-Installation
-============
+Note: To use ``qdbus`` on Arch Linux, you should also install
+``qtchooser`` and configure it to use Qt 4 (see the ArchWiki_) or
+patch ``lib/kdialog.sh`` to call ``qdbus-qt4`` instead of ``qdbus``.
+A patch is available as part of the AUR package (coming soon).
 
-You can build and install with::
-
-    make
-    make install
-
-If you set a ``DESTDIR``, you will also need to run::
-
-    service acpid restart
+.. _ArchWiki: https://wiki.archlinux.org/index.php/Qt#Default_Qt_Toolkit
 
 Packagers will also need to add the following line, run as root, to their post
 installation hook to update the udev hardware database with the information in
