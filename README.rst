@@ -92,8 +92,16 @@ For                         Needed Program Debian package   Arch Linux package
 =========================== ============== ================ ==================
 volume control when docking pactl          pulseaudio-utils libpulse
 showing dialog boxes        kdialog        kde-baseapps-bin kdebase-kdialog
+showing dialog boxes        qdbus          qdbus            qt4
 virtual keyboard            kvkbd          kvkbd            kvkbd
 =========================== ============== ================ ==================
+
+Note: To use ``qdbus`` on Arch Linux, you should also install
+``qtchooser`` and configure it to use Qt 4 (see the ArchWiki_) or
+patch ``lib/kdialog.sh`` to call ``qdbus-qt4`` instead of ``qdbus``.
+A patch is available as part of the AUR package (coming soon).
+
+.. _ArchWiki: https://wiki.archlinux.org/index.php/Qt#Default_Qt_Toolkit
 
 Manual / How To Use
 ===================
