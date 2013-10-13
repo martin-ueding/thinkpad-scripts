@@ -2,6 +2,13 @@
 # Copyright © 2013 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
+if which qdbus-qt4 &> /dev/null
+then
+    qdbus=qdbus-qt4
+else
+    qdbus=qdbus
+fi
+
 kdialog-init() {
     if ! [[ "$kdialog" == "true" ]]
     then
@@ -24,8 +31,8 @@ kdialog-update() {
         return
     fi
 
-    qdbus $kdialog_handle setLabelText "$1" > /dev/null
-    qdbus $kdialog_handle Set "" value "$kdialog_number" > /dev/null
+    $qdbus $kdialog_handle setLabelText "$1" > /dev/null
+    $qdbus $kdialog_handle Set "" value "$kdialog_number" > /dev/null
     : $(( kdialog_number++ ))
 }
 
@@ -35,5 +42,5 @@ kdialog-exit() {
         return
     fi
 
-    qdbus $kdialog_handle close > /dev/null
+    $qdbus $kdialog_handle close > /dev/null
 }
