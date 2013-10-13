@@ -38,9 +38,14 @@ can build and install with::
     $ make
     # make install
 
-If you set a ``DESTDIR``, you will also need to run::
+To make the ACPI hooks take effect, you will need to restart ``acpid`` with the
+following on SysVinit/Upstart systems::
 
     # service acpid restart
+
+or on systemd systems::
+
+    # systemctl restart acpid
 
 Dependencies
 ============
