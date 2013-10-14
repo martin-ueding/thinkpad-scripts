@@ -38,9 +38,20 @@ can build and install with::
     $ make
     # make install
 
-If you set a ``DESTDIR``, you will also need to run::
+To make the ACPI hooks take effect, you will need to restart ``acpid`` with the
+following on SysVinit/Upstart systems::
 
     # service acpid restart
+
+or on systemd systems::
+
+    # systemctl restart acpid
+
+Packagers will also need to add the following line, run as root, to their post
+installation hook to update the udev hardware database with the information in
+``90-X220T-keyboard.hwdb``::
+
+    udevadm hwdb --update
 
 Dependencies
 ============
@@ -102,12 +113,6 @@ patch ``lib/kdialog.sh`` to call ``qdbus-qt4`` instead of ``qdbus``.
 A patch is available as part of the AUR package (coming soon).
 
 .. _ArchWiki: https://wiki.archlinux.org/index.php/Qt#Default_Qt_Toolkit
-
-Packagers will also need to add the following line, run as root, to their post
-installation hook to update the udev hardware database with the information in
-``90-X220T-keyboard.hwdb``::
-
-    udevadm hwdb --update
 
 Manual / How To Use
 ===================
