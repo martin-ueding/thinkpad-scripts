@@ -77,10 +77,8 @@ Needed Program Debian package           Arch Linux package
 ============== ======================== ==================
 *acpid*        acpid                    acpid
 amixer         alsa-utils               alsa-utils
-nmcli          network-manager          networkmanager
 *udev*         udev                     systemd
 xsetwacom      xserver-xorg-input-wacom xf86-input-wacom
-xbacklight     xbacklight               xorg-xbacklight
 xinput         xinput                   xorg-xinput
 xrandr         x11-xserver-utils        xorg-xrandr
 setkeycodes    kbd                      *not applicable*
@@ -99,6 +97,8 @@ volume control when docking pactl          pulseaudio-utils libpulse
 showing dialog boxes        kdialog        kde-baseapps-bin kdebase-kdialog
 showing dialog boxes        qdbus          qdbus            qt4
 virtual keyboard            kvkbd          kvkbd            kvkbd
+changing wifi               nmcli          network-manager  networkmanager
+adjusting brightness        xbacklight     xbacklight       xorg-xbacklight
 =========================== ============== ================ ==================
 
 Manual / How To Use
