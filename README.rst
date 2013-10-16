@@ -63,7 +63,8 @@ These programs are needed during the build process.
 ================ =============== ==================
 Needed Program   Debian package  Arch Linux package
 ================ =============== ==================
-msgfmt, xgettext gettext         gettext
+msgfmt           gettext         gettext
+xgettext         gettext         gettext
 rst2man          python-docutils python-docutils
 ================ =============== ==================
 
@@ -77,11 +78,11 @@ Needed Program Debian package           Arch Linux package
 ============== ======================== ==================
 *acpid*        acpid                    acpid
 amixer         alsa-utils               alsa-utils
+setkeycodes    kbd                      *not applicable*
 *udev*         udev                     systemd
 xsetwacom      xserver-xorg-input-wacom xf86-input-wacom
 xinput         xinput                   xorg-xinput
 xrandr         x11-xserver-utils        xorg-xrandr
-setkeycodes    kbd                      *not applicable*
 ============== ======================== ==================
 
 Optional
@@ -93,11 +94,11 @@ required.
 =========================== ============== ================ ==================
 For                         Needed Program Debian package   Arch Linux package
 =========================== ============== ================ ==================
-volume control when docking pactl          pulseaudio-utils libpulse
 showing dialog boxes        kdialog        kde-baseapps-bin kdebase-kdialog
-showing dialog boxes        qdbus          qdbus            qt4
 virtual keyboard            kvkbd          kvkbd            kvkbd
 changing wifi               nmcli          network-manager  networkmanager
+volume control when docking pactl          pulseaudio-utils libpulse
+showing dialog boxes        qdbus          qdbus            qt4
 adjusting brightness        xbacklight     xbacklight       xorg-xbacklight
 =========================== ============== ================ ==================
 
