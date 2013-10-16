@@ -18,8 +18,9 @@ install:
 	install -m 644 81-thinkpad-dock.rules -t "$(DESTDIR)/lib/udev/rules.d/"
 #
 	install -d "$(DESTDIR)/etc/acpi/events/"
-	install think-mutemic-acpi-hook -t "$(DESTDIR)/etc/acpi/events/"
-	install think-rotate-acpi-hook -t "$(DESTDIR)/etc/acpi/events/"
+	install -m 644 think-mutemic-acpi-hook -t "$(DESTDIR)/etc/acpi/events/"
+	install -m 644 think-rotate-acpi-hook-1 -t "$(DESTDIR)/etc/acpi/events/"
+	install -m 644 think-rotate-acpi-hook-2 -t "$(DESTDIR)/etc/acpi/events/"
 #
 	install -d "$(DESTDIR)/usr/share/locale/de/LC_MESSAGES"
 	for mofile in $(mo); \
