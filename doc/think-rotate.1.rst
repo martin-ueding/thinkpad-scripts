@@ -37,6 +37,9 @@ If the screen is already rotated (say left) and you call ``think-rotate left``,
 the screen will be reverted to the normal orientation. That way, you can use
 this script as a toggle.
 
+A udev hook is installed as well that picks up the ACPI event when rotating the
+screen.
+
 OPTIONS
 =======
 
