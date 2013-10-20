@@ -25,7 +25,7 @@ install:
 	install -d "$(DESTDIR)/usr/share/locale/de/LC_MESSAGES"
 	for mofile in $(mo); \
 	    do \
-	    cp "$$mofile" "$(DESTDIR)/usr/share/$$mofile"; \
+	    install -m 644 "$$mofile" "$(DESTDIR)/usr/share/$$mofile"; \
 	    done
 #
 #

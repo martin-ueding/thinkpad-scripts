@@ -13,7 +13,7 @@ install:
 	for manual in $(manuals); do \
 		if [[ -f "$$manual" ]]; then \
 		install -d "$(DESTDIR)/usr/share/man/man1/"; \
-		cp "$$manual" -t "$(DESTDIR)/usr/share/man/man1/"; \
+		install -m 644 "$$manual" -t "$(DESTDIR)/usr/share/man/man1/"; \
 		fi; \
 		done
 
