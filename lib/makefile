@@ -5,7 +5,7 @@ SHELL = /bin/bash
 
 .PHONY: all install clean
 
-scripts = $(wildcard *)
+scripts = $(wildcard *.sh)
 
 all:
 
