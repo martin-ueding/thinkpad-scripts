@@ -31,7 +31,8 @@ will perform the docking action. When you pressed the eject button on the
 docking station, it will un-dock.
 
 There will be an udev rule installed that will automatically dock it when set
-onto the station and un-dock when you press the eject button.
+onto the station and un-dock when you press the eject button. Technically, this
+rule calls the ``think-dock-hook``.
 
 what it does
 ------------

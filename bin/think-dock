@@ -11,7 +11,7 @@ mylogger() {
     logger -t think-dock -i -- "$@"
 }
 
-mylogger "Script starting up (args: $@) …"
+mylogger $"Script starting up (args: $@) …"
 
 for import in kdialog.sh
 do
