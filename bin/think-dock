@@ -160,6 +160,8 @@ case "$setto" in
         if [[ "$set_brightness" = "true" ]] && type xbacklight &> /dev/null
         then
             xbacklight -set "$brightness"
+        else
+            mylogger $"WARNING: No xbacklight found."
         fi
         kdialog-update $"Set brightness"
 
@@ -179,6 +181,8 @@ case "$setto" in
             # FIXME This does not work if invoked via the ``su -c '…' user``
             # command from think-dock-hook.
             nmcli nm wifi off
+        else
+            mylogger $"WARNING: No nmcli found."
         fi
         kdialog-update $"Turn wireless off"
 
@@ -210,6 +214,8 @@ case "$setto" in
         if [[ "$unmute" = "true" ]] && type pactl &> /dev/null
         then
             pactl set-sink-volume 0 "$undock_loudness"
+        else
+            mylogger $"WARNING: No pactl found."
         fi
         kdialog-update $"Reduce volume"
         ) &
@@ -219,6 +225,8 @@ case "$setto" in
         if [[ "$disable_wifi" = "true" ]] && type nmcli &> /dev/null
         then
             nmcli nm wifi on
+        else
+            mylogger $"WARNING: No nmcli found."
         fi
         kdialog-update $"Enable wireless connection"
         ) &

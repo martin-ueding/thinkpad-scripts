@@ -18,6 +18,14 @@ kdialog-init() {
     # Abort, it kdialog is not installed.
     if ! type kdialog &> /dev/null
     then
+        echo $"WARNING: No kdialog found"
+        kdialog=false
+    fi
+
+    # Abort, it kdialog is not installed.
+    if ! type "$qdbus" &> /dev/null
+    then
+        echo $"WARNING: No $qdbus found"
         kdialog=false
     fi
 
