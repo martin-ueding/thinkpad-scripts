@@ -22,12 +22,20 @@ kdialog-init() {
         kdialog=false
     fi
 
-    # Abort, it kdialog is not installed.
+    # Abort, it qdbus is not installed.
     if ! type "$qdbus" &> /dev/null
     then
         echo $"WARNING: No $qdbus found"
         kdialog=false
     fi
+
+    # Abort, it qdbus does not work.
+    if ! "$qdbus" &> /dev/null
+    then
+        echo $"WARNING: $qdbus does not work."
+        kdialog=false
+    fi
+
 
     kdialog_handle="$(kdialog --title "$1" --progressbar "Start" "$2")"
     kdialog_number=0
