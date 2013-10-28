@@ -4,9 +4,12 @@
 Changelog
 #########
 
+v2.10.1
+    - Do not fail if ``qdbus`` does not work (like on vanilla Kubuntu 13.10)
+
 v2.10
     - Print missing programs
-    - Do not fail if ``qdbus`` is missing (like on vanilla Kubuntu 13.10)
+    - Do not fail if ``qdbus`` is missing
 
 v2.9
     - **Added**: ACPI hook to call ``think-rotate`` (Jim Turner)
