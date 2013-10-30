@@ -4,6 +4,9 @@
 Changelog
 #########
 
+v2.10.2
+    - Actually return from function.
+
 v2.10.1
     - Do not fail if ``qdbus`` does not work (like on vanilla Kubuntu 13.10)
 
