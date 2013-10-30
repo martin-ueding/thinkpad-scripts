@@ -20,6 +20,7 @@ kdialog-init() {
     then
         echo $"WARNING: No kdialog found"
         kdialog=false
+        return
     fi
 
     # Abort, it qdbus is not installed.
@@ -27,6 +28,7 @@ kdialog-init() {
     then
         echo $"WARNING: No $qdbus found"
         kdialog=false
+        return
     fi
 
     # Abort, it qdbus does not work.
@@ -34,6 +36,7 @@ kdialog-init() {
     then
         echo $"WARNING: $qdbus does not work."
         kdialog=false
+        return
     fi
 
 
