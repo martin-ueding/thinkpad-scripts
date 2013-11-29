@@ -47,6 +47,12 @@ or on systemd systems::
 
     # systemctl restart acpid
 
+Packagers will also need to add the following line, run as root, to their post
+installation hook to update the udev hardware database with the information in
+``90-X220T-keyboard.hwdb``::
+
+    udevadm hwdb --update
+
 Dependencies
 ============
 
@@ -73,17 +79,16 @@ Run
 
 These programs are required for the execution of the scripts.
 
-============== ======================== ==================
-Needed Program Debian package           Arch Linux package
-============== ======================== ==================
+============== ======================== ================== =======
+Needed Program Debian package           Arch Linux package Version
+============== ======================== ================== =======
 *acpid*        acpid                    acpid
 amixer         alsa-utils               alsa-utils
-setkeycodes    kbd                      *not applicable*
-*udev*         udev                     systemd
+*udev*         udev                     systemd            >= 196
 xsetwacom      xserver-xorg-input-wacom xf86-input-wacom
 xinput         xinput                   xorg-xinput
 xrandr         x11-xserver-utils        xorg-xrandr
-============== ======================== ==================
+============== ======================== ================== =======
 
 Optional
 ~~~~~~~~
@@ -101,6 +106,13 @@ volume control when docking pactl          pulseaudio-utils libpulse
 showing dialog boxes        qdbus          qdbus            qt4
 adjusting brightness        xbacklight     xbacklight       xorg-xbacklight
 =========================== ============== ================ ==================
+
+Note: To use ``qdbus`` on Arch Linux, you should also install
+``qtchooser`` and configure it to use Qt 4 (see the ArchWiki_) or
+patch ``lib/kdialog.sh`` to call ``qdbus-qt4`` instead of ``qdbus``.
+A patch is available as part of the AUR package (coming soon).
+
+.. _ArchWiki: https://wiki.archlinux.org/index.php/Qt#Default_Qt_Toolkit
 
 Manual / How To Use
 ===================
