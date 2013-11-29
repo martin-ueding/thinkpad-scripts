@@ -176,7 +176,7 @@ case "$setto" in
         # Disable the wireless connection, if the user specified the option,
         # the ``nmcli`` tool is available and the computer is actually
         # connected to the ethernet.
-        if [[ "$disable_wifi" = "true" ]] && type nmcli &> /dev/null && grep 1 /sys/class/net/e*/carrier
+        if [[ "$disable_wifi" = "true" ]] && type nmcli &> /dev/null && grep -q 1 /sys/class/net/e*/carrier
         then
             # FIXME This does not work if invoked via the ``su -c '…' user``
             # command from think-dock-hook.
