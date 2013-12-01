@@ -4,6 +4,11 @@
 Changelog
 #########
 
+v3.0
+    - Settings of the keycodes is now done via a ``.hwdb`` file for ``udev``.
+      This requires ``udev`` to be of version 196 or greater. Therefore, it is
+      marked as a major release, since it breaks Ubuntu 13.04 and earlier.
+
 v2.11
     - Add some guides: “Additional Keys” and “KDE Script Drawer”
     - Fix recursive make, pass ``-j`` down to child processes
