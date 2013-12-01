@@ -23,11 +23,10 @@ On Ubuntu and its derivatives, you can install from `Martin's PPA`_::
     # apt-get update
     # apt-get install think-rotate
 
-On Arch Linux, you can install the ``think-rotate`` package from the AUR_
-(coming soon).
+On Arch Linux, you can install the ``think-rotate`` package from the AUR_.
 
 .. _Martin's PPA: https://launchpad.net/~martin-ueding/+archive/stable
-.. _AUR: http://aur.archlinux.org
+.. _AUR: https://aur.archlinux.org/packages/think-rotate
 
 Build Manually
 --------------
@@ -49,7 +48,7 @@ or on systemd systems::
 
 Packagers will also need to add the following line, run as root, to their post
 installation hook to update the udev hardware database with the information in
-``90-X220T-keyboard.hwdb``::
+``90-X2x0T-keyboard.hwdb``::
 
     udevadm hwdb --update
 
@@ -107,21 +106,15 @@ showing dialog boxes        qdbus          qdbus            qt4
 adjusting brightness        xbacklight     xbacklight       xorg-xbacklight
 =========================== ============== ================ ==================
 
-Note: To use ``qdbus`` on Arch Linux, you should also install
-``qtchooser`` and configure it to use Qt 4 (see the ArchWiki_) or
-patch ``lib/kdialog.sh`` to call ``qdbus-qt4`` instead of ``qdbus``.
-A patch is available as part of the AUR package (coming soon).
-
-.. _ArchWiki: https://wiki.archlinux.org/index.php/Qt#Default_Qt_Toolkit
-
 Manual / How To Use
 ===================
 
 We document the usage and configuration of the programs in their manual pages.
-If you have the software installed, you can just use ``man think-rotate`` to
-read it.
+If you have the software installed, you can just use ``man <program-name>`` to
+read the man page corresponding to ``<program-name>``.
 
-In case that you want it read online, you can use the following links:
+In case that you want to read the manual pages online, you can use the
+following links:
 
 - `think-dock
   <https://github.com/martin-ueding/think-rotate/blob/master/doc/think-dock.1.rst>`_
@@ -133,5 +126,13 @@ In case that you want it read online, you can use the following links:
   <https://github.com/martin-ueding/think-rotate/blob/master/doc/think-touch.1.rst>`_
 - `think-touchpad
   <https://github.com/martin-ueding/think-rotate/blob/master/doc/think-touchpad.1.rst>`_
+
+We also have a few guides in ``doc/guides`` for other topics, available at the
+following links:
+
+- `Configuring additional hardware keys
+  <https://github.com/martin-ueding/think-rotate/blob/master/doc/guides/additional-keys.rst>`_
+- `Script drawer for KDE plasma panel
+  <https://github.com/martin-ueding/think-rotate/blob/master/doc/guides/kde-script-drawer.rst>`_
 
 .. vim: spell
