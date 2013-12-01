@@ -4,6 +4,10 @@
 Changelog
 #########
 
+v2.11
+    - Add some guides: “Additional Keys” and “KDE Script Drawer”
+    - Fix recursive make, pass ``-j`` down to child processes
+
 v2.10.2
     - Actually return from function.
 
