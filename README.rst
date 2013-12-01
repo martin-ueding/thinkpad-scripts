@@ -23,11 +23,10 @@ On Ubuntu and its derivatives, you can install from `Martin's PPA`_::
     # apt-get update
     # apt-get install think-rotate
 
-On Arch Linux, you can install the ``think-rotate`` package from the AUR_
-(coming soon).
+On Arch Linux, you can install the ``think-rotate`` package from the AUR_.
 
 .. _Martin's PPA: https://launchpad.net/~martin-ueding/+archive/stable
-.. _AUR: http://aur.archlinux.org
+.. _AUR: https://aur.archlinux.org/packages/think-rotate
 
 Build Manually
 --------------
@@ -106,13 +105,6 @@ volume control when docking pactl          pulseaudio-utils libpulse
 showing dialog boxes        qdbus          qdbus            qt4
 adjusting brightness        xbacklight     xbacklight       xorg-xbacklight
 =========================== ============== ================ ==================
-
-Note: To use ``qdbus`` on Arch Linux, you should also install
-``qtchooser`` and configure it to use Qt 4 (see the ArchWiki_) or
-patch ``lib/kdialog.sh`` to call ``qdbus-qt4`` instead of ``qdbus``.
-A patch is available as part of the AUR package (coming soon).
-
-.. _ArchWiki: https://wiki.archlinux.org/index.php/Qt#Default_Qt_Toolkit
 
 Manual / How To Use
 ===================
