@@ -110,10 +110,11 @@ Manual / How To Use
 ===================
 
 We document the usage and configuration of the programs in their manual pages.
-If you have the software installed, you can just use ``man think-rotate`` to
-read it.
+If you have the software installed, you can just use ``man <program-name>`` to
+read the man page corresponding to ``<program-name>``.
 
-In case that you want it read online, you can use the following links:
+In case that you want to read the manual pages online, you can use the
+following links:
 
 - `think-dock
   <https://github.com/martin-ueding/think-rotate/blob/master/doc/think-dock.1.rst>`_
@@ -125,5 +126,13 @@ In case that you want it read online, you can use the following links:
   <https://github.com/martin-ueding/think-rotate/blob/master/doc/think-touch.1.rst>`_
 - `think-touchpad
   <https://github.com/martin-ueding/think-rotate/blob/master/doc/think-touchpad.1.rst>`_
+
+We also have a few guides in ``doc/guides`` for other topics, available at the
+following links:
+
+- `Configuring additional hardware keys
+  <https://github.com/martin-ueding/think-rotate/blob/master/doc/guides/additional-keys.rst>`_
+- `Script drawer for KDE plasma panel
+  <https://github.com/martin-ueding/think-rotate/blob/master/doc/guides/kde-script-drawer.rst>`_
 
 .. vim: spell
