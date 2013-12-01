@@ -9,9 +9,9 @@ mo := $(po:.po=.mo)
 .PHONY: all install clean
 
 all: $(mo)
-	make -C bin
-	make -C desktop
-	make -C doc
+	cd bin && $(MAKE)
+	cd desktop && $(MAKE)
+	cd doc && $(MAKE)
 
 install:
 	install -d "$(DESTDIR)/lib/udev/rules.d/"
@@ -33,15 +33,15 @@ install:
 	    done
 #
 #
-	make -C bin install
-	make -C desktop install
-	make -C doc install
-	make -C lib install
+	cd bin && $(MAKE) install
+	cd desktop && $(MAKE) install
+	cd doc && $(MAKE) install
+	cd lib && $(MAKE) install
 
 clean:
-	make -C bin clean
-	make -C desktop clean
-	make -C doc clean
+	cd bin && $(MAKE) clean
+	cd desktop && $(MAKE) clean
+	cd doc && $(MAKE) clean
 	$(RM) locale/*/LC_MESSAGES/*.mo
 
 locale/think-rotate.pot: bin/*
