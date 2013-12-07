@@ -4,7 +4,7 @@
 think-rotate
 ############
 
-.. contents::
+.. contents:: Table Of Contents
     :backlinks: top
     :local:
 
