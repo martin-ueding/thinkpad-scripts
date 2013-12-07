@@ -104,16 +104,16 @@ Optional
 These programs enhance the functionality of the scripts, but are not strictly
 required.
 
-============== ================ ================== ===========================
-Needed Program Debian package   Arch Linux package For                        
-============== ================ ================== ===========================
-kdialog        kde-baseapps-bin kdebase-kdialog    showing dialog boxes       
-kvkbd          kvkbd            kvkbd              virtual keyboard           
-nmcli          network-manager  networkmanager     changing wifi              
-pactl          pulseaudio-utils libpulse           volume control when docking
-qdbus          qdbus            qt4                showing dialog boxes       
-xbacklight     xbacklight       xorg-xbacklight    adjusting brightness       
-============== ================ ================== ===========================
+============== ================== ================== ===========================
+Needed Program Debian package     Arch Linux package For                        
+============== ================== ================== ===========================
+kdialog        kde-baseapps-bin   kdebase-kdialog    showing dialog boxes       
+kvkbd          kvkbd              kvkbd              virtual keyboard           
+nmcli          network-manager    networkmanager     changing wifi              
+pactl          pulseaudio-utils   libpulse           volume control when docking
+qdbus          qdbus, qt4-default qt4                showing dialog boxes       
+xbacklight     xbacklight         xorg-xbacklight    adjusting brightness       
+============== ================== ================== ===========================
 
 Manual / How To Use
 ===================
