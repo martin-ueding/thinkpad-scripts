@@ -135,4 +135,14 @@ following links:
 - `Script drawer for KDE plasma panel
   <https://github.com/martin-ueding/think-rotate/blob/master/doc/guides/kde-script-drawer.rst>`_
 
+Legal
+=====
+
+This program is licensed under GPLv2+. See `COPYING.rst`_ for more information.
+
+.. _COPYING.rst: https://github.com/martin-ueding/think-rotate/blob/master/COPYING.rst
+
+ThinkPad is a trademark of Lenovo. This project is not affiliated with,
+sponsored by, or endorsed by Lenovo.
+
 .. vim: spell
