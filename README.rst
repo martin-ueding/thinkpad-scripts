@@ -8,7 +8,12 @@ Website
 =======
 
 Motivation for this project is on the `project website
-<http://martin-ueding.de/en/projects/think-rotate#pk_campaign=git>`_.
+<http://martin-ueding.de/en/projects/think-rotate#pk_campaign=git>`_. You will
+find release ``.tar.gz`` archives there as well. Also, git URLs are provided on
+the website.
+
+Issues and pull requests are tracked on the [GitHub
+page](https://github.com/martin-ueding/think-rotate).
 
 Installation
 ============
