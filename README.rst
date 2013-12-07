@@ -12,8 +12,8 @@ Motivation for this project is on the `project website
 find release ``.tar.gz`` archives there as well. Also, git URLs are provided on
 the website.
 
-Issues and pull requests are tracked on the [GitHub
-page](https://github.com/martin-ueding/think-rotate).
+Issues and pull requests are tracked on the `GitHub page
+<https://github.com/martin-ueding/think-rotate>`_.
 
 Installation
 ============
