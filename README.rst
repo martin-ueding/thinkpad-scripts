@@ -1,8 +1,8 @@
 .. Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
 
-###############
-ThinkPad Rotate
-###############
+############
+think-rotate
+############
 
 Website
 =======
@@ -142,7 +142,9 @@ This program is licensed under GPLv2+. See `COPYING.rst`_ for more information.
 
 .. _COPYING.rst: https://github.com/martin-ueding/think-rotate/blob/master/COPYING.rst
 
-ThinkPad is a trademark of Lenovo. This project is not affiliated with,
-sponsored by, or endorsed by Lenovo.
+ThinkPad® is a trademark of Lenovo®. This project is not affiliated with,
+sponsored by, or endorsed by Lenovo. Our use of the term “ThinkPad” is purely
+descriptive since this collection of scripts is only applicable to said type of
+computers.
 
 .. vim: spell
