@@ -4,6 +4,10 @@
 think-rotate
 ############
 
+.. contents::
+    :backlinks: top
+    :local:
+
 Website
 =======
 
