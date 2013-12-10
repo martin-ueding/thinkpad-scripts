@@ -4,6 +4,10 @@
 Changelog
 #########
 
+v3.0.1
+    - Allow more relative positions by putting the ``-of`` into the value of
+      the ``relative_position`` variable
+
 v3.0
     - Settings of the keycodes is now done via a ``.hwdb`` file for ``udev``.
       This requires ``udev`` to be of version 196 or greater. Therefore, it is
