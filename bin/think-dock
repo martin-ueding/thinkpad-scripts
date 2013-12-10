@@ -57,7 +57,7 @@ set_brightness=true
 # The value to set the brightness to. Needs to be given as a percentage.
 brightness="60%"
 
-relative_position="right"
+relative_position="right-of"
 
 # Now import the configuration file if there is one. That will replace any
 # options set above.
@@ -72,6 +72,15 @@ if [[ -f "$configfile" ]]
 then
     source "$configfile"
 fi
+
+case "$relative_position" in
+    right)
+        relative_position=right-of
+        ;;
+    left)
+        relative_position=left-of
+        ;;
+esac
 
 mylogger $"\$kdialog is set to ${kdialog}."
 
@@ -167,7 +176,7 @@ case "$setto" in
 
         # Set the displays to the right setting.
         xrandr --output "$internal" --auto
-        xrandr --output "$external" --auto "--${relative_position}-of" \
+        xrandr --output "$external" --auto "--${relative_position}" \
             "$internal" --primary
         kdialog-update $"Set external monitor"
         ) &

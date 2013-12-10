@@ -111,9 +111,10 @@ You can set the following options:
     Brightness to set to when docking. *Default: 60%*.
 
 ``relative_position``
-    Where to set the external monitor. Set it to ``right`` or ``left`` or
-    anything else that ``xrandr`` supports with a ``--*-of`` argument.
-    *Default: right*.
+    Where to set the external monitor. Set it to ``right-of`` or ``left-of`` or
+    anything else that ``xrandr`` supports with a ``--*`` argument. For
+    compatibility reasons, you can also supply ``right`` or ``left``, but it is
+    recommended to supply the ``-of`` as well. *Default: right-of*.
 
 ``kdialog``
     Please see the appropriate section in think-rotate(1), it has the same
