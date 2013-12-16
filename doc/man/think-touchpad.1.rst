@@ -12,20 +12,20 @@ ThinkPad TouchPad toggle script
 :Author: Martin Ueding <dev@martin-ueding.de>
 :Manual section: 1
 
-SYNOPSIS
+Synopsis
 ========
 
 ::
 
     think-touchpad
 
-DESCRIPTION
+Description
 ===========
 
 This scripts toggles the TrackPad. It is designed to work on ThinkPads, but it
 will probably work on almost all laptops.
 
-OPTIONS
+Options
 =======
 
 on|off
@@ -33,7 +33,7 @@ on|off
 
     If you omit this option, the script will toggle the touchpad on/off.
 
-SEE ALSO
+See Also
 ========
 
 - `GitHub Repository`_

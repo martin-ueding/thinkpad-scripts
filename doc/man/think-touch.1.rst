@@ -12,20 +12,20 @@ enable/disable the touch screen
 :Author: Jim Turner <jturner314@gmail.com>
 :Manual section: 1
 
-SYNOPSIS
+Synopsis
 ========
 
 ::
 
     think-touch [on|off]
 
-DESCRIPTION
+Description
 ===========
 
 This program enables/disables the touch screen of the ThinkPad tablet. If no
 option is given, it toggles the touch screen on/off.
 
-OPTIONS
+Options
 =======
 
 on|off
@@ -33,7 +33,7 @@ on|off
 
     If you omit this option, the script will toggle the touch screen on/off.
 
-EXIT STATUS
+Exit Status
 ===========
 
 0
@@ -41,7 +41,7 @@ EXIT STATUS
 1
     Some error.
 
-FILES
+Files
 =====
 
 You can create a config file in ``$HOME/.config/think-rotate/touch.sh``, which
@@ -57,7 +57,7 @@ You can set the following options:
     The ``xinput`` id of the touch screen device. The default is
     ``Wacom ISDv4 E6 Finger touch``
 
-EXAMPLES
+Examples
 ========
 
 You can just call ``think-touch`` to toggle the touch screen; otherwise

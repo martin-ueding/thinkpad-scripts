@@ -12,14 +12,14 @@ set the screens when going to and from the docking station
 :Author: Martin Ueding <dev@martin-ueding.de>
 :Manual section: 1
 
-SYNOPSIS
+Synopsis
 ========
 
 ::
 
     think-dock [on|off]
 
-DESCRIPTION
+Description
 ===========
 
 This program sets the screen resolution correctly when putting the ThinkPad
@@ -53,7 +53,7 @@ When undocking, the following things are done:
 - Activating the wireless connection.
 - Set the speakers to some medium volume, currently 50%.
 
-OPTIONS
+Options
 =======
 
 on|off
@@ -63,7 +63,7 @@ on|off
 
     You can omit this option and the script will guess what to do.
 
-EXIT STATUS
+Exit Status
 ===========
 
 0
@@ -71,7 +71,7 @@ EXIT STATUS
 1
     Some error.
 
-FILES
+Files
 =====
 
 Config
@@ -128,7 +128,7 @@ There are hooks, called before and after the main script. It gets a single comma
 - ``~/.config/think-rotate/hooks/predock``
 - ``~/.config/think-rotate/hooks/postdock``
 
-EXAMPLE
+Example
 =======
 
 You can just call ``think-dock`` and it will do the right think probably.
