@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-07 19:06+0200\n"
-"PO-Revision-Date: 2013-09-24 22:32+0200\n"
+"POT-Creation-Date: 2013-12-15 22:13-0500\n"
+"PO-Revision-Date: 2013-12-15 22:07-0500\n"
 "Last-Translator: Martin Ueding <dev@martin-ueding.de>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -20,122 +20,133 @@ msgstr ""
 "X-Language: de_DE\n"
 "X-Source-Language: C\n"
 
-#: bin/think-dock:28 bin/think-rotate:30
+#: bin/think-dock:15
+msgid "Script starting up (args: $@) …"
+msgstr ""
+
+#: bin/think-dock:29 bin/think-rotate:30
 #, sh-format
 msgid "Running as user $USER."
 msgstr "Laufe als Benutzer $USER."
 
-#: bin/think-dock:29 bin/think-rotate:31
+#: bin/think-dock:30 bin/think-rotate:31
 msgid "\\$HOME is set to ${HOME-}."
 msgstr "\\$HOME ist auf ${HOME-} gesetzt."
 
-#: bin/think-dock:30 bin/think-rotate:32
+#: bin/think-dock:31 bin/think-rotate:32
 msgid "\\$HOME is now set to ${HOME=/home/$USER}."
 msgstr "\\$HOME is nun auf ${HOME=/home/$USER} gesetzt."
 
-#: bin/think-dock:38
+#: bin/think-dock:39
 msgid "Setting variables."
 msgstr "Setze Variablen."
 
-#: bin/think-dock:69
+#: bin/think-dock:70
 msgid "Sourcing config file."
 msgstr "Lese Konfigurationsdatei."
 
-#: bin/think-dock:76
+#: bin/think-dock:86
 #, sh-format
 msgid "\\$kdialog is set to ${kdialog}."
 msgstr "\\$kdialog ist auf ${kdialog} gesetzt."
 
-#: bin/think-dock:78
+#: bin/think-dock:88
 msgid "think-dock"
 msgstr "think-dock"
 
-#: bin/think-dock:81
+#: bin/think-dock:91
 msgid "Determining action: ${1:-auto}"
 msgstr "Bestimme Aktion: ${1:-auto}"
 
-#: bin/think-dock:82
+#: bin/think-dock:92
 msgid "Determining action"
 msgstr "Bestimme Aktion"
 
-#: bin/think-dock:83
+#: bin/think-dock:93
 msgid "Updated kdialog box"
 msgstr "Aktualisiere kdialog Box"
 
-#: bin/think-dock:86
+#: bin/think-dock:96
 msgid "Docking, since user said so."
 msgstr "Docking, da der Benutzer dies so möchte."
 
-#: bin/think-dock:90
+#: bin/think-dock:100
 msgid "Un-docking, since user said so."
 msgstr "Un-docking, da der Benutzer dies so möchte."
 
-#: bin/think-dock:106
+#: bin/think-dock:116
 msgid "Docking, found a dock that is docked."
 msgstr "Docking, habe ein Dock gefunden, das angedockt ist."
 
-#: bin/think-dock:118
+#: bin/think-dock:128
 msgid "Un-docking, since no dock is connected."
 msgstr "Un-docking, da kein Dock verbunden ist."
 
-#: bin/think-dock:124 bin/think-dock:251
+#: bin/think-dock:134 bin/think-dock:272
 msgid "Writing to syslog"
 msgstr "Schreibe ins syslog"
 
-#: bin/think-dock:126 bin/think-rotate:64 bin/think-rotate:65
+#: bin/think-dock:136 bin/think-rotate:64 bin/think-rotate:65
 msgid "Executing pre-hooks"
 msgstr "Führe pre-hooks aus"
 
-#: bin/think-dock:135 bin/think-dock:136
+#: bin/think-dock:145 bin/think-dock:146
 msgid "Find external display"
 msgstr "Finde externen Monitor"
 
-#: bin/think-dock:139
-#, sh-format
-msgid "External display $external found."
-msgstr "Externen Monitor $external gefunden."
+#: bin/think-dock:155
+msgid "External display ${external:-not} found."
+msgstr "Externen Monitor ${external:-nicht} gefunden."
 
-#: bin/think-dock:141
-msgid "No external display found."
-msgstr "Keine externen Monitore gefunden."
-
-#: bin/think-dock:153
+#: bin/think-dock:166
 msgid "Enabled audio"
 msgstr "Aktivierte Audio"
 
-#: bin/think-dock:164
+#: bin/think-dock:177
+msgid "WARNING: No xbacklight found."
+msgstr ""
+
+#: bin/think-dock:179
 msgid "Set brightness"
 msgstr "Setzte Helligkeit"
 
-#: bin/think-dock:170
+#: bin/think-dock:185
 msgid "Set external monitor"
 msgstr "Setzte externen Monitor"
 
-#: bin/think-dock:183
+#: bin/think-dock:198 bin/think-dock:242
+msgid "WARNING: No nmcli found."
+msgstr ""
+
+#: bin/think-dock:200
 msgid "Turn wireless off"
 msgstr "Schaltete WLAN ab"
 
-#: bin/think-dock:192
+#: bin/think-dock:209
 msgid "Restart LAN connection"
 msgstr "Startete LAN-Verbindung neu"
 
-#: bin/think-dock:205
+#: bin/think-dock:222
 msgid "Make the internal display the primary"
 msgstr "Setze den internen Monitor als den Primären"
 
-#: bin/think-dock:214
+#: bin/think-dock:231
+msgid "WARNING: No pactl found."
+msgstr ""
+
+#: bin/think-dock:233
 msgid "Reduce volume"
 msgstr "Reduziere Lautstärke"
 
-#: bin/think-dock:223
+#: bin/think-dock:244
 msgid "Enable wireless connection"
 msgstr "Aktiviere WLAN"
 
-#: bin/think-dock:240
+#: bin/think-dock:261
 msgid "Map Wacom devices"
 msgstr "Ordne Wacom-Geräte zu"
 
-#: bin/think-dock:245 bin/think-rotate:207 bin/think-rotate:208
+#: bin/think-dock:266 bin/think-rotate:207 bin/think-rotate:208
 msgid "Executing post-hooks"
 msgstr "Führe post-hooks aus"
 
@@ -230,6 +241,3 @@ msgstr "Setze Eingabegerät $id auf \\"
 #, sh-format
 msgid "Toggling input device $id to $toggle_to."
 msgstr "Schalte Eingabegerät $id auf $toggle_to."
-
-#~ msgid "Rotating Wacom devices"
-#~ msgstr "Drehe Wacom-Geräte"
