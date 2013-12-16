@@ -137,6 +137,4 @@ To specify the direction, you can use::
 See Also
 ========
 
-- `GitHub Repository`_
-
-.. _`GitHub Repository`: https://github.com/martin-ueding/think-rotate
+- `GitHub Repository <http://github.com/martin-ueding/think-rotate>`_
