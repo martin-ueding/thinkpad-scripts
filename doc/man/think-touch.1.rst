@@ -5,12 +5,12 @@
 think-touch
 ###########
 
-*******************************
-enable/disable the touch screen
-*******************************
+.. only:: html
 
-:Author: Jim Turner <jturner314@gmail.com>
-:Manual section: 1
+    enable/disable the touch screen
+
+    :Author: Jim Turner <jturner314@gmail.com>
+    :Manual section: 1
 
 Synopsis
 ========

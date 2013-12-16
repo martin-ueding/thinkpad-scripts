@@ -5,12 +5,12 @@
 think-rotate
 ############
 
-*******************************************
-ThinkPad X220 Tablet screen rotation script
-*******************************************
+.. only:: html
 
-:Author: Martin Ueding <dev@martin-ueding.de>
-:Manual section: 1
+    ThinkPad X220 Tablet screen rotation script
+
+    :Author: Martin Ueding <dev@martin-ueding.de>
+    :Manual section: 1
 
 Synopsis
 ========

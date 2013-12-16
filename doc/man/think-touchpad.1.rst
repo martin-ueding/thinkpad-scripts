@@ -5,12 +5,12 @@
 think-touchpad
 ##############
 
-*******************************
-ThinkPad TouchPad toggle script
-*******************************
+.. only:: html
 
-:Author: Martin Ueding <dev@martin-ueding.de>
-:Manual section: 1
+    ThinkPad TouchPad toggle script
+
+    :Author: Martin Ueding <dev@martin-ueding.de>
+    :Manual section: 1
 
 Synopsis
 ========

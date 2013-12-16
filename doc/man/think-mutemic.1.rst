@@ -5,8 +5,12 @@
 think-mutemic
 #############
 
-:Author: Martin Ueding <dev@martin-ueding.de>
-:Manual section: 1
+.. only:: html
+
+    toggle the microphone mute status
+
+    :Author: Martin Ueding <dev@martin-ueding.de>
+    :Manual section: 1
 
 Synopsis
 ========
