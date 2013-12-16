@@ -1,5 +1,6 @@
 #!/bin/bash
 # Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2013 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
 set -e
@@ -143,12 +144,15 @@ fi
 # that will result in an empty variable.
 mylogger $"Find external display"
 kdialog-update $"Find external display"
-if external="$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal")"
-then
-    mylogger $"External display $external found."
-else
-    mylogger $"No external display found."
-fi
+external=""
+i=0
+until [[ -n "$external" || $i -ge 5 ]]
+do
+    sleep 1
+    external=$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal") || true
+    let i+=1
+done
+mylogger $"External display ${external:-not} found."
 
 case "$setto" in
     on)
