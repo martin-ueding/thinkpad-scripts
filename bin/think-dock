@@ -104,27 +104,14 @@ case "${1:-auto}" in
         # HACK against a race condition, but it should work.
         sleep 1
 
-        for dockfile in /sys/devices/platform/dock.*/docked
-        do
-            # Check the kernel whether the ThinkPad is on the docking station.
-            kernel_docked="$(cat "$dockfile")"
-
-            if (( kernel_docked == 1 ))
-            then
-                # The display is not enabled. Time to dock.
-                mylogger $"Docking, found a dock that is docked."
-                setto=on
-                break
-            else
-                # The notebook is probably already un-docked. So it is time to
-                # un-dock.
-                setto=off
-            fi
-        done
-
-        if [[ "$setto" == off ]]
+        # Check the kernel whether the ThinkPad is on the docking station.
+        if grep -q 1 /sys/devices/platform/dock.*/docked
         then
+            mylogger $"Docking, found a dock that is docked."
+            setto=on
+        else
             mylogger $"Un-docking, since no dock is connected."
+            setto=off
         fi
 esac
 
