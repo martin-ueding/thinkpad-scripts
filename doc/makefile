@@ -12,7 +12,7 @@ manuals = $(addsuffix .gz,$(notdir $(basename $(wildcard man/*.1.rst))))
 ALLSPHINXOPTS = -d $(BUILDDIR)/doctrees $(SPHINXOPTS) .
 SHELL = /bin/bash
 
-.PHONY: all install clean html
+.PHONY: all install clean html man
 
 all: html man
 
