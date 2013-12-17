@@ -31,7 +31,7 @@ $(BUILDDIR)/man/%.1.gz: $(BUILDDIR)/man/%.1
 	$(RM) $@
 	gzip $<
 
-$(BUILDDIR)/man/%.1: man/%.1.rst
+$(BUILDDIR)/man/%.1: man/%.1.rst conf.py
 	$(SPHINXBUILD) -b man $(ALLSPHINXOPTS) $(BUILDDIR)/man
 
 clean:
