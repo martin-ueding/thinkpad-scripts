@@ -42,7 +42,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'think-rotate'
-copyright = '2013, Martin Ueding and Jim Turner'
+copyright = '2012-2013, Martin Ueding and Jim Turner'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
