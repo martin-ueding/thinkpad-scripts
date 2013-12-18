@@ -71,13 +71,13 @@ Build
 
 These programs are needed during the build process.
 
-================ =============== ==================
-Needed Program   Debian package  Arch Linux package
-================ =============== ==================
-msgfmt           gettext         gettext
-xgettext         gettext         gettext
-rst2man          python-docutils python-docutils
-================ =============== ==================
+============== ============== ==================
+Needed Program Debian package Arch Linux package
+============== ============== ==================
+msgfmt         gettext        gettext
+xgettext       gettext        gettext
+sphinx-build   python3-sphinx python-sphinx
+============== ============== ==================
 
 Run
 '''
