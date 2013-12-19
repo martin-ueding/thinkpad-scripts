@@ -4,6 +4,9 @@
 Changelog
 #########
 
+v3.0.2
+    - Manual pages with Sphinx
+
 v3.0.1
     - Allow more relative positions by putting the ``-of`` into the value of
       the ``relative_position`` variable
