@@ -8,7 +8,6 @@ BUILDDIR      = _build
 DESTDIR       =
 
 # Internal variables.
-manuals = $(addsuffix .gz,$(notdir $(basename $(wildcard man/*.1.rst))))
 ALLSPHINXOPTS = -d $(BUILDDIR)/doctrees $(SPHINXOPTS) .
 SHELL = /bin/bash
 
@@ -25,14 +24,9 @@ install:
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 
-man: $(addprefix $(BUILDDIR)/man/,$(manuals))
-
-$(BUILDDIR)/man/%.1.gz: $(BUILDDIR)/man/%.1
-	$(RM) $@
-	gzip $<
-
-$(BUILDDIR)/man/%.1: man/%.1.rst conf.py
+man:
 	$(SPHINXBUILD) -b man $(ALLSPHINXOPTS) $(BUILDDIR)/man
+	gzip -f $(BUILDDIR)/man/*.1
 
 clean:
-	-rm -rf $(BUILDDIR)/*
+	$(RM) -rf $(BUILDDIR)/*
