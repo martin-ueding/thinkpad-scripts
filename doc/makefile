@@ -16,7 +16,7 @@ SHELL = /bin/bash
 all: html man
 
 install:
-	if ls $(BUILDDIR)/man/*.1.gz; then \
+	if ls $(BUILDDIR)/man/*.1.gz &> /dev/null; then \
 		install -d "$(DESTDIR)/usr/share/man/man1/"; \
 		install -m 644 $(BUILDDIR)/man/*.1.gz -t "$(DESTDIR)/usr/share/man/man1/"; \
 	fi
