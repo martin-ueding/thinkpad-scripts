@@ -5,17 +5,21 @@
 think-mutemic
 #############
 
-:Author: Martin Ueding <dev@martin-ueding.de>
-:Manual section: 1
+.. only:: html
 
-SYNOPSIS
+    toggle the microphone mute status
+
+    :Author: Martin Ueding <dev@martin-ueding.de>
+    :Manual section: 1
+
+Synopsis
 ========
 
 ::
 
     think-mutemic
 
-DESCRIPTION
+Description
 ===========
 
 Toggles the microphone mute status. It will also turn the power LED into a

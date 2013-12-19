@@ -17,6 +17,13 @@ hardware keys, such as those on the bezels of some tablets, are not mapped. This
 guide explains how to map *scancodes* to *keycodes* using the udev hwdb, which
 is part of udev versions 196 and later.
 
+Note that think-rotate includes a udev hwdb file that fixes the bezel key
+mappings for Lenovo X220 and X230 Tablets. This guide is useful if you have
+different hardware. If you find something that works for your hardware, please
+feel free to submit a pull request to the GitHub `project`_.
+
+.. _project: https://github.com/martin-ueding/think-rotate
+
 Directions
 ==========
 

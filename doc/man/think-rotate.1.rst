@@ -5,21 +5,21 @@
 think-rotate
 ############
 
-*******************************************
-ThinkPad X220 Tablet screen rotation script
-*******************************************
+.. only:: html
 
-:Author: Martin Ueding <dev@martin-ueding.de>
-:Manual section: 1
+    ThinkPad X220 Tablet screen rotation script
 
-SYNOPSIS
+    :Author: Martin Ueding <dev@martin-ueding.de>
+    :Manual section: 1
+
+Synopsis
 ========
 
 ::
 
     think-rotate [direction]
 
-DESCRIPTION
+Description
 ===========
 
 If you want to use your X220 Tablet as a tablet, you might want to rotate the
@@ -40,7 +40,7 @@ this script as a toggle.
 A udev hook is installed as well that picks up the ACPI event when rotating the
 screen.
 
-OPTIONS
+Options
 =======
 
 direction
@@ -59,7 +59,7 @@ direction
     accepts all of them, so that you do not have to learn yet another set of
     directions.
 
-EXIT STATUS
+Exit Status
 ===========
 
 0
@@ -68,12 +68,12 @@ EXIT STATUS
 2
     User specified a direction that is not known.
 
-ENVIRONMENT
+Environment
 ===========
 
 The script relies on ``xrandr`` to get the information, so this has to work.
 
-FILES
+Files
 =====
 
 Config
@@ -120,7 +120,7 @@ You can add scripts to be called before and after with the following files:
 - ``~/.config/think-rotate/hooks/prerotate``
 - ``~/.config/think-rotate/hooks/postrotate``
 
-EXAMPLE
+Example
 =======
 
 To rotate the screen to the right (and later back again), use::
@@ -134,9 +134,7 @@ To specify the direction, you can use::
     think-rotate flip
     think-rotate normal
 
-SEE ALSO
+See Also
 ========
 
-- `GitHub Repository`_
-
-.. _`GitHub Repository`: https://github.com/martin-ueding/think-rotate
+- `GitHub Repository <http://github.com/martin-ueding/think-rotate>`_
