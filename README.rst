@@ -20,6 +20,9 @@ the website.
 Issues and pull requests are tracked on the `GitHub page
 <https://github.com/martin-ueding/think-rotate>`_.
 
+You can view the documentation hosted at `Read the Docs
+<http://think-rotate.readthedocs.org/>`_.
+
 Installation
 ============
 
