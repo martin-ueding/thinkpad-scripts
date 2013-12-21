@@ -117,20 +117,25 @@ else
 fi
 
 # Translate directions into ``xrandr`` and ``xsetwacom`` names.
+# Also make ``setto`` be only "normal", "right", "inverted", or "left"
 case "$setto" in
     none|normal)
+        setto=normal
         xrandr_rotation=normal
         wacom_rotation=none
         ;;
     cw|right)
+        setto=right
         xrandr_rotation=right
         wacom_rotation=cw
         ;;
     half|inverted|flip)
+        setto=inverted
         xrandr_rotation=inverted
         wacom_rotation=half
         ;;
     ccw|left)
+        setto=left
         xrandr_rotation=left
         wacom_rotation=ccw
         ;;
@@ -208,5 +213,5 @@ mylogger $"Executing post-hooks"
 kdialog-update $"Executing post-hooks"
 if [[ -f "$postrotate_hook" ]]
 then
-    "$postrotate_hook"
+    "$postrotate_hook" "$setto"
 fi
