@@ -154,7 +154,7 @@ synopsis of each command::
     think-touch [on|off]
     think-touchpad
 
-See the :doc:`manual pages <../man/index>` for more details.
+See the :doc:`../man/index` for more details.
 
 Configuration
 =============
@@ -162,7 +162,7 @@ Configuration
 You can modify the default configuration for things such as the screen
 brightness to set when docking, the relative positions of displays, and the
 direction of screen rotation by placing configuration scripts in
-``$HOME/.config/think-rotate``. See the :doc:`manual pages <../man/index>` for
+``$HOME/.config/think-rotate``. See the :doc:`../man/index` for
 more details.
 
 You can also add scripts that will be called before/after docking or rotating
