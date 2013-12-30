@@ -9,8 +9,8 @@ Installation
 ============
 
 The easiest way to install think-rotate on Ubuntu or Arch Linux is with your
-package manager, as described in :ref:`installation-from-package`. If you are on
-another distribution, then you can build and install it manually using the
+package manager, as described in :ref:`installation-from-package`. If you are
+on another distribution, then you can build and install it manually using the
 instructions in :ref:`installation-build-manually`.
 
 .. _installation-from-package:
