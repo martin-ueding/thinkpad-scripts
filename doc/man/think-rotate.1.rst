@@ -115,7 +115,9 @@ You can set the following option:
 Hooks
 -----
 
-You can add scripts to be called before and after with the following files:
+You can add scripts to be called before and/or after rotation by placing them at
+the following paths. The ``postrotate`` hook gets the new rotation (``left``,
+``right``, ``inverted``, or ``normal``) as a command line argument.
 
 - ``~/.config/think-rotate/hooks/prerotate``
 - ``~/.config/think-rotate/hooks/postrotate``
@@ -131,7 +133,7 @@ To specify the direction, you can use::
 
     think-rotate left
     think-rotate right
-    think-rotate flip
+    think-rotate inverted
     think-rotate normal
 
 See Also
