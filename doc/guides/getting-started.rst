@@ -18,7 +18,9 @@ instructions in :ref:`installation-build-manually`.
 From Package
 ------------
 
-On Ubuntu and its derivatives, you can install from `Martin's PPA`_::
+On Ubuntu and its derivatives, you can install from `Martin's PPA`_:
+
+.. code-block:: console
 
     $ sudo -s
     # add-apt-repository ppa:martin-ueding/stable
@@ -36,25 +38,33 @@ Build Manually
 --------------
 
 First install all the dependencies, listed in :ref:`installation-dependencies`.
-Then, you can build and install with::
+Then, you can build and install with:
+
+.. code-block:: console
 
     $ make
     # make install
 
 To make the ACPI hooks take effect, you will need to restart ``acpid`` with the
-following on SysVinit/Upstart systems::
+following on SysVinit/Upstart systems:
+
+.. code-block:: console
 
     # service acpid restart
 
-or on systemd systems::
+or on systemd systems:
+
+.. code-block:: console
 
     # systemctl restart acpid
 
 Packagers will also need to add the following line, run as root, to their post
 installation hook to update the udev hardware database with the information in
-``90-X2x0T-keyboard.hwdb``::
+``90-X2x0T-keyboard.hwdb``:
 
-    udevadm hwdb --update
+.. code-block:: console
+
+    # udevadm hwdb --update
 
 .. _installation-dependencies:
 
