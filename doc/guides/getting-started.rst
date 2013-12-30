@@ -173,12 +173,12 @@ Tips
 ====
 
 think-rotate fixes the bezel buttons so that they work, but it does not bind
-anything to them by default. If you'd like, you can bind the think-rotate
+anything to them by default. If you'd like, you can bind the ``think-rotate``
 script (or any other program for that matter) to one of the bezel buttons using
-your desktop environment. For example, under GNOME, go to Settings → Keyboard →
-Shortcuts → Custom Shortcuts and add a new "shortcut".
+your desktop environment. For example, under GNOME, go to “Settings” →
+“Keyboard” → “Shortcuts” → “Custom Shortcuts” and add a new “shortcut”.
 
-think-rotate includes a script, think-touch, to make it easy to toggle the
+think-rotate includes a script, ``think-touch``, to make it easy to toggle the
 touchscreen of the X220 Tablet on/off. If you want to disable your touch screen
 on startup, use your desktop environment to call ``think-touch off`` when
 starting.
