@@ -25,7 +25,9 @@ Contents
 --------
 
 .. toctree::
-   :maxdepth: 2
+    :glob:
+    :maxdepth: 2
 
-   guides/index
-   man/index
+    */index
+
+.. **
