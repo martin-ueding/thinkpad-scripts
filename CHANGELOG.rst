@@ -4,6 +4,9 @@
 Changelog
 #########
 
+v3.1
+    - Pass target orientation to postrotate hook.
+
 v3.0.2
     - Manual pages with Sphinx
 
