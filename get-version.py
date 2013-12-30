@@ -5,13 +5,10 @@
 
 import argparse
 import re
-import sys
 
 __docformat__ = "restructuredtext en"
 
-def main():
-    options = _parse_args()
-
+def get_version():
     filename = 'CHANGELOG.rst'
 
     pattern = re.compile(r'^v(\d+(?:\.\d+)+)$')
@@ -20,11 +17,14 @@ def main():
         for line in f:
             m = pattern.match(line)
             if m:
-                print(m.group(1))
-                sys.exit(0)
+                return(m.group(1))
 
-    sys.exit(1)
+    return None
 
+def main():
+    options = _parse_args()
+
+    print(get_version())
 
 def _parse_args():
     """
