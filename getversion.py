@@ -9,7 +9,7 @@ import re
 __docformat__ = "restructuredtext en"
 
 def get_version():
-    filename = 'CHANGELOG.rst'
+    filename = '../CHANGELOG.rst'
 
     pattern = re.compile(r'^v(\d+(?:\.\d+)+)$')
 
