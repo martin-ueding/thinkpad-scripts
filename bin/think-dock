@@ -12,6 +12,11 @@ mylogger() {
     logger -t think-dock -i -- "$@"
 }
 
+# Echo name of external display (e.g. 'HDMI2') to stdout
+get_external_display() {
+    echo -n $(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal") || true
+}
+
 mylogger $"Script starting up (args: $@) …"
 
 for import in kdialog.sh
@@ -144,12 +149,12 @@ fi
 # that will result in an empty variable.
 mylogger $"Find external display"
 kdialog-update $"Find external display"
-external=""
+external="$(get_external_display)"
 i=0
 until [[ -n "$external" || $i -ge 5 ]]
 do
     sleep 1
-    external=$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal") || true
+    external="$(get_external_display)"
     let i+=1
 done
 mylogger $"External display ${external:-not} found."
