@@ -14,7 +14,7 @@ mylogger() {
 
 # Echo name of external display (e.g. 'HDMI2') to stdout
 get_external_display() {
-    echo -n $(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal") || true
+    xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal"
 }
 
 mylogger $"Script starting up (args: $@) …"
@@ -149,12 +149,10 @@ fi
 # that will result in an empty variable.
 mylogger $"Find external display"
 kdialog-update $"Find external display"
-external="$(get_external_display)"
 i=0
-until [[ -n "$external" || $i -ge 5 ]]
+until external="$(get_external_display)" || test $i -ge 5
 do
     sleep 1
-    external="$(get_external_display)"
     let i+=1
 done
 mylogger $"External display ${external:-not} found."
