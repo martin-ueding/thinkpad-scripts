@@ -1,3 +1,4 @@
+.. Copyright © 2013 Martin Ueding <dev@martin-ueding.de>
 
 Script Drawer For KDE Plasma Panel
 ==================================
