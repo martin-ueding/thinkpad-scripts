@@ -1,11 +1,12 @@
-.. Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
+.. Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
 
 #########
 Changelog
 #########
 
 v3.1
-    - Pass target orientation to postrotate hook.
+    - Pass target orientation to postrotate hook
+    - Pass version number to Sphinx automatically from the changelog
 
 v3.0.2
     - Manual pages with Sphinx
