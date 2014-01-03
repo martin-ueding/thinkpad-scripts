@@ -28,6 +28,8 @@ Contents
     :glob:
     :maxdepth: 2
 
-    */index
+    guides/index
+    man/index
+    environment/index
 
 .. **
