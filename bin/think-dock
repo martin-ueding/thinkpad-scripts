@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
 # Copyright © 2013 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
@@ -132,10 +132,10 @@ fi
 mylogger $"Find external display"
 kdialog-update $"Find external display"
 i=0
-until external=$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal") || test $i -ge 5
+until external=$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal") || (( i >= 5 ))
 do
     sleep 1
-    let i+=1
+    (( i++ ))
 done
 mylogger $"External display ${external:-not} found."
 
