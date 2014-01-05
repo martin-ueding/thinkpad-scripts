@@ -1,4 +1,4 @@
-# Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
 SHELL = /bin/bash
@@ -43,6 +43,7 @@ clean:
 	cd desktop && $(MAKE) clean
 	cd doc && $(MAKE) clean
 	$(RM) locale/*/LC_MESSAGES/*.mo
+	$(RM) *.pyc
 
 locale/think-rotate.pot: bin/*
 	xgettext --language Shell --from-code=utf-8 -o $@ $^
