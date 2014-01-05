@@ -7,6 +7,7 @@ Changelog
 v3.1.1
     - Clean all ``*.pyc`` files in makefile. This was causing errors with
       prisine tars and Debian packaging before.
+    - Add changelog to documentation
 
 v3.1
     - Pass target orientation to postrotate hook
