@@ -4,6 +4,10 @@
 Changelog
 #########
 
+v3.1.1
+    - Clean all ``*.pyc`` files in makefile. This was causing errors with
+      prisine tars and Debian packaging before.
+
 v3.1
     - Pass target orientation to postrotate hook
     - Pass version number to Sphinx automatically from the changelog
