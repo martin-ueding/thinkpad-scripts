@@ -31,5 +31,6 @@ Contents
     guides/index
     man/index
     environment/index
+    changelog
 
 .. **
