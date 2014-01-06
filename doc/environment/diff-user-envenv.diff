@@ -1,0 +1,94 @@
+--- userenv.txt	2014-01-03 20:03:11.968021223 +0100
++++ suenvenv.txt	2014-01-06 20:48:57.985508008 +0100
+@@ -1,7 +1,7 @@
+ _=/usr/bin/env
+ BROWSER=/usr/bin/firefox
+ COLORFGBG=15;0
+-DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-lTyAgvEI5j
++DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-RWVpCI8Wy7
+ DEBEMAIL=dev@martin-ueding.de
+ DEBFULLNAME=Martin Ueding
+ DEBIAN_PACKAGING_DIR=/home/mu/Packaging_Debian
+@@ -11,19 +11,21 @@
+ EDITOR=/usr/bin/vim
+ GDM_LANG=en
+ GDMSESSION=kde-plasma
+-GNOME_KEYRING_CONTROL=/run/user/1000/keyring-jrGMeN
+-GNOME_KEYRING_PID=2006
+-GPG_AGENT_INFO=/tmp/gpg-AUcplx/S.gpg-agent:2085:1
++GNOME_KEYRING_CONTROL=/run/user/1000/keyring-EZFzfb
++GNOME_KEYRING_PID=1995
++GPG_AGENT_INFO=/tmp/gpg-D5RjVU/S.gpg-agent:2073:1
+ GS_LIB=/home/mu/.fonts
++GTK2_RC_FILES=/etc/gtk-2.0/gtkrc:/home/mu/.gtkrc-2.0:/home/mu/.kde/share/config/gtkrc-2.0
++GTK_RC_FILES=/etc/gtk/gtkrc:/home/mu/.gtkrc:/home/mu/.kde/share/config/gtkrc
+ HOME=/home/mu
+ IM_CONFIG_PHASE=1
+ INSTANCE=
+ JOB=dbus
+ KDE_FULL_SESSION=true
++KDE_MULTIHEAD=false
+ KDE_SESSION_UID=1000
+ KDE_SESSION_VERSION=4
+-KDEWM=--windowmanager awesome
+-KONSOLE_DBUS_SERVICE=:1.119
++KONSOLE_DBUS_SERVICE=:1.129
+ KONSOLE_DBUS_SESSION=/Sessions/1
+ KONSOLE_DBUS_WINDOW=/Windows/1
+ KONSOLE_PROFILE_NAME=Shell
+@@ -33,25 +35,25 @@
+ LESSCLOSE=/usr/bin/lesspipe %s %s
+ LESSOPEN=| /usr/bin/lesspipe %s
+ LOGNAME=mu
++MAIL=/var/mail/mu
+ MAKEFLAGS=-j 4
+ MANDATORY_PATH=/usr/share/gconf/kde-plasma.mandatory.path
+ MATHEMATICA_HOME=/usr/local/Wolfram/Mathematica/9.0
+-OLDPWD=/home/mu
+ PAGER=less -FRSXx8
+-PATH=/home/mu/.local/bin:/home/mu/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
++PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+ PROFILEHOME=
+ PROJECTS_DIR=/home/mu/Projekte
+ PROMPT_DIRTRIM=4
+-PWD=/home/mu/Projekte/think-rotate
++PWD=/home/mu/Projekte/think-rotate/doc/environment
+ QT_PLUGIN_PATH=/home/mu/.kde/lib/kde4/plugins/:/usr/lib/kde4/plugins/
+ SESSION=kde-plasma
+-SESSION_MANAGER=local/Martin-X220:@/tmp/.ICE-unix/2219,unix/Martin-X220:/tmp/.ICE-unix/2219
++SESSION_MANAGER=local/Martin-X220:@/tmp/.ICE-unix/2209,unix/Martin-X220:/tmp/.ICE-unix/2209
+ SESSIONTYPE=
+ SHELL=/bin/bash
+-SHELL_SESSION_ID=c8bcc9fdc31c40009e3cb55ede9337c8
+-SHLVL=1
+-SSH_AGENT_PID=2082
+-SSH_AUTH_SOCK=/tmp/ssh-vRv5ZfrEuY24/agent.2080
++SHELL_SESSION_ID=562593fe8cf84000854d3c2e561265fb
++SHLVL=2
++SSH_AGENT_PID=2071
++SSH_AUTH_SOCK=/tmp/ssh-XYFHlHYQlzTw/agent.2068
+ TAR_ARCHIVE_DIR=/home/mu/Packaging_Debian
+ TERM=xterm-256color
+ TEXTDOMAIN=im-config
+@@ -59,16 +61,18 @@
+ UPSTART_EVENTS=started xsession
+ UPSTART_INSTANCE=
+ UPSTART_JOB=startkde
+-UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/2019
++UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/2008
+ USER=mu
+-WINDOWID=73400346
+-XAUTHORITY=/home/mu/.Xauthority
++WINDOWID=71303194
++XAUTHORITY=/tmp/kde-mu/xauth-1000-_0
++XCURSOR_THEME=default
+ XDG_CONFIG_DIRS=/etc/xdg/xdg-kde-plasma:/usr/share/upstart/xdg:/etc/xdg
+ XDG_CURRENT_DESKTOP=KDE
+ XDG_DATA_DIRS=/usr/share:/usr/share/kde-plasma:/usr/local/share/:/usr/share/
+ XDG_RUNTIME_DIR=/run/user/1000
+ XDG_SEAT=seat0
+ XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
++XDG_SESSION_COOKIE=550ca4757c0af12b457994cd526d188e-1389037616.21312-2114209903
+ XDG_SESSION_ID=c2
+ XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
+ XDG_VTNR=7
