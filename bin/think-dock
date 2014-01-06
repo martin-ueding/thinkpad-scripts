@@ -6,11 +6,23 @@
 set -e
 
 TEXTDOMAIN=think-rotate
+lock=/tmp/think-dock.lock
 
 mylogger() {
     echo "$@"
     logger -t think-dock -i -- "$@"
 }
+
+remove-lock() {
+    mylogger "Removing lock …"
+    rm -f "$lock"
+}
+
+exit-hook() {
+    remove-lock
+    kdialog-exit
+}
+trap exit-hook EXIT
 
 mylogger $"Script starting up (args: $@) …"
 
@@ -30,7 +42,15 @@ mylogger $"Running as user $USER."
 mylogger $"\$HOME is set to ${HOME-}."
 mylogger $"\$HOME is now set to ${HOME=/home/$USER}."
 
-trap kdialog-exit EXIT
+if [[ -f "$lock" ]]
+then
+    mylogger $"Exiting, because there is more than one running."
+    stat "$lock"
+    exit 0
+else
+    mylogger $"No other running instances found."
+    touch "$lock"
+fi
 
 ###############################################################################
 #                                   options                                   #
