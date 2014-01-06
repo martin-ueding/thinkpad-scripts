@@ -7,26 +7,25 @@
 set -e
 
 TEXTDOMAIN=think-rotate
+lock=/tmp/think-rotate.lock
 
 mylogger() {
     echo "$@"
     logger -t think-rotate -i -- "$@"
 }
 
+remove-lock() {
+    mylogger "Removing lock …"
+    rm -f "$lock"
+}
+
+exit-hook() {
+    remove-lock
+    kdialog-exit
+}
+trap exit-hook EXIT
+
 mylogger "Script starting up (args: $@) …"
-
-if running=$(pgrep think-rotate)
-then
-    mylogger $"There are ${#running[@]} instances running with PIDs ${running[@]}."
-
-    if (( ${#running[@]} > 1 ))
-    then
-        mylogger $"Exiting, because there is more than one running."
-        exit 0
-    fi
-else
-    mylogger $"No other running instances found (this is strange)."
-fi
 
 for import in kdialog.sh
 do
@@ -44,7 +43,15 @@ mylogger $"Running as user $USER."
 mylogger $"\$HOME is set to ${HOME-}."
 mylogger $"\$HOME is now set to ${HOME=/home/$USER}."
 
-trap kdialog-exit EXIT
+if [[ -f "$lock" ]]
+then
+    mylogger $"Exiting, because there is more than one running."
+    stat "$lock"
+    exit 0
+else
+    mylogger $"No other running instances found."
+    touch "$lock"
+fi
 
 ###############################################################################
 #                                   options                                   #
