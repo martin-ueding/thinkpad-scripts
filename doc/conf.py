@@ -42,7 +42,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'think-rotate'
-copyright = '2012-2013, Martin Ueding and Jim Turner'
+copyright = '2012-2014, Martin Ueding and Jim Turner'
 
 try:
     sys.path.append('..')
