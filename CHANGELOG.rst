@@ -4,6 +4,12 @@
 Changelog
 #########
 
+v3.2
+    - Update copyright years in the documentation.
+    - Add a guard that prevents multiple execution of ``think-dock`` and
+      ``think-rotate``. For some reason, the ``udev`` hooks call the script
+      twice, resulting in race conditions.
+
 v3.1.2
     - Fix finding of external display. I tried to improve the syntax, but let
       the script fail whenever the number needed to be incremented.
