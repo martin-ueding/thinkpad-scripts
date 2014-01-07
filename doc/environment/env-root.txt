@@ -1,0 +1,16 @@
+DISPLAY=:0
+HOME=/home/mu
+LANG=de_DE.UTF-8
+LANGUAGE=en
+LOGNAME=root
+MAIL=/var/mail/root
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SHELL=/bin/bash
+SUDO_COMMAND=/usr/bin/env
+SUDO_GID=1000
+SUDO_UID=1000
+SUDO_USER=mu
+TERM=xterm-256color
+USERNAME=root
+USER=root
+XAUTHORITY=/tmp/kde-mu/xauth-1000-_0
