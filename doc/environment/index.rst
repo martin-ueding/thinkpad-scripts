@@ -42,6 +42,9 @@ be cause for bugs like `#36
 Difference user and ``su -c env``
 =================================
 
+Even if you use ``env`` to recreate the user's environment, it does not change
+anything, apparently:
+
 .. code-block:: console
 
     su -c 'env env' mu
