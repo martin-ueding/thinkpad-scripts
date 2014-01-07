@@ -4,6 +4,10 @@
 Changelog
 #########
 
+v3.1.2
+    - Fix finding of external display. I tried to improve the syntax, but let
+      the script fail whenever the number needed to be incremented.
+
 v3.1.1
     - Clean all ``*.pyc`` files in makefile. This was causing errors with
       prisine tars and Debian packaging before.
@@ -165,3 +169,5 @@ Way before 2012-07-13, those are significant changes in the history:
 - Dynamically find external display.
 - Limit Wacom devices to internal screen.
 - Set external monitor as primary.
+
+.. vim: spell
