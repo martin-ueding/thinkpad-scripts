@@ -39,4 +39,14 @@ In both cases, the variable ``DBUS_SESSION_BUS_ADDRESS`` is missing. This might
 be cause for bugs like `#36
 <https://github.com/martin-ueding/think-rotate/issues/36>`_.
 
+Difference user and ``su -c env``
+=================================
+
+.. code-block:: console
+
+    su -c 'env env' mu
+
+.. literalinclude:: diff-user-su_env.diff
+    :language: diff
+
 .. vim: spell tw=79

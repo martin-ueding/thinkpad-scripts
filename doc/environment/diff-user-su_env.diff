@@ -1,5 +1,5 @@
 --- env-user.txt	2014-01-07 08:10:57.297768327 +0100
-+++ env-su.txt	2014-01-07 08:10:57.225768328 +0100
++++ env-su_env.txt	2014-01-07 08:10:57.277768327 +0100
 @@ -1,76 +1,24 @@
 -BROWSER=/usr/bin/firefox
 -COLORFGBG=15;0
@@ -59,7 +59,7 @@
 -SSH_AUTH_SOCK=/tmp/ssh-KejIl272p39R/agent.1862
 -TAR_ARCHIVE_DIR=/home/mu/Packaging_Debian
 +SHLVL=1
-+SUDO_COMMAND=/bin/su -c env mu
++SUDO_COMMAND=/bin/su -c env env mu
 +SUDO_GID=1000
 +SUDO_UID=1000
 +SUDO_USER=mu
@@ -82,7 +82,7 @@
  XDG_RUNTIME_DIR=/run/user/1000
 -XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
  XDG_SEAT=seat0
-+XDG_SESSION_COOKIE=550ca4757c0af12b457994cd526d188e-1389078657.209124-1472854378
++XDG_SESSION_COOKIE=550ca4757c0af12b457994cd526d188e-1389078657.247557-1009355119
  XDG_SESSION_ID=c2
 -XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
  XDG_VTNR=7

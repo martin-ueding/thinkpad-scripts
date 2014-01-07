@@ -1,6 +1,6 @@
 --- env-user.txt	2014-01-07 08:10:57.297768327 +0100
-+++ env-su.txt	2014-01-07 08:10:57.225768328 +0100
-@@ -1,76 +1,24 @@
++++ env-root.txt	2014-01-07 08:10:57.297768327 +0100
+@@ -1,76 +1,16 @@
 -BROWSER=/usr/bin/firefox
 -COLORFGBG=15;0
 -DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-TK74xcpHuB
@@ -36,7 +36,7 @@
 -LESSCLOSE=/usr/bin/lesspipe %s %s
 -LESS=-FRSXx8
 -LESSOPEN=| /usr/bin/lesspipe %s
- LOGNAME=mu
+-LOGNAME=mu
 -MAKEFLAGS=-j 4
 -MANDATORY_PATH=/usr/share/gconf/kde-plasma.mandatory.path
 -MATHEMATICA_HOME=/usr/local/Wolfram/Mathematica/9.0
@@ -45,21 +45,21 @@
 -PROFILEHOME=
 -PROJECTS_DIR=/home/mu/Projekte
 -PROMPT_DIRTRIM=4
-+MAIL=/var/mail/mu
-+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
- PWD=/home/mu/Projekte/think-rotate/doc/environment
+-PWD=/home/mu/Projekte/think-rotate/doc/environment
 -QT_PLUGIN_PATH=/home/mu/.kde/lib/kde4/plugins/:/usr/lib/kde4/plugins/
 -SESSION=kde-plasma
 -SESSION_MANAGER=local/Martin-X220:@/tmp/.ICE-unix/2000,unix/Martin-X220:/tmp/.ICE-unix/2000
 -SESSIONTYPE=
++LOGNAME=root
++MAIL=/var/mail/root
++PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
  SHELL=/bin/bash
 -SHELL_SESSION_ID=a7053eff52fd4000b6f58d0783a5b9ba
 -SHLVL=2
 -SSH_AGENT_PID=1867
 -SSH_AUTH_SOCK=/tmp/ssh-KejIl272p39R/agent.1862
 -TAR_ARCHIVE_DIR=/home/mu/Packaging_Debian
-+SHLVL=1
-+SUDO_COMMAND=/bin/su -c env mu
++SUDO_COMMAND=/usr/bin/env
 +SUDO_GID=1000
 +SUDO_UID=1000
 +SUDO_USER=mu
@@ -70,19 +70,19 @@
 -UPSTART_INSTANCE=
 -UPSTART_JOB=startkde
 -UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1797
- USER=mu
-+USERNAME=root
- _=/usr/bin/env
+-USER=mu
+-_=/usr/bin/env
 -WINDOWID=52428826
++USERNAME=root
++USER=root
  XAUTHORITY=/tmp/kde-mu/xauth-1000-_0
 -XCURSOR_THEME=default
 -XDG_CONFIG_DIRS=/etc/xdg/xdg-kde-plasma:/usr/share/upstart/xdg:/etc/xdg
 -XDG_CURRENT_DESKTOP=KDE
 -XDG_DATA_DIRS=/usr/share:/usr/share/kde-plasma:/usr/local/share/:/usr/share/
- XDG_RUNTIME_DIR=/run/user/1000
+-XDG_RUNTIME_DIR=/run/user/1000
 -XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
- XDG_SEAT=seat0
-+XDG_SESSION_COOKIE=550ca4757c0af12b457994cd526d188e-1389078657.209124-1472854378
- XDG_SESSION_ID=c2
+-XDG_SEAT=seat0
+-XDG_SESSION_ID=c2
 -XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0
- XDG_VTNR=7
+-XDG_VTNR=7
