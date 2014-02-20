@@ -147,7 +147,7 @@ then
 fi
 
 # Dynamically find the external display by searching for connected displays
-# that are not the internal one. If there is no external display connected,
+# that are not the internal ones. If there is no external display connected,
 # that will result in an empty variable.
 mylogger $"Find external display"
 kdialog-update $"Find external display"
