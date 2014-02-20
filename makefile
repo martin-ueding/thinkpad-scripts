@@ -3,7 +3,7 @@
 
 SHELL = /bin/bash
 
-po := $(wildcard locale/*/LC_MESSAGES/think-rotate.po)
+po := $(wildcard locale/*/LC_MESSAGES/thinkpad-scripts.po)
 mo := $(po:.po=.mo)
 
 .PHONY: all install clean
@@ -45,7 +45,7 @@ clean:
 	$(RM) locale/*/LC_MESSAGES/*.mo
 	$(RM) *.pyc
 
-locale/think-rotate.pot: bin/*
+locale/thinkpad-scripts.pot: bin/*
 	xgettext --language Shell --from-code=utf-8 -o $@ $^
 
 %.mo: %.po

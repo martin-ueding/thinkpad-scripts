@@ -1,4 +1,4 @@
-# Copyright © 2013 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2013-2014 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
 SHELL = /bin/bash
@@ -10,9 +10,9 @@ scripts = $(wildcard *.sh)
 all:
 
 install:
-	install -d "$(DESTDIR)/usr/share/think-rotate"
+	install -d "$(DESTDIR)/usr/share/thinkpad-scripts"
 	for script in $(scripts); do \
-		install "$$script" -t "$(DESTDIR)/usr/share/think-rotate"; \
+		install "$$script" -t "$(DESTDIR)/usr/share/thinkpad-scripts"; \
 		done
 
 clean:

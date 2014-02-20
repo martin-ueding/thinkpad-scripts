@@ -2,13 +2,13 @@
 # Copyright © 2012 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
-TEXTDOMAIN=think-rotate
+TEXTDOMAIN=thinkpad-scripts
 
 id="Wacom ISDv4 E6 Finger touch"
 
 # Now import the configuration file if there is one. That will replace any
 # options set above.
-configfile="$HOME/.config/think-rotate/touch.sh"
+configfile="$HOME/.config/thinkpad-scripts/touch.sh"
 
 if [[ -f "$configfile" ]]
 then

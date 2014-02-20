@@ -5,7 +5,7 @@
 
 set -e
 
-TEXTDOMAIN=think-rotate
+TEXTDOMAIN=thinkpad-scripts
 lock=/tmp/think-dock.lock
 
 mylogger() {
@@ -28,7 +28,7 @@ mylogger $"Script starting up (args: $@) …"
 
 for import in kdialog.sh
 do
-    for dir in lib /usr/share/think-rotate
+    for dir in lib /usr/share/thinkpad-scripts
     do
         importfile="$dir/$import"
         if [[ -f "$importfile" ]]
@@ -82,10 +82,10 @@ relative_position="right-of"
 
 # Now import the configuration file if there is one. That will replace any
 # options set above.
-configfile="$HOME/.config/think-rotate/dock.sh"
+configfile="$HOME/.config/thinkpad-scripts/dock.sh"
 
-predock_hook="$HOME/.config/think-rotate/hooks/predock"
-postdock_hook="$HOME/.config/think-rotate/hooks/postdock"
+predock_hook="$HOME/.config/thinkpad-scripts/hooks/predock"
+postdock_hook="$HOME/.config/thinkpad-scripts/hooks/postdock"
 
 mylogger $"Sourcing config file."
 
