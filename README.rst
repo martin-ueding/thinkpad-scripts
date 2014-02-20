@@ -5,10 +5,6 @@
 thinkpad-scripts
 ################
 
-.. contents:: Table Of Contents
-    :backlinks: top
-    :local:
-
 Website
 =======
 
