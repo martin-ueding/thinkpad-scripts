@@ -27,7 +27,7 @@ trap exit-hook EXIT
 
 mylogger "Script starting up (args: $@) …"
 
-for import in kdialog.sh
+for import in external.sh kdialog.sh
 do
     for dir in lib /usr/share/thinkpad-scripts
     do
@@ -186,6 +186,7 @@ done
 mylogger $"Setting subpixel anti-alias order"
 kdialog-update $"Setting subpixel anti-alias order"
 
+
 case "$setto" in
     normal)
         spaa_order=rgb
@@ -203,9 +204,17 @@ esac
 
 mylogger $"Subpixel order will be set to $spaa_order."
 
+# Only change Gnome settings if appropriate program is installed.
 if type gsettings &> /dev/null
 then
-    gsettings set org.gnome.settings-daemon.plugins.xsettings rgba-order "$spaa_order"
+    # Query for an external output If an external output is attached, do not
+    # change the order since that will impact the external output. Since
+    # external outputs are probably a primary output, do not change anything.
+    find-external
+    if [[ -z "$external" ]]
+    then
+        gsettings set org.gnome.settings-daemon.plugins.xsettings rgba-order "$spaa_order"
+    fi
 fi
 
 ###############################################################################

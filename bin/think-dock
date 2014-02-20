@@ -26,7 +26,7 @@ trap exit-hook EXIT
 
 mylogger $"Script starting up (args: $@) …"
 
-for import in kdialog.sh
+for import in external.sh kdialog.sh
 do
     for dir in lib /usr/share/thinkpad-scripts
     do
@@ -151,12 +151,7 @@ fi
 # that will result in an empty variable.
 mylogger $"Find external display"
 kdialog-update $"Find external display"
-i=0
-until external=$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal") || (( i >= 5 ))
-do
-    sleep 1
-    i=$(( i + 1 ))
-done
+find-external
 mylogger $"External display ${external:-not} found."
 
 case "$setto" in
