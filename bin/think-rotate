@@ -78,7 +78,7 @@ then
     source "$configfile"
 fi
 
-kdialog-init $"think-rotate" 8
+kdialog-init $"think-rotate" 9
 kdialog-update $"Reading config file"
 
 mylogger $"Executing pre-hooks"
@@ -178,6 +178,35 @@ do
     xsetwacom set "$device" rotate "$wacom_rotation"
     xsetwacom set "$device" MapToOutput "$internal"
 done
+
+###############################################################################
+#                             subpixel anti-alias                             #
+###############################################################################
+
+mylogger $"Setting subpixel anti-alias order"
+kdialog-update $"Setting subpixel anti-alias order"
+
+case "$setto" in
+    normal)
+        spaa_order=rgb
+        ;;
+    inverted)
+        spaa_order=bgr
+        ;;
+    left)
+        spaa_order=vrgb
+        ;;
+    right)
+        spaa_order=vbgr
+        ;;
+esac
+
+mylogger $"Subpixel order will be set to $spaa_order."
+
+if type gsettings &> /dev/null
+then
+    gsettings set org.gnome.settings-daemon.plugins.xsettings rgba-order "$spaa_order"
+fi
 
 ###############################################################################
 #                              virtual keyboard                               #
