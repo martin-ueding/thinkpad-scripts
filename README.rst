@@ -21,7 +21,7 @@ Issues and pull requests are tracked on the `GitHub page
 <https://github.com/martin-ueding/thinkpad-scripts>`_.
 
 You can view the documentation hosted at `Read the Docs
-<http://think-rotate.readthedocs.org/>`_.
+<http://thinkpad-scripts.readthedocs.org/>`_.
 
 Installation
 ============
@@ -59,12 +59,12 @@ sponsored by, or endorsed by Lenovo. Our use of the term “ThinkPad” is purel
 descriptive since this collection of scripts is only applicable to said type of
 computers.
 
-.. _Getting Started: http://think-rotate.readthedocs.org/en/latest/guides/getting-started.html
-.. _guides: http://think-rotate.readthedocs.org/en/latest/guides/index.html
-.. _think-dock: http://think-rotate.readthedocs.org/en/latest/man/think-dock.1.html
-.. _think-mutemic: http://think-rotate.readthedocs.org/en/latest/man/think-mutemic.1.html
-.. _think-rotate: http://think-rotate.readthedocs.org/en/latest/man/think-rotate.1.html
-.. _think-touch: http://think-rotate.readthedocs.org/en/latest/man/think-touch.1.html
-.. _think-touchpad: http://think-rotate.readthedocs.org/en/latest/man/think-touchpad.1.html
+.. _Getting Started: http://thinkpad-scripts.readthedocs.org/en/latest/guides/getting-started.html
+.. _guides: http://thinkpad-scripts.readthedocs.org/en/latest/guides/index.html
+.. _think-dock: http://thinkpad-scripts.readthedocs.org/en/latest/man/think-dock.1.html
+.. _think-mutemic: http://thinkpad-scripts.readthedocs.org/en/latest/man/think-mutemic.1.html
+.. _think-rotate: http://thinkpad-scripts.readthedocs.org/en/latest/man/think-rotate.1.html
+.. _think-touch: http://thinkpad-scripts.readthedocs.org/en/latest/man/think-touch.1.html
+.. _think-touchpad: http://thinkpad-scripts.readthedocs.org/en/latest/man/think-touchpad.1.html
 
 .. vim: spell
