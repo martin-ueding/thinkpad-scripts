@@ -1,9 +1,9 @@
 .. Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
 .. Copyright © 2013 Jim Turner <jturner314@gmail.com>
 
-############
-think-rotate
-############
+################
+thinkpad-scripts
+################
 
 .. contents:: Table Of Contents
     :backlinks: top
