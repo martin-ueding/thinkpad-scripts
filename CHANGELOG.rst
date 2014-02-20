@@ -4,6 +4,10 @@
 Changelog
 #########
 
+v3.3
+    - Rename project to “thinkpad-scripts”
+    - Add subpixel anti-alias order change on rotation for Gnome
+
 v3.2
     - Update copyright years in the documentation.
     - Add a guard that prevents multiple execution of ``think-dock`` and
