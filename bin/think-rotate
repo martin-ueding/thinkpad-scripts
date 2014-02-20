@@ -186,7 +186,6 @@ done
 mylogger $"Setting subpixel anti-alias order"
 kdialog-update $"Setting subpixel anti-alias order"
 
-
 case "$setto" in
     normal)
         spaa_order=rgb
