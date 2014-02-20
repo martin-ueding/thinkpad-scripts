@@ -13,12 +13,12 @@ Website
 =======
 
 Motivation for this project is on the `project website
-<http://martin-ueding.de/en/projects/think-rotate#pk_campaign=git>`_. You will
+<http://martin-ueding.de/en/projects/thinkpad-scripts#pk_campaign=git>`_. You will
 find release ``.tar.gz`` archives there as well. Also, git URLs are provided on
 the website.
 
 Issues and pull requests are tracked on the `GitHub page
-<https://github.com/martin-ueding/think-rotate>`_.
+<https://github.com/martin-ueding/thinkpad-scripts>`_.
 
 You can view the documentation hosted at `Read the Docs
 <http://think-rotate.readthedocs.org/>`_.
@@ -52,7 +52,7 @@ Legal
 
 This program is licensed under GPLv2+. See `COPYING.rst`_ for more information.
 
-.. _COPYING.rst: https://github.com/martin-ueding/think-rotate/blob/master/COPYING.rst
+.. _COPYING.rst: https://github.com/martin-ueding/thinkpad-scripts/blob/master/COPYING.rst
 
 ThinkPad® is a trademark of Lenovo®. This project is not affiliated with,
 sponsored by, or endorsed by Lenovo. Our use of the term “ThinkPad” is purely

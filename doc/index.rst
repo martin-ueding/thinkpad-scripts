@@ -18,8 +18,8 @@ solution from the documentation, check the `issue tracker`_ on the GitHub to
 see if it is a known problem. If it's not there, please create a new issue on
 the issue tracker.
 
-.. _project website: http://martin-ueding.de/en/projects/think-rotate#pk_campaign=git
-.. _issue tracker: https://github.com/martin-ueding/think-rotate/issues?state=open
+.. _project website: http://martin-ueding.de/en/projects/thinkpad-scriptsrotate#pk_campaign=git
+.. _issue tracker: https://github.com/martin-ueding/thinkpad-scripts/issues?state=open
 
 Contents
 --------

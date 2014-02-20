@@ -1,9 +1,9 @@
 #!/bin/bash
 # Taken from http://askubuntu.com/a/137278
 # Licensed under CC-BY-SA
-# Changes Copyright © 2013 Martin Ueding <dev@martin-ueding.de>
+# Changes Copyright © 2013-2014 Martin Ueding <dev@martin-ueding.de>
 
-TEXTDOMAIN=think-rotate
+TEXTDOMAIN=thinkpad-scripts
 
 # Find the user who is currently logged in on the primary screen.
 user="$(who -u | grep -F '(:0)' | head -n 1 | awk '{print $1}')"

@@ -6,8 +6,8 @@
 
 set -e
 
-TEXTDOMAIN=think-rotate
-lock=/tmp/think-rotate.lock
+TEXTDOMAIN=thinkpad-scripts
+lock=/tmp/thinkpad-scripts.lock
 
 mylogger() {
     echo "$@"
@@ -29,7 +29,7 @@ mylogger "Script starting up (args: $@) …"
 
 for import in kdialog.sh
 do
-    for dir in lib /usr/share/think-rotate
+    for dir in lib /usr/share/thinkpad-scripts
     do
         importfile="$dir/$import"
         if [[ -f "$importfile" ]]
@@ -68,10 +68,10 @@ default_rotation=right
 
 # Now import the configuration file if there is one. That will replace any
 # options set above.
-configfile="$HOME/.config/think-rotate/rotate.sh"
+configfile="$HOME/.config/thinkpad-scripts/rotate.sh"
 
-prerotate_hook="$HOME/.config/think-rotate/hooks/prerotate"
-postrotate_hook="$HOME/.config/think-rotate/hooks/postrotate"
+prerotate_hook="$HOME/.config/thinkpad-scripts/hooks/prerotate"
+postrotate_hook="$HOME/.config/thinkpad-scripts/hooks/postrotate"
 
 if [[ -f "$configfile" ]]
 then
