@@ -17,12 +17,12 @@ hardware keys, such as those on the bezels of some tablets, are not mapped. This
 guide explains how to map *scancodes* to *keycodes* using the udev hwdb, which
 is part of udev versions 196 and later.
 
-Note that think-rotate includes a udev hwdb file that fixes the bezel key
-mappings for Lenovo X220 and X230 Tablets. This guide is useful if you have
-different hardware. If you find something that works for your hardware, please
-feel free to submit a pull request to the GitHub `project`_.
+Note that |project| includes a udev hwdb file that fixes the bezel key mappings
+for Lenovo X220 and X230 Tablets. This guide is useful if you have different
+hardware. If you find something that works for your hardware, please feel free
+to submit a pull request to the GitHub `project`_.
 
-.. _project: https://github.com/martin-ueding/think-rotate
+.. _project: https://github.com/martin-ueding/thinkpad-scripts
 
 Directions
 ==========
@@ -89,7 +89,7 @@ Write and install a udev hwdb configuration file
 ------------------------------------------------
 
 Create a hwdb file with the mappings that you want. Here is the file from
-``think-rotate``, named ``90-X220T-keyboard.hwdb``::
+``thinkpad-rotate``, named ``90-X220T-keyboard.hwdb``::
 
     # Thinkpad X220_Tablet
     keyboard:dmi:bvn*:bvr*:bd*:svnLENOVO*:pn*:pvrThinkPadX220Tablet*
@@ -133,9 +133,9 @@ them. You can do this with your desktop environment's settings manager.
 Note that some keycodes may not be mapped to keysyms, so your desktop
 environment may not recognize them. In this case, the easiest thing to do is to
 choose a different keycode for that key. (This is what I did for the X220
-screen rotation button in ``think-rotate``: based on other ThinkPad models in
-``/lib/udev/hwdb.d/60-keyboard.hwdb``, the ``direction`` keycode would be the
-better choice than ``scale``. However, ``direction`` was not mapped in my
+screen rotation button in ``thinkpad-rotate``: based on other ThinkPad models
+in ``/lib/udev/hwdb.d/60-keyboard.hwdb``, the ``direction`` keycode would be
+the better choice than ``scale``. However, ``direction`` was not mapped in my
 desktop environment, so it was easier just to choose a different keycode that
 wasn't mapped to anything.) The alternative is to use a utility like xmodmap to
 perform the mapping of keycode to keysym [#f5]_.

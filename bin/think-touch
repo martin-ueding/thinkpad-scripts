@@ -1,37 +1,9 @@
 #!/bin/bash
-# Copyright © 2012 Jim Turner <jturner314@gmail.com>
-# Licensed under The GNU Public License Version 2 (or later)
+# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 
-TEXTDOMAIN=thinkpad-scripts
+set -e
+set -u
 
-id="Wacom ISDv4 E6 Finger touch"
+echo "Starting with version 4.0, this script will be renamed to thinkpad-touch!"
 
-# Now import the configuration file if there is one. That will replace any
-# options set above.
-configfile="$HOME/.config/thinkpad-scripts/touch.sh"
-
-if [[ -f "$configfile" ]]
-then
-    source "$configfile"
-fi
-
-case "${1:-auto}" in
-    on)
-        setto=1
-        ;;
-    off)
-        setto=0
-        ;;
-    auto)
-        # Default is to toggle on/off
-        if xinput --list "$id" | grep -i disabled
-        then
-            setto=1
-        else
-            setto=0
-        fi
-        ;;
-esac
-
-echo $"Setting input device $id to \"Device Enabled\" $setto."
-xinput set-prop "$id" "Device Enabled" "$setto"
+thinkpad-touch "$@"

@@ -1,6 +1,6 @@
 [Desktop Entry]
 Categories=System;
-Exec=think-rotate flip
+Exec=thinkpad-rotate flip
 GenericName=Flip screen vertically
 Icon=object-flip-vertical
 Name=rotate flip

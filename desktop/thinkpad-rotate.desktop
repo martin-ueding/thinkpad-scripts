@@ -1,9 +1,9 @@
 [Desktop Entry]
 Categories=System;
-Exec=think-dock off
-GenericName=Undock from ThinkPad Base
-Icon=network-disconnect
-Name=dock on
+Exec=thinkpad-rotate
+GenericName=Rotate screen left
+Icon=object-rotate-right
+Name=rotate
 NoDisplay=true
 StartupNotify=false
 Terminal=false

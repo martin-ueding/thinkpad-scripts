@@ -203,15 +203,15 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('man/think-dock.1', 'think-dock', 'set the screens when going to and from the docking station',
+    ('man/thinkpad-dock.1', 'thinkpad-dock', 'set the screens when going to and from the docking station',
      ['Martin Ueding <dev@martin-ueding.de>'], 1),
-    ('man/think-mutemic.1', 'think-mutemic', 'toggle the microphone mute status',
+    ('man/thinkpad-mutemic.1', 'thinkpad-mutemic', 'toggle the microphone mute status',
      ['Martin Ueding <dev@martin-ueding.de>'], 1),
-    ('man/think-rotate.1', 'think-rotate', 'ThinkPad X220 Tablet screen rotation script',
+    ('man/thinkpad-rotate.1', 'thinkpad-rotate', 'ThinkPad X220 Tablet screen rotation script',
      ['Martin Ueding <dev@martin-ueding.de>'], 1),
-    ('man/think-touch.1', 'think-touch', 'enable/disable the touch screen',
+    ('man/thinkpad-touch.1', 'thinkpad-touch', 'enable/disable the touch screen',
      ['Jim Turner <jturner314@gmail.com>'], 1),
-    ('man/think-touchpad.1', 'think-touchpad', 'Thinkpad TouchPad toggle script',
+    ('man/thinkpad-touchpad.1', 'thinkpad-touchpad', 'Thinkpad TouchPad toggle script',
      ['Martin Ueding <dev@martin-ueding.de>'], 1),
 ]
 

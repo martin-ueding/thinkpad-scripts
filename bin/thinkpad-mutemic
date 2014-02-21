@@ -1,0 +1,4 @@
+#!/bin/bash
+# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+
+amixer sset "'Capture',0" toggle

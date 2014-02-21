@@ -1,9 +1,9 @@
 ..  Copyright © 2012 Jim Turner <jturner314@gmail.com>
     Licensed under The GNU Public License Version 2 (or later)
 
-###########
-think-touch
-###########
+##############
+thinkpad-touch
+##############
 
 .. only:: html
 
@@ -17,7 +17,7 @@ Synopsis
 
 ::
 
-    think-touch [on|off]
+    thinkpad-touch [on|off]
 
 Description
 ===========
@@ -44,8 +44,9 @@ Exit Status
 Files
 =====
 
-You can create a config file in ``$HOME/.config/think-rotate/touch.sh``, which
-is a simple Bash script that is going to be sourced from ``think-touch``.
+You can create a config file in ``$HOME/.config/thinkpad-scripts/touch.sh``,
+which is a simple Bash script that is going to be sourced from
+``thinkpad-touch``.
 
 A sample config would look like this::
 
@@ -60,8 +61,5 @@ You can set the following options:
 Examples
 ========
 
-You can just call ``think-touch`` to toggle the touch screen; otherwise
-state on/off explicitly with ``think-touch on`` or ``think-touch off``.
-
-If you want to disable touch automatically on startup and resume of your system,
-see the man page for ``think-resume``.
+You can just call ``thinkpad-touch`` to toggle the touch screen; otherwise
+state on/off explicitly with ``thinkpad-touch on`` or ``thinkpad-touch off``.

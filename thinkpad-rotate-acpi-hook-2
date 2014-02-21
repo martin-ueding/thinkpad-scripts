@@ -1,6 +1,6 @@
 # Copyright © 2013 Jim Turner <jturner314@gmail.com>
-# Copyright © 2013 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2013-2014 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
 event=video/tabletmode TBLT 0000008A 0000000[01]
-action=/usr/bin/think-rotate-hook %e
+action=/usr/bin/thinkpad-rotate-hook %e

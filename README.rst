@@ -34,11 +34,11 @@ read the man page corresponding to ``<program-name>``.
 In case that you want to read the manual pages online, you can use the
 following links:
 
-- think-dock_
-- think-mutemic_
-- think-rotate_
-- think-touch_
-- think-touchpad_
+- thinkpad-dock_
+- thinkpad-mutemic_
+- thinkpad-rotate_
+- thinkpad-touch_
+- thinkpad-touchpad_
 
 We also have a few guides_ in for other topics, available at the
 following links:
@@ -57,10 +57,10 @@ computers.
 
 .. _Getting Started: http://think-rotate.readthedocs.org/en/latest/guides/getting-started.html
 .. _guides: http://think-rotate.readthedocs.org/en/latest/guides/index.html
-.. _think-dock: http://think-rotate.readthedocs.org/en/latest/man/think-dock.1.html
-.. _think-mutemic: http://think-rotate.readthedocs.org/en/latest/man/think-mutemic.1.html
-.. _think-rotate: http://think-rotate.readthedocs.org/en/latest/man/think-rotate.1.html
-.. _think-touch: http://think-rotate.readthedocs.org/en/latest/man/think-touch.1.html
-.. _think-touchpad: http://think-rotate.readthedocs.org/en/latest/man/think-touchpad.1.html
+.. _thinkpad-dock: http://think-rotate.readthedocs.org/en/latest/man/thinkpad-dock.1.html
+.. _thinkpad-mutemic: http://think-rotate.readthedocs.org/en/latest/man/thinkpad-mutemic.1.html
+.. _thinkpad-rotate: http://think-rotate.readthedocs.org/en/latest/man/thinkpad-rotate.1.html
+.. _thinkpad-touch: http://think-rotate.readthedocs.org/en/latest/man/thinkpad-touch.1.html
+.. _thinkpad-touchpad: http://think-rotate.readthedocs.org/en/latest/man/thinkpad-touchpad.1.html
 
 .. vim: spell
