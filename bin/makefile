@@ -4,7 +4,7 @@ SHELL = /bin/bash
 
 .PHONY: all install clean
 
-scripts = $(wildcard think*-*)
+scripts = $(wildcard thinkpad-*)
 
 all:
 
