@@ -4,7 +4,7 @@ Guides
 ======
 
 This section contains a few guides for think-rotate and related topics. If
-you're new to think-rotate, start with the :doc:`getting-started` guide.
+you're new to |project|, start with the :doc:`getting-started` guide.
 
 .. toctree::
     :glob:

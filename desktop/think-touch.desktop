@@ -1,6 +1,6 @@
 [Desktop Entry]
 Categories=System;
-Exec=think-touch
+Exec=thinkpad-touch
 GenericName=ThinkPad Touchscreen toggle
 Name=think touch
 NoDisplay=true

@@ -6,11 +6,11 @@
 set -e
 
 TEXTDOMAIN=thinkpad-scripts
-lock=/tmp/think-dock.lock
+lock=/tmp/thinkpad-dock.lock
 
 mylogger() {
     echo "$@"
-    logger -t think-dock -i -- "$@"
+    logger -t thinkpad-dock -i -- "$@"
 }
 
 remove-lock() {
@@ -105,7 +105,7 @@ esac
 
 mylogger $"\$kdialog is set to ${kdialog}."
 
-kdialog-init $"think-dock" 11
+kdialog-init $"thinkpad-dock" 11
 
 # Determine the action.
 mylogger $"Determining action: ${1:-auto}"
@@ -192,7 +192,7 @@ case "$setto" in
         if [[ "$disable_wifi" = "true" ]] && type nmcli &> /dev/null && grep -q 1 /sys/class/net/e*/carrier
         then
             # FIXME This does not work if invoked via the ``su -c '…' user``
-            # command from think-dock-hook.
+            # command from thinkpad-dock-hook.
             nmcli nm wifi off
         else
             mylogger $"WARNING: No nmcli found."

@@ -1,10 +1,10 @@
-# Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
 # Copyright © 2013 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
-KERNEL=="dock.*", ATTR{type}=="dock_station", ATTR{docked}=="0", RUN+="/usr/bin/logger -t think-dock Event caught: off"
-KERNEL=="dock.*", ATTR{type}=="dock_station", ATTR{docked}=="1", RUN+="/usr/bin/logger -t think-dock Event caught: on"
-KERNEL=="dock.*", ATTR{type}=="dock_station", ATTR{docked}=="0", RUN+="/usr/bin/think-dock-hook off"
-KERNEL=="dock.*", ATTR{type}=="dock_station", ATTR{docked}=="1", RUN+="/usr/bin/think-dock-hook on"
+KERNEL=="dock.*", ATTR{type}=="dock_station", ATTR{docked}=="0", RUN+="/usr/bin/logger -t thinkpad-dock Event caught: off"
+KERNEL=="dock.*", ATTR{type}=="dock_station", ATTR{docked}=="1", RUN+="/usr/bin/logger -t thinkpad-dock Event caught: on"
+KERNEL=="dock.*", ATTR{type}=="dock_station", ATTR{docked}=="0", RUN+="/usr/bin/thinkpad-dock-hook off"
+KERNEL=="dock.*", ATTR{type}=="dock_station", ATTR{docked}=="1", RUN+="/usr/bin/thinkpad-dock-hook on"
 
 # vim: ft=udevrules

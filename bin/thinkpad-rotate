@@ -11,7 +11,7 @@ lock=/tmp/thinkpad-scripts.lock
 
 mylogger() {
     echo "$@"
-    logger -t think-rotate -i -- "$@"
+    logger -t thinkpad-rotate -i -- "$@"
 }
 
 remove-lock() {
@@ -78,7 +78,7 @@ then
     source "$configfile"
 fi
 
-kdialog-init $"think-rotate" 9
+kdialog-init $"thinkpad-rotate" 9
 kdialog-update $"Reading config file"
 
 mylogger $"Executing pre-hooks"
@@ -160,7 +160,7 @@ case "$setto" in
         wacom_rotation=ccw
         ;;
     *)
-        mylogger $"You specified a direction that is not known. Try either normal, right, flip or left. See think-rotate(1) for more information."
+        mylogger $"You specified a direction that is not known. Try either normal, right, flip or left. See thinkpad-rotate(1) for more information."
         exit 2
 esac
 

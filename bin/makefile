@@ -1,10 +1,10 @@
-# Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
 
 SHELL = /bin/bash
 
 .PHONY: all install clean
 
-scripts = $(wildcard think-*)
+scripts = $(wildcard thinkpad-*)
 
 all:
 
@@ -15,6 +15,6 @@ install:
 		done
 #
 	install -d "$(DESTDIR)/usr/bin/"
-	install think-mutemic -t "$(DESTDIR)/usr/bin/"
+	install thinkpad-mutemic -t "$(DESTDIR)/usr/bin/"
 
 clean:

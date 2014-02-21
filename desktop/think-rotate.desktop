@@ -1,6 +1,6 @@
 [Desktop Entry]
 Categories=System;
-Exec=think-rotate
+Exec=thinkpad-rotate
 GenericName=Rotate screen left
 Icon=object-rotate-right
 Name=rotate

@@ -1,6 +1,6 @@
 [Desktop Entry]
 Categories=System;
-Exec=think-dock on
+Exec=thinkpad-dock on
 GenericName=Dock to ThinkPad Base
 Icon=network-connect
 Name=dock on

@@ -22,9 +22,9 @@ install:
 	if [[ -z "$(DESTDIR)" ]]; then udevadm hwdb --update; fi
 #
 	install -d "$(DESTDIR)/etc/acpi/events/"
-	install -m 644 think-mutemic-acpi-hook -t "$(DESTDIR)/etc/acpi/events/"
-	install -m 644 think-rotate-acpi-hook-1 -t "$(DESTDIR)/etc/acpi/events/"
-	install -m 644 think-rotate-acpi-hook-2 -t "$(DESTDIR)/etc/acpi/events/"
+	install -m 644 thinkpad-mutemic-acpi-hook -t "$(DESTDIR)/etc/acpi/events/"
+	install -m 644 thinkpad-rotate-acpi-hook-1 -t "$(DESTDIR)/etc/acpi/events/"
+	install -m 644 thinkpad-rotate-acpi-hook-2 -t "$(DESTDIR)/etc/acpi/events/"
 #
 	install -d "$(DESTDIR)/usr/share/locale/de/LC_MESSAGES"
 	for mofile in $(mo); \

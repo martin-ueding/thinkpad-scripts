@@ -1,6 +1,6 @@
 [Desktop Entry]
 Categories=System;
-Exec=think-touchpad
+Exec=thinkpad-touchpad
 GenericName=ThinkPad Touchpad toggle
 Name=think touchpad
 NoDisplay=true

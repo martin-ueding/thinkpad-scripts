@@ -1,8 +1,8 @@
-..  Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
+..  Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
     Licensed under The GNU Public License Version 2 (or later)
 
 ############
-think-rotate
+thinkpad-rotate
 ############
 
 .. only:: html
@@ -17,7 +17,7 @@ Synopsis
 
 ::
 
-    think-rotate [direction]
+    thinkpad-rotate [direction]
 
 Description
 ===========
@@ -33,9 +33,9 @@ the side of the screen.
 Finally, it will start the virtual keyboard (``kvkbd`` by default) when the
 screen is rotated and kill it when the screen is rotated back to normal.
 
-If the screen is already rotated (say left) and you call ``think-rotate left``,
-the screen will be reverted to the normal orientation. That way, you can use
-this script as a toggle.
+If the screen is already rotated (say left) and you call ``thinkpad-rotate
+left``, the screen will be reverted to the normal orientation. That way, you
+can use this script as a toggle.
 
 A udev hook is installed as well that picks up the ACPI event when rotating the
 screen.
@@ -79,8 +79,9 @@ Files
 Config
 ------
 
-You can create a config file in ``$HOME/.config/think-rotate/rotate.sh``, which
-is a simple Bash script that is going to be sourced from ``think-rotate``.
+You can create a config file in ``$HOME/.config/thinkpad-scripts/rotate.sh``,
+which is a simple Bash script that is going to be sourced from
+``thinkpad-rotate``.
 
 A sample config would look like this::
 
@@ -91,11 +92,11 @@ You can set the following option:
 ``kdialog``
     If this is set to ``true``, a GUI progress bar will be shown. This needs
     ``kdialog`` installed. When this script is called from
-    ``think-rotate-hook``, ``kdialog`` has some problem. Therefore,
-    ``think-rotate-hook`` disables kdialog by settings ``kdialog=false`` when
-    calling the script. If you define it in you configuration file, make sure
-    not to overwrite an already set value. You can do this with the following
-    line::
+    ``thinkpad-rotate-hook``, ``kdialog`` has some problem. Therefore,
+    ``thinkpad-rotate-hook`` disables kdialog by settings ``kdialog=false``
+    when calling the script. If you define it in you configuration file, make
+    sure not to overwrite an already set value. You can do this with the
+    following line::
 
         kdialog="${kdialog:-true}"
 
@@ -115,28 +116,28 @@ You can set the following option:
 Hooks
 -----
 
-You can add scripts to be called before and/or after rotation by placing them at
-the following paths. The ``postrotate`` hook gets the new rotation (``left``,
-``right``, ``inverted``, or ``normal``) as a command line argument.
+You can add scripts to be called before and/or after rotation by placing them
+at the following paths. The ``postrotate`` hook gets the new rotation
+(``left``, ``right``, ``inverted``, or ``normal``) as a command line argument.
 
-- ``~/.config/think-rotate/hooks/prerotate``
-- ``~/.config/think-rotate/hooks/postrotate``
+- ``~/.config/thinkpad-scripts/hooks/prerotate``
+- ``~/.config/thinkpad-scripts/hooks/postrotate``
 
 Example
 =======
 
 To rotate the screen to the right (and later back again), use::
 
-    think-rotate
+    thinkpad-rotate
 
 To specify the direction, you can use::
 
-    think-rotate left
-    think-rotate right
-    think-rotate inverted
-    think-rotate normal
+    thinkpad-rotate left
+    thinkpad-rotate right
+    thinkpad-rotate inverted
+    thinkpad-rotate normal
 
 See Also
 ========
 
-- `GitHub Repository <http://github.com/martin-ueding/think-rotate>`_
+- `GitHub Repository <http://github.com/martin-ueding/thinkpad-scripts>`_

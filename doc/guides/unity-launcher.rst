@@ -19,7 +19,7 @@ cpbl_ contributed this ``postrotate`` hook:
     fi
 
 This hook will work with version 3.1 or newer. In `Issue #35
-<https://github.com/martin-ueding/think-rotate/issues/35>`_, cpbl_ pointed out
-the the rotation hooks are not passed an argument with the target rotation.
+<https://github.com/martin-ueding/thinkpad-scripts/issues/35>`_, cpbl_ pointed
+out the the rotation hooks are not passed an argument with the target rotation.
 
 .. _cpbl: https://github.com/cpbl
