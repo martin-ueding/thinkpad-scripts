@@ -1,9 +1,9 @@
-..  Copyright © 2013 Martin Ueding <dev@martin-ueding.de>
+..  Copyright © 2013-2014 Martin Ueding <dev@martin-ueding.de>
     Licensed under The GNU Public License Version 2 (or later)
 
-##########
-think-dock
-##########
+#############
+thinkpad-dock
+#############
 
 .. only:: html
 
@@ -17,7 +17,7 @@ Synopsis
 
 ::
 
-    think-dock [on|off]
+    thinkpad-dock [on|off]
 
 Description
 ===========
@@ -32,7 +32,7 @@ docking station, it will un-dock.
 
 There will be an udev rule installed that will automatically dock it when set
 onto the station and un-dock when you press the eject button. Technically, this
-rule calls the ``think-dock-hook``.
+rule calls the ``thinkpad-dock-hook``.
 
 what it does
 ------------
@@ -77,8 +77,9 @@ Files
 Config
 ------
 
-You can create a config file in ``$HOME/.config/think-rotate/dock.sh``, which
-is a simple Bash script that is going to be sourced from ``think-dock``.
+You can create a config file in ``$HOME/.config/thinkpad-scripts/dock.sh``,
+which is a simple Bash script that is going to be sourced from
+``thinkpad-dock``.
 
 A sample config would look like this::
 
@@ -117,25 +118,26 @@ You can set the following options:
     recommended to supply the ``-of`` as well. *Default: right-of*.
 
 ``kdialog``
-    Please see the appropriate section in think-rotate(1), it has the same
+    Please see the appropriate section in thinkpad-rotate(1), it has the same
     option. *Default:*.
 
 Hooks
 -----
 
-There are hooks, called before and after the main script. It gets a single command line argument, ``on`` or ``off``.
+There are hooks, called before and after the main script. It gets a single
+command line argument, ``on`` or ``off``.
 
-- ``~/.config/think-rotate/hooks/predock``
-- ``~/.config/think-rotate/hooks/postdock``
+- ``~/.config/thinkpad-scripts/hooks/predock``
+- ``~/.config/thinkpad-scripts/hooks/postdock``
 
 Example
 =======
 
-You can just call ``think-dock`` and it will do the right think probably.
+You can just call ``thinkpad-dock`` and it will do the right think probably.
 
 If you want, you can tell the script what to do: When you have it sitting on
-the docking station, call ``think-dock on`` to get the external screen going.
-When you are done, call ``think-dock off`` before you disconnect to get the
-internal screen back again.
+the docking station, call ``thinkpad-dock on`` to get the external screen
+going. When you are done, call ``thinkpad-dock off`` before you disconnect to
+get the internal screen back again.
 
 ..  vim: spell

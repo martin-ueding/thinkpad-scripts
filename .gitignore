@@ -1,5 +1,5 @@
 *.1
 *.1.gz
-locale/de/LC_MESSAGES/think-rotate.mo
 doc/_build/
 getversion.pyc
+locale/de/LC_MESSAGES/think-rotate.mo

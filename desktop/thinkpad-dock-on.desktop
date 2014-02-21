@@ -1,9 +1,9 @@
 [Desktop Entry]
 Categories=System;
-Exec=think-rotate left
-GenericName=Rotate screen left
-Icon=object-rotate-left
-Name=rotate
+Exec=thinkpad-dock on
+GenericName=Dock to ThinkPad Base
+Icon=network-connect
+Name=dock on
 NoDisplay=true
 StartupNotify=false
 Terminal=false

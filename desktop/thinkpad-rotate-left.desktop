@@ -1,8 +1,8 @@
 [Desktop Entry]
 Categories=System;
-Exec=think-rotate
+Exec=thinkpad-rotate left
 GenericName=Rotate screen left
-Icon=object-rotate-right
+Icon=object-rotate-left
 Name=rotate
 NoDisplay=true
 StartupNotify=false

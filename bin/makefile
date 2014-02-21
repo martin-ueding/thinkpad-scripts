@@ -1,10 +1,11 @@
-# Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
+# Licensed under The GNU Public License Version 2 (or later)
 
 SHELL = /bin/bash
 
 .PHONY: all install clean
 
-scripts = $(wildcard think-*)
+scripts = $(wildcard think*-*)
 
 all:
 
@@ -13,8 +14,5 @@ install:
 	for script in $(scripts); do \
 		install "$$script" -t "$(DESTDIR)/usr/bin/"; \
 		done
-#
-	install -d "$(DESTDIR)/usr/bin/"
-	install think-mutemic -t "$(DESTDIR)/usr/bin/"
 
 clean:

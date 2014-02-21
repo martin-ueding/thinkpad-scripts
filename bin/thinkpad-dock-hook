@@ -10,7 +10,7 @@ set -u
 # Find the user who is currently logged in on the primary screen.
 user="$(who -u | grep -E '\(:0(\.0)?\)' | head -n 1 | awk '{print $1}')"
 
-logger -t think-dock -- "Using user $user."
+logger -t thinkpad-dock -- "Using user $user."
 
 case "$1" in
     on)
@@ -21,6 +21,6 @@ case "$1" in
         ;;
 esac
 
-su -c "DISPLAY=:0.0 kdialog=false /usr/bin/think-dock $setto" --login "$user" &
+su -c "DISPLAY=:0.0 kdialog=false /usr/bin/thinkpad-dock $setto" --login "$user" &
 
 disown

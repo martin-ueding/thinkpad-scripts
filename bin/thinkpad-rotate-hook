@@ -11,7 +11,7 @@ set -u
 # Find the user who is currently logged in on the primary screen.
 user="$(who -u | grep -E '\(:0(\.0)?\)' | head -n 1 | awk '{print $1}')"
 
-logger -t think-rotate-hook -i -- $"Using user $user."
+logger -t thinkpad-rotate-hook -i -- $"Using user $user."
 
 case "$4" in
     00000001|00005009)
@@ -22,9 +22,9 @@ case "$4" in
         ;;
 esac
 
-command="DISPLAY=:0.0 kdialog=false /usr/bin/think-rotate $setto"
+command="DISPLAY=:0.0 kdialog=false /usr/bin/thinkpad-rotate $setto"
 
-logger -t think-rotate-hook -i -- $"Will run “$command”."
+logger -t thinkpad-rotate-hook -i -- $"Will run “$command”."
 
 su -c "$command" --login "$user" &
 

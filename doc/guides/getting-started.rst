@@ -1,4 +1,4 @@
-.. Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
+.. Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
 .. Copyright © 2013 Jim Turner <jturner314@gmail.com>
 
 ###############
@@ -8,7 +8,7 @@ Getting Started
 Installation
 ============
 
-The easiest way to install think-rotate on Ubuntu or Arch Linux is with your
+The easiest way to install |project| on Ubuntu or Arch Linux is with your
 package manager, as described in :ref:`installation-from-package`. If you are
 on another distribution, then you can build and install it manually using the
 instructions in :ref:`installation-build-manually`.
@@ -25,9 +25,9 @@ On Ubuntu and its derivatives, you can install from `Martin's PPA`_:
     $ sudo -s
     # add-apt-repository ppa:martin-ueding/stable
     # apt-get update
-    # apt-get install think-rotate
+    # apt-get install thinkpad-scripts
 
-On Arch Linux, you can install the ``think-rotate`` package from the AUR_.
+On Arch Linux, you can install the ``thinkpad-scripts`` package from the AUR_.
 
 .. _Martin's PPA: https://launchpad.net/~martin-ueding/+archive/stable
 .. _AUR: https://aur.archlinux.org/packages/think-rotate
@@ -125,20 +125,20 @@ xbacklight     xbacklight         xorg-xbacklight    adjusting brightness
 Setup
 =====
 
-think-rotate includes files that hook into various hardware events:
+|project| includes files that hook into various hardware events:
 
 * a udeb hwdb file that allows proper operation of the bezel buttons on ThinkPad
   X220 and X230 Tablet computers
 
-* udev rules to automatically run think-dock when docking and undocking
+* udev rules to automatically run thinkpad-dock when docking and undocking
 
-* ACPI hooks to automatically call think-rotate when the screen is
+* ACPI hooks to automatically call thinkpad-rotate when the screen is
   rotated/unrotated
 
 All of these files should be installed as part of the installation process. If
 acpid is not enabled by default on your computer (which is the case for Arch
 Linux), you need to enable and start it for the ACPI hooks to work.
-Additionally, after installing think-rotate, you may need to restart udev and
+Additionally, after installing |project|, you may need to restart udev and
 acpid for the new rules and hooks to take effect.
 
 Usage
@@ -148,11 +148,11 @@ After following the configuration instructions above, you generally will not
 need to call any of the scripts manually. However, in case you do, this is a
 synopsis of each command::
 
-    think-dock [on|off]
-    think-mutemic
-    think-rotate [direction]
-    think-touch [on|off]
-    think-touchpad
+    thinkpad-dock [on|off]
+    thinkpad-mutemic
+    thinkpad-rotate [direction]
+    thinkpad-touch [on|off]
+    thinkpad-touchpad
 
 See the :doc:`../man/index` for more details.
 
@@ -162,25 +162,25 @@ Configuration
 You can modify the default configuration for things such as the screen
 brightness to set when docking, the relative positions of displays, and the
 direction of screen rotation by placing configuration scripts in
-``$HOME/.config/think-rotate``. See the :doc:`../man/index` for
+``$HOME/.config/thinkpad-scripts``. See the :doc:`../man/index` for
 more details.
 
 You can also add scripts that will be called before/after docking or rotating
-the display. See the man pages for :doc:`../man/think-dock.1` and
-:doc:`../man/think-rotate.1` for more details.
+the display. See the man pages for :doc:`../man/thinkpad-dock.1` and
+:doc:`../man/thinkpad-rotate.1` for more details.
 
 Tips
 ====
 
-think-rotate fixes the bezel buttons so that they work, but it does not bind
-anything to them by default. If you'd like, you can bind the ``think-rotate``
+|project| fixes the bezel buttons so that they work, but it does not bind
+anything to them by default. If you'd like, you can bind the ``thinkpad-rotate``
 script (or any other program for that matter) to one of the bezel buttons using
 your desktop environment. For example, under GNOME, go to “Settings” →
 “Keyboard” → “Shortcuts” → “Custom Shortcuts” and add a new “shortcut”.
 
-think-rotate includes a script, ``think-touch``, to make it easy to toggle the
+|project| includes a script, ``thinkpad-touch``, to make it easy to toggle the
 touchscreen of the X220 Tablet on/off. If you want to disable your touch screen
-on startup, use your desktop environment to call ``think-touch off`` when
+on startup, use your desktop environment to call ``thinkpad-touch off`` when
 starting.
 
 Under KDE, it is convenient to place all of the scripts in a drawer so that you
