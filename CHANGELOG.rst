@@ -13,6 +13,7 @@ v3.4    2014-02-21
       place, so calling either ``thinkpad-rotate`` or ``thinkpad-dock`` will
       rename your configuration folder if it exists and there is no new one
       already existing.
+    - Put dates into the changelog, for all releases so far.
 
 v3.3    2014-02-21
     - Rename project to “thinkpad-scripts”
