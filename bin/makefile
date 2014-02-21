@@ -4,7 +4,7 @@ SHELL = /bin/bash
 
 .PHONY: all install clean
 
-scripts = $(wildcard thinkpad-*)
+scripts = $(wildcard think*-*)
 
 all:
 
@@ -13,8 +13,5 @@ install:
 	for script in $(scripts); do \
 		install "$$script" -t "$(DESTDIR)/usr/bin/"; \
 		done
-#
-	install -d "$(DESTDIR)/usr/bin/"
-	install thinkpad-mutemic -t "$(DESTDIR)/usr/bin/"
 
 clean:
