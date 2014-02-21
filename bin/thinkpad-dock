@@ -26,7 +26,7 @@ trap exit-hook EXIT
 
 mylogger $"Script starting up (args: $@) …"
 
-for import in external.sh kdialog.sh
+for import in external.sh kdialog.sh upgrade.sh
 do
     for dir in lib /usr/share/thinkpad-scripts
     do
@@ -37,6 +37,8 @@ do
         fi
     done
 done
+
+run-upgrades
 
 mylogger $"Running as user $USER."
 mylogger $"\$HOME is set to ${HOME-}."
