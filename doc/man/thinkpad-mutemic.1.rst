@@ -22,6 +22,8 @@ Synopsis
 Description
 ===========
 
-Toggles the microphone mute status. It will also turn the power LED into a
-blinking mode to signal that the microphone is muted. The mute light itself can
-only be accessed with a patched kernel module, so we do not do that yet.
+This script will be called when you press the microphone mute button. It will
+mute the microphone and toggle the LED. It currently uses the power button LED
+for status in order to avoid a kernel module patch. [mutemic]_
+
+.. [mutemic] http://askubuntu.com/a/137278/12824

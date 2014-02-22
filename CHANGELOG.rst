@@ -4,6 +4,14 @@
 Changelog
 #########
 
+v3.5
+    Released: 2014-02-22
+
+    - **Added**: Set the option ``toggle_unity_launcher`` for
+      :doc:`/man/thinkpad-rotate.1` to un-hide the Unity launcher whenever the
+      screen is rotated. This was previously an example hook in the guides, now
+      it is part of the main suite of scripts.
+
 v3.4
     Released: 2014-02-21
 
