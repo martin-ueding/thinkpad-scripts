@@ -4,6 +4,10 @@
 Changelog
 #########
 
+v4.0
+    - Remove the transitional scripts. If you have anything that still depends
+      on having scripts starting with ``think-``, **this will break!**
+
 v3.5
     Released: 2014-02-22
 
