@@ -58,8 +58,8 @@ Contents of the documentation
 
     guides/index
     man/index
-    environment/index
     changelog
     legal
+    dev/index
 
 .. vim: spell
