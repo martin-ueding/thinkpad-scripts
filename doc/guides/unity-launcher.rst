@@ -2,7 +2,10 @@
 Unity Launcher
 ##############
 
-The Unity Launcher on the left side is only shown if you excert pressure with the mouse. That means that you do not only have to put the mouse to the left edge of the screen, but push it beyond that edge. This is not possible to do with touchscreen or the pen, so you need to show the launcher by default.
+The Unity Launcher on the left side is only shown if you excert pressure with
+the mouse. That means that you do not only have to put the mouse to the left
+edge of the screen, but push it beyond that edge. This is not possible to do
+with touchscreen or the pen, so you need to show the launcher by default.
 
 cpbl_ contributed this ``postrotate`` hook:
 
