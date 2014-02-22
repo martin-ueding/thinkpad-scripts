@@ -40,8 +40,7 @@ following links:
 - thinkpad-touch_
 - thinkpad-touchpad_
 
-We also have a few guides_ in for other topics, available at the
-following links:
+We also have a few online guides_ for other topics.
 
 Legal
 =====
