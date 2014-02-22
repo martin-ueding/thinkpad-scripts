@@ -20,6 +20,7 @@ cpbl_ contributed this ``postrotate`` hook:
 
 This hook will work with version 3.1 or newer. In `Issue #35
 <https://github.com/martin-ueding/thinkpad-scripts/issues/35>`_, cpbl_ pointed
-out the the rotation hooks are not passed an argument with the target rotation.
+out that the rotation hooks are not passed an argument with the target
+rotation.
 
 .. _cpbl: https://github.com/cpbl
