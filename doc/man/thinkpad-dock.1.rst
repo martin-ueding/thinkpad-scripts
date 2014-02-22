@@ -86,7 +86,7 @@ A sample config would look like this::
 
     dock_loudness="50%"
     disable_wifi=false
-    relative_position=left
+    relative_position=left-of
 
 You can set the following options:
 
