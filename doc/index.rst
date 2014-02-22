@@ -5,23 +5,18 @@
 ===================================================================
 
 Welcome to the documentation for |project|, a set of scripts to automate a
-variety of tasks on the ThinkPad X220 Tablet. Tar archives of the source can be
-found on the `project website <http://martin-ueding.de/en/projects/thinkpad-scripts>`_.
-
+variety of tasks on the ThinkPad X220 Tablet.
 If you're new to |project|, then check out the :doc:`guides/getting-started`
 guide.
 
-If you already have |project| set up and just want a quick reference, see the
+In case you already have |project| set up and just want a quick reference, see the
 :doc:`manual pages <man/index>`.
 
-If something isn't working properly on your system and you can't figure out a
-solution from the documentation, check the `issue tracker
-<https://github.com/martin-ueding/thinkpad-scripts/issues>`_ on the GitHub to
-see if it is a known problem. If it's not there, please create a new issue on
-the issue tracker.
-
-Contents
---------
+Should there be something working unlike it should on your system and you can't
+figure out a solution from the documentation, check the `issue tracker
+<https://github.com/martin-ueding/thinkpad-scripts/issues>`_ to see if it is a
+known problem. If it's not there, please create a new issue on the issue
+tracker.
 
 .. toctree::
     :glob:
@@ -34,6 +29,12 @@ Contents
     changelog
     legal
 
-.. **
+.. seealso::
+
+    `Project website <http://martin-ueding.de/en/projects/thinkpad-scripts>`_
+        - Tar archives with source checkouts
+    `GitHub page <https://github.com/martin-ueding/thinkpad-scripts/issues>`_
+        - Issue tracker
+        - git repository
 
 .. vim: spell

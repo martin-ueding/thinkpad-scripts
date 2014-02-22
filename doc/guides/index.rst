@@ -10,5 +10,5 @@ new to |project|, start with the :doc:`getting-started` guide.
     :glob:
     :maxdepth: 2
 
-    gettings-started
+    getting-started
     *
