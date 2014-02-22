@@ -4,6 +4,11 @@
 Changelog
 #########
 
+v3.5.1
+    Released: 2014-02-22
+
+    - Small fixes in the manual pages
+
 v3.5
     Released: 2014-02-22
 
