@@ -61,7 +61,8 @@ on|off
     ``on``. Otherwise use ``off`` before you take the ThinkPad off the docking
     station.
 
-    You can omit this option and the script will guess what to do.
+    You can omit this option and the script will guess what to do by checking
+    whether a dock is docked in ``/sys``.
 
 Exit Status
 ===========
