@@ -89,6 +89,13 @@ A sample config would look like this::
 
 You can set the following option:
 
+``default_rotation``
+    Default rotation if device is in normal rotation and no arguments are
+    given. *Default: right*.
+
+``internal``
+    The ``xrandr`` name for the internal monitor. *Default: LVDS1*.
+
 ``kdialog``
     If this is set to ``true``, a GUI progress bar will be shown. This needs
     ``kdialog`` installed. When this script is called from
@@ -102,16 +109,20 @@ You can set the following option:
 
     *Default:*.
 
+``toggle_unity_launcher``
+    The Unity Launcher on the left side is only shown if you excert pressure
+    with the mouse. That means that you do not only have to put the mouse to
+    the left edge of the screen, but push it beyond that edge. This is not
+    possible to do with touchscreen or the pen, so you need to show the
+    launcher by default.
+
+    With this option set to *true*, the hide mode will be toggled. That way,
+    you have a hidden launcher on normal rotation, and a always-shown launcher
+    with any rotation. *Default: false*.
+
 ``virtual_kbd``
     Command to start the virtual keyboard. Choices are (among others) ``kvkbd``
     for KDE, ``cellwriter``, ``onboard``. *Default: kvkbd*.
-
-``internal``
-    The ``xrandr`` name for the internal monitor. *Default: LVDS1*.
-
-``default_rotation``
-    Default rotation if device is in normal rotation and no arguments are
-    given. *Default: right*.
 
 Hooks
 -----

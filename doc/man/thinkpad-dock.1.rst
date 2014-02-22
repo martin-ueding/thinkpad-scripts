@@ -61,7 +61,8 @@ on|off
     ``on``. Otherwise use ``off`` before you take the ThinkPad off the docking
     station.
 
-    You can omit this option and the script will guess what to do.
+    You can omit this option and the script will guess what to do by checking
+    whether a dock is docked in ``/sys``.
 
 Exit Status
 ===========
@@ -85,7 +86,7 @@ A sample config would look like this::
 
     dock_loudness="50%"
     disable_wifi=false
-    relative_position=left
+    relative_position=left-of
 
 You can set the following options:
 
@@ -133,7 +134,7 @@ command line argument, ``on`` or ``off``.
 Example
 =======
 
-You can just call ``thinkpad-dock`` and it will do the right think probably.
+You can just call ``thinkpad-dock`` and it will do the right thing probably.
 
 If you want, you can tell the script what to do: When you have it sitting on
 the docking station, call ``thinkpad-dock on`` to get the external screen

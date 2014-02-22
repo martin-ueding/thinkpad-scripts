@@ -68,6 +68,8 @@ virtual_kbd="kvkbd"
 # Default rotation.
 default_rotation=right
 
+toggle_unity_launcher=false
+
 # Now import the configuration file if there is one. That will replace any
 # options set above.
 configfile="$HOME/.config/thinkpad-scripts/rotate.sh"
@@ -215,6 +217,22 @@ then
     if [[ -z "$external" ]]
     then
         gsettings set org.gnome.settings-daemon.plugins.xsettings rgba-order "$spaa_order"
+    fi
+fi
+
+###############################################################################
+#                               Unity launcher                                #
+###############################################################################
+
+if [[ "$toggle_unity_launcher" = 'true' ]]
+then
+    mylogger $"Toggle Unity launcher"
+
+    if [[ "$setto" = 'normal' ]]
+    then
+        dconf write '/org/compiz/profiles/unity/plugins/unityshell/launcher-hide-mode' 1
+    else
+        dconf write '/org/compiz/profiles/unity/plugins/unityshell/launcher-hide-mode' 0
     fi
 fi
 
