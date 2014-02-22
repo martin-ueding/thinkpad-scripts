@@ -113,6 +113,17 @@ You can set the following option:
     Default rotation if device is in normal rotation and no arguments are
     given. *Default: right*.
 
+``toggle_unity_launcher``
+    The Unity Launcher on the left side is only shown if you excert pressure
+    with the mouse. That means that you do not only have to put the mouse to
+    the left edge of the screen, but push it beyond that edge. This is not
+    possible to do with touchscreen or the pen, so you need to show the
+    launcher by default.
+
+    With this option set to *true*, the hide mode will be toggled. That way,
+    you have a hidden launcher on normal rotation, and a always-shown launcher
+    with any rotation. *Default: false*.
+
 Hooks
 -----
 
