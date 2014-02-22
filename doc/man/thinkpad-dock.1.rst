@@ -133,7 +133,7 @@ command line argument, ``on`` or ``off``.
 Example
 =======
 
-You can just call ``thinkpad-dock`` and it will do the right think probably.
+You can just call ``thinkpad-dock`` and it will do the right thing probably.
 
 If you want, you can tell the script what to do: When you have it sitting on
 the docking station, call ``thinkpad-dock on`` to get the external screen
