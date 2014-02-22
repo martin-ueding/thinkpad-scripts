@@ -4,12 +4,21 @@
 Changelog
 #########
 
+v3.5
+    Released: 2014-02-22
+
+    - **Added**: Set the option ``toggle_unity_launcher`` for
+      :doc:`/man/thinkpad-rotate.1` to un-hide the Unity launcher whenever the
+      screen is rotated. This was previously an example hook in the guides, now
+      it is part of the main suite of scripts.
+
 v3.4
     Released: 2014-02-21
 
     - Rename all the scripts from ``think-`` to ``thinkpad-`` to match the new
       project name. To ease transition, there are transition scripts with the
-      old names. **Be sure to adjust all your scripts and hooks accordingly!** The transition scripts will be dropped with version 4.0.
+      old names. **Be sure to adjust all your scripts and hooks accordingly!**
+      The transition scripts will be dropped with version 4.0.
     - Rename the configuration directory from ``~/.config/think-rotate`` to
       ``~/.config/thinkpad-scripts``. There is an automatic upgrade script in
       place, so calling either ``thinkpad-rotate`` or ``thinkpad-dock`` will
