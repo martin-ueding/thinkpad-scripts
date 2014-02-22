@@ -30,7 +30,7 @@ On Ubuntu and its derivatives, you can install from `Martin's PPA`_:
 On Arch Linux, you can install the ``thinkpad-scripts`` package from the AUR_.
 
 .. _Martin's PPA: https://launchpad.net/~martin-ueding/+archive/stable
-.. _AUR: https://aur.archlinux.org/packages/think-rotate
+.. _AUR: https://aur.archlinux.org/packages/thinkpad-scripts
 
 .. _installation-build-manually:
 
