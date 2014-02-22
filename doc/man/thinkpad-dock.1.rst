@@ -114,9 +114,8 @@ You can set the following options:
 
 ``relative_position``
     Where to set the external monitor. Set it to ``right-of`` or ``left-of`` or
-    anything else that ``xrandr`` supports with a ``--*`` argument. For
-    compatibility reasons, you can also supply ``right`` or ``left``, but it is
-    recommended to supply the ``-of`` as well. *Default: right-of*.
+    anything else that ``xrandr`` supports with a ``--*`` argument. *Default:
+    right-of*.
 
 ``kdialog``
     Please see the appropriate section in thinkpad-rotate(1), it has the same
