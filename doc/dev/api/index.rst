@@ -1,8 +1,11 @@
-.. Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+..  Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+    Licensed under The GNU Public License Version 2 (or later)
 
 ###
 API
 ###
+
+:Date: 2014-03-03
 
 There are a couple Bash library functions in ``lib``. They are sourced in some
 of the scripts, providing common functionality. Attempting to write a library
@@ -43,12 +46,18 @@ File ``kdialog.sh``
 Function ``kdialog-init``
 -------------------------
 
+Opens a new progress bar.
+
 Options
 ~~~~~~~
 
-.. options:: $1
+.. option:: $1
 
-    Label text
+    Title text.
+
+.. option:: $2
+
+    Number of segments.
 
 Environment variables needed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -73,14 +82,37 @@ Environment variables provided
 Function ``kdialog-update``
 ---------------------------
 
-.. options:: $1
+Updates text and percentage on the progress bar.
 
-    Label text
+Options
+~~~~~~~
+
+.. option:: $1
+
+    New label text.
+
+Environment variables needed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. envvar:: kdialog
+
+.. envvar:: kdialog_handle
 
 .. envvar:: kdialog_number
 
-    Current state of the progress bar.
+    Current state of the progress bar. This will be incremented by 1 as a side
+    effect.
+
+Function ``kdialog-exit``
+-------------------------
+
+Closes the progress bar.
+
+Environment variables needed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. envvar:: kdialog
+
+.. envvar:: kdialog_handle
 
 .. vim: tw=79 spell
