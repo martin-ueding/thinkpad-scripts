@@ -115,4 +115,20 @@ Environment variables needed
 
 .. envvar:: kdialog_handle
 
+File ``upgrade.sh``
+===================
+
+Function ``run-upgrades``
+-------------------------
+
+Runs all the upgrades that are provided in this “Bash module”.
+
+Function ``run-3.3-to-3.4``
+---------------------------
+
+Performs upgrade tasks from version 3.3 to 3.4. That was the version where the
+project got renamed from “think-rotate” to “thinkpad-scripts”. It will change
+the ``~/.config/think-rotate`` to ``~/.config/thinkpad-scripts``, unless the
+new directories exist already. This should not overwrite anything.
+
 .. vim: tw=79 spell
