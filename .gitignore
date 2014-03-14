@@ -4,3 +4,5 @@
 doc/_build/
 getversion.pyc
 locale/de/LC_MESSAGES/think-rotate.mo
+build/
+thinkpad_scripts.egg-info/
