@@ -12,6 +12,7 @@ This part of the documentation is meant for developers. If you just want to use
     :glob:
 
     */index
+    *
 
 .. **
 
