@@ -9,40 +9,46 @@ import logging
 import tps
 import tps.config
 import tps.hooks
+import tps.screen
 
 __docformat__ = "restructuredtext en"
 
-class UnknownDirectionException(Exception):
-    '''
-    Unknown direction given at the command line.
-    '''
+logger = logging.getLogger(__name__)
 
 def main():
     options = _parse_args()
 
     config = tps.config.get_config()
 
-    rotate_to(translate_direction(options.direction), config)
+    new_direction = new_rotation(
+        tps.screen.get_rotation(config['screen']['internal']),
+        options.direction, config)
 
-def translate_direction(direction):
-    if direction == 'normal':
-        return tps.NORMAL
-
-    if direction == 'left':
-        return tps.LEFT
-
-    if direction == 'right':
-        return tps.RIGHT
-
-    if direction == 'flip':
-        return tps.INVERTED
-    if direction == 'inverted':
-        return tps.INVERTED
-
-    raise UnknownDirectionException('Direction “{}” cannot be understood.'.format(direction))
+    rotate_to(new_rotation, config)
 
 def rotate_to(direction, config):
     tps.hooks.prerotate(config)
+
+    current_rotation = tps.screen.get_rotation(config['screen']['internal'])
+
+def new_rotation(current, desired_str, config):
+    if desired_str is None:
+        if current == tps.NORMAL:
+            new = tps.translate_direction(config['screen']['default_rotation'])
+            logger.info('Using default, setting to {}'.format(new))
+        else:
+            new = tps.NORMAL
+            logger.info('Using default, setting to {}'.format(new))
+    else:
+        desired = tps.translate_direction(desired_str)
+        if desired == current:
+            logger.info('You try to rotate into the direction it is, reverting to normal.')
+            new = tps.NORMAL
+        else:
+            logger.info('User chose to set to {}'.format(new))
+            new = desired
+    return new
+
 
 def _parse_args():
     """
@@ -55,7 +61,7 @@ def _parse_args():
     :rtype: Namespace
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument("direction", help="Positional arguments.")
+    parser.add_argument("direction", nargs='?', help="Positional arguments.")
     #parser.add_argument("", dest="", type="", default=, help=)
     #parser.add_argument("--version", action="version", version="<the version>")
     parser.add_argument("-v", dest='verbose', action="count", help='Enable verbose output. Can be supplied multiple times for even more verbosity.')

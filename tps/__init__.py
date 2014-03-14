@@ -25,3 +25,25 @@ NORMAL = Direction('normal', 'none')
 
 INVERTED = Direction('inverted', 'half')
 'Inverted'
+
+class UnknownDirectionException(Exception):
+    '''
+    Unknown direction given at the command line.
+    '''
+
+def translate_direction(direction):
+    if direction == 'normal':
+        return NORMAL
+
+    if direction == 'left':
+        return LEFT
+
+    if direction == 'right':
+        return RIGHT
+
+    if direction == 'flip':
+        return INVERTED
+    if direction == 'inverted':
+        return INVERTED
+
+    raise UnknownDirectionException('Direction “{}” cannot be understood.'.format(direction))
