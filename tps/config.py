@@ -16,6 +16,8 @@ def get_config():
     config = configparser.ConfigParser()
 
     config.read('default.ini')
+    if os.path.isfile(CONFIGFILE):
+        config.read(CONFIGFILE)
 
     return config
 
