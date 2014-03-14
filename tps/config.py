@@ -20,10 +20,10 @@ def get_config():
     return config
 
 def print_config(config):
-    for section in config.sections():
+    for section in sorted(config.sections()):
         termcolor.cprint(section, attrs=('bold',))
 
-        for key in config[section]:
+        for key in sorted(config[section]):
             print(termcolor.colored(key, 'yellow'), config[section][key])
 
 
