@@ -65,5 +65,6 @@ Contents of the documentation
     changelog
     legal
     dev/index
+    api/index
 
 .. vim: spell
