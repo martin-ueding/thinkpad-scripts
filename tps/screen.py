@@ -19,9 +19,21 @@ def get_rotation(screen):
     '''
     logger.error('get_rotation() not implemented')
 
+def get_external():
+    '''
+    Gets the external screen.
+    '''
+    logger.error('get_external() not implemented')
+
 def rotate(screen, direction):
+    '''
+    Rotates the screen into the direction.
+    '''
     logger.error('rotate() not implemented')
 
 def set_subpixel_order(direction):
+    '''
+    Sets the text subpixel anti-alias order.
+    '''
     logger.error('set_subpixel_order() not implemented')
 

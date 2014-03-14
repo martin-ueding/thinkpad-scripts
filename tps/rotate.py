@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+# Licensed under The GNU Public License Version 2 (or later)
 
 import argparse
 import logging
@@ -35,7 +36,11 @@ def rotate_to(direction, config):
     tps.screen.rotate(config['screen']['internal'], direction)
     tps.input.rotate_all_wacom_devices(direction)
     #tps.input.map_all_wacom_devices_to_output(config['screen']['internal'])
-    tps.screen.set_subpixel_order(direction)
+
+    if config['screen'].getboolean('rotate_subpixels'):
+        if config['screen'].getboolean('rotate_subpixels_with_external') \
+           or tps.screen.get_external() is None:
+            tps.screen.set_subpixel_order(direction)
 
     if config['unity'].getboolean('toggle_launcher'):
         tps.unity.set_launcher(direction == tps.NORMAL)
