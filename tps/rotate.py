@@ -9,6 +9,7 @@ import logging
 import tps
 import tps.config
 import tps.hooks
+import tps.input
 import tps.screen
 
 __docformat__ = "restructuredtext en"
@@ -24,12 +25,14 @@ def main():
         tps.screen.get_rotation(config['screen']['internal']),
         options.direction, config)
 
-    rotate_to(new_rotation, config)
+    rotate_to(new_direction, config)
 
 def rotate_to(direction, config):
     tps.hooks.prerotate(config)
 
-    current_rotation = tps.screen.get_rotation(config['screen']['internal'])
+    tps.screen.rotate(config['screen']['internal'], direction)
+    tps.input.rotate_all_wacom_devices(direction)
+    tps.input.map_all_wacom_devices_to_output(config['screen']['internal'])
 
 def new_rotation(current, desired_str, config):
     if desired_str is None:
