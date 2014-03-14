@@ -37,3 +37,12 @@ def set_subpixel_order(direction):
     '''
     logger.error('set_subpixel_order() not implemented')
 
+def set_brightness(brightness):
+    logger.error('set_brightness() not implemented')
+
+def set_primary(screen):
+    logger.error('set_primary() not implemented')
+
+def disable_external():
+    logger.error('disable_external() not implemented')
+

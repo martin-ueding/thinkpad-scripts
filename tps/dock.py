@@ -13,6 +13,7 @@ import glob
 import tps
 import tps.config
 import tps.hooks
+import tps.input
 import tps.network
 import tps.screen
 import tps.sound
@@ -43,7 +44,7 @@ def dock(on, config):
 
     if on:
         if config['sound'].getboolean('unmute'):
-            tps.sound.unmute(config['sound']['dock_loundness'])
+            tps.sound.unmute(config['sound']['dock_loudness'])
 
         if config['screen'].getboolean('set_brightness'):
             tps.screen.set_brightness(config['screen']['brightness'])
@@ -52,13 +53,13 @@ def dock(on, config):
             tps.network.set_wifi(False)
 
         if config['network'].getboolean('restart_connection'):
-            tps.restart(config['network']['connection'])
+            tps.network.restart(config['network']['connection'])
     else:
         tps.screen.set_primary(config['screen']['internal'])
         tps.screen.disable_external()
 
         if config['sound'].getboolean('unmute'):
-            tps.sound.set_volume(config['sound']['undock_loundness'])
+            tps.sound.set_volume(config['sound']['undock_loudness'])
 
         if config['network'].getboolean('disable_wifi'):
             tps.network.set_wifi(True)
@@ -66,3 +67,10 @@ def dock(on, config):
     tps.input.map_all_wacom_devices_to_output(config['screen']['internal'])
 
     tps.hooks.postdock(on, config)
+
+def main():
+    config = tps.config.get_config()
+    dock(True, config)
+
+if __name__ == '__main__':
+    main()

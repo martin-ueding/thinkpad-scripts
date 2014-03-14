@@ -12,16 +12,20 @@ logger = logging.getLogger(__name__)
 
 def prerotate(direction, config):
     hook = os.path.expanduser(config['hooks']['prerotate'])
-    subprocess.call([hook, direction.xrandr])
+    if os.path.isfile(hook):
+        subprocess.call([hook, direction.xrandr])
 
 def postrotate(direction, config):
     hook = os.path.expanduser(config['hooks']['postrotate'])
-    subprocess.call([hook, direction.xrandr])
+    if os.path.isfile(hook):
+        subprocess.call([hook, direction.xrandr])
 
 def predock(on, config):
     hook = os.path.expanduser(config['hooks']['predock'])
-    subprocess.call([hook, 'on' if on else 'off'])
+    if os.path.isfile(hook):
+        subprocess.call([hook, 'on' if on else 'off'])
 
 def postdock(on, config):
     hook = os.path.expanduser(config['hooks']['postdock'])
-    subprocess.call([hook, 'on' if on else 'off'])
+    if os.path.isfile(hook):
+        subprocess.call([hook, 'on' if on else 'off'])
