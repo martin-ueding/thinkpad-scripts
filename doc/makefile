@@ -1,9 +1,9 @@
-# Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
 # Copyright © 2013 Jim Turner <jturner314@gmail.com>
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
-SPHINXBUILD   = sphinx-build
+SPHINXBUILD   = /usr/share/sphinx/scripts/python3/sphinx-build
 BUILDDIR      = _build
 DESTDIR       =
 
