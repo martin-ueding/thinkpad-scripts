@@ -22,7 +22,7 @@ def get_wacom_device_ids():
 
     :rtype: list
     '''
-    pattern = re.compile(rb'Wacom ISD.*id: (\d+).*')
+    pattern = re.compile(br'Wacom ISD.*id: (\d+).*')
     output = subprocess.check_output(['xsetwacom', 'list', 'devices'])
     lines = output.split(b'\n')
     ids = []
@@ -49,7 +49,8 @@ def map_wacom_device_to_output(device, output):
     :type device: int
     :type output: str
     '''
-    subprocess.check_call(['xsetwacom', 'set', str(device), 'MapToOutput', output])
+    subprocess.check_call(['xsetwacom', 'set', str(device), 'MapToOutput',
+                           output])
 
 def rotate_all_wacom_devices(direction):
     for device in get_wacom_device_ids():
