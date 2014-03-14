@@ -14,11 +14,20 @@ import subprocess
 
 logger = logging.getLogger(__name__)
 
+class InputDeviceNotFoundException(Exception):
+    '''
+    ``xinput`` device could not be found.
+    '''
+    pass
+
 def get_wacom_device_ids():
     '''
-    Gets the IDs of the Wacom® touch devices.
+    Gets the IDs of the built-in Wacom® touch devices.
 
-    This calls ``xsetwacom list devices`` to get the list and parses that with regular expressions 
+    This calls ``xsetwacom list devices`` to get the list and parses that with
+    a regular expression. Only device names starting with ``Wacom ISD`` are
+    taken into account. If you have an external device, this will not be picked
+    up.
 
     :rtype: list
     '''
@@ -53,12 +62,37 @@ def map_wacom_device_to_output(device, output):
                            output])
 
 def rotate_all_wacom_devices(direction):
+    '''
+    Rotates all Wacom® devices.
+    '''
     for device in get_wacom_device_ids():
         rotate_wacom_device(device, direction)
 
 def map_all_wacom_devices_to_output(output):
+    '''
+    Maps all Wacom® devices.
+    '''
     for device in get_wacom_device_ids():
         map_wacom_device_to_output(device, output)
 
+def get_xinput_id(name):
+    '''
+    Gets the ``xinput`` ID for given device.
+
+    The first parts of the name may be omitted. To get “TPPS/2 IBM TrackPoint”,
+    it is sufficient to use “TrackPoint”.
+
+    :raises InputDeviceNotFoundException: Device not found in ``xinput`` output
+    :rtype: int
+    '''
+    output = subprocess.check_output(['xinput', 'list']).decode()
+    print(output)
+    matcher = re.search(name + r'\s*id=(\d+)', output)
+    if matcher:
+        return int(matcher.group(1))
+
+    raise InputDeviceNotFoundException(
+        'Input device “{}” could not found'.format(name))
+
 if __name__ == '__main__':
-    print(get_wacom_device_ids())
+    print(get_xinput_id('TrackPoint'))
