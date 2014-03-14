@@ -30,12 +30,12 @@ def translate_direction(direction):
 
     if direction == 'left':
         return tps.LEFT
+
     if direction == 'right':
         return tps.RIGHT
 
     if direction == 'flip':
         return tps.INVERTED
-
     if direction == 'inverted':
         return tps.INVERTED
 
