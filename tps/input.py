@@ -86,7 +86,6 @@ def get_xinput_id(name):
     :rtype: int
     '''
     output = subprocess.check_output(['xinput', 'list']).decode()
-    print(output)
     matcher = re.search(name + r'\s*id=(\d+)', output)
     if matcher:
         return int(matcher.group(1))
