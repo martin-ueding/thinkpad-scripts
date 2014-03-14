@@ -18,7 +18,6 @@ def get_rotation(screen):
     Gets the current rotation of the given screen.
     '''
     logger.error('get_rotation() not implemented')
-    #subprocess.check_output(['xrandr', '-q', '--verbose'])
 
 def rotate(screen, direction):
     logger.error('rotate() not implemented')

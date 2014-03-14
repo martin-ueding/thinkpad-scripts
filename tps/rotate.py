@@ -11,6 +11,8 @@ import tps.config
 import tps.hooks
 import tps.input
 import tps.screen
+import tps.unity
+import tps.vkeyboard
 
 __docformat__ = "restructuredtext en"
 
@@ -32,7 +34,7 @@ def rotate_to(direction, config):
 
     tps.screen.rotate(config['screen']['internal'], direction)
     tps.input.rotate_all_wacom_devices(direction)
-    tps.input.map_all_wacom_devices_to_output(config['screen']['internal'])
+    #tps.input.map_all_wacom_devices_to_output(config['screen']['internal'])
     tps.screen.set_subpixel_order(direction)
 
     if config['unity'].getboolean('toggle_launcher'):
