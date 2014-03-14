@@ -5,7 +5,7 @@
 
 import collections
 
-Direction = collections.namedtuple('Direction', ['xrandr', 'xsetwacom'])
+Direction = collections.namedtuple('Direction', ['xrandr', 'xsetwacom', 'subpixel'])
 '''
 Holds the direction names of different tools.
 
@@ -14,16 +14,16 @@ proliferation of various names, this class holds the differing names. The
 module provides four constants which have to be used within :mod:`tps`.
 '''
 
-LEFT = Direction('left', 'ccw')
+LEFT = Direction('left', 'ccw', 'vrgb')
 'Left'
 
-RIGHT = Direction('right', 'cw')
+RIGHT = Direction('right', 'cw', 'vbgr')
 'Right'
 
-NORMAL = Direction('normal', 'none')
+NORMAL = Direction('normal', 'none', 'rgb')
 'Normal'
 
-INVERTED = Direction('inverted', 'half')
+INVERTED = Direction('inverted', 'half', 'bgr')
 'Inverted'
 
 class UnknownDirectionException(Exception):

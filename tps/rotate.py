@@ -33,6 +33,23 @@ def rotate_to(direction, config):
     tps.screen.rotate(config['screen']['internal'], direction)
     tps.input.rotate_all_wacom_devices(direction)
     tps.input.map_all_wacom_devices_to_output(config['screen']['internal'])
+    tps.screen.set_subpixel_order(direction)
+
+    if config['unity'].getboolean('toggle_launcher'):
+        tps.unity.set_launcher(direction == tps.NORMAL)
+
+    tps.vkeyboard.toggle(direction != tps.NORMAL)
+
+    tps.input.set_xinput_state(
+        tps.input.get_xinput_id('TrackPoint'),
+        direction == tps.NORMAL,
+    )
+    tps.input.set_xinput_state(
+        tps.input.get_xinput_id('TouchPad'),
+        direction == tps.NORMAL,
+    )
+
+    tps.hooks.postrotate(config)
 
 def new_rotation(current, desired_str, config):
     if desired_str is None:

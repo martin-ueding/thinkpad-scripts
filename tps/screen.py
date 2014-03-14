@@ -22,3 +22,7 @@ def get_rotation(screen):
 
 def rotate(screen, direction):
     logger.error('rotate() not implemented')
+
+def set_subpixel_order(direction):
+    logger.error('set_subpixel_order() not implemented')
+
