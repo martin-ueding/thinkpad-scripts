@@ -25,9 +25,9 @@ if __name__ == '__main__':
         packages = packages,
         entry_points = {
             'console_scripts': [
-                'thinkpad-config = tps/config:main',
-                'thinkpad-dock = tps/dock:main',
-                'thinkpad-rotate = tps/rotate:main',
+                'thinkpad-config = tps.config:main',
+                'thinkpad-dock = tps.dock:main',
+                'thinkpad-rotate = tps.rotate:main',
             ],
         },
         install_requires=[
