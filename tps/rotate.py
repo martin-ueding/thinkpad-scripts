@@ -31,6 +31,9 @@ def main():
     rotate_to(new_direction, config)
 
 def rotate_to(direction, config):
+    '''
+    Performs all steps needed for a screen rotation.
+    '''
     tps.hooks.prerotate(config)
 
     tps.screen.rotate(config['screen']['internal'], direction)
@@ -59,6 +62,9 @@ def rotate_to(direction, config):
     tps.hooks.postrotate(config)
 
 def new_rotation(current, desired_str, config):
+    '''
+    Determines the new rotation based on desired and current one.
+    '''
     if desired_str is None:
         if current == tps.NORMAL:
             new = tps.translate_direction(config['screen']['default_rotation'])
