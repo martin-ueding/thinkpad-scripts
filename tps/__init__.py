@@ -4,6 +4,7 @@
 # Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 
 import collections
+import subprocess
 
 Direction = collections.namedtuple('Direction', ['xrandr', 'xsetwacom', 'subpixel'])
 '''
@@ -47,3 +48,6 @@ def translate_direction(direction):
         return INVERTED
 
     raise UnknownDirectionException('Direction “{}” cannot be understood.'.format(direction))
+
+def has_program(command):
+    return subprocess.call(['which', command]) == 0
