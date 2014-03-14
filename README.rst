@@ -8,7 +8,8 @@ thinkpad-scripts
 Please consult the following to get more information, especially installation
 instructions and user manuals:
 
-- `Hosted documentation <http://think-rotate.readthedocs.org/>`_ (via Read the Docs)
+- `Hosted documentation <http://thinkpad-scripts.readthedocs.org/>`_ (via Read
+  the Docs)
 
 - `project website <http://martin-ueding.de/en/projects/thinkpad-scripts>`_.
 
