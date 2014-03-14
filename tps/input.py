@@ -94,5 +94,16 @@ def get_xinput_id(name):
     raise InputDeviceNotFoundException(
         'Input device “{}” could not found'.format(name))
 
+def set_xinput_state(device, state):
+    '''
+    :param device: ``xinput`` ID of devicwe
+    :type device: int
+    :param state: Whether device should be enabled
+    :type state: bool
+    '''
+    set_to = '1' if state else '0'
+    subprocess.check_call(['xinput', 'set-prop', str(device), 'Device Enabled',
+                           set_to])
+
 if __name__ == '__main__':
     print(get_xinput_id('TrackPoint'))
