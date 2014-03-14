@@ -12,6 +12,7 @@ import glob
 
 import tps
 import tps.config
+import tps.hooks
 import tps.network
 import tps.screen
 import tps.sound
@@ -38,6 +39,7 @@ def dock(on, config):
     '''
     Performs the makroscopic docking action.
     '''
+    tps.hooks.predock(on)
 
     if on:
         if config['sound'].getboolean('unmute'):
@@ -60,3 +62,7 @@ def dock(on, config):
 
         if config['network'].getboolean('disable_wifi'):
             tps.network.set_wifi(True)
+
+    tps.input.map_all_wacom_devices_to_output(config['screen']['internal'])
+
+    tps.hooks.postdock(on)
