@@ -10,6 +10,7 @@ thinkpad-mutemic
     toggle the microphone mute status
 
     :Author: Martin Ueding <dev@martin-ueding.de>
+    :Date: 2014-02-22
     :Manual section: 1
 
 Synopsis
@@ -23,7 +24,4 @@ Description
 ===========
 
 This script will be called when you press the microphone mute button. It will
-mute the microphone and toggle the LED. It currently uses the power button LED
-for status in order to avoid a kernel module patch. [mutemic]_
-
-.. [mutemic] http://askubuntu.com/a/137278/12824
+mute the microphone and toggle the LED.

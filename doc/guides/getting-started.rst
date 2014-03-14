@@ -99,11 +99,27 @@ Needed Program Debian package           Arch Linux package Version
 ============== ======================== ================== =======
 *acpid*        acpid                    acpid
 amixer         alsa-utils               alsa-utils
+linux                                                      >= 3.11.0-17 [1]_
 *udev*         udev                     systemd            >= 196
 xsetwacom      xserver-xorg-input-wacom xf86-input-wacom
 xinput         xinput                   xorg-xinput
 xrandr         x11-xserver-utils        xorg-xrandr
 ============== ======================== ================== =======
+
+----
+
+.. [1]
+
+    The Ubuntu Kernel with version ``3.11.0-17`` has a patched
+    ``thinkpad-acpi`` module which allows it to control the LED in the
+    microphone mute button. Previous versions of |project| would flash the
+    power LED to signal a muted microphone. This branch of |project| does not
+    flash the power LED anymore, therefore requiring that version of the
+    kernel.
+
+    openSUSE and other distributions are not patching the 3.?.0 kernel, but
+    ship a 3.?.? kernel. So users of distributions other than Ubuntu (maybe
+    even Debian) would have to check whether their kernel has the acpi patch.
 
 Optional
 ````````
@@ -186,3 +202,5 @@ starting.
 Under KDE, it is convenient to place all of the scripts in a drawer so that you
 can access them quickly. See :doc:`kde-script-drawer` for instructions to do
 this.
+
+.. vim: spell

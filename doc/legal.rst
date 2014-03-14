@@ -14,9 +14,6 @@ original author said:
 
 The changes that I made to that script are licensed under the GPLv2_.
 
-The :doc:`/man/thinkpad-mutemic.1` script is taken almost verbatim from
-AskUbuntu. That script is licensed under CC-BY-SA and the GPLv2_.
-
 All other scripts are just licensed under GPLv2_.
 
 The “ThinkPad” name
