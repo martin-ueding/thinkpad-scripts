@@ -39,7 +39,7 @@ def dock(on, config):
     '''
     Performs the makroscopic docking action.
     '''
-    tps.hooks.predock(on)
+    tps.hooks.predock(on, config)
 
     if on:
         if config['sound'].getboolean('unmute'):
@@ -65,4 +65,4 @@ def dock(on, config):
 
     tps.input.map_all_wacom_devices_to_output(config['screen']['internal'])
 
-    tps.hooks.postdock(on)
+    tps.hooks.postdock(on, config)
