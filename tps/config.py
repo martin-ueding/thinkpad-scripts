@@ -26,6 +26,8 @@ def print_config(config):
         for key in sorted(config[section]):
             print(termcolor.colored(key, 'yellow'), config[section][key])
 
+def main():
+    print_config(get_config())
 
 if __name__ == '__main__':
-    print_config(get_config())
+    main()
