@@ -96,15 +96,6 @@ then
     source "$configfile"
 fi
 
-case "$relative_position" in
-    right)
-        relative_position=right-of
-        ;;
-    left)
-        relative_position=left-of
-        ;;
-esac
-
 mylogger $"\$kdialog is set to ${kdialog}."
 
 kdialog-init $"thinkpad-dock" 11

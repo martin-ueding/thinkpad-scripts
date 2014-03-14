@@ -1,9 +1,0 @@
-#!/bin/bash
-# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
-
-set -e
-set -u
-
-echo "Starting with version 4.0, this script will be renamed to thinkpad-touchpad!"
-
-thinkpad-touchpad "$@"

@@ -4,6 +4,15 @@
 Changelog
 #########
 
+v4.0
+    - Remove the transitional scripts. If you have anything that still depends
+      on having scripts starting with ``think-``, **this will break!**
+    - v3.0.1 introduced more relative positions by putting the ``-of`` into
+      your configuration variable. Old configurations that still had ``left``
+      or ``right`` still worked, since the script appended the ``-of`` for you.
+      Those couple lines were removed, so **add a ``-of`` to your config, if
+      you do not have already!**
+
 v3.5.1
     Released: 2014-02-22
 
