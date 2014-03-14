@@ -34,19 +34,30 @@ def get_wacom_device_ids():
 
 def rotate_wacom_device(device, direction):
     '''
-    :type device: str
+    Rotates a Wacom® device.
+
+    :type device: int
     :type direction: tps.Direction
     '''
-    subprocess.check_call(['xsetwacom', 'set', device, 'rotate',
+    subprocess.check_call(['xsetwacom', 'set', str(device), 'rotate',
                            direction.xsetwacom])
 
-def map_wacom_device(device, output):
+def map_wacom_device_to_output(device, output):
     '''
-    :type device: str
+    Maps a Wacom® device to a specific output.
+
+    :type device: int
     :type output: str
     '''
-    subprocess.check_call(['xsetwacom', 'set', device, 'MapToOutput', output])
+    subprocess.check_call(['xsetwacom', 'set', str(device), 'MapToOutput', output])
 
+def rotate_all_wacom_devices(direction):
+    for device in get_wacom_device_ids():
+        rotate_wacom_device(device, direction)
+
+def map_all_wacom_devices_to_output(output):
+    for device in get_wacom_device_ids():
+        map_wacom_device_to_output(device, output)
 
 if __name__ == '__main__':
     print(get_wacom_device_ids())
