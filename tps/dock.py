@@ -10,6 +10,12 @@ Logic related to the UltraBase® docks.
 
 import glob
 
+import tps
+import tps.config
+import tps.network
+import tps.screen
+import tps.sound
+
 def is_docked():
     '''
     Determines whether the laptop is on a docking station.
@@ -28,3 +34,29 @@ def is_docked():
                 return True
     return False
 
+def dock(on, config):
+    '''
+    Performs the makroscopic docking action.
+    '''
+
+    if on:
+        if config['sound'].getboolean('unmute'):
+            tps.sound.unmute(config['sound']['dock_loundness'])
+
+        if config['screen'].getboolean('set_brightness'):
+            tps.screen.set_brightness(config['screen']['brightness'])
+
+        if config['network'].getboolean('disable_wifi'):
+            tps.network.set_wifi(False)
+
+        if config['network'].getboolean('restart_connection'):
+            tps.restart(config['network']['connection'])
+    else:
+        tps.screen.set_primary(config['screen']['internal'])
+        tps.screen.disable_external()
+
+        if config['sound'].getboolean('unmute'):
+            tps.sound.set_volume(config['sound']['undock_loundness'])
+
+        if config['network'].getboolean('disable_wifi'):
+            tps.network.set_wifi(True)
