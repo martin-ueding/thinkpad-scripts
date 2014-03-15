@@ -33,5 +33,9 @@ def toggle(program, state):
             logger.debug(command)
             subprocess.check_call(command, shell=True)
     else:
-        tps.check_call(['killall', program], logger)
+        try:
+            tps.check_output(['pgrep', program], logger)
+            tps.check_call(['killall', program], logger)
+        except subprocess.CalledProcessError:
+            pass
 
