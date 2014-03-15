@@ -6,6 +6,9 @@ Why Python?
 
 :Author: Martin Ueding <dev@martin-ueding.de>
 
+Advantages
+==========
+
 Why do I want to switch to Python 3 over Bash?
 
 INI config format
@@ -46,6 +49,31 @@ Direct GUI
     So far, the GUI has been made with ``kdialog`` which received messages via
     ``qdbus``. This works. But with Python, a binding like PyQt can be used to
     create a real GUI.
+
+Better string processing
+    There are lines like the following in the 3.x codebase:
+
+    .. code-block:: bash
+
+        external=$(xrandr | grep -Eo '(\S+) connected' | grep -Eo '^(\S+)' | grep -v "$internal") 
+
+    I think this can be done much nicer in Python.
+
+    .. code-block:: python
+
+        def get_external(internal):
+            lines = tps.check_output(['xrandr'], logger).decode().split('\n')
+            for line in lines:
+                if not line.startswith(internal):
+                    matcher = re.search(r'^(\S+) connected', line)
+                    if matcher:
+                        return matcher.group(1)
+
+    Yes, it is way more code. But I find it easier to read and more self
+    explanatory.
+
+Disadvantages
+=============
 
 I do see some disadvantages. They are not big issues, I think.
 
