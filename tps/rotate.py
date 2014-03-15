@@ -67,7 +67,7 @@ def new_rotation(current, desired_str, config):
     '''
     if desired_str is None:
         if current == tps.NORMAL:
-            new = tps.translate_direction(config['screen']['default_rotation'])
+            new = tps.translate_direction(config['rotate']['default_rotation'])
             logger.info('Using default, setting to {}'.format(new))
         else:
             new = tps.NORMAL

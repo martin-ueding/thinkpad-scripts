@@ -9,7 +9,10 @@ Screen related logic.
 '''
 
 import subprocess
+import re
 import logging
+
+import tps
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +20,15 @@ def get_rotation(screen):
     '''
     Gets the current rotation of the given screen.
     '''
-    logger.error('get_rotation() not implemented')
+    output = subprocess.check_output(['xrandr', '-q', '--verbose']).decode()
+    lines = output.split('\n')
+    for line in lines:
+        if screen in line:
+            matcher = re.search(r'\) (normal|left|inverted|right) \(', line)
+            if matcher:
+                rotation = tps.translate_direction(matcher.group(1))
+                logger.info('Current rotation is “{}”.'.format(rotation))
+                return rotation
 
 def get_external():
     '''
@@ -29,13 +40,16 @@ def rotate(screen, direction):
     '''
     Rotates the screen into the direction.
     '''
-    logger.error('rotate() not implemented')
+    subprocess.check_call(['xrandr', '--output', screen, '--rotate',
+                           direction.xrandr])
 
 def set_subpixel_order(direction):
     '''
     Sets the text subpixel anti-alias order.
     '''
-    logger.error('set_subpixel_order() not implemented')
+    subprocess.check_call(['gsettings', 'set',
+                           'org.gnome.settings-daemon.plugins.xsettings',
+                           'rgba-order', direction.subpixel])
 
 def set_brightness(brightness):
     logger.error('set_brightness() not implemented')
