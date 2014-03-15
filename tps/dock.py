@@ -41,6 +41,10 @@ def is_docked():
 def dock(on, config):
     '''
     Performs the makroscopic docking action.
+
+    :param on: Desired state
+    :param configparser.ConfigParser config: Global config
+    :returns: None
     '''
     tps.hooks.predock(on, config)
 
@@ -77,6 +81,11 @@ def dock(on, config):
     tps.hooks.postdock(on, config)
 
 def main():
+    '''
+    Command line entry point.
+
+    :returns: None
+    '''
     options = _parse_args()
     config = tps.config.get_config()
     dock(options.state == 'on', config)
