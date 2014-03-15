@@ -26,6 +26,7 @@ if __name__ == '__main__':
                 'thinkpad-config = tps.config:main',
                 'thinkpad-dock = tps.dock:main',
                 'thinkpad-rotate = tps.rotate:main',
+                'thinkpad-touch = tps.input:main_touchscreen',
                 'thinkpad-touchpad = tps.input:main_touchpad',
                 'thinkpad-trackpoint = tps.input:main_trackpoint',
             ],

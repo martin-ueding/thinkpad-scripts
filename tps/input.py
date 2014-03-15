@@ -129,9 +129,30 @@ def main_trackpoint():
     state_change_ui('TrackPoint')
 
 def main_touchpad():
+    '''
+    Command line entry point for toggling the touchpad.
+
+    :returns: None
+    '''
     state_change_ui('TouchPad')
 
+def main_touchscreen():
+    '''
+    Command line entry point for toggling the touch screen.
+
+    :returns: None
+    '''
+    state_change_ui('Wacom ISDv4 E6 Finger touch')
+
 def state_change_ui(device_name):
+    '''
+    Change the state of the given device depending on command line options.
+
+    It parses the command line options. If no state is given there, it will be
+    the opposite of the current state.
+
+    :returns: None
+    '''
     state = _parse_args_to_state()
     device = get_xinput_id(device_name)
     if state is None:
