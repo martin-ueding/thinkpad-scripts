@@ -42,7 +42,7 @@ def rotate_to(direction, config):
 
     if config['screen'].getboolean('rotate_subpixels'):
         if config['screen'].getboolean('rotate_subpixels_with_external') \
-           or tps.screen.get_external() is None:
+           or tps.screen.get_external(config['screen']['internal']) is None:
             tps.screen.set_subpixel_order(direction)
 
     if config['unity'].getboolean('toggle_launcher'):
