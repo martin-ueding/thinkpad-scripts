@@ -6,7 +6,8 @@
 import collections
 import subprocess
 
-Direction = collections.namedtuple('Direction', ['xrandr', 'xsetwacom', 'subpixel'])
+Direction = collections.namedtuple('Direction', ['xrandr', 'xsetwacom',
+                                                 'subpixel'])
 '''
 Holds the direction names of different tools.
 
