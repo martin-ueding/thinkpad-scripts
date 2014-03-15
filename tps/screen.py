@@ -20,7 +20,9 @@ def get_rotation(screen):
     '''
     Gets the current rotation of the given screen.
     '''
-    output = subprocess.check_output(['xrandr', '-q', '--verbose']).decode()
+    command = ['xrandr', '-q', '--verbose']
+    logger.debug(' '.join(command))
+    output = subprocess.check_output(command).decode()
     lines = output.split('\n')
     for line in lines:
         if screen in line:
@@ -30,33 +32,49 @@ def get_rotation(screen):
                 logger.info('Current rotation is “{}”.'.format(rotation))
                 return rotation
 
-def get_external():
+def get_external(internal):
     '''
     Gets the external screen.
     '''
-    logger.error('get_external() not implemented')
+    lines = subprocess.check_output(['xrandr']).decode().split('\n')
+    for line in lines:
+        if not line.startswith(internal):
+            matcher = re.search(r'^(\S+) connected', line)
+            if matcher:
+                return matcher.group(1)
 
 def rotate(screen, direction):
     '''
     Rotates the screen into the direction.
     '''
-    subprocess.check_call(['xrandr', '--output', screen, '--rotate',
-                           direction.xrandr])
+    command = ['xrandr', '--output', screen, '--rotate', direction.xrandr]
+    logger.debug(' '.join(command))
+    subprocess.check_call(command)
 
 def set_subpixel_order(direction):
     '''
     Sets the text subpixel anti-alias order.
     '''
-    subprocess.check_call(['gsettings', 'set',
-                           'org.gnome.settings-daemon.plugins.xsettings',
-                           'rgba-order', direction.subpixel])
+    command = ['gsettings', 'set',
+               'org.gnome.settings-daemon.plugins.xsettings', 'rgba-order',
+               direction.subpixel]
+    logger.debug(' '.join(command))
+    subprocess.check_call(command)
 
 def set_brightness(brightness):
     logger.error('set_brightness() not implemented')
 
-def set_primary(screen):
-    logger.error('set_primary() not implemented')
-
-def disable_external():
+def disable(screen):
     logger.error('disable_external() not implemented')
 
+def enable(screen, primary=False, position=None):
+    command = ['xrandr', '--output', screen, '--auto']
+
+    if position is not None:
+        command += ['--{}'.format(position[0]), position[1]]
+
+    if primary:
+        command += ['--primary']
+
+    logger.debug(' '.join(command))
+    subprocess.check_call(command)

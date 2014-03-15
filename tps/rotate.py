@@ -38,7 +38,7 @@ def rotate_to(direction, config):
 
     tps.screen.rotate(config['screen']['internal'], direction)
     tps.input.rotate_all_wacom_devices(direction)
-    #tps.input.map_all_wacom_devices_to_output(config['screen']['internal'])
+    tps.input.map_all_wacom_devices_to_output(config['screen']['internal'])
 
     if config['screen'].getboolean('rotate_subpixels'):
         if config['screen'].getboolean('rotate_subpixels_with_external') \
