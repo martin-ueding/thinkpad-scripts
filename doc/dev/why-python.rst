@@ -42,4 +42,24 @@ XML support
     language that can work with XML files natively. Using ``sed`` on a XML file
     just seems wrong. Well, XML as configuration seems wrong as well.
 
+Direct GUI
+    So far, the GUI has been made with ``kdialog`` which received messages via
+    ``qdbus``. This works. But with Python, a binding like PyQt can be used to
+    create a real GUI.
+
+I do see some disadvantages. They are not big issues, I think.
+
+Requires Python knowledge
+    It will require the developers to know Python. Or they will have to be
+    willing to learn it for this project. I do not consider Python an uncommon
+    language, not more uncommon than Bash, on Linux. Look at various Ubuntu
+    scripts, they are written in Python.
+
+    Bash is pretty hard to get right with all its pitfalls. So Python might be
+    an easier choice to get people to contribute.
+
+Adds more dependencies
+    Bash is included in virtually every distribution. Python should be as well,
+    but there might be somebody without Python on his system.
+
 .. vim: spell tw=79
