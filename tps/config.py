@@ -12,6 +12,8 @@ Takes care of the INI style config file for global and user configuration.
 
 import configparser
 import os.path
+import re
+import shlex
 
 import pkg_resources
 
@@ -30,7 +32,7 @@ def get_config():
     :returns: Config
     :rtype: configparser.ConfigParser
     '''
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(interpolation=None)
 
     default_filename = pkg_resources.resource_filename(__name__, "default.ini")
 
@@ -53,6 +55,90 @@ def print_config(config):
         for key in sorted(config[section]):
             print(termcolor.colored(key, 'yellow'), config[section][key])
 
+def migrate_shell_config():
+    config = configparser.ConfigParser(interpolation=None)
+
+    old_files = [
+        os.path.expanduser('~/.config/thinkpad-scripts/rotate.sh'),
+        os.path.expanduser('~/.config/thinkpad-scripts/dock.sh'),
+    ]
+
+    errors = []
+
+    for old_file in old_files:
+        with open(old_file) as handle:
+            for line in handle:
+                line = line.strip()
+                try:
+                    interpret_shell_line(line, config)
+                except ShellParseException as exception:
+                    errors.append(str(exception))
+
+    if len(errors) > 0:
+        print()
+        print('The following errors occured:')
+        for error in errors:
+            print('-', termcolor.colored(error, 'red'))
+
+    print()
+    print('This is the interpreted configuration:')
+    print_config(config)
+
+    print()
+    if os.path.isfile(CONFIGFILE):
+        termcolor.cprint('File will be overwritten!', 'yellow')
+    user_input = input('Do you want to write this config? [Y/n]')
+
+    if user_input == 'Y' or user_input == 'y' or user_input == '':
+        with open(CONFIGFILE, 'w') as handle:
+            config.write(handle)
+
+def interpret_shell_line(line, config):
+    # Filter out comments.
+    if line.startswith('#'):
+        return
+
+    known_options = {
+        'diable_wifi': ('network', 'disable_wifi'),
+        'internal': ('screen', 'internal'),
+        'unmute': ('sound', 'unmute'),
+        'dock_loudness': ('sound', 'dock_loudness'),
+        'undock_loudness': ('sound', 'undock_loudness'),
+        'set_brightness': ('screen', 'set_brightness'),
+        'brightness': ('screen', 'brightness'),
+        'relative_position': ('screen', 'relative_position'),
+        'kdialog': ('gui', 'kdialog'),
+        'default_rotation': ('rotate', 'default_rotation'),
+        'toggle_unity_launcher': ('unity', 'toggle_unity_launcher'),
+        'virtual_kbd': ('rotate', 'virtual_kbd'),
+    }
+
+    matcher = re.match(r'([^=]+)=(.*)$', line)
+    if matcher:
+        option = matcher.group(1)
+        if not option in known_options:
+            raise ShellParseException('Cannot parse “{}”: Not a known option'.format(line))
+
+        arguments = list(shlex.split(matcher.group(2)))
+        if len(arguments) != 1:
+            raise ShellParseException('Cannot parse “{}”: Not a single value'.format(line))
+
+        argument = arguments[0]
+
+        if '$' in argument:
+            raise ShellParseException('Cannot parse “{}”: Contains “$”, indicates complex value'.format(line))
+
+        print(option, '→', argument)
+
+        section, subsection = known_options[option]
+        if not section in config:
+            config[section] = {}
+        config[section][subsection] = argument
+
+
+class ShellParseException(Exception):
+    pass
+
 def main():
     '''
     Command line entry point.
@@ -62,4 +148,5 @@ def main():
     print_config(get_config())
 
 if __name__ == '__main__':
-    main()
+    migrate_shell_config()
+    #main()
