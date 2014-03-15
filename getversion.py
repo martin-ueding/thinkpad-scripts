@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2013 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2013-2014 Martin Ueding <dev@martin-ueding.de>
 
 import argparse
+import os.path
 import re
 
 __docformat__ = "restructuredtext en"
@@ -12,6 +13,9 @@ def get_version():
     filename = '../CHANGELOG.rst'
 
     pattern = re.compile(r'^v(\d+(?:\.\d+)+)$')
+
+    if not os.path.isfile(filename):
+        filename = os.path.basename(filename)
 
     with open(filename) as f:
         for line in f:

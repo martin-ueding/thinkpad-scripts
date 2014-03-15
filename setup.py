@@ -5,6 +5,8 @@
 
 from setuptools import setup, find_packages
 
+import getversion
+
 if __name__ == '__main__':
     packages = find_packages()
 
@@ -37,5 +39,5 @@ if __name__ == '__main__':
         ],
         url="https://github.com/martin-ueding/thinkpad-scripts",
         download_url="http://martin-ueding.de/download/thinkpad-scripts/",
-        version="4.0",
+        version=getversion.get_version(),
     )
