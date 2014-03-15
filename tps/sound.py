@@ -23,8 +23,13 @@ def unmute(loudness):
         logger.warning('pactl is not installed')
         return
 
-    subprocess.check_call(['pactl', 'set-sink-volume', '0', loudness])
-    subprocess.check_call(['pactl', 'set-sink-mute', '0', '0'])
+    command = ['pactl', 'set-sink-volume', '0', loudness]
+    logger.debug(' '.join(command))
+    subprocess.check_call(command)
+
+    command = ['pactl', 'set-sink-mute', '0', '0']
+    logger.debug(' '.join(command))
+    subprocess.check_call(command)
 
 def set_volume(loudness):
     '''
