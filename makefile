@@ -44,6 +44,8 @@ clean:
 	cd doc && $(MAKE) clean
 	$(RM) locale/*/LC_MESSAGES/*.mo
 	$(RM) *.pyc
+	$(RM) -r build
+	$(RM) -r *.egg-info
 
 locale/thinkpad-scripts.pot: bin/*
 	xgettext --language Shell --from-code=utf-8 -o $@ $^
