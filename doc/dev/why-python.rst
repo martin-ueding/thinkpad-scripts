@@ -82,6 +82,11 @@ Possibility of a daemon
     This has the disadvantage of an always running daemon, which is not really
     needed.
 
+Better documentation
+    Docstrings and Sphinx allows one to document the hell out of code. And it
+    is quite fun. With that, it is really easy to document the various parts of
+    the codebase in a standard way.
+
 Disadvantages
 =============
 
