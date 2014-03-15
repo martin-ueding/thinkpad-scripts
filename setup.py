@@ -37,6 +37,9 @@ if __name__ == '__main__':
         install_requires=[
             'termcolor',
         ],
+        package_data={
+            'tps': ['default.ini'],
+        },
         url="https://github.com/martin-ueding/thinkpad-scripts",
         download_url="http://martin-ueding.de/download/thinkpad-scripts/",
         version=getversion.get_version(),
