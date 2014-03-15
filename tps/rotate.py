@@ -34,7 +34,7 @@ def rotate_to(direction, config):
     '''
     Performs all steps needed for a screen rotation.
     '''
-    tps.hooks.prerotate(config)
+    tps.hooks.prerotate(direction, config)
 
     tps.screen.rotate(config['screen']['internal'], direction)
     tps.input.rotate_all_wacom_devices(direction)
@@ -59,7 +59,7 @@ def rotate_to(direction, config):
         direction == tps.NORMAL,
     )
 
-    tps.hooks.postrotate(config)
+    tps.hooks.postrotate(direction, config)
 
 def new_rotation(current, desired_str, config):
     '''
