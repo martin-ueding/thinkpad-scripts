@@ -50,4 +50,8 @@ def translate_direction(direction):
     raise UnknownDirectionException('Direction “{}” cannot be understood.'.format(direction))
 
 def has_program(command):
-    return subprocess.call(['which', command]) == 0
+    try:
+        subprocess.check_output(['which', command])
+        return True
+    except subprocess.CalledProcessError:
+        return False
