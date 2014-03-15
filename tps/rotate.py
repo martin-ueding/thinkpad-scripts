@@ -48,7 +48,8 @@ def rotate_to(direction, config):
     if config['unity'].getboolean('toggle_launcher'):
         tps.unity.set_launcher(direction == tps.NORMAL)
 
-    tps.vkeyboard.toggle(direction != tps.NORMAL)
+    tps.vkeyboard.toggle(config['rotate']['virtual_kbd'],
+                         direction != tps.NORMAL)
 
     tps.input.set_xinput_state(
         tps.input.get_xinput_id('TrackPoint'),
