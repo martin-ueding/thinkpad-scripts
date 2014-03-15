@@ -10,7 +10,8 @@ Logic related to input devices.
 
 import logging
 import re
-import subprocess
+
+import tps
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +33,7 @@ def get_wacom_device_ids():
     :rtype: list
     '''
     pattern = re.compile(br'Wacom ISD.*id: (\d+).*')
-    output = subprocess.check_output(['xsetwacom', 'list', 'devices'])
+    output = tps.check_output(['xsetwacom', 'list', 'devices'], logger)
     lines = output.split(b'\n')
     ids = []
     for line in lines:
@@ -48,8 +49,8 @@ def rotate_wacom_device(device, direction):
     :type device: int
     :type direction: tps.Direction
     '''
-    subprocess.check_call(['xsetwacom', 'set', str(device), 'rotate',
-                           direction.xsetwacom])
+    tps.check_call(['xsetwacom', 'set', str(device), 'rotate',
+                    direction.xsetwacom], logger)
 
 def map_wacom_device_to_output(device, output):
     '''
@@ -58,8 +59,8 @@ def map_wacom_device_to_output(device, output):
     :type device: int
     :type output: str
     '''
-    subprocess.check_call(['xsetwacom', 'set', str(device), 'MapToOutput',
-                           output])
+    tps.check_call(['xsetwacom', 'set', str(device), 'MapToOutput', output],
+                   logger)
 
 def rotate_all_wacom_devices(direction):
     '''
@@ -85,7 +86,7 @@ def get_xinput_id(name):
     :raises InputDeviceNotFoundException: Device not found in ``xinput`` output
     :rtype: int
     '''
-    output = subprocess.check_output(['xinput', 'list']).decode()
+    output = tps.check_output(['xinput', 'list'], logger).decode()
     matcher = re.search(name + r'\s*id=(\d+)', output)
     if matcher:
         return int(matcher.group(1))
@@ -101,8 +102,8 @@ def set_xinput_state(device, state):
     :type state: bool
     '''
     set_to = '1' if state else '0'
-    subprocess.check_call(['xinput', 'set-prop', str(device), 'Device Enabled',
-                           set_to])
+    tps.check_call(['xinput', 'set-prop', str(device), 'Device Enabled',
+                    set_to], logger)
 
 if __name__ == '__main__':
     print(get_xinput_id('TrackPoint'))

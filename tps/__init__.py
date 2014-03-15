@@ -80,6 +80,18 @@ def check_call(command, local_logger):
     print_command(command, local_logger)
     subprocess.check_call(command)
 
+def call(command, local_logger):
+    '''
+    Calls subprocess.call, but prints the command first.
+
+    :param list command: Command suitable for subprocess module
+    :param logging.Logger local_logger: Logger of the using module
+    :returns: Return value of command
+    :rtype: int
+    '''
+    print_command(command, local_logger)
+    return subprocess.call(command)
+
 def check_output(command, local_logger):
     '''
     Calls subprocess.check_output, but prints the command first.

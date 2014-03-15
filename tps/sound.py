@@ -9,7 +9,6 @@ Logic for sound.
 '''
 
 import logging
-import subprocess
 
 import tps
 
@@ -23,13 +22,8 @@ def unmute(loudness):
         logger.warning('pactl is not installed')
         return
 
-    command = ['pactl', 'set-sink-volume', '0', loudness]
-    logger.debug(' '.join(command))
-    subprocess.check_call(command)
-
-    command = ['pactl', 'set-sink-mute', '0', '0']
-    logger.debug(' '.join(command))
-    subprocess.check_call(command)
+    tps.check_call(['pactl', 'set-sink-volume', '0', loudness], logger)
+    tps.check_call(['pactl', 'set-sink-mute', '0', '0'], logger)
 
 def set_volume(loudness):
     '''

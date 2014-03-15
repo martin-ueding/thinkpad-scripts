@@ -8,9 +8,8 @@
 Screen related logic.
 '''
 
-import subprocess
-import re
 import logging
+import re
 
 import tps
 
@@ -24,9 +23,7 @@ def get_rotation(screen):
     :returns: Current direction
     :rtype: tps.Direction
     '''
-    command = ['xrandr', '-q', '--verbose']
-    logger.debug(' '.join(command))
-    output = subprocess.check_output(command).decode()
+    output = tps.check_output(['xrandr', '-q', '--verbose'], logger).decode()
     lines = output.split('\n')
     for line in lines:
         if screen in line:
@@ -49,7 +46,7 @@ def get_external(internal):
     :returns: External screen name
     :rtype: str
     '''
-    lines = subprocess.check_output(['xrandr']).decode().split('\n')
+    lines = tps.check_output(['xrandr'], logger).decode().split('\n')
     for line in lines:
         if not line.startswith(internal):
             matcher = re.search(r'^(\S+) connected', line)
@@ -64,9 +61,8 @@ def rotate(screen, direction):
     :param tps.Direction direction: New direction
     :returns: None
     '''
-    command = ['xrandr', '--output', screen, '--rotate', direction.xrandr]
-    logger.debug(' '.join(command))
-    subprocess.check_call(command)
+    tps.check_call(['xrandr', '--output', screen, '--rotate',
+                    direction.xrandr], logger)
 
 def set_subpixel_order(direction):
     '''
@@ -75,11 +71,9 @@ def set_subpixel_order(direction):
     :param tps.Direction direction: New direction
     :returns: None
     '''
-    command = ['gsettings', 'set',
-               'org.gnome.settings-daemon.plugins.xsettings', 'rgba-order',
-               direction.subpixel]
-    logger.debug(' '.join(command))
-    subprocess.check_call(command)
+    tps.check_call(['gsettings', 'set',
+                    'org.gnome.settings-daemon.plugins.xsettings',
+                    'rgba-order', direction.subpixel], logger)
 
 def set_brightness(brightness):
     '''
@@ -92,9 +86,7 @@ def set_brightness(brightness):
         logger.warning('xbacklight is not installed')
         return
 
-    command = ['xbacklight', '-set', brightness]
-    logger.debug(' '.join(command))
-    subprocess.check_call(command)
+    tps.check_call(['xbacklight', '-set', brightness], logger)
 
 def disable(screen):
     '''
@@ -103,9 +95,7 @@ def disable(screen):
     :param str screen: Name of the output to disable
     :returns: None
     '''
-    command = ['xrandr', '--output', screen, '--off']
-    logger.debug(' '.join(command))
-    subprocess.check_call(command)
+    tps.check_call(['xrandr', '--output', screen, '--off'], logger)
 
 def enable(screen, primary=False, position=None):
     '''
@@ -125,5 +115,4 @@ def enable(screen, primary=False, position=None):
     if primary:
         command += ['--primary']
 
-    logger.debug(' '.join(command))
-    subprocess.check_call(command)
+    tps.check_call(command, logger)

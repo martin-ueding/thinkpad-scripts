@@ -6,26 +6,55 @@
 
 import logging
 import os.path
-import subprocess
+
+import tps
 
 logger = logging.getLogger(__name__)
 
 def prerotate(direction, config):
+    '''
+    Executes prerotate hook if it exists.
+
+    :param tps.Direction direction: Desired direction
+    :param configparser.ConfigParser config: Global config
+    :returns: None
+    '''
     hook = os.path.expanduser(config['hooks']['prerotate'])
     if os.path.isfile(hook):
-        subprocess.call([hook, direction.xrandr])
+        tps.call([hook, direction.xrandr], logger)
 
 def postrotate(direction, config):
+    '''
+    Executes postrotate hook if it exists.
+
+    :param tps.Direction direction: Desired direction
+    :param configparser.ConfigParser config: Global config
+    :returns: None
+    '''
     hook = os.path.expanduser(config['hooks']['postrotate'])
     if os.path.isfile(hook):
-        subprocess.call([hook, direction.xrandr])
+        tps.call([hook, direction.xrandr], logger)
 
-def predock(on, config):
+def predock(state, config):
+    '''
+    Executes predock hook if it exists.
+
+    :param bool state: Whether new state is on
+    :param configparser.ConfigParser config: Global config
+    :returns: None
+    '''
     hook = os.path.expanduser(config['hooks']['predock'])
     if os.path.isfile(hook):
-        subprocess.call([hook, 'on' if on else 'off'])
+        tps.call([hook, 'on' if state else 'off'], logger)
 
-def postdock(on, config):
+def postdock(state, config):
+    '''
+    Executes postdock hook if it exists.
+
+    :param bool state: Whether new state is on
+    :param configparser.ConfigParser config: Global config
+    :returns: None
+    '''
     hook = os.path.expanduser(config['hooks']['postdock'])
     if os.path.isfile(hook):
-        subprocess.call([hook, 'on' if on else 'off'])
+        tps.call([hook, 'on' if state else 'off'], logger)

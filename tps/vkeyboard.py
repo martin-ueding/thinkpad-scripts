@@ -11,6 +11,8 @@ Logic for virtual keyboard
 import logging
 import subprocess
 
+import tps
+
 logger = logging.getLogger(__name__)
 
 def toggle(program, state):
@@ -24,16 +26,12 @@ def toggle(program, state):
     :returns: None
     '''
     if state:
-        command = ['pgrep', program]
         try:
-            logger.debug(command)
-            subprocess.check_output(command)
+            tps.check_output(['pgrep', program], logger)
         except subprocess.CalledProcessError:
             command = program + '&'
             logger.debug(command)
             subprocess.check_call(command, shell=True)
     else:
-        command = ['killall', program]
-        logger.debug(' '.join(command))
-        subprocess.check_call(command)
+        tps.check_call(['killall', program], logger)
 
