@@ -5,6 +5,9 @@ Changelog
 #########
 
 v4.0
+    - Complete rewrite in Python 3.
+    - INI style config. Run ``thinkpad-scripts-config-migrate`` to help you
+      migrate your config.
     - Remove the transitional scripts. If you have anything that still depends
       on having scripts starting with ``think-``, **this will break!**
     - v3.0.1 introduced more relative positions by putting the ``-of`` into
