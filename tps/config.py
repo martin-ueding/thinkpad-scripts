@@ -13,6 +13,8 @@ Takes care of the INI style config file for global and user configuration.
 import configparser
 import os.path
 
+import pkg_resources
+
 import termcolor
 
 CONFIGFILE = os.path.expanduser('~/.config/thinkpad-scripts/config.ini')
@@ -30,7 +32,9 @@ def get_config():
     '''
     config = configparser.ConfigParser()
 
-    config.read('default.ini')
+    default_filename = pkg_resources.resource_filename(__name__, "default.ini")
+
+    config.read(default_filename)
     if os.path.isfile(CONFIGFILE):
         config.read(CONFIGFILE)
 
