@@ -29,4 +29,8 @@ def set_volume(loudness):
     '''
     Sets the volume to the given loudness.
     '''
-    logger.error('set_volume() not implemented')
+    if not tps.has_program('pactl'):
+        logger.warning('pactl is not installed')
+        return
+
+    tps.check_call(['pactl', 'set-sink-volume', '0', loudness], logger)
