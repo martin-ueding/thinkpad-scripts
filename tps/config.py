@@ -110,7 +110,7 @@ def interpret_shell_line(line, config):
         'kdialog': ('gui', 'kdialog'),
         'default_rotation': ('rotate', 'default_rotation'),
         'toggle_unity_launcher': ('unity', 'toggle_unity_launcher'),
-        'virtual_kbd': ('rotate', 'virtual_kbd'),
+        'virtual_kbd': ('vkeyboard', 'program'),
     }
 
     matcher = re.match(r'([^=]+)=(.*)$', line)
