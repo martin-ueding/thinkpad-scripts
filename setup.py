@@ -8,8 +8,6 @@ from setuptools import setup, find_packages
 if __name__ == '__main__':
     packages = find_packages()
 
-    print(packages)
-
     setup(
         author = "Martin Ueding",
         author_email = "dev@martin-ueding.de",
