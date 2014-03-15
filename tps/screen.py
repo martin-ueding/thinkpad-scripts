@@ -73,7 +73,14 @@ def set_brightness(brightness):
     subprocess.check_call(command)
 
 def disable(screen):
-    logger.error('disable_external() not implemented')
+    '''
+    Disables the given screen using ``xrandr``.
+
+    :rype: None
+    '''
+    command = ['xrandr', '--output', screen, '--off']
+    logger.debug(' '.join(command))
+    subprocess.check_call(command)
 
 def enable(screen, primary=False, position=None):
     command = ['xrandr', '--output', screen, '--auto']
