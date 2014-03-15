@@ -11,6 +11,7 @@ Logic related to the UltraBase® docks.
 import argparse
 import glob
 import logging
+import sys
 
 import tps
 import tps.config
@@ -19,6 +20,8 @@ import tps.input
 import tps.network
 import tps.screen
 import tps.sound
+
+logger = logging.getLogger(__name__)
 
 def is_docked():
     '''
@@ -35,7 +38,9 @@ def is_docked():
             contents = handle.read()
             dock_state = int(contents) == 1
             if dock_state:
+                logger.info('Docking station found.')
                 return True
+    logger.info('No docking station found.')
     return False
 
 def dock(on, config):
@@ -46,6 +51,7 @@ def dock(on, config):
     :param configparser.ConfigParser config: Global config
     :returns: None
     '''
+    logger.info('dock({})'.format(on))
     tps.hooks.predock(on, config)
 
     if on:
@@ -90,7 +96,19 @@ def main():
     '''
     options = _parse_args()
     config = tps.config.get_config()
-    dock(options.state == 'on', config)
+    if options.state == 'on':
+        desired = True
+    elif options.state == 'off':
+        desired = False
+    elif options.state is None:
+        desired = is_docked()
+    else:
+        logging.error('Action is wrong.')
+        sys.exit(1)
+
+    logger.info('Desired is {}'.format(desired))
+
+    dock(desired, config)
 
 def _parse_args():
     """
