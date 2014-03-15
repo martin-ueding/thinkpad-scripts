@@ -72,6 +72,16 @@ Better string processing
     Yes, it is way more code. But I find it easier to read and more self
     explanatory.
 
+Possibility of a daemon
+    It would be possible to have this running as a daemon which gets messages
+    via D-Bus. The hooks that get called with hardware events are run as root
+    and without the ``DISPLAY`` variable set. The 3.x code uses ``su`` to run
+    the code in the context of the user. With such a daemon, it would be
+    possible to avoid that and invoke the action.
+
+    This has the disadvantage of an always running daemon, which is not really
+    needed.
+
 Disadvantages
 =============
 
