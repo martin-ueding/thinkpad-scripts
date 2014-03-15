@@ -33,6 +33,12 @@ class UnknownDirectionException(Exception):
     '''
 
 def translate_direction(direction):
+    '''
+    :param str direction: Direction string
+    :returns: Direction object
+    :rtype: tps.Direction
+    :raises tps.UnknownDirectionException:
+    '''
     if direction == 'normal':
         return NORMAL
 
@@ -50,8 +56,48 @@ def translate_direction(direction):
     raise UnknownDirectionException('Direction “{}” cannot be understood.'.format(direction))
 
 def has_program(command):
+    '''
+    Checks whether given program is installed on this computer.
+
+    :param str command: Name of command
+    :returns: Whether program is installed
+    :rtype: bool
+    '''
     try:
         subprocess.check_output(['which', command])
         return True
     except subprocess.CalledProcessError:
         return False
+
+def check_call(command, local_logger):
+    '''
+    Calls subprocess.check_call, but prints the command first.
+
+    :param list command: Command suitable for subprocess module
+    :param logging.Logger local_logger: Logger of the using module
+    :returns: None
+    '''
+    print_command(command, local_logger)
+    subprocess.check_call(command)
+
+def check_output(command, local_logger):
+    '''
+    Calls subprocess.check_output, but prints the command first.
+
+    :param list command: Command suitable for subprocess module
+    :param logging.Logger local_logger: Logger of the using module
+    :returns: Command output
+    :rtype: bytes
+    '''
+    print_command(command, local_logger)
+    return subprocess.check_output(command)
+
+def print_command(command, local_logger):
+    '''
+    Prints the command to the debug output of the logger.
+
+    :param list command: Command suitable for subprocess module
+    :param logging.Logger local_logger: Logger of the using module
+    :returns: None
+    '''
+    local_logger.debug(' '.join(command))

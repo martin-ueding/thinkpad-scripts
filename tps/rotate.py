@@ -15,8 +15,6 @@ import tps.screen
 import tps.unity
 import tps.vkeyboard
 
-__docformat__ = "restructuredtext en"
-
 logger = logging.getLogger(__name__)
 
 def main():
