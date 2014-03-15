@@ -8,6 +8,7 @@
 Logic related to input devices.
 '''
 
+import argparse
 import logging
 import re
 
@@ -105,5 +106,49 @@ def set_xinput_state(device, state):
     tps.check_call(['xinput', 'set-prop', str(device), 'Device Enabled',
                     set_to], logger)
 
-if __name__ == '__main__':
-    print(get_xinput_id('TrackPoint'))
+def main_trackpoint():
+    '''
+    Command line entry point for toggling the trackpoint.
+
+    :returns: None
+    '''
+    state_change_ui('TrackPoint')
+
+def main_touchpad():
+    state_change_ui('TouchPad')
+
+def state_change_ui(device):
+    state = _parse_args_to_state()
+    set_xinput_state(get_xinput_id(device), state)
+
+def _parse_args_to_state():
+    """
+    Parses the command line arguments.
+
+    If the logging module is imported, set the level according to the number of
+    ``-v`` given on the command line.
+
+    :return: State
+    :rtype: bool or None
+    """
+    parser = argparse.ArgumentParser()
+    parser.add_argument("state", nargs='?', help="Positional arguments.")
+    parser.add_argument("-v", dest='verbose', action="count", help='Enable verbose output. Can be supplied multiple times for even more verbosity.')
+
+    options = parser.parse_args()
+
+    # Try to set the logging level in case the logging module is imported.
+    try:
+        if options.verbose == 1:
+            logging.basicConfig(level=logging.INFO)
+        elif options.verbose == 2:
+            logging.basicConfig(level=logging.DEBUG)
+    except NameError as e:
+        pass
+
+    if options.state == 'on':
+        return True
+    elif options.state == 'off':
+        return False
+    else:
+        return None
