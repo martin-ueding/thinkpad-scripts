@@ -97,6 +97,8 @@ def get_xinput_id(name):
 
 def set_xinput_state(device, state):
     '''
+    Sets the device state.
+
     :param device: ``xinput`` ID of devicwe
     :type device: int
     :param state: Whether device should be enabled
@@ -105,6 +107,18 @@ def set_xinput_state(device, state):
     set_to = '1' if state else '0'
     tps.check_call(['xinput', 'set-prop', str(device), 'Device Enabled',
                     set_to], logger)
+
+def get_xinput_state(device):
+    '''
+    Gets the device state.
+
+    :param device: ``xinput`` ID of devicwe
+    :type device: int
+    :returns: Whether device is enabled
+    :rtype: bool
+    '''
+    output = tps.check_output(['xinput', '--list', str(device)], logger)
+    return not b'disabled' in output
 
 def main_trackpoint():
     '''
@@ -117,9 +131,12 @@ def main_trackpoint():
 def main_touchpad():
     state_change_ui('TouchPad')
 
-def state_change_ui(device):
+def state_change_ui(device_name):
     state = _parse_args_to_state()
-    set_xinput_state(get_xinput_id(device), state)
+    device = get_xinput_id(device_name)
+    if state is None:
+        state = not get_xinput_state(device)
+    set_xinput_state(device, state)
 
 def _parse_args_to_state():
     """
