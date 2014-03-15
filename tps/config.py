@@ -148,5 +148,4 @@ def main():
     print_config(get_config())
 
 if __name__ == '__main__':
-    migrate_shell_config()
-    #main()
+    main()

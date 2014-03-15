@@ -23,12 +23,13 @@ if __name__ == '__main__':
         packages=packages,
         entry_points={
             'console_scripts': [
-                'thinkpad-config=tps.config:main',
-                'thinkpad-dock=tps.dock:main',
-                'thinkpad-rotate=tps.rotate:main',
-                'thinkpad-touch=tps.input:main_touchscreen',
-                'thinkpad-touchpad=tps.input:main_touchpad',
-                'thinkpad-trackpoint=tps.input:main_trackpoint',
+                'thinkpad-config = tps.config:main',
+                'thinkpad-dock = tps.dock:main',
+                'thinkpad-rotate = tps.rotate:main',
+                'thinkpad-touch = tps.input:main_touchscreen',
+                'thinkpad-touchpad = tps.input:main_touchpad',
+                'thinkpad-trackpoint = tps.input:main_trackpoint',
+                'thinkpad-scripts-config-migration = tps.config:migrate_shell_config',
             ],
         },
         install_requires=[
