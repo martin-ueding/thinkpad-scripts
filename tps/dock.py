@@ -61,7 +61,8 @@ def dock(on, config):
                           position=(config['screen']['relative_position'],
                                     config['screen']['internal']))
 
-        if config['network'].getboolean('disable_wifi'):
+        if config['network'].getboolean('disable_wifi') \
+           and tps.network.has_ethernet():
             tps.network.set_wifi(False)
 
         if config['network'].getboolean('restart_connection'):
