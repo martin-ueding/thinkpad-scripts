@@ -57,7 +57,8 @@ def dock(on, config):
 
 
         tps.screen.enable(config['screen']['internal'])
-        tps.screen.enable(tps.screen.get_external(config['screen']['internal']), primary=True,
+        tps.screen.enable(tps.screen.get_external(config['screen']['internal']),
+                          primary=True,
                           position=(config['screen']['relative_position'],
                                     config['screen']['internal']))
 
