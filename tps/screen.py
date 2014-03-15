@@ -54,6 +54,8 @@ def rotate(screen, direction):
 def set_subpixel_order(direction):
     '''
     Sets the text subpixel anti-alias order.
+
+    :type direction: tps.Direction
     '''
     command = ['gsettings', 'set',
                'org.gnome.settings-daemon.plugins.xsettings', 'rgba-order',
@@ -62,7 +64,13 @@ def set_subpixel_order(direction):
     subprocess.check_call(command)
 
 def set_brightness(brightness):
-    logger.error('set_brightness() not implemented')
+    if not tps.has_program('xbacklight'):
+        logger.warning('xbacklight is not installed')
+        return
+
+    command = ['xbacklight', '-set', brightness]
+    logger.debug(' '.join(command))
+    subprocess.check_call(command)
 
 def disable(screen):
     logger.error('disable_external() not implemented')
