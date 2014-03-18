@@ -190,34 +190,47 @@ done
 mylogger $"Setting subpixel anti-alias order"
 kdialog-update $"Setting subpixel anti-alias order"
 
-case "$setto" in
-    normal)
+# Check if an external display is attached. If one is attached and the rotations
+# of the two displays conflict, then disable subpixel rendering.
+find-external
+if [[ -n "$external" ]]
+then
+    if [[ "$setto" = 'normal' ]]
+    then
         spaa_order=rgb
-        ;;
-    inverted)
-        spaa_order=bgr
-        ;;
-    left)
-        spaa_order=vrgb
-        ;;
-    right)
-        spaa_order=vbgr
-        ;;
-esac
+    else
+        spaa_order=none
+    fi
+else
+    case "$setto" in
+        normal)
+            spaa_order=rgb
+            ;;
+        inverted)
+            spaa_order=bgr
+            ;;
+        left)
+            spaa_order=vrgb
+            ;;
+        right)
+            spaa_order=vbgr
+            ;;
+    esac
+fi
 
 mylogger $"Subpixel order will be set to $spaa_order."
 
-# Only change Gnome settings if appropriate program is installed.
-if type gsettings &> /dev/null
+# XFCE
+if type xfconf-query &> /dev/null
 then
-    # Query for an external output If an external output is attached, do not
-    # change the order since that will impact the external output. Since
-    # external outputs are probably a primary output, do not change anything.
-    find-external
-    if [[ -z "$external" ]]
-    then
-        gsettings set org.gnome.settings-daemon.plugins.xsettings rgba-order "$spaa_order"
-    fi
+    xfconf-query -c xsettings -p /Xft/RGBA -s "$spaa_order"
+# GNOME
+elif type gsettings &> /dev/null
+then
+    gsettings set org.gnome.settings-daemon.plugins.xsettings rgba-order "$spaa_order"
+# Others
+else
+    mylogger $"No supported program is installed that can change the subpixel order"
 fi
 
 ###############################################################################
