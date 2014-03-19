@@ -76,7 +76,10 @@ def dock(on, config):
             tps.network.restart(config['network']['connection'])
     else:
         tps.screen.enable(config['screen']['internal'], primary=True)
-        tps.screen.disable(tps.screen.get_external(config['screen']['internal']))
+
+        external = tps.screen.get_external(config['screen']['internal'])
+        if external is not None:
+            tps.screen.disable(external)
 
         if config['sound'].getboolean('unmute'):
             tps.sound.set_volume(config['sound']['undock_loudness'])
