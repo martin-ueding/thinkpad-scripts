@@ -47,7 +47,7 @@ def dock(on, config):
     '''
     Performs the makroscopic docking action.
 
-    :param on: Desired state
+    :param bool on: Desired state
     :param configparser.ConfigParser config: Global config
     :returns: None
     '''
