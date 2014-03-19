@@ -5,6 +5,7 @@
 
 import collections
 import subprocess
+import logging
 
 Direction = collections.namedtuple('Direction', ['xrandr', 'xsetwacom',
                                                  'subpixel'])
@@ -28,6 +29,8 @@ NORMAL = Direction('normal', 'none', 'rgb')
 INVERTED = Direction('inverted', 'half', 'bgr')
 'Inverted'
 
+logger = logging.getLogger(__name__)
+
 class UnknownDirectionException(Exception):
     '''
     Unknown direction given at the command line.
@@ -40,21 +43,27 @@ def translate_direction(direction):
     :rtype: tps.Direction
     :raises tps.UnknownDirectionException:
     '''
+
     if direction == 'normal':
-        return NORMAL
+        result = NORMAL
 
-    if direction == 'left':
-        return LEFT
+    elif direction == 'left':
+        result = LEFT
 
-    if direction == 'right':
-        return RIGHT
+    elif direction == 'right':
+        result = RIGHT
 
-    if direction == 'flip':
-        return INVERTED
-    if direction == 'inverted':
-        return INVERTED
+    elif direction == 'flip':
+        result = INVERTED
+    elif direction == 'inverted':
+        result = INVERTED
 
-    raise UnknownDirectionException('Direction “{}” cannot be understood.'.format(direction))
+    else:
+        raise UnknownDirectionException('Direction “{}” cannot be understood.'.format(direction))
+
+    logger.debug('Converted “{}” to “{}”.'.format(direction, result))
+
+    return result
 
 def has_program(command):
     '''
@@ -66,8 +75,10 @@ def has_program(command):
     '''
     try:
         subprocess.check_output(['which', command])
+        logger.debug('Command “{}” found via “which”.'.format(command))
         return True
     except subprocess.CalledProcessError:
+        logger.debug('Command “{}” not found via “which”.'.format(command))
         return False
 
 def check_call(command, local_logger):
@@ -113,4 +124,4 @@ def print_command(command, local_logger):
     :param logging.Logger local_logger: Logger of the using module
     :returns: None
     '''
-    local_logger.debug(' '.join(command))
+    local_logger.debug('subprocess “{}”'.format(' '.join(command)))
