@@ -100,14 +100,12 @@ def _parse_args():
 
     options = parser.parse_args()
 
-    # Try to set the logging level in case the logging module is imported.
-    try:
-        if options.verbose == 1:
-            logging.basicConfig(level=logging.INFO)
-        elif options.verbose == 2:
-            logging.basicConfig(level=logging.DEBUG)
-    except NameError as e:
-        pass
+    if options.verbose == 1:
+        tps.config.set_up_logging(logging.INFO)
+    elif options.verbose == 2:
+        tps.config.set_up_logging(logging.DEBUG)
+    else:
+        tps.config.set_up_logging(logging.WARN)
 
     return options
 

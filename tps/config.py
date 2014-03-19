@@ -11,6 +11,7 @@ Takes care of the INI style config file for global and user configuration.
 '''
 
 import configparser
+import logging
 import os.path
 import re
 import shlex
@@ -134,6 +135,24 @@ def interpret_shell_line(line, config):
         if not section in config:
             config[section] = {}
         config[section][subsection] = argument
+
+def set_up_logging(console_log_level):
+    '''
+    Sets up the logging to console and logfile.
+
+    This is taken from
+    http://docs.python.org/3/howto/logging-cookbook.html#logging-to-multiple-destinations.
+    '''
+    print('Here!')
+    logging.basicConfig(level=logging.DEBUG,
+                        format='%(asctime)s %(name)-13s %(levelname)-8s %(message)s',
+                        filename='/tmp/thinkpad-scripts.log',
+                        filemode='a')
+    console = logging.StreamHandler()
+    console.setLevel(console_log_level)
+    formatter = logging.Formatter('%(name)-13s %(levelname)-8s %(message)s')
+    console.setFormatter(formatter)
+    logging.getLogger('').addHandler(console)
 
 
 class ShellParseException(Exception):
