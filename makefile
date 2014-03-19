@@ -39,13 +39,16 @@ install:
 	cd lib && $(MAKE) install
 
 clean:
+	$(RM) *.pyc
+	$(RM) -r *.egg-info
+	$(RM) -r build
+	$(RM) -r dist
+	$(RM) locale/*/LC_MESSAGES/*.mo
 	cd bin && $(MAKE) clean
 	cd desktop && $(MAKE) clean
 	cd doc && $(MAKE) clean
-	$(RM) locale/*/LC_MESSAGES/*.mo
-	$(RM) *.pyc
-	$(RM) -r build
-	$(RM) -r *.egg-info
+	find . -name '*.pyc' -print -delete
+	find . -name __pycache__ -print -delete
 
 locale/thinkpad-scripts.pot: bin/*
 	xgettext --language Shell --from-code=utf-8 -o $@ $^
