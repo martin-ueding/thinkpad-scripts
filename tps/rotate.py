@@ -100,12 +100,7 @@ def _parse_args():
 
     options = parser.parse_args()
 
-    if options.verbose == 1:
-        tps.config.set_up_logging(logging.INFO)
-    elif options.verbose == 2:
-        tps.config.set_up_logging(logging.DEBUG)
-    else:
-        tps.config.set_up_logging(logging.WARN)
+    tps.config.set_up_logging(options.verbose)
 
     return options
 

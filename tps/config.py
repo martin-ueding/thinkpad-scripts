@@ -136,14 +136,20 @@ def interpret_shell_line(line, config):
             config[section] = {}
         config[section][subsection] = argument
 
-def set_up_logging(console_log_level):
+def set_up_logging(verbosity):
     '''
     Sets up the logging to console and logfile.
 
     This is taken from
     http://docs.python.org/3/howto/logging-cookbook.html#logging-to-multiple-destinations.
     '''
-    print('Here!')
+    if verbosity == 1:
+        console_log_level = logging.INFO
+    elif verbosity == 2:
+        console_log_level = logging.DEBUG
+    else:
+        console_log_level = logging.WARN
+
     logging.basicConfig(level=logging.DEBUG,
                         format='%(asctime)s %(name)-13s %(levelname)-8s %(message)s',
                         filename='/tmp/thinkpad-scripts.log',
