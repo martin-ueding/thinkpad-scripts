@@ -81,13 +81,14 @@ Build
 
 These programs are needed during the build process.
 
-============== ============== ==================
-Needed Program Debian package Arch Linux package
-============== ============== ==================
-msgfmt         gettext        gettext
-xgettext       gettext        gettext
-sphinx-build   python3-sphinx python-sphinx
-============== ============== ==================
+============== ================== ==================
+Needed Program Debian package     Arch Linux package
+============== ================== ==================
+msgfmt         gettext            gettext
+*setuptools*   python3-setuptools
+sphinx-build   python3-sphinx     python-sphinx
+xgettext       gettext            gettext
+============== ================== ==================
 
 Run
 '''
@@ -100,6 +101,7 @@ Needed Program Debian package           Arch Linux package Version
 *acpid*        acpid                    acpid
 amixer         alsa-utils               alsa-utils
 linux                                                      >= 3.11.0-17 [1]_
+*setuptools*   python3-setuptools
 *udev*         udev                     systemd            >= 196
 xsetwacom      xserver-xorg-input-wacom xf86-input-wacom
 xinput         xinput                   xorg-xinput
@@ -130,11 +132,9 @@ required.
 ============== ================== ================== ===========================
 Needed Program Debian package     Arch Linux package For
 ============== ================== ================== ===========================
-kdialog        kde-baseapps-bin   kdebase-kdialog    showing dialog boxes
 kvkbd          kvkbd              kvkbd              virtual keyboard
 nmcli          network-manager    networkmanager     changing wifi
 pactl          pulseaudio-utils   libpulse           volume control when docking
-qdbus          qdbus, qt4-default qt4                showing dialog boxes
 xbacklight     xbacklight         xorg-xbacklight    adjusting brightness
 ============== ================== ================== ===========================
 
