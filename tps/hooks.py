@@ -25,7 +25,7 @@ def prerotate(direction, config):
     :returns: None
     '''
     hook = os.path.expanduser(config['hooks']['prerotate'])
-    if os.path.isfile(hook):
+    if tps.has_program(hook):
         tps.call([hook, direction.xrandr], logger)
 
 def postrotate(direction, config):
@@ -37,7 +37,7 @@ def postrotate(direction, config):
     :returns: None
     '''
     hook = os.path.expanduser(config['hooks']['postrotate'])
-    if os.path.isfile(hook):
+    if tps.has_program(hook):
         tps.call([hook, direction.xrandr], logger)
 
 def predock(state, config):
@@ -49,7 +49,7 @@ def predock(state, config):
     :returns: None
     '''
     hook = os.path.expanduser(config['hooks']['predock'])
-    if os.path.isfile(hook):
+    if tps.has_program(hook):
         tps.call([hook, 'on' if state else 'off'], logger)
 
 def postdock(state, config):
@@ -61,7 +61,7 @@ def postdock(state, config):
     :returns: None
     '''
     hook = os.path.expanduser(config['hooks']['postdock'])
-    if os.path.isfile(hook):
+    if tps.has_program(hook):
         tps.call([hook, 'on' if state else 'off'], logger)
 
 def get_graphicsl_user():
