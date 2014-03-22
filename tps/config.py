@@ -15,6 +15,7 @@ import logging
 import os.path
 import re
 import shlex
+import sys
 
 import pkg_resources
 
@@ -22,6 +23,8 @@ import termcolor
 
 CONFIGFILE = os.path.expanduser('~/.config/thinkpad-scripts/config.ini')
 'Path of global config file'
+
+logger = logging.getLogger(__name__)
 
 def get_config():
     '''
@@ -159,6 +162,8 @@ def set_up_logging(verbosity):
     formatter = logging.Formatter('%(name)-13s %(levelname)-8s %(message)s')
     console.setFormatter(formatter)
     logging.getLogger('').addHandler(console)
+
+    logger.debug('Program was started with arguments: {}'.format(sys.argv))
 
 
 class ShellParseException(Exception):
