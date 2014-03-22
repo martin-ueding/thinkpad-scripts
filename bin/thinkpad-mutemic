@@ -1,4 +1,6 @@
 #!/bin/bash
 # Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 
+logger -t thinkpad-mutemic 'Starting mutemic'
+
 amixer sset "'Capture',0" toggle
