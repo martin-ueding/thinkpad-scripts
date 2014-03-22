@@ -14,7 +14,7 @@ if __name__ == '__main__':
         author="Martin Ueding",
         author_email="dev@martin-ueding.de",
         description="Scripts for ThinkPad®",
-        license="GPL2",
+        license="GNU GPLv2+",
         classifiers=[
             "Environment :: Console",
             "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
