@@ -13,6 +13,11 @@ v4.0
       Those couple lines were removed, so **add a ``-of`` to your config, if
       you do not have already!**
 
+v3.5.1
+    Released: 2014-02-22
+
+    - Small fixes in the manual pages
+
 v3.5
     Released: 2014-02-22
 

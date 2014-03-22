@@ -22,7 +22,7 @@ case "$4" in
         ;;
 esac
 
-command="DISPLAY=:0.0 kdialog=false /usr/bin/thinkpad-rotate $setto"
+command="env DISPLAY=:0.0 kdialog=false /usr/bin/thinkpad-rotate $setto"
 
 logger -t thinkpad-rotate-hook -i -- $"Will run “$command”."
 

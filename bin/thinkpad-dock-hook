@@ -21,6 +21,6 @@ case "$1" in
         ;;
 esac
 
-su -c "DISPLAY=:0.0 kdialog=false /usr/bin/thinkpad-dock $setto" --login "$user" &
+su -c "env DISPLAY=:0.0 kdialog=false /usr/bin/thinkpad-dock $setto" --login "$user" &
 
 disown
