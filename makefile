@@ -32,7 +32,6 @@ install:
 	    install -m 644 "$$mofile" "$(DESTDIR)/usr/share/$$mofile"; \
 	    done
 #
-#
 	cd bin && $(MAKE) install
 	cd desktop && $(MAKE) install
 	cd doc && $(MAKE) install

@@ -74,11 +74,11 @@ def new_rotation(current, desired_str, config):
     else:
         desired = tps.translate_direction(desired_str)
         if desired == current:
-            logger.info('You try to rotate into the direction it is, reverting to normal.')
             new = tps.NORMAL
+            logger.info('You try to rotate into the direction it is, reverting to normal.')
         else:
-            logger.info('User chose to set to {}'.format(new))
             new = desired
+            logger.info('User chose to set to {}'.format(new))
     return new
 
 
