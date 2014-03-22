@@ -17,6 +17,8 @@ proliferation of various names, this class holds the differing names. The
 module provides four constants which have to be used within :mod:`tps`.
 '''
 
+Direction.__repr__ = lambda d: d.xrandr
+
 LEFT = Direction('left', 'ccw', 'vrgb')
 'Left'
 
