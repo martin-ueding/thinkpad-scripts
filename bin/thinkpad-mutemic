@@ -8,6 +8,8 @@ TEXTDOMAIN=thinkpad-scripts
 # Find the user who is currently logged in on the primary screen.
 user="$(who -u | grep -F '(:0)' | head -n 1 | awk '{print $1}')"
 
+logger -t thinkpad-mutemic 'Starting mutemic'
+
 input_device="'Capture'"
 if amixer sget "$input_device,0" | grep '\[on\]'
 then
