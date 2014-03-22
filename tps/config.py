@@ -163,6 +163,7 @@ def set_up_logging(verbosity):
     console.setFormatter(formatter)
     logging.getLogger('').addHandler(console)
 
+    logger.debug('----------------------------------')
     logger.debug('Program was started with arguments: {}'.format(sys.argv))
 
 
