@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
 '''
@@ -29,13 +30,14 @@ def toggle(program, state):
         try:
             tps.check_output(['pgrep', program], logger)
         except subprocess.CalledProcessError:
-            command = program + '&'
-            logger.debug(command)
-            subprocess.check_call(command, shell=True)
+            if tps.has_program(program):
+                logger.debug(program)
+                subprocess.Popen([program])
+            else:
+                logger.warning('{} is not installed'.format(program))
     else:
         try:
             tps.check_output(['pgrep', program], logger)
             tps.check_call(['killall', program], logger)
         except subprocess.CalledProcessError:
             pass
-
