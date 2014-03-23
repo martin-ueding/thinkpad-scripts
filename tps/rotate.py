@@ -51,12 +51,10 @@ def rotate_to(direction, config):
 
     tps.input.set_xinput_state(
         tps.input.get_xinput_id('TrackPoint'),
-        direction == tps.NORMAL,
-    )
+        direction == tps.NORMAL)
     tps.input.set_xinput_state(
         tps.input.get_xinput_id('TouchPad'),
-        direction == tps.NORMAL,
-    )
+        direction == tps.NORMAL)
 
     tps.hooks.postrotate(direction, config)
 
@@ -94,9 +92,9 @@ def _parse_args():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("direction", nargs='?', help="Positional arguments.")
-    #parser.add_argument("", dest="", type="", default=, help=)
-    #parser.add_argument("--version", action="version", version="<the version>")
-    parser.add_argument("-v", dest='verbose', action="count", help='Enable verbose output. Can be supplied multiple times for even more verbosity.')
+    parser.add_argument("-v", dest='verbose', action="count",
+                        help='Enable verbose output. Can be supplied multiple '
+                             'times for even more verbosity.')
 
     options = parser.parse_args()
 
