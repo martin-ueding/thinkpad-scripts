@@ -58,6 +58,7 @@ def restart(connection):
     '''
     if not tps.has_program('nmcli'):
         logger.warning('nmcli is not installed')
+        return
 
     tps.check_call(['nmcli', 'con', 'down', 'id', connection], logger)
     tps.check_call(['nmcli', 'con', 'up', 'id', connection], logger)
