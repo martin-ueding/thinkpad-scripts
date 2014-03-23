@@ -8,9 +8,11 @@
 Logic for sound.
 '''
 
+import argparse
 import logging
 
 import tps
+import tps.config
 
 logger = logging.getLogger(__name__)
 
@@ -34,3 +36,12 @@ def set_volume(loudness):
         return
 
     tps.check_call(['pactl', 'set-sink-volume', '0', loudness], logger)
+
+def main_mutemic():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('action', help='Keycode')
+    parser.add_argument("-v", dest='verbose', action="count", help='Enable verbose output. Can be supplied multiple times for even more verbosity.')
+    options = parser.parse_args()
+    tps.config.set_up_logging(options.verbose)
+
+    tps.check_call(['amixer', 'sset', "'Capture',0", 'toggle'], logger)

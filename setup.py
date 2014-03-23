@@ -29,6 +29,7 @@ if __name__ == '__main__':
                 'thinkpad-dock = tps.dock:main',
                 'thinkpad-dock-hook = tps.hooks:main_dock_hook',
                 'thinkpad-rotate = tps.rotate:main',
+                'thinkpad-mutemic = tps.sound:main_mutemic',
                 'thinkpad-rotate-hook = tps.hooks:main_rotate_hook',
                 'thinkpad-touch = tps.input:main_touchscreen',
                 'thinkpad-touchpad = tps.input:main_touchpad',
