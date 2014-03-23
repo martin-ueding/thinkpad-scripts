@@ -169,6 +169,13 @@ def set_up_logging(verbosity):
 
 
 class ShellParseException(Exception):
+    '''
+    Bash code could not be parsed.
+
+    The parser here is very limited, it can only detect variable assignments.
+    If something more complicated is found on a given line, this exception is
+    raised.
+    '''
     pass
 
 def main():
