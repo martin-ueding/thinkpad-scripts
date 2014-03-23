@@ -159,7 +159,7 @@ def set_up_logging(verbosity):
     syslog_format = '%(asctime)s %(name)-13s %(levelname)-8s %(message)s'
 
     logging.basicConfig(level=console_log_level, format=console_format)
-    syslog = logging.handlers.SysLogHandler()
+    syslog = logging.handlers.SysLogHandler(address='/dev/log')
     syslog.setLevel(logging.DEBUG)
     formatter = logging.Formatter(syslog_format)
     syslog.setFormatter(formatter)
