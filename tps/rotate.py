@@ -6,6 +6,7 @@
 
 import argparse
 import logging
+import sys
 
 import tps
 import tps.config
@@ -22,9 +23,13 @@ def main():
 
     config = tps.config.get_config()
 
-    new_direction = new_rotation(
-        tps.screen.get_rotation(config['screen']['internal']),
-        options.direction, config)
+    try:
+        new_direction = new_rotation(
+            tps.screen.get_rotation(config['screen']['internal']),
+            options.direction, config)
+    except tps.UnknownDirectionException:
+        logger.error('Direction cannot be understood.')
+        sys.exit(1)
 
     rotate_to(new_direction, config)
 
