@@ -70,13 +70,14 @@ def migrate_shell_config():
     errors = []
 
     for old_file in old_files:
-        with open(old_file) as handle:
-            for line in handle:
-                line = line.strip()
-                try:
-                    interpret_shell_line(line, config)
-                except ShellParseException as exception:
-                    errors.append(str(exception))
+        if os.path.isfile(old_file):
+            with open(old_file) as handle:
+                for line in handle:
+                    line = line.strip()
+                    try:
+                        interpret_shell_line(line, config)
+                    except ShellParseException as exception:
+                        errors.append(str(exception))
 
     if len(errors) > 0:
         print()
