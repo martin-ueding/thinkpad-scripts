@@ -39,7 +39,6 @@ def set_volume(loudness):
 
 def main_mutemic():
     parser = argparse.ArgumentParser()
-    parser.add_argument('action', help='Keycode')
     parser.add_argument("-v", dest='verbose', action="count", help='Enable verbose output. Can be supplied multiple times for even more verbosity.')
     options = parser.parse_args()
     tps.config.set_up_logging(options.verbose)
