@@ -156,7 +156,7 @@ def set_up_logging(verbosity):
         console_log_level = logging.WARN
 
     console_format = '%(name)-13s %(levelname)-8s %(message)s'
-    syslog_format = '%(asctime)s %(name)-13s %(levelname)-8s %(message)s'
+    syslog_format = 'thinkpad-scripts: %(name)s %(levelname)s %(message)s'
 
     logging.basicConfig(level=console_log_level, format=console_format)
     syslog = logging.handlers.SysLogHandler(address='/dev/log')
