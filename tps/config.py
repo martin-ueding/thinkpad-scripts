@@ -158,12 +158,16 @@ def set_up_logging(verbosity):
     console_format = '%(name)-13s %(levelname)-8s %(message)s'
     syslog_format = 'thinkpad-scripts: %(name)s %(levelname)s %(message)s'
 
+    config = get_config()
+
     logging.basicConfig(level=console_log_level, format=console_format)
-    syslog = logging.handlers.SysLogHandler(address='/dev/log')
-    syslog.setLevel(logging.DEBUG)
-    formatter = logging.Formatter(syslog_format)
-    syslog.setFormatter(formatter)
-    logging.getLogger('').addHandler(syslog)
+
+    if config['logging'].getboolean('syslog'):
+        syslog = logging.handlers.SysLogHandler(address='/dev/log')
+        syslog.setLevel(logging.DEBUG)
+        formatter = logging.Formatter(syslog_format)
+        syslog.setFormatter(formatter)
+        logging.getLogger('').addHandler(syslog)
 
     logger.debug('----------------------------------')
     logger.debug('Program was started with arguments: {}'.format(sys.argv))
