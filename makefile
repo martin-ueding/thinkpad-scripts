@@ -26,8 +26,8 @@ install:
 	cd doc && $(MAKE) install
 
 clean:
-	$(RM) *.pyc
-	$(RM) -r *.egg-info
+	$(RM) ./*.pyc
+	$(RM) -r ./*.egg-info
 	$(RM) -r build
 	$(RM) -r dist
 	cd desktop && $(MAKE) clean
