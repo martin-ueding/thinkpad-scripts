@@ -3,9 +3,6 @@
 
 SHELL = /bin/bash
 
-po := $(wildcard locale/*/LC_MESSAGES/thinkpad-scripts.po)
-mo := $(po:.po=.mo)
-
 .PHONY: all install clean
 
 all: $(mo)
@@ -25,12 +22,6 @@ install:
 	install -m 644 thinkpad-rotate-acpi-hook-1 -t "$(DESTDIR)/etc/acpi/events/"
 	install -m 644 thinkpad-rotate-acpi-hook-2 -t "$(DESTDIR)/etc/acpi/events/"
 #
-	install -d "$(DESTDIR)/usr/share/locale/de/LC_MESSAGES"
-	for mofile in $(mo); \
-	    do \
-	    install -m 644 "$$mofile" "$(DESTDIR)/usr/share/$$mofile"; \
-	    done
-#
 	cd desktop && $(MAKE) install
 	cd doc && $(MAKE) install
 
@@ -39,11 +30,7 @@ clean:
 	$(RM) -r *.egg-info
 	$(RM) -r build
 	$(RM) -r dist
-	$(RM) locale/*/LC_MESSAGES/*.mo
 	cd desktop && $(MAKE) clean
 	cd doc && $(MAKE) clean
 	find . -name '*.pyc' -print -delete
 	find . -name __pycache__ -print -delete
-
-%.mo: %.po
-	msgfmt -o $@ $^
