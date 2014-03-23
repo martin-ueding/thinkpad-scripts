@@ -13,6 +13,7 @@ import logging
 import re
 
 import tps
+import tps.config
 
 logger = logging.getLogger(__name__)
 
@@ -177,14 +178,7 @@ def _parse_args_to_state():
 
     options = parser.parse_args()
 
-    # Try to set the logging level in case the logging module is imported.
-    try:
-        if options.verbose == 1:
-            logging.basicConfig(level=logging.INFO)
-        elif options.verbose == 2:
-            logging.basicConfig(level=logging.DEBUG)
-    except NameError as e:
-        pass
+    tps.config.set_up_logging(options.verbose)
 
     if options.state == 'on':
         return True
