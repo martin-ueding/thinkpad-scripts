@@ -171,7 +171,9 @@ def _parse_args_to_state():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("state", nargs='?', help="Positional arguments.")
-    parser.add_argument("-v", dest='verbose', action="count", help='Enable verbose output. Can be supplied multiple times for even more verbosity.')
+    parser.add_argument("-v", dest='verbose', action="count",
+                        help='Enable verbose output. Can be supplied multiple '
+                             'times for even more verbosity.')
 
     options = parser.parse_args()
 
