@@ -12,6 +12,7 @@ Takes care of the INI style config file for global and user configuration.
 
 import configparser
 import logging
+import logging.handlers
 import os.path
 import re
 import shlex
@@ -154,15 +155,15 @@ def set_up_logging(verbosity):
     else:
         console_log_level = logging.WARN
 
-    logging.basicConfig(level=logging.DEBUG,
-                        format='%(asctime)s %(name)-13s %(levelname)-8s %(message)s',
-                        filename='/tmp/thinkpad-scripts.log',
-                        filemode='a')
-    console = logging.StreamHandler()
-    console.setLevel(console_log_level)
-    formatter = logging.Formatter('%(name)-13s %(levelname)-8s %(message)s')
-    console.setFormatter(formatter)
-    logging.getLogger('').addHandler(console)
+    console_format = '%(name)-13s %(levelname)-8s %(message)s'
+    syslog_format = '%(asctime)s %(name)-13s %(levelname)-8s %(message)s'
+
+    logging.basicConfig(level=console_log_level, format=console_format)
+    syslog = logging.handlers.SysLogHandler()
+    syslog.setLevel(logging.DEBUG)
+    formatter = logging.Formatter(syslog_format)
+    syslog.setFormatter(formatter)
+    logging.getLogger('').addHandler(syslog)
 
     logger.debug('----------------------------------')
     logger.debug('Program was started with arguments: {}'.format(sys.argv))
