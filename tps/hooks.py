@@ -94,3 +94,16 @@ def main_rotate_hook():
         'env', 'DISPLAY=:0.0',
         '/usr/bin/thinkpad-rotate', set_to
     ], logger)
+
+def main_dock_hook():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('action', help='Keycode')
+    parser.add_argument("-v", dest='verbose', action="count", help='Enable verbose output. Can be supplied multiple times for even more verbosity.')
+    options = parser.parse_args()
+    tps.config.set_up_logging(options.verbose)
+
+    tps.check_call([
+        'sudo', '-u', get_graphicsl_user(), '-i',
+        'env', 'DISPLAY=:0.0',
+        '/usr/bin/thinkpad-dock', options.action
+    ], logger)

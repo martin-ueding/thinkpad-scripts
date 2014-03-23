@@ -27,6 +27,7 @@ if __name__ == '__main__':
             'console_scripts': [
                 'thinkpad-config = tps.config:main',
                 'thinkpad-dock = tps.dock:main',
+                'thinkpad-dock-hook = tps.hooks:main_dock_hook',
                 'thinkpad-rotate = tps.rotate:main',
                 'thinkpad-rotate-hook = tps.hooks:main_rotate_hook',
                 'thinkpad-touch = tps.input:main_touchscreen',
