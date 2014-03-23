@@ -104,7 +104,7 @@ def interpret_shell_line(line, config):
         return
 
     known_options = {
-        'diable_wifi': ('network', 'disable_wifi'),
+        'disable_wifi': ('network', 'disable_wifi'),
         'internal': ('screen', 'internal'),
         'unmute': ('sound', 'unmute'),
         'dock_loudness': ('sound', 'dock_loudness'),
