@@ -9,7 +9,6 @@ mo := $(po:.po=.mo)
 .PHONY: all install clean
 
 all: $(mo)
-	cd bin && $(MAKE)
 	cd desktop && $(MAKE)
 	cd doc && $(MAKE)
 
@@ -32,7 +31,6 @@ install:
 	    install -m 644 "$$mofile" "$(DESTDIR)/usr/share/$$mofile"; \
 	    done
 #
-	cd bin && $(MAKE) install
 	cd desktop && $(MAKE) install
 	cd doc && $(MAKE) install
 	cd lib && $(MAKE) install
@@ -43,14 +41,10 @@ clean:
 	$(RM) -r build
 	$(RM) -r dist
 	$(RM) locale/*/LC_MESSAGES/*.mo
-	cd bin && $(MAKE) clean
 	cd desktop && $(MAKE) clean
 	cd doc && $(MAKE) clean
 	find . -name '*.pyc' -print -delete
 	find . -name __pycache__ -print -delete
-
-locale/thinkpad-scripts.pot: bin/*
-	xgettext --language Shell --from-code=utf-8 -o $@ $^
 
 %.mo: %.po
 	msgfmt -o $@ $^
