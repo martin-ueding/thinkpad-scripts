@@ -100,6 +100,19 @@ def migrate_shell_config():
             config.write(handle)
 
 def interpret_shell_line(line, config):
+    '''
+    Interprets a single Bash line to parse for variable assignments.
+
+    The given line is searched for a config option was allowed in the 3.x
+    series. It will use the ``shlex`` module to parse the value of the variable
+    assignment. If it could be parsed correctly, it will add the value to the
+    config. The keys are translated into the new config sections.
+
+    :param str line: Line to check
+    :param configparser.ConfigParser config: Config to store parsed variables
+    :raise: tps.config.ShellParseException
+    :returns: None
+    '''
     # Filter out comments.
     if line.startswith('#'):
         return
