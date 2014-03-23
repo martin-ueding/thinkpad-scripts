@@ -12,6 +12,7 @@ Takes care of the INI style config file for global and user configuration.
 
 import configparser
 import logging
+import logging.handlers
 import os.path
 import re
 import shlex
@@ -142,10 +143,16 @@ def interpret_shell_line(line, config):
 
 def set_up_logging(verbosity):
     '''
-    Sets up the logging to console and logfile.
+    Sets up the logging to console and syslog.
 
-    This is taken from
-    http://docs.python.org/3/howto/logging-cookbook.html#logging-to-multiple-destinations.
+    This is taken from the `Python Docs – Logging Cookbook`__.
+
+    __ http://docs.python.org/3/howto/logging-cookbook.html#logging-to-multiple-destinations.
+
+    The ``address`` parameter for the syslog is taken from an answer from `dr
+    jimbob`__.
+    
+    __ http://stackoverflow.com/a/3969772
     '''
     if verbosity == 1:
         console_log_level = logging.INFO
@@ -154,15 +161,19 @@ def set_up_logging(verbosity):
     else:
         console_log_level = logging.WARN
 
-    logging.basicConfig(level=logging.DEBUG,
-                        format='%(asctime)s %(name)-13s %(levelname)-8s %(message)s',
-                        filename='/tmp/thinkpad-scripts.log',
-                        filemode='a')
-    console = logging.StreamHandler()
-    console.setLevel(console_log_level)
-    formatter = logging.Formatter('%(name)-13s %(levelname)-8s %(message)s')
-    console.setFormatter(formatter)
-    logging.getLogger('').addHandler(console)
+    console_format = '%(name)-13s %(levelname)-8s %(message)s'
+    syslog_format = 'thinkpad-scripts: %(name)s %(levelname)s %(message)s'
+
+    config = get_config()
+
+    logging.basicConfig(level=console_log_level, format=console_format)
+
+    if config['logging'].getboolean('syslog'):
+        syslog = logging.handlers.SysLogHandler(address='/dev/log')
+        syslog.setLevel(logging.DEBUG)
+        formatter = logging.Formatter(syslog_format)
+        syslog.setFormatter(formatter)
+        logging.getLogger('').addHandler(syslog)
 
     logger.debug('----------------------------------')
     logger.debug('Program was started with arguments: {}'.format(sys.argv))
