@@ -123,16 +123,20 @@ def interpret_shell_line(line, config):
     if matcher:
         option = matcher.group(1)
         if not option in known_options:
-            raise ShellParseException('Cannot parse “{}”: Not a known option'.format(line))
+            raise ShellParseException(
+                'Cannot parse “{}”: Not a known option'.format(line))
 
         arguments = list(shlex.split(matcher.group(2)))
         if len(arguments) != 1:
-            raise ShellParseException('Cannot parse “{}”: Not a single value'.format(line))
+            raise ShellParseException(
+                'Cannot parse “{}”: Not a single value'.format(line))
 
         argument = arguments[0]
 
         if '$' in argument:
-            raise ShellParseException('Cannot parse “{}”: Contains “$”, indicates complex value'.format(line))
+            raise ShellParseException(
+                'Cannot parse “{}”: Contains “$”, indicates complex value'
+                .format(line))
 
         print(option, '→', argument)
 
