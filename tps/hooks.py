@@ -12,6 +12,7 @@ import subprocess
 import sys
 
 import tps
+import tps.config
 
 logger = logging.getLogger(__name__)
 
@@ -76,7 +77,9 @@ def get_graphicsl_user():
 def main_rotate_hook():
     parser = argparse.ArgumentParser()
     parser.add_argument('key', help='Keycode')
+    parser.add_argument("-v", dest='verbose', action="count", help='Enable verbose output. Can be supplied multiple times for even more verbosity.')
     options = parser.parse_args()
+    tps.config.set_up_logging(options.verbose)
 
     key = options.key
 
@@ -86,6 +89,8 @@ def main_rotate_hook():
     elif key in ('00000000', '0000500a'):
         set_to = 'normal'
 
-    command = 'su -c "env DISPLAY=:0.0 /usr/bin/thinkpad-rotate {set_to}" --login "{user}" & disown'.format(user=get_graphicsl_user(), set_to=set_to)
-    logger.debug('subprocess “{}”'.format(command))
-    subprocess.call(command, shell=True)
+    tps.check_call([
+        'sudo', '-u', get_graphicsl_user(), '-i',
+        'env', 'DISPLAY=:0.0',
+        '/usr/bin/thinkpad-rotate', set_to
+    ], logger)
