@@ -33,7 +33,6 @@ install:
 #
 	cd desktop && $(MAKE) install
 	cd doc && $(MAKE) install
-	cd lib && $(MAKE) install
 
 clean:
 	$(RM) *.pyc
