@@ -143,10 +143,16 @@ def interpret_shell_line(line, config):
 
 def set_up_logging(verbosity):
     '''
-    Sets up the logging to console and logfile.
+    Sets up the logging to console and syslog.
 
-    This is taken from
-    http://docs.python.org/3/howto/logging-cookbook.html#logging-to-multiple-destinations.
+    This is taken from the `Python Docs – Logging Cookbook`__.
+
+    __ http://docs.python.org/3/howto/logging-cookbook.html#logging-to-multiple-destinations.
+
+    The ``address`` parameter for the syslog is taken from an answer from `dr
+    jimbob`__.
+    
+    __ http://stackoverflow.com/a/3969772
     '''
     if verbosity == 1:
         console_log_level = logging.INFO
