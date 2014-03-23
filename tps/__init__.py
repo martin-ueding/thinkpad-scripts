@@ -82,7 +82,7 @@ def has_program(command):
         return os.path.isfile(path) and os.access(path, os.X_OK)
 
     # Check if `command` is a path to an executable
-    if os.path.dirname(command):
+    if os.sep in command:
         if is_exe(os.path.expanduser(command)):
             logger.debug('Command “{}” found.'.format(command))
             return True
