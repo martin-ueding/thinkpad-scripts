@@ -51,12 +51,10 @@ def rotate_to(direction, config):
 
     tps.input.set_xinput_state(
         tps.input.get_xinput_id('TrackPoint'),
-        direction == tps.NORMAL,
-    )
+        direction == tps.NORMAL)
     tps.input.set_xinput_state(
         tps.input.get_xinput_id('TouchPad'),
-        direction == tps.NORMAL,
-    )
+        direction == tps.NORMAL)
 
     tps.hooks.postrotate(direction, config)
 
