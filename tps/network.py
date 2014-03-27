@@ -10,10 +10,33 @@ Network support.
 
 import glob
 import logging
+import re
 
 import tps
 
 logger = logging.getLogger(__name__)
+
+class MissingEthernetException(Exception):
+    '''
+    This exception is raised when NetworkManager has no configured Ethernet
+    connections as reported by ``nmcli con list``.
+    '''
+
+def parse_terse_line(output):
+    '''
+    Split output line from nmcli called with the --terse option into a list and
+    remove backslashes that escape ':' and '\'.
+
+    :param str output: Output from nmcli
+    :returns: The split output with backslash escapes removed
+    '''
+    # Split string on non-escaped ':'; regular expression based on
+    # http://stackoverflow.com/a/8435588
+    split = re.findall(r'((?:[^:\\]|\\.)+):?', output)
+    # Remove '\' used to escape ':' or '\'
+    for i in range(len(split)):
+        split[i] = re.sub(r'\\([\\:])', r'\1', split[i])
+    return split
 
 def set_wifi(state):
     '''
@@ -48,6 +71,25 @@ def has_ethernet():
             if carrier_state:
                 return True
     return False
+
+def get_ethernet_con_name():
+    '''
+    Gets the name of the first ethernet connection from nmcli.
+
+    :returns: str
+    :raises tps.network.MissingEthernetException:
+    '''
+    if not tps.has_program('nmcli'):
+        logger.warning('nmcli is not installed')
+        return
+
+    lines = tps.check_output(['nmcli', '--terse', '--fields', 'NAME,TYPE',
+                              'con', 'list']).decode()
+    for line in lines.split('\n'):
+        name, type = parse_terse_line(line)
+        if 'ethernet' in type.lower():
+            return name
+    raise MissingEthernetException('No configured Ethernet connections.')
 
 def restart(connection):
     '''
