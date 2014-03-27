@@ -6,6 +6,7 @@
 # Licensed under The GNU Public License Version 2 (or later)
 
 import collections
+import functools
 import subprocess
 import logging
 import os
@@ -97,47 +98,23 @@ def has_program(command):
     logger.debug('Command “{}” not found.'.format(command))
     return False
 
-def check_call(command, local_logger):
+def print_command_decorate(function):
     '''
-    Calls subprocess.check_call, but prints the command first.
+    Decorates a func from the subprocess module to log the `command` parameter.
 
-    :param list command: Command suitable for subprocess module
-    :param logging.Logger local_logger: Logger of the using module
-    :returns: None
-    '''
-    print_command(command, local_logger)
-    subprocess.check_call(command)
+    Note that the wrapper adds an additional `local_logger` parameter following
+    the `command` parameter that is used for the logging. All other parameters
+    are passed to the wrapped function.
 
-def call(command, local_logger):
+    :param function: Function to wrap
+    :returns: Decorated function
     '''
-    Calls subprocess.call, but prints the command first.
+    @functools.wraps(function)
+    def wrapper(command, local_logger, *args, **kwargs):
+        local_logger.debug('subprocess “{}”'.format(' '.join(command)))
+        return function(command, *args, **kwargs)
+    return wrapper
 
-    :param list command: Command suitable for subprocess module
-    :param logging.Logger local_logger: Logger of the using module
-    :returns: Return value of command
-    :rtype: int
-    '''
-    print_command(command, local_logger)
-    return subprocess.call(command)
-
-def check_output(command, local_logger):
-    '''
-    Calls subprocess.check_output, but prints the command first.
-
-    :param list command: Command suitable for subprocess module
-    :param logging.Logger local_logger: Logger of the using module
-    :returns: Command output
-    :rtype: bytes
-    '''
-    print_command(command, local_logger)
-    return subprocess.check_output(command)
-
-def print_command(command, local_logger):
-    '''
-    Prints the command to the debug output of the logger.
-
-    :param list command: Command suitable for subprocess module
-    :param logging.Logger local_logger: Logger of the using module
-    :returns: None
-    '''
-    local_logger.debug('subprocess “{}”'.format(' '.join(command)))
+check_call = print_command_decorate(subprocess.check_call)
+call = print_command_decorate(subprocess.call)
+check_output = print_command_decorate(subprocess.check_output)
