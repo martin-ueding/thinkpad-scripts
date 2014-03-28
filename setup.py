@@ -37,6 +37,7 @@ if __name__ == '__main__':
                 'thinkpad-scripts-config-migration = tps.config:migrate_shell_config',
             ],
         },
+        test_suite='tps.testsuite',
         install_requires=[
             'termcolor',
         ],
