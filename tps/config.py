@@ -142,7 +142,11 @@ def interpret_shell_line(line, config):
             raise ShellParseException(
                 'Cannot parse “{}”: Not a known option'.format(line))
 
-        arguments = list(shlex.split(matcher.group(2)))
+        try:
+            arguments = list(shlex.split(matcher.group(2)))
+        except ValueError as e:
+            raise ShellParseException('Cannot parse “{}”: {}'.format(line, e))
+
         if len(arguments) != 1:
             raise ShellParseException(
                 'Cannot parse “{}”: Not a single value'.format(line))
