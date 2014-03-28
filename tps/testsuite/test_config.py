@@ -36,7 +36,7 @@ class InterpretShellLineTestCase(ConfigTestCase):
         `interpret_shell_line` should work properly with normal input.
         '''
         expected = ConfigParser(interpolation=None)
-        expected.read_dict({'network': {'disable_wifi': 'foo bar'},
+        expected.read_dict({'network': {'disable_wifi': 'true'},
                             'screen': {'internal': 'LVDS1',
                                        'set_brightness': 'true',
                                        'brightness': '100%',
@@ -49,7 +49,7 @@ class InterpretShellLineTestCase(ConfigTestCase):
                             'unity': {'toggle_unity_launcher': 'false'},
                             'vkeyboard': {'program': 'kvkbd'}})
 
-        str_input = ['disable_wifi="foo bar"',
+        str_input = ['disable_wifi=true',
                      'internal=LVDS1',
                      'set_brightness=true',
                      'brightness=100%',
@@ -64,6 +64,23 @@ class InterpretShellLineTestCase(ConfigTestCase):
         actual = ConfigParser(interpolation=None)
         for input in str_input:
             tps.config.interpret_shell_line(input, actual)
+
+        self.assertEqual(expected, actual)
+
+    def test_interpret_shell_line_white_space(self):
+        expected = ConfigParser(interpolation=None)
+        expected.read_dict({'screen': {'brightness': ' 50%',
+                                       'set_brightness': 'true ',
+                                       'internal': 'LVDS1',
+                                       'relative_position': 'foo bar'},
+                            'gui': {'kdialog': 'true'}})
+
+        actual = ConfigParser(interpolation=None)
+        tps.config.interpret_shell_line('brightness=" 50%"', actual)
+        tps.config.interpret_shell_line("set_brightness='true '", actual)
+        tps.config.interpret_shell_line('internal=LVDS1  ', actual)
+        tps.config.interpret_shell_line('relative_position="foo bar"', actual)
+        tps.config.interpret_shell_line(' kdialog=true', actual)
 
         self.assertEqual(expected, actual)
 
@@ -119,3 +136,13 @@ class InterpretShellLineTestCase(ConfigTestCase):
             tps.config.interpret_shell_line('unmute=$bar', actual)
         self.assertEqual('Cannot parse “unmute=$bar”: Contains “$”, indicates '
                          'complex value', str(cm.exception))
+
+    def test_interpret_shell_line_unclosed_quotes(self):
+        '''
+        `interpret_shell_line` should fail with unclosed quotes in the value.
+        '''
+        actual = ConfigParser(interpolation=None)
+        with self.assertRaises(tps.config.ShellParseException) as cm:
+            tps.config.interpret_shell_line('unmute="bar', actual)
+        self.assertEqual('Cannot parse “unmute="bar”: No closing quotation',
+                         str(cm.exception))
