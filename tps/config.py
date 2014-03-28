@@ -113,6 +113,9 @@ def interpret_shell_line(line, config):
     :raise: tps.config.ShellParseException
     :returns: None
     '''
+    # Strip out leading and trailing whitespace; it is ignored by the shell
+    line = line.strip()
+
     # Filter out comments.
     if line.startswith('#'):
         return
