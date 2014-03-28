@@ -74,7 +74,6 @@ def migrate_shell_config():
         if os.path.isfile(old_file):
             with open(old_file) as handle:
                 for line in handle:
-                    line = line.strip()
                     try:
                         interpret_shell_line(line, config)
                     except ShellParseException as exception:
