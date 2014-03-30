@@ -74,7 +74,6 @@ def migrate_shell_config():
         if os.path.isfile(old_file):
             with open(old_file) as handle:
                 for line in handle:
-                    line = line.strip()
                     try:
                         interpret_shell_line(line, config)
                     except ShellParseException as exception:
@@ -113,6 +112,9 @@ def interpret_shell_line(line, config):
     :raise: tps.config.ShellParseException
     :returns: None
     '''
+    # Strip out leading and trailing whitespace; it is ignored by the shell
+    line = line.strip()
+
     # Filter out comments.
     if line.startswith('#'):
         return
@@ -139,7 +141,11 @@ def interpret_shell_line(line, config):
             raise ShellParseException(
                 'Cannot parse “{}”: Not a known option'.format(line))
 
-        arguments = list(shlex.split(matcher.group(2)))
+        try:
+            arguments = list(shlex.split(matcher.group(2)))
+        except ValueError as e:
+            raise ShellParseException('Cannot parse “{}”: {}'.format(line, e))
+
         if len(arguments) != 1:
             raise ShellParseException(
                 'Cannot parse “{}”: Not a single value'.format(line))
