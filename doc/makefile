@@ -1,5 +1,6 @@
 # Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
 # Copyright © 2013 Jim Turner <jturner314@gmail.com>
+# Licensed under The GNU Public License Version 2 (or later)
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
