@@ -41,7 +41,6 @@ def get_config():
 
     default_filename = pkg_resources.resource_filename(__name__, "default.ini")
 
-    print(default_filename)
     config.read(default_filename, encoding='utf-8')
     if os.path.isfile(CONFIGFILE):
         config.read(CONFIGFILE, encoding='utf-8')
