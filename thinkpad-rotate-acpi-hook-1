@@ -3,4 +3,4 @@
 # Licensed under The GNU Public License Version 2 (or later)
 
 event=ibm/hotkey HKEY 00000080 0000500[9a]
-action=/usr/bin/logger thinkpad-rotate 1
+action=/usr/bin/thinkpad-rotate-hook %e
