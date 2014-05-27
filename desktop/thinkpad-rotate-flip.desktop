@@ -4,7 +4,6 @@ Exec=thinkpad-rotate flip
 GenericName=Flip screen vertically
 Icon=object-flip-vertical
 Name=rotate flip
-NoDisplay=true
 StartupNotify=false
 Terminal=false
 Type=Application

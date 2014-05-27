@@ -4,7 +4,6 @@ Exec=thinkpad-rotate left
 GenericName=Rotate screen left
 Icon=object-rotate-left
 Name=rotate
-NoDisplay=true
 StartupNotify=false
 Terminal=false
 Type=Application

@@ -3,7 +3,6 @@ Categories=System;
 Exec=thinkpad-touchpad
 GenericName=ThinkPad Touchpad toggle
 Name=think touchpad
-NoDisplay=true
 StartupNotify=false
 Terminal=false
 Type=Application

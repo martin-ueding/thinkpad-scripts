@@ -4,7 +4,6 @@ Exec=thinkpad-dock off
 GenericName=Undock from ThinkPad Base
 Icon=network-disconnect
 Name=dock on
-NoDisplay=true
 StartupNotify=false
 Terminal=false
 Type=Application
