@@ -40,6 +40,7 @@ def get_config():
     config = configparser.ConfigParser(interpolation=None)
 
     default_filename = pkg_resources.resource_filename(__name__, "default.ini")
+    logger.debug('Default configfile is %s.', default_filename)
 
     config.read(default_filename, encoding='utf-8')
     if os.path.isfile(CONFIGFILE):

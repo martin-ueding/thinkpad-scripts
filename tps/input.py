@@ -34,7 +34,11 @@ def get_wacom_device_ids():
 
     :rtype: list
     '''
-    pattern = re.compile(br'Wacom ISD.*id: (\d+).*')
+    config = tps.config.get_config()
+
+    regex = config['touch']['regex']
+    logger.debug('Using “%s” as regex to find Wacom devices.', regex)
+    pattern = re.compile(regex.encode())
     output = tps.check_output(['xsetwacom', 'list', 'devices'], logger)
     lines = output.split(b'\n')
     ids = []
