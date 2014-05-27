@@ -82,7 +82,9 @@ You can create a config file in ``$HOME/.config/thinkpad-scripts/config.ini``,
 which has standard INI format. The old config can be converted using the
 ``thinkpad-scripts-config-migrate`` script that was introduced in version 4.0.
 
-A sample config would look like this::
+A sample config would look like this:
+
+.. code-block:: ini
 
     [sound]
     dock_loudness = 50%
