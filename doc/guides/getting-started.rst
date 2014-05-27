@@ -44,6 +44,7 @@ Then, you can build and install with:
 
     $ make
     # make install
+    # ./setup.py install
 
 To make the ACPI hooks take effect, you will need to restart ``acpid`` with the
 following on SysVinit/Upstart systems:
@@ -81,10 +82,13 @@ Build
 
 These programs are needed during the build process.
 
+.. TODO Please fill in Arch packages here.
+
 ============== ================== ==================
 Needed Program Debian package     Arch Linux package
 ============== ================== ==================
 msgfmt         gettext            gettext
+python3        python3            TODO
 *setuptools*   python3-setuptools
 sphinx-build   python3-sphinx     python-sphinx
 xgettext       gettext            gettext
@@ -101,6 +105,7 @@ Needed Program Debian package           Arch Linux package Version
 *acpid*        acpid                    acpid
 amixer         alsa-utils               alsa-utils
 linux                                                      >= 3.11.0-17 [1]_
+python3        python3                  TODO
 *setuptools*   python3-setuptools
 *udev*         udev                     systemd            >= 196
 xsetwacom      xserver-xorg-input-wacom xf86-input-wacom
