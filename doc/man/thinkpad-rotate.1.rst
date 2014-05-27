@@ -89,14 +89,7 @@ A sample config would look like this::
 
 You can set the following option:
 
-``default_rotation``
-    Default rotation if device is in normal rotation and no arguments are
-    given. *Default: right*.
-
-``internal``
-    The ``xrandr`` name for the internal monitor. *Default: LVDS1*.
-
-``kdialog``
+``gui.kdialog``
     If this is set to ``true``, a GUI progress bar will be shown. This needs
     ``kdialog`` installed. When this script is called from
     ``thinkpad-rotate-hook``, ``kdialog`` has some problem. Therefore,
@@ -107,9 +100,26 @@ You can set the following option:
 
         kdialog="${kdialog:-true}"
 
-    *Default:*.
+    *Default: true*
 
-``toggle_unity_launcher``
+``rotate.default_rotation``
+    Default rotation if device is in normal rotation and no arguments are
+    given. *Default: right*
+
+``rotate.subpixels``
+    Rotate subpixel orientation when rotating the screen. *Default: true*
+
+``rotate.subpixels_with_external``
+    Rotate the subpixel orientation if a second screen is attached. *Default:
+    false*.
+
+``screen.internal``
+    The ``xrandr`` name for the internal monitor. *Default: LVDS1*
+
+``touch.regex``
+    Regular expression to match Wacom devices against. If your devices do not start with ``Wacom ISD``, change this appropriately. *Default:* ``Wacom ISD.*id: (\d+).*``
+
+``unity.toggle_launcher``
     The Unity Launcher on the left side is only shown if you excert pressure
     with the mouse. That means that you do not only have to put the mouse to
     the left edge of the screen, but push it beyond that edge. This is not
@@ -118,11 +128,11 @@ You can set the following option:
 
     With this option set to *true*, the hide mode will be toggled. That way,
     you have a hidden launcher on normal rotation, and a always-shown launcher
-    with any rotation. *Default: false*.
+    with any rotation. *Default: false*
 
-``virtual_kbd``
+``vkeyboard.program``
     Command to start the virtual keyboard. Choices are (among others) ``kvkbd``
-    for KDE, ``cellwriter``, ``onboard``. *Default: kvkbd*.
+    for KDE, ``cellwriter``, ``onboard``. *Default: kvkbd*
 
 Hooks
 -----
