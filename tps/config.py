@@ -62,6 +62,13 @@ def print_config(config):
             print(termcolor.colored(key, 'yellow'), config[section][key])
 
 def migrate_shell_config():
+    '''
+    Migrates the shell config in an interactive way.
+
+    The old shell based config will be imported and transfered into a
+    configparser based one. Then that will be printed out. The user can accept
+    it and the config will be saved.
+    '''
     config = configparser.ConfigParser(interpolation=None)
 
     old_files = [

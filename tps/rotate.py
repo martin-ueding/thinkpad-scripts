@@ -19,6 +19,9 @@ import tps.vkeyboard
 logger = logging.getLogger(__name__)
 
 def main():
+    '''
+    Entry point for ``thinkpad-rotate``.
+    '''
     options = _parse_args()
 
     config = tps.config.get_config()

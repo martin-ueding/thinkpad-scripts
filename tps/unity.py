@@ -15,6 +15,14 @@ import tps
 logger = logging.getLogger(__name__)
 
 def set_launcher(autohide):
+    '''
+    Sets the autohide property of the Unity launcher.
+
+    In the back, this uses ``dconf``. If that is not installed, this just fails
+    with a warning.
+
+    :param bool autohide: True if autohide is desired
+    '''
     if not tps.has_program('dconf'):
         logger.warning('dconf is not installed')
         return

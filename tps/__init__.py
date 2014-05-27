@@ -5,6 +5,10 @@
 # Copyright © 2014 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
+'''
+Main module for thinkpad-scripts.
+'''
+
 import collections
 import functools
 import subprocess

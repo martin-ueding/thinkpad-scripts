@@ -4,6 +4,10 @@
 # Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
+'''
+Functions that execute the appropriate hooks.
+'''
+
 import argparse
 import logging
 import os.path
@@ -75,6 +79,12 @@ def get_graphicsl_user():
             return words[0]
 
 def main_rotate_hook():
+    '''
+    Entry point for ``thinkpad-rotate-hook``.
+
+    It interprets the key values from the caller and start up another
+    interpreter with the actual ``thinkpad-rotate`` script.
+    '''
     parser = argparse.ArgumentParser()
     parser.add_argument('ignored_one')
     parser.add_argument('ignored_two')
@@ -101,6 +111,12 @@ def main_rotate_hook():
     ], logger)
 
 def main_dock_hook():
+    '''
+    Entry point for ``thinkpad-dock-hook``.
+
+    It interprets the key values from the caller and start up another
+    interpreter with the actual ``thinkpad-dock`` script.
+    '''
     parser = argparse.ArgumentParser()
     parser.add_argument('action', help='Keycode')
     parser.add_argument("-v", dest='verbose', action="count",

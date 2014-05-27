@@ -19,6 +19,8 @@ logger = logging.getLogger(__name__)
 def unmute(loudness):
     '''
     Unmutes the speakers and sets them to the given loudness.
+
+    :param str loudness: Loudness value as string with percent
     '''
     if not tps.has_program('pactl'):
         logger.warning('pactl is not installed')
@@ -30,6 +32,8 @@ def unmute(loudness):
 def set_volume(loudness):
     '''
     Sets the volume to the given loudness.
+
+    :param str loudness: Loudness value as string with percent
     '''
     if not tps.has_program('pactl'):
         logger.warning('pactl is not installed')
@@ -38,6 +42,9 @@ def set_volume(loudness):
     tps.check_call(['pactl', 'set-sink-volume', '0', loudness], logger)
 
 def main_mutemic():
+    '''
+    Entry point for ``thinkpad-mutemic``.
+    '''
     parser = argparse.ArgumentParser()
     parser.add_argument("-v", dest='verbose', action="count",
                         help='Enable verbose output. Can be supplied multiple '
