@@ -5,6 +5,8 @@ Changelog
 #########
 
 v4.0
+    Released: 2014-05-27
+
     - Complete rewrite in Python 3.
     - INI style config. Run ``thinkpad-scripts-config-migrate`` to help you
       migrate your config.
@@ -15,6 +17,9 @@ v4.0
       or ``right`` still worked, since the script appended the ``-of`` for you.
       Those couple lines were removed, so **add a ``-of`` to your config, if
       you do not have already!**
+
+    - You can change the regular expression that matches the Wacom devices now
+      in the config. That is ``touch.regex`` in the config.
 
 v3.5.1
     Released: 2014-02-22
