@@ -78,46 +78,71 @@ Files
 Config
 ------
 
-You can create a config file in ``$HOME/.config/thinkpad-scripts/dock.sh``,
-which is a simple Bash script that is going to be sourced from
-``thinkpad-dock``.
+You can create a config file in ``$HOME/.config/thinkpad-scripts/config.ini``,
+which has standard INI format. The old config can be converted using the
+``thinkpad-scripts-config-migrate`` script that was introduced in version 4.0.
 
 A sample config would look like this::
 
-    dock_loudness="50%"
-    disable_wifi=false
-    relative_position=left-of
+    [sound]
+    dock_loudness = 50%
 
-You can set the following options:
+    [network]
+    disable_wifi = true
 
-``disable_wifi``
-    Whether to set the wifi. *Default:
-    true*.
+    [screen]
+    relative_position = left-of
 
-``internal``
+I will list all possible options in a moment. Since the INI format is
+hierarchical, I will denote the options with a dot. The first one would be
+``sound.dock_loudness`` for example.
+
+Those are the possible options:
+
+``hooks.postdock``
+    Full path to postdock hook. *Default: ~/.config/thinkpad-scripts/hooks/postdock*
+
+``hooks.predock``
+    Full path to predock hook. *Default: ~/.config/thinkpad-scripts/hooks/predock*
+
+``logging.syslog``
+    Whether to log everything to syslog. *Default: true*
+
+``network.disable_wifi``
+    Whether to set the wifi. *Default: true*.
+
+``network.restart_connection``
+    If this is set, the given network connection will be restarted on startup.
+    I (Martin Ueding) have seen the issue where my default DHCP connection
+    would not work right away. Restarting that connection helped. *Default: true*
+
+``network.connection``
+    Connection to restart. *Default: DHCP*
+
+``screen.internal``
     The ``xrandr`` name for the internal monitor. *Default: LVDS1*.
 
-``unmute``
-    Whether to change the volume. *Default: true*.
-
-``dock_loudness``
-    Volume to set to when docking. *Default: 100%*.
-
-``undock_loudness``
-    Volume to set to when undocking. *Default: 50%*.
-
-``set_brightness``
+``screen.set_brightness``
     Whether to change the brightness. *Default: true*.
 
-``brightness``
+``screen.brightness``
     Brightness to set to when docking. *Default: 60%*.
 
-``relative_position``
+``screen.relative_position``
     Where to set the external monitor. Set it to ``right-of`` or ``left-of`` or
     anything else that ``xrandr`` supports with a ``--*`` argument. *Default:
     right-of*.
 
-``kdialog``
+``sound.unmute``
+    Whether to change the volume. *Default: true*.
+
+``sound.dock_loudness``
+    Volume to set to when docking. *Default: 100%*.
+
+``sound.undock_loudness``
+    Volume to set to when undocking. *Default: 50%*.
+
+``gui.kdialog``
     Please see the appropriate section in thinkpad-rotate(1), it has the same
     option. *Default:*.
 
@@ -129,6 +154,8 @@ command line argument, ``on`` or ``off``.
 
 - ``~/.config/thinkpad-scripts/hooks/predock``
 - ``~/.config/thinkpad-scripts/hooks/postdock``
+
+You can change the path of those hooks in the configuration, see above.
 
 Example
 =======
