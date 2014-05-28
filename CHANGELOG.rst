@@ -4,6 +4,12 @@
 Changelog
 #########
 
+v4.0.2
+    Released: 2014-05-28
+
+    - Assert Python 3 everywhere. I suspect that the Launchpad Build System
+      uses Python 2 for some reason. That causes some unicode errors.
+
 v4.0.1
     Released: 2014-05-28
 
