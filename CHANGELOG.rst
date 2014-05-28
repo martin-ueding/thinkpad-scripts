@@ -4,6 +4,12 @@
 Changelog
 #########
 
+v4.0.1
+    Released: 2014-05-28
+
+    - Fill in dependencies in the “Getting Started“ guide.
+    - Explicitly state the encoding in ``getversion.py``.
+
 v4.0
     Released: 2014-05-27
 
