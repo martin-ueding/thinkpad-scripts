@@ -167,7 +167,7 @@ def interpret_shell_line(line, config):
                 'Cannot parse “{}”: Contains “$”, indicates complex value'
                 .format(line))
 
-        print(option, '→', argument)
+        print(option, '->', argument)
 
         section, subsection = known_options[option]
         if not section in config:
