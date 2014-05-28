@@ -17,7 +17,7 @@ def get_version():
     if not os.path.isfile(filename):
         filename = os.path.basename(filename)
 
-    with open(filename) as f:
+    with open(filename, encoding='utf-8') as f:
         for line in f:
             m = pattern.match(line)
             if m:
