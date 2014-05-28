@@ -4,6 +4,11 @@
 Changelog
 #########
 
+v4.0.3
+    Released: 2014-05-28
+
+    - Replace unicode arrow because of Launchpad errors.
+
 v4.0.2
     Released: 2014-05-28
 
