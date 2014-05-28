@@ -135,6 +135,7 @@ required.
 ============== ================== ================== ===========================
 Needed Program Debian package     Arch Linux package For
 ============== ================== ================== ===========================
+gsettings      ??                 glib2              subpixel anti-alias order
 kvkbd          kvkbd              kvkbd              virtual keyboard
 nmcli          network-manager    networkmanager     changing wifi
 pactl          pulseaudio-utils   libpulse           volume control when docking
