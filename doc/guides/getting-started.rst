@@ -82,14 +82,12 @@ Build
 
 These programs are needed during the build process.
 
-.. TODO Please fill in Arch packages here.
-
 ============== ================== ==================
 Needed Program Debian package     Arch Linux package
 ============== ================== ==================
 msgfmt         gettext            gettext
-python3        python3            TODO
-*setuptools*   python3-setuptools
+python3        python3            python
+*setuptools*   python3-setuptools python-setuptools
 sphinx-build   python3-sphinx     python-sphinx
 xgettext       gettext            gettext
 ============== ================== ==================
@@ -105,8 +103,8 @@ Needed Program Debian package           Arch Linux package Version
 *acpid*        acpid                    acpid
 amixer         alsa-utils               alsa-utils
 linux                                                      >= 3.11.0-17 [1]_
-python3        python3                  TODO
-*setuptools*   python3-setuptools
+python3        python3                  python
+*setuptools*   python3-setuptools       python-setuptools
 *udev*         udev                     systemd            >= 196
 xsetwacom      xserver-xorg-input-wacom xf86-input-wacom
 xinput         xinput                   xorg-xinput
@@ -137,6 +135,7 @@ required.
 ============== ================== ================== ===========================
 Needed Program Debian package     Arch Linux package For
 ============== ================== ================== ===========================
+gsettings      ??                 glib2              subpixel anti-alias order
 kvkbd          kvkbd              kvkbd              virtual keyboard
 nmcli          network-manager    networkmanager     changing wifi
 pactl          pulseaudio-utils   libpulse           volume control when docking
