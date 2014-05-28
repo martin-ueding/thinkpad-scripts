@@ -119,6 +119,15 @@ def print_command_decorate(function):
         return function(command, *args, **kwargs)
     return wrapper
 
+def assert_python3():
+    '''
+    Asserts that this is running with Python 3
+    '''
+    assert sys.version_info >= (3, 0), 'You need Python 3 to run this!'
+
 check_call = print_command_decorate(subprocess.check_call)
 call = print_command_decorate(subprocess.call)
 check_output = print_command_decorate(subprocess.check_output)
+
+if __name__ == '__main__':
+    assert_python3()

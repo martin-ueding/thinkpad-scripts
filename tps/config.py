@@ -22,6 +22,8 @@ import pkg_resources
 
 import termcolor
 
+import tps
+
 CONFIGFILE = os.path.expanduser('~/.config/thinkpad-scripts/config.ini')
 'Path of global config file'
 
