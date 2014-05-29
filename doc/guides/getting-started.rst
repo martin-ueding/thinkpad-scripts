@@ -143,15 +143,15 @@ Optional
 These programs enhance the functionality of the scripts, but are not strictly
 required.
 
-============== ================== ================== ====================================
+============== ================== ================== =========================================
 Needed Program Debian package     Arch Linux package For
-============== ================== ================== ====================================
-gsettings      libglib2.0-bin     glib2              subpixel anti-alias order with GNOME
+============== ================== ================== =========================================
+gsettings      libglib2.0-bin     glib2              subpixel anti-alias order with GNOME/XFCE
 kvkbd          kvkbd              kvkbd              virtual keyboard
 nmcli          network-manager    networkmanager     changing wifi
 pactl          pulseaudio-utils   libpulse           volume control when docking
 xbacklight     xbacklight         xorg-xbacklight    adjusting brightness
-============== ================== ================== ====================================
+============== ================== ================== =========================================
 
 Setup
 =====
