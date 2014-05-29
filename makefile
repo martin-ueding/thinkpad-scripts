@@ -25,6 +25,10 @@ install:
 	cd desktop && $(MAKE) install
 	cd doc && $(MAKE) install
 
+full-install: install
+	if [[ -z "$(DESTDIR)" ]] && which service &> /dev/null; then service acpid restart; fi
+	if [[ -z "$(DESTDIR)" ]] && which systemctl &> /dev/null; then systemctl restart acpid; fi
+
 clean:
 	$(RM) ./*.pyc
 	$(RM) -r ./*.egg-info
