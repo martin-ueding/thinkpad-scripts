@@ -71,6 +71,10 @@ def set_subpixel_order(direction):
     :param tps.Direction direction: New direction
     :returns: None
     '''
+    if not tps.has_program('gsettings'):
+        logger.warning('gsettings is not installed')
+        return
+
     tps.check_call(['gsettings', 'set',
                     'org.gnome.settings-daemon.plugins.xsettings',
                     'rgba-order', direction.subpixel], logger)
