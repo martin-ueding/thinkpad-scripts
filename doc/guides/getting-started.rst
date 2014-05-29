@@ -89,6 +89,7 @@ msgfmt         gettext            gettext
 python3        python3            python
 *setuptools*   python3-setuptools python-setuptools
 sphinx-build   python3-sphinx     python-sphinx
+*termcolor*    TODO               python-termcolor
 xgettext       gettext            gettext
 ============== ================== ==================
 
@@ -105,6 +106,7 @@ amixer         alsa-utils               alsa-utils
 linux                                                      >= 3.11.0-17 [1]_
 python3        python3                  python
 *setuptools*   python3-setuptools       python-setuptools
+*termcolor*    TODO                     python-termcolor
 *udev*         udev                     systemd            >= 196
 xsetwacom      xserver-xorg-input-wacom xf86-input-wacom
 xinput         xinput                   xorg-xinput
