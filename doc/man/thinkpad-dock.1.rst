@@ -118,9 +118,6 @@ Those are the possible options:
     I (Martin Ueding) have seen the issue where my default DHCP connection
     would not work right away. Restarting that connection helped. *Default: true*
 
-``network.connection``
-    Connection to restart. *Default: DHCP*
-
 ``screen.internal``
     The ``xrandr`` name for the internal monitor. *Default: LVDS1*.
 
