@@ -61,12 +61,14 @@ def dock(on, config):
         if config['screen'].getboolean('set_brightness'):
             tps.screen.set_brightness(config['screen']['brightness'])
 
-
         tps.screen.enable(config['screen']['internal'])
-        tps.screen.enable(tps.screen.get_external(config['screen']['internal']),
-                          primary=True,
-                          position=(config['screen']['relative_position'],
-                                    config['screen']['internal']))
+        external = tps.screen.get_external(config['screen']['internal'])
+        if external is None:
+            logger.warning('unable to find external screen')
+        else:
+            tps.screen.enable(external, primary=True,
+                              position=(config['screen']['relative_position'],
+                                        config['screen']['internal']))
 
         if config['network'].getboolean('disable_wifi') \
            and tps.network.has_ethernet():
