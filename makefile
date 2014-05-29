@@ -15,7 +15,6 @@ install:
 #
 	install -d "$(DESTDIR)/lib/udev/hwdb.d/"
 	install -m 644 90-X2x0T-keyboard.hwdb -t "$(DESTDIR)/lib/udev/hwdb.d/"
-	if [[ -z "$(DESTDIR)" ]]; then udevadm hwdb --update; fi
 #
 	install -d "$(DESTDIR)/etc/acpi/events/"
 	install -m 644 thinkpad-mutemic-acpi-hook -t "$(DESTDIR)/etc/acpi/events/"
@@ -26,6 +25,7 @@ install:
 	cd doc && $(MAKE) install
 
 full-install: install
+	if [[ -z "$(DESTDIR)" ]]; then udevadm hwdb --update; fi
 	if [[ -z "$(DESTDIR)" ]] && which service &> /dev/null; then service acpid restart; fi
 	if [[ -z "$(DESTDIR)" ]] && which systemctl &> /dev/null; then systemctl restart acpid; fi
 
