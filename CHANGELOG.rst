@@ -4,6 +4,13 @@
 Changelog
 #########
 
+v4.0.5
+    Released: 2014-05-29
+
+    - Automatic determination of ethernet network connection
+    - ``make install`` does not restart any services. ``make full-install``
+      does that now.
+
 v4.0.4
     Released: 2014-05-29
 
