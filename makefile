@@ -24,6 +24,8 @@ install:
 	if [[ -z "$(DESTDIR)" ]] && which service &> /dev/null; then service acpid restart; fi
 	if [[ -z "$(DESTDIR)" ]] && which systemctl &> /dev/null; then systemctl restart acpid; fi
 #
+	./setup.py install --root="$(or $(DESTDIR),/)"
+#
 	cd desktop && $(MAKE) install
 	cd doc && $(MAKE) install
 
