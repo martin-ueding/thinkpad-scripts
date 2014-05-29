@@ -70,7 +70,7 @@ installation hook to update the udev hardware database with the information in
 Alternatively, you can use ``make full-install`` which does that restarting for
 you. However, this does not work when ``DESTDIR`` is set to something! For a
 direct installation, use ``make full-install``, for packaging, just use
-``make``.
+``make install``.
 
 .. _installation-dependencies:
 
