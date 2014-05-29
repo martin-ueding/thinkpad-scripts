@@ -75,7 +75,7 @@ def dock(on, config):
             tps.network.set_wifi(False)
 
         if config['network'].getboolean('restart_connection'):
-            tps.network.restart(config['network']['connection'])
+            tps.network.restart(tps.network.get_ethernet_con_name())
     else:
         tps.screen.enable(config['screen']['internal'], primary=True)
 
