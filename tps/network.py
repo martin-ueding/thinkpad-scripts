@@ -84,7 +84,7 @@ def get_ethernet_con_name():
         return
 
     lines = tps.check_output(['nmcli', '--terse', '--fields', 'NAME,TYPE',
-                              'con', 'list']).decode()
+                              'con', 'list'], logger).decode()
     for line in lines.split('\n'):
         name, type = parse_terse_line(line)
         if 'ethernet' in type.lower():
