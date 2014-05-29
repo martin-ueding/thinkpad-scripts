@@ -71,13 +71,15 @@ def set_subpixel_order(direction):
     :param tps.Direction direction: New direction
     :returns: None
     '''
-    if not tps.has_program('gsettings'):
-        logger.warning('gsettings is not installed')
-        return
-
-    tps.check_call(['gsettings', 'set',
-                    'org.gnome.settings-daemon.plugins.xsettings',
-                    'rgba-order', direction.subpixel], logger)
+    if tps.has_program('xfconf-query'):
+        tps.check_call(['xfconf-query', '-c', 'xsettings', '-p', '/Xft/RGBA',
+                        '-s', direction.subpixel], logger)
+    elif tps.has_program('gsettings'):
+        tps.check_call(['gsettings', 'set',
+                        'org.gnome.settings-daemon.plugins.xsettings',
+                        'rgba-order', direction.subpixel], logger)
+    else:
+        logger.warning('neither xfconf-query nor gsettings is installed')
 
 def set_brightness(brightness):
     '''
