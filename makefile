@@ -21,8 +21,6 @@ install:
 	install -m 644 thinkpad-mutemic-acpi-hook -t "$(DESTDIR)/etc/acpi/events/"
 	install -m 644 thinkpad-rotate-acpi-hook-1 -t "$(DESTDIR)/etc/acpi/events/"
 	install -m 644 thinkpad-rotate-acpi-hook-2 -t "$(DESTDIR)/etc/acpi/events/"
-	if [[ -z "$(DESTDIR)" ]] && which service &> /dev/null; then service acpid restart; fi
-	if [[ -z "$(DESTDIR)" ]] && which systemctl &> /dev/null; then systemctl restart acpid; fi
 #
 	cd desktop && $(MAKE) install
 	cd doc && $(MAKE) install
