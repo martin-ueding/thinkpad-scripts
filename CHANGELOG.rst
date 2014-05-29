@@ -4,6 +4,14 @@
 Changelog
 #########
 
+v4.0.4
+    Released: 2014-05-29
+
+    - State Python termcolor dependency in the documentation
+    - Stop failing if ``gsettings`` is not installed
+    - Add subpixel rotation in Xfce
+    - Warn about missing screen when docking
+
 v4.0.3
     Released: 2014-05-28
 
