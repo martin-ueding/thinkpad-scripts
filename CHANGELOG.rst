@@ -4,6 +4,12 @@
 Changelog
 #########
 
+v4.0.6
+    Released: 2014-06-02
+
+    - Toggle Wacom Touch property with ``xsetwacom`` as well as using
+      ``xinput``.
+
 v4.0.5
     Released: 2014-05-29
 
