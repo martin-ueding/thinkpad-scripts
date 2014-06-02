@@ -147,15 +147,24 @@ def main_touchscreen():
 
     :returns: None
     '''
-    state_change_ui('Wacom ISDv4 E6 Finger touch')
+    state_change_ui('Wacom ISDv4 E6 Finger touch', True)
 
-def state_change_ui(device_name):
+def set_wacom_touch(device_id, state):
+    '''
+    Changes the Wacom Touch property of the given device.
+    '''
+    tps.check_call(['xsetwacom', '--set', str(device_id), 'Touch',
+                    'On' if state else 'Off'], logger)
+
+def state_change_ui(device_name, set_touch=False):
     '''
     Change the state of the given device depending on command line options.
 
     It parses the command line options. If no state is given there, it will be
     the opposite of the current state.
 
+    :param bool set_touch: Whether to also toggle the ``Touch`` property on
+        this device.
     :returns: None
     '''
     state = _parse_args_to_state()
@@ -163,6 +172,10 @@ def state_change_ui(device_name):
     if state is None:
         state = not get_xinput_state(device)
     set_xinput_state(device, state)
+
+    if set_touch:
+        set_wacom_touch(device, state)
+
 
 def _parse_args_to_state():
     """
