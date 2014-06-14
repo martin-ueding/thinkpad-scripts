@@ -80,7 +80,9 @@ Config
 ------
 
 You can create a config file in ``$HOME/.config/thinkpad-scripts/config.ini``,
-which is a simple INI configuration file. A sample config would look like this:
+which is a simple INI configuration file. The old config can be converted using
+the ``thinkpad-scripts-config-migrate`` script that was introduced in version
+4.0. A sample config would look like this:
 
 .. code-block:: ini
 
