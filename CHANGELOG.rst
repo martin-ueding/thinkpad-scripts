@@ -4,6 +4,11 @@
 Changelog
 #########
 
+v4.0.8:
+    Released: 2014-06-14
+
+    - Fix some errors in the manual pages
+
 v4.0.7
     Released: 2014-06-14
 
