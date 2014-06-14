@@ -2,5 +2,5 @@
 # Copyright © 2013-2014 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
-event=video/tabletmode TBLT 0000008A 0000000[01]
+event=video/tabletmode TBLT 0000008A 0000000[01].*
 action=/usr/bin/thinkpad-rotate-hook %e
