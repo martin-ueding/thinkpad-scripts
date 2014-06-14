@@ -4,6 +4,12 @@
 Changelog
 #########
 
+v4.0.7
+    Released: 2014-06-14
+
+    - Make triggering on hardware rotation slightly more robust against changes
+      in the event that ``acpid`` gives.
+
 v4.0.6
     Released: 2014-06-02
 
