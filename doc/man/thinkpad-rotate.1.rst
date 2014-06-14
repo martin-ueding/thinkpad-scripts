@@ -79,13 +79,19 @@ Files
 Config
 ------
 
-You can create a config file in ``$HOME/.config/thinkpad-scripts/rotate.sh``,
-which is a simple Bash script that is going to be sourced from
-``thinkpad-rotate``.
+You can create a config file in ``$HOME/.config/thinkpad-scripts/config.ini``,
+which is a simple INI configuration file. A sample config would look like this:
 
-A sample config would look like this::
+.. code-block:: ini
 
-    virtual_kbd="cellwriter"
+    [rotate]
+    default_rotation = flip
+
+    [sound]
+    undock_loudness = 0%
+
+    [screen]
+    relative_position = left-of
 
 You can set the following option:
 
@@ -142,6 +148,8 @@ Hooks
 You can add scripts to be called before and/or after rotation by placing them
 at the following paths. The ``postrotate`` hook gets the new rotation
 (``left``, ``right``, ``inverted``, or ``normal``) as a command line argument.
+
+The default paths are:
 
 - ``~/.config/thinkpad-scripts/hooks/prerotate``
 - ``~/.config/thinkpad-scripts/hooks/postrotate``
