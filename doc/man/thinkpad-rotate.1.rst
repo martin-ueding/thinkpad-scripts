@@ -97,19 +97,6 @@ the ``thinkpad-scripts-config-migrate`` script that was introduced in version
 
 You can set the following option:
 
-``gui.kdialog``
-    If this is set to ``true``, a GUI progress bar will be shown. This needs
-    ``kdialog`` installed. When this script is called from
-    ``thinkpad-rotate-hook``, ``kdialog`` has some problem. Therefore,
-    ``thinkpad-rotate-hook`` disables kdialog by settings ``kdialog=false``
-    when calling the script. If you define it in you configuration file, make
-    sure not to overwrite an already set value. You can do this with the
-    following line::
-
-        kdialog="${kdialog:-true}"
-
-    *Default: true*
-
 ``rotate.default_rotation``
     Default rotation if device is in normal rotation and no arguments are
     given. *Default: right*
