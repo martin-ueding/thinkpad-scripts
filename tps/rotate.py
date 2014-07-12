@@ -52,17 +52,17 @@ def rotate_to(direction, config):
             tps.screen.set_subpixel_order(direction)
 
     if config['unity'].getboolean('toggle_launcher'):
-        tps.unity.set_launcher(direction == tps.NORMAL)
+        tps.unity.set_launcher(not direction.physically_closed)
 
     tps.vkeyboard.toggle(config['vkeyboard']['program'],
-                         direction != tps.NORMAL)
+                         direction.physically_closed)
 
     tps.input.set_xinput_state(
         tps.input.get_xinput_id('TrackPoint'),
-        direction == tps.NORMAL)
+        not direction.physically_closed)
     tps.input.set_xinput_state(
         tps.input.get_xinput_id('TouchPad'),
-        direction == tps.NORMAL)
+        not direction.physically_closed)
 
     tps.hooks.postrotate(direction, config)
 
@@ -71,7 +71,7 @@ def new_rotation(current, desired_str, config):
     Determines the new rotation based on desired and current one.
     '''
     if desired_str is None:
-        if current == tps.NORMAL:
+        if not current.physically_closed:
             new = tps.translate_direction(config['rotate']['default_rotation'])
             logger.info('Using default, setting to {}'.format(new))
         else:

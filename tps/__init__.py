@@ -16,7 +16,7 @@ import logging
 import os
 
 Direction = collections.namedtuple('Direction', ['xrandr', 'xsetwacom',
-                                                 'subpixel'])
+                                                 'subpixel', 'physically_closed'])
 '''
 Holds the direction names of different tools.
 
@@ -25,19 +25,22 @@ proliferation of various names, this class holds the differing names. The
 module provides four constants which have to be used within :mod:`tps`.
 '''
 
-Direction.__repr__ = lambda d: d.xrandr
+#Direction.__repr__ = lambda d: d.xrandr
 
-LEFT = Direction('left', 'ccw', 'vrgb')
+LEFT = Direction('left', 'ccw', 'vrgb', True)
 'Left'
 
-RIGHT = Direction('right', 'cw', 'vbgr')
+RIGHT = Direction('right', 'cw', 'vbgr', True)
 'Right'
 
-NORMAL = Direction('normal', 'none', 'rgb')
+NORMAL = Direction('normal', 'none', 'rgb', False)
 'Normal'
 
-INVERTED = Direction('inverted', 'half', 'bgr')
+INVERTED = Direction('inverted', 'half', 'bgr', True)
 'Inverted'
+
+TABLET_NORMAL = Direction('normal', 'none', 'rgb', True)
+'Tablet normal'
 
 logger = logging.getLogger(__name__)
 
@@ -63,10 +66,11 @@ def translate_direction(direction):
     elif direction == 'right':
         result = RIGHT
 
-    elif direction == 'flip':
+    elif direction in ['flip', 'inverted']:
         result = INVERTED
-    elif direction == 'inverted':
-        result = INVERTED
+
+    elif direction == 'tablet-normal':
+        result = TABLET_NORMAL
 
     else:
         raise UnknownDirectionException('Direction “{}” cannot be understood.'.format(direction))
