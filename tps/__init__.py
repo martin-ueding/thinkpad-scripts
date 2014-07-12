@@ -57,16 +57,16 @@ def translate_direction(direction):
     :raises tps.UnknownDirectionException:
     '''
 
-    if direction == 'normal':
+    if direction in ['normal', 'none']:
         result = NORMAL
 
-    elif direction == 'left':
+    elif direction in ['left', 'ccw']:
         result = LEFT
 
-    elif direction == 'right':
+    elif direction in ['right', 'cw']:
         result = RIGHT
 
-    elif direction in ['flip', 'inverted']:
+    elif direction in ['flip', 'inverted', 'half']:
         result = INVERTED
 
     elif direction == 'tablet-normal':
