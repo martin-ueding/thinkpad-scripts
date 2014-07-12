@@ -4,6 +4,12 @@
 Changelog
 #########
 
+v4.1
+    Released: 2014-07-12
+
+    - Add ``tablet-normal`` rotation. That will not rotate the screen but
+      deactivate the trackpoint.
+
 v4.0.8:
     Released: 2014-06-14
 
@@ -367,4 +373,4 @@ Way before 2012-07-13, those are significant changes in the history:
 - Limit Wacom devices to internal screen.
 - Set external monitor as primary.
 
-.. vim: spell
+.. vim: spell tw=79
