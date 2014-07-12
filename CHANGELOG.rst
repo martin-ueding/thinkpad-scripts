@@ -9,6 +9,7 @@ v4.1
 
     - Add ``tablet-normal`` rotation. That will not rotate the screen but
       deactivate the trackpoint.
+    - Accept all rotation names again.
 
 v4.0.8:
     Released: 2014-06-14
