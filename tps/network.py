@@ -38,6 +38,23 @@ def parse_terse_line(output):
         split[i] = re.sub(r'\\([\\:])', r'\1', split[i])
     return split
 
+def get_nmcli_version():
+    '''
+    Gets the version of nmcli, removing trailing zeroes.
+
+    :returns: tuple, e.g. (0, 9, 10) for version 0.9.10.0
+    '''
+    if not tps.has_program('nmcli'):
+        logger.warning('nmcli is not installed')
+        return
+
+    response = tps.check_output(['nmcli', '--version'], logger).decode()
+    version_str = re.search(r'\d+(\.\d+)*', response).group(0)
+    version_list = [int(n) for n in version_str.split('.')]
+    while version_list[-1] == 0:
+        version_list.pop()
+    return tuple(version_list)
+
 def set_wifi(state):
     '''
     Sets the wifi hardware to the given state.
@@ -49,7 +66,11 @@ def set_wifi(state):
         logger.warning('nmcli is not installed')
         return
 
-    tps.check_call(['nmcli', 'nm', 'wifi', 'on' if state else 'off'], logger)
+    if get_nmcli_version() >= (0, 9, 10):
+        command = ['nmcli', 'radio', 'wifi', 'on' if state else 'off']
+    else:
+        command = ['nmcli', 'nm', 'wifi', 'on' if state else 'off']
+    tps.check_call(command, logger)
 
 def has_ethernet():
     '''
@@ -83,8 +104,11 @@ def get_ethernet_con_name():
         logger.warning('nmcli is not installed')
         return
 
-    lines = tps.check_output(['nmcli', '--terse', '--fields', 'NAME,TYPE',
-                              'con', 'list'], logger).decode()
+    if get_nmcli_version() >= (0, 9, 10):
+        command = ['nmcli', '--terse', '--fields', 'NAME,TYPE', 'con', 'show']
+    else:
+        command = ['nmcli', '--terse', '--fields', 'NAME,TYPE', 'con', 'list']
+    lines = tps.check_output(command, logger).decode()
     for line in lines.split('\n'):
         name, type = parse_terse_line(line)
         if 'ethernet' in type.lower():
