@@ -110,9 +110,10 @@ def get_ethernet_con_name():
         command = ['nmcli', '--terse', '--fields', 'NAME,TYPE', 'con', 'list']
     lines = tps.check_output(command, logger).decode()
     for line in lines.split('\n'):
-        name, type = parse_terse_line(line)
-        if 'ethernet' in type.lower():
-            return name
+        if line.strip():
+            name, type = parse_terse_line(line)
+            if 'ethernet' in type.lower():
+                return name
     raise MissingEthernetException('No configured Ethernet connections.')
 
 def restart(connection):
