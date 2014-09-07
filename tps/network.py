@@ -25,7 +25,7 @@ class MissingEthernetException(Exception):
 def parse_terse_line(output):
     '''
     Split output line from nmcli called with the --terse option into a list and
-    remove backslashes that escape ':' and '\'.
+    remove backslashes that escape ':' and '\\'.
 
     :param str output: Output from nmcli
     :returns: The split output with backslash escapes removed
