@@ -76,7 +76,11 @@ def dock(on, config):
 
         if config['network'].getboolean('restart_connection'):
             try:
-                tps.network.restart(tps.network.get_ethernet_con_name())
+                # Try to get connection name from the configuration. If there
+                # is none, use the one that was found automatically.
+                connection_to_restart = config['network'].get(
+                    'connection_name', tps.network.get_ethernet_con_name())
+                tps.network.restart(connection_to_restart)
             except tps.network.MissingEthernetException:
                 logger.warning('unable to find ethernet connection')
     else:

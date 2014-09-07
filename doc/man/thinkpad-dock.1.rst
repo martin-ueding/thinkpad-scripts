@@ -116,7 +116,13 @@ Those are the possible options:
 ``network.restart_connection``
     If this is set, the given network connection will be restarted on startup.
     I (Martin Ueding) have seen the issue where my default DHCP connection
-    would not work right away. Restarting that connection helped. *Default: true*
+    would not work right away. Restarting that connection helped. *Default:
+    true*
+
+``network.connection_name``
+    If the connection should be restarted, you can specify which one in case
+    there is more than one wired connection. The default case provides nothing,
+    using the first one that ``nmcli`` gives.
 
 ``screen.internal``
     The ``xrandr`` name for the internal monitor. *Default: LVDS1*.
