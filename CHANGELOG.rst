@@ -4,6 +4,12 @@
 Changelog
 #########
 
+v4.1.1
+    Released: 2014-09-07
+
+    - Add ``network.connection_name`` configuration option.
+    - Add support for ``nmcli`` v0.9.10 command line interface.
+
 v4.1
     Released: 2014-07-12
 
