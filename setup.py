@@ -3,6 +3,12 @@
 
 # Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
 
+import sys
+
+print('This is running on:')
+print(sys.version)
+print()
+
 from setuptools import setup, find_packages
 
 import getversion
