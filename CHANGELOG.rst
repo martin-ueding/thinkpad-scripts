@@ -4,6 +4,12 @@
 Changelog
 #########
 
+v4.1.2
+    Released: 2014-10-05
+
+    - Fix hiding of Unity launcher (GitHub #72)
+    - Warn about ``make install`` (GitHub #76)
+
 v4.1.1
     Released: 2014-09-07
 
