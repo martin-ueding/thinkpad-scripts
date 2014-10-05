@@ -28,7 +28,7 @@ def set_launcher(autohide):
         return
 
     set_to = '1' if autohide else '0'
-    tos.check_call(['dconf', 'write',
+    tps.check_call(['dconf', 'write',
                     '/org/compiz/profiles/unity/plugins/unityshell/launcher-hide-mode',
                     set_to], logger)
 
