@@ -9,7 +9,7 @@ all: $(mo)
 	cd desktop && $(MAKE)
 	cd doc && $(MAKE)
 
-install:
+common-install:
 	install -d "$(DESTDIR)/lib/udev/rules.d/"
 	install -m 644 81-thinkpad-dock.rules -t "$(DESTDIR)/lib/udev/rules.d/"
 #
@@ -23,11 +23,26 @@ install:
 #
 	cd desktop && $(MAKE) install
 	cd doc && $(MAKE) install
+#
 
-full-install: install
-	if [[ -z "$(DESTDIR)" ]]; then udevadm hwdb --update; fi
-	if [[ -z "$(DESTDIR)" ]] && which service &> /dev/null; then service acpid restart; fi
-	if [[ -z "$(DESTDIR)" ]] && which systemctl &> /dev/null; then systemctl restart acpid; fi
+install: common-install
+	@echo
+	@echo '======== One more Step! =================='
+	@echo
+	@echo 'You might have to call `./setup.py install` to install the actual scripts after this and restart the services. Please consult the “Getting Started” guide which can be found at `doc/guides/getting-started.rst` or on the web at:'
+	@echo
+	@echo 'http://thinkpad-scripts.readthedocs.org/en/latest/guides/getting-started.html#build-manually'
+	@echo
+	@echo '=========================================='
+	@echo
+
+full-install: common-install
+	@if [[ -n "$(DESTDIR)" ]]; then echo; echo '==> DESTDIR is set, so you have to install this stepwise. See `doc/guides/getting-started.rst` or http://thinkpad-scripts.readthedocs.org/en/latest/guides/getting-started.html#build-manually for more information. <=='; false; fi
+	#
+	./setup install
+	udevadm hwdb --update
+	if which service &> /dev/null; then service acpid restart; fi
+	if which systemctl &> /dev/null; then systemctl restart acpid; fi
 
 clean:
 	$(RM) ./*.pyc
