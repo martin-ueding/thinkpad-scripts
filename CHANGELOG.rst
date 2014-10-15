@@ -4,6 +4,12 @@
 Changelog
 #########
 
+v4.1.3
+    Released: 2014-10-15
+
+    - Fix breakage of the rotation script when the subpixel order cannot be
+      changed for some reason. An error is logged then.
+
 v4.1.2
     Released: 2014-10-05
 
