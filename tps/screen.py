@@ -10,6 +10,7 @@ Screen related logic.
 
 import logging
 import re
+import subprocess
 
 import tps
 
@@ -72,12 +73,19 @@ def set_subpixel_order(direction):
     :returns: None
     '''
     if tps.has_program('xfconf-query'):
-        tps.check_call(['xfconf-query', '-c', 'xsettings', '-p', '/Xft/RGBA',
+        try:
+            tps.check_call(['xfconf-query', '-c', 'xsettings', '-p', '/Xft/RGBA',
                         '-s', direction.subpixel], logger)
+        except subprocess.CalledProcessError as e:
+            logger.error(e)
+
     elif tps.has_program('gsettings'):
-        tps.check_call(['gsettings', 'set',
-                        'org.gnome.settings-daemon.plugins.xsettings',
-                        'rgba-order', direction.subpixel], logger)
+        try:
+            tps.check_call(['gsettings', 'set',
+                            'org.gnome.settings-daemon.plugins.xsettings',
+                            'rgba-order', direction.subpixel], logger)
+        except subprocess.CalledProcessError as e:
+            logger.error(e)
     else:
         logger.warning('neither xfconf-query nor gsettings is installed')
 
