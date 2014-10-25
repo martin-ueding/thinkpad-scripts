@@ -64,8 +64,8 @@ def rotate_to(direction, config):
             not direction.physically_closed,
         )
     except tps.input.InputDeviceNotFoundException as e:
-        logger.warning('TrackPoint was not found, could not be deactivated.')
-        logger.warning(e)
+        logger.info('TrackPoint was not found, could not be (de)activated.')
+        logger.debug('Exception was: “%s”', str(e))
 
     try:
         touchpad_xinput_id = tps.input.get_xinput_id('TouchPad')
@@ -74,8 +74,8 @@ def rotate_to(direction, config):
             not direction.physically_closed,
         )
     except tps.input.InputDeviceNotFoundException as e:
-        logger.warning('TouchPad was not found, could not be deactivated.')
-        logger.warning(e)
+        logger.info('TouchPad was not found, could not be (de)activated.')
+        logger.debug('Exception was: “%s”', str(e))
 
     tps.hooks.postrotate(direction, config)
 
