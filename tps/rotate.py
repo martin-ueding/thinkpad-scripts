@@ -57,12 +57,25 @@ def rotate_to(direction, config):
     tps.vkeyboard.toggle(config['vkeyboard']['program'],
                          direction.physically_closed)
 
-    tps.input.set_xinput_state(
-        tps.input.get_xinput_id('TrackPoint'),
-        not direction.physically_closed)
-    tps.input.set_xinput_state(
-        tps.input.get_xinput_id('TouchPad'),
-        not direction.physically_closed)
+    try:
+        trackpoint_xinput_id = tps.input.get_xinput_id('TrackPoint')
+        tps.input.set_xinput_state(
+            trackpoint_xinput_id,
+            not direction.physically_closed,
+        )
+    except tps.input.InputDeviceNotFoundException as e:
+        logger.warning('TrackPoint was not found, could not be deactivated.')
+        logger.warning(e)
+
+    try:
+        touchpad_xinput_id = tps.input.get_xinput_id('TouchPad')
+        tps.input.set_xinput_state(
+            touchpad_xinput_id,
+            not direction.physically_closed,
+        )
+    except tps.input.InputDeviceNotFoundException as e:
+        logger.warning('TouchPad was not found, could not be deactivated.')
+        logger.warning(e)
 
     tps.hooks.postrotate(direction, config)
 
