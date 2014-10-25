@@ -98,7 +98,7 @@ def get_xinput_id(name):
         return int(matcher.group(1))
 
     raise InputDeviceNotFoundException(
-        'Input device “{}” could not found'.format(name))
+        'Input device “{}” could not be found'.format(name))
 
 def set_xinput_state(device, state):
     '''
