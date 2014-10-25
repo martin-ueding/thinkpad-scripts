@@ -4,6 +4,14 @@
 Changelog
 #########
 
+v4.1.4
+    Released: 2014-10-25
+
+    - Fix `GH-79
+      <https://github.com/martin-ueding/thinkpad-scripts/issues/79>`_ by
+      catching the exceptions and logging warnings. Missing TrackPoint and
+      TouchPad do not cause the program to abort now.
+
 v4.1.3
     Released: 2014-10-15
 
