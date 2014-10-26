@@ -95,7 +95,7 @@ def has_ethernet():
 
 def get_ethernet_con_name():
     '''
-    Gets the name of the first ethernet connection from nmcli.
+    Gets the lexicographically first ethernet connection name from nmcli.
 
     :returns: str
     :raises tps.network.MissingEthernetException:
@@ -109,12 +109,16 @@ def get_ethernet_con_name():
     else:
         command = ['nmcli', '--terse', '--fields', 'NAME,TYPE', 'con', 'list']
     lines = tps.check_output(command, logger).decode()
+    ethernet_cons = []
     for line in lines.split('\n'):
         if line.strip():
             name, type = parse_terse_line(line)
             if 'ethernet' in type.lower():
-                return name
-    raise MissingEthernetException('No configured Ethernet connections.')
+                ethernet_cons.append(name)
+    if ethernet_cons:
+        return sorted(ethernet_cons)[0]
+    else:
+        raise MissingEthernetException('No configured Ethernet connections.')
 
 def restart(connection):
     '''

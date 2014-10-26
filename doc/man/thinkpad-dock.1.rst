@@ -121,8 +121,9 @@ Those are the possible options:
 
 ``network.connection_name``
     If the connection should be restarted, you can specify which one in case
-    there is more than one wired connection. The default case provides nothing,
-    using the first one that ``nmcli`` gives.
+    there is more than one wired connection. The default case is to use the
+    lexicographically first connection name in the list provided by ``nmcli``
+    that contains the case-insensitive string ``'ethernet'``.
 
 ``screen.internal``
     The ``xrandr`` name for the internal monitor. *Default: LVDS1*.
