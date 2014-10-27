@@ -10,10 +10,10 @@ v4.1.5
     - Make selection of ethernet connection which is restarted predictable.
     - Remove call to ``nmcli con down`` in the restarting of the network
       connection. This makes it compatible with nmcli 0.9.10. That closes
-      `GH-81 <https://github.com/martin-ueding/thinkpad-scripts/issues/81`_,
+      `GH-81 <https://github.com/martin-ueding/thinkpad-scripts/issues/81>`_,
       fixes `GH-74
-      <https://github.com/martin-ueding/thinkpad-scripts/issues/74`_ and closes
-      `GH-75 <https://github.com/martin-ueding/thinkpad-scripts/issues/75`_,
+      <https://github.com/martin-ueding/thinkpad-scripts/issues/74>`_ and closes
+      `GH-75 <https://github.com/martin-ueding/thinkpad-scripts/issues/75>`_,
 
 v4.1.4
     Released: 2014-10-25
