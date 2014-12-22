@@ -115,7 +115,7 @@ def main():
     elif options.state is None:
         desired = is_docked()
     else:
-        logging.error('Action is wrong.')
+        logging.error('Desired state “%s” cannot be understood.', options.state)
         sys.exit(1)
 
     logger.info('Desired is {}'.format(desired))
