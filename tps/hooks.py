@@ -104,6 +104,10 @@ def main_rotate_hook():
     elif key in ('00000000', '0000500a'):
         set_to = 'normal'
 
+    else:
+        logger.error('Unexpected keycode %s given in rotate-hook', key)
+        sys.exit(1)
+
     tps.check_call([
         'sudo', '-u', get_graphicsl_user(), '-i',
         'env', 'DISPLAY=:0.0',
