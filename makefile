@@ -39,7 +39,7 @@ install: common-install
 full-install: common-install
 	@if [[ -n "$(DESTDIR)" ]]; then echo; echo '==> DESTDIR is set, so you have to install this stepwise. See `doc/guides/getting-started.rst` or http://thinkpad-scripts.readthedocs.org/en/latest/guides/getting-started.html#build-manually for more information. <=='; false; fi
 	#
-	./setup install
+	./setup.py install
 	udevadm hwdb --update
 	if which service &> /dev/null; then service acpid restart; fi
 	if which systemctl &> /dev/null; then systemctl restart acpid; fi
