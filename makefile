@@ -1,9 +1,10 @@
 # Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2015 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
 SHELL = /bin/bash
 
-.PHONY: all install clean
+.PHONY: all common-install install full-install test clean
 
 all: $(mo)
 	cd desktop && $(MAKE)
@@ -43,6 +44,9 @@ full-install: common-install
 	udevadm hwdb --update
 	if which service &> /dev/null; then service acpid restart; fi
 	if which systemctl &> /dev/null; then systemctl restart acpid; fi
+
+test:
+	./setup.py test
 
 clean:
 	$(RM) ./*.pyc
