@@ -1,8 +1,17 @@
-.. Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
+.. Copyright © 2012-2015 Martin Ueding <dev@martin-ueding.de>
 
 #########
 Changelog
 #########
+
+v4.2.0
+    Released: 2015-01-15
+
+    - Log error when unsupported key is given to rotate hook.
+    - Fix ``full-install`` target in makefile.
+    - Add ``test`` target to makefile.
+    - Add support for multiple external monitors. See the manual page of
+      ``thinkpad-dock`` for the details of the configuration options.
 
 v4.1.5
     Released: 2014-10-26
