@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2015 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
 '''
@@ -34,25 +35,24 @@ def get_rotation(screen):
                 logger.info('Current rotation is “{}”.'.format(rotation))
                 return rotation
 
-def get_external(internal):
+def get_externals(internal):
     '''
-    Gets the external screen.
+    Gets the external screens.
 
     You have to specify the internal screen to exclude that from the listing.
-    This returns the first external screen. Since you could possibly have
-    multiple, this might be adjusted. The graphics card in the X220 (Intel HD
-    3000) can only use two screens, so this might be okay right here.
 
     ;param str internal: Name of the internal screen
-    :returns: External screen name
+    :returns: List of external screen names
     :rtype: str
     '''
+    externals = []
     lines = tps.check_output(['xrandr'], logger).decode().split('\n')
     for line in lines:
         if not line.startswith(internal):
             matcher = re.search(r'^(\S+) connected', line)
             if matcher:
-                return matcher.group(1)
+                externals.append(matcher.group(1))
+    return externals
 
 def rotate(screen, direction):
     '''

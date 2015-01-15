@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2015 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
 '''
@@ -43,6 +44,62 @@ def is_docked():
     logger.info('No docking station found.')
     return False
 
+def select_docking_screens(internal, primary='', secondary=''):
+    '''
+    Selects the primary, secondary, and remaining screens when docking.
+
+    If `primary` or `secondary` is not the name of a connected screen, then
+    select an appropriate screen from the connected screens. External screens
+    are prioritized over the `internal` screen, and `primary` is prioritized
+    over `secondary`. Warn the user if `primary` or `secondary` is a non-empty
+    string and the screen is not connected.
+
+    If no external screens are connected, then set `primary` to the `internal`
+    screen, and set `secondary` to `None`.
+
+    :param str internal: Name of the internal screen
+    :param str primary: Name of primary screen, or an empty string
+    :param str secondary: Name of secondary screen, or an empty string
+    :returns: (`primary`, `secondary`, [`other1`, ...])
+    :rtype: tuple
+
+    For example, when only ``LVDS1`` is connected:
+
+    >>> select_docking_screens('LVDS1', '', '')
+    ('LVDS1', None, [])
+
+    When ``LVDS1`` and ``VGA1`` are connected:
+
+    >>> select_docking_screens('LVDS1', '', '')
+    ('VGA1', 'LVDS1', [])
+    >>> select_docking_screens('LVDS1', 'LVDS1', '')
+    ('LVDS1', 'VGA1', [])
+
+    When ``LVDS1``, ``VGA1``, and ``HDMI1`` are connected:
+
+    >>> select_docking_screens('LVDS1', '', '')
+    ('HDMI1', 'VGA1', ['LVDS1'])
+    >>> select_docking_screens('LVDS1', 'VGA1', '')
+    ('VGA1', 'HDMI1', ['LVDS1'])
+    >>> select_docking_screens('LVDS1', '', 'LVDS1')
+    ('HDMI1', 'LVDS1', ['VGA1'])
+
+    Note that the default order of ``VGA1`` versus ``HDMI1`` depends on the
+    output of ``xrandr``. See
+    :py:class:`tps.testsuite.test_dock.SelectDockingScreensTestCase` for more
+    examples.
+
+    '''
+    screens = tps.screen.get_externals(internal) + [internal]
+    for index, screen in enumerate([primary, secondary]):
+        if screen in screens:
+            screens.remove(screen)
+            screens.insert(index, screen)
+        elif screen != '':
+            logger.warning('Configured screen "{}" does not exist or is not '
+                           'connected.'.format(screen))
+    return screens[0], screens[1] if len(screens) > 1 else None, screens[2:]
+
 def dock(on, config):
     '''
     Performs the makroscopic docking action.
@@ -61,14 +118,20 @@ def dock(on, config):
         if config['screen'].getboolean('set_brightness'):
             tps.screen.set_brightness(config['screen']['brightness'])
 
-        tps.screen.enable(config['screen']['internal'])
-        external = tps.screen.get_external(config['screen']['internal'])
-        if external is None:
-            logger.warning('unable to find external screen')
+        primary, secondary, others = select_docking_screens(
+            config['screen']['internal'], config['screen']['primary'],
+            config['screen']['secondary'])
+        for screen in others:
+            tps.screen.disable(screen)
+        if secondary is None:
+            tps.screen.enable(primary, primary=True)
         else:
-            tps.screen.enable(external, primary=True,
+            tps.screen.enable(secondary)
+            tps.screen.enable(primary)
+            # Need to call this separately to work around bugs in xrandr/X11.
+            tps.screen.enable(primary, primary=True,
                               position=(config['screen']['relative_position'],
-                                        config['screen']['internal']))
+                                        secondary))
 
         if config['network'].getboolean('disable_wifi') \
            and tps.network.has_ethernet():
@@ -84,11 +147,10 @@ def dock(on, config):
             except tps.network.MissingEthernetException:
                 logger.warning('unable to find ethernet connection')
     else:
-        tps.screen.enable(config['screen']['internal'], primary=True)
-
-        external = tps.screen.get_external(config['screen']['internal'])
-        if external is not None:
+        for external in tps.screen.get_externals(config['screen']['internal']):
             tps.screen.disable(external)
+
+        tps.screen.enable(config['screen']['internal'], primary=True)
 
         if config['sound'].getboolean('unmute'):
             tps.sound.set_volume(config['sound']['undock_loudness'])

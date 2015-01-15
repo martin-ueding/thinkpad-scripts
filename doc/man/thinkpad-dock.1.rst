@@ -1,4 +1,5 @@
 ..  Copyright © 2013-2014 Martin Ueding <dev@martin-ueding.de>
+    Copyright © 2015 Jim Turner <jturner314@gmail.com>
     Licensed under The GNU Public License Version 2 (or later)
 
 #############
@@ -128,6 +129,14 @@ Those are the possible options:
 ``screen.internal``
     The ``xrandr`` name for the internal monitor. *Default: LVDS1*.
 
+``screen.primary``
+    The ``xrandr`` name for the primary monitor when docked or an empty string
+    to guess a reasonable monitor. *Default: (empty string)*.
+
+``screen.secondary``
+    The ``xrandr`` name for the secondary monitor when docked or an empty
+    string to guess a reasonable monitor. *Default: (empty string)*.
+
 ``screen.set_brightness``
     Whether to change the brightness. *Default: true*.
 
@@ -135,9 +144,9 @@ Those are the possible options:
     Brightness to set to when docking. *Default: 60%*.
 
 ``screen.relative_position``
-    Where to set the external monitor. Set it to ``right-of`` or ``left-of`` or
-    anything else that ``xrandr`` supports with a ``--*`` argument. *Default:
-    right-of*.
+    Where to set the primary monitor relative to the secondary monitor when
+    docking. Set it to ``right-of`` or ``left-of`` or anything else that
+    ``xrandr`` supports with a ``--*`` argument. *Default: right-of*.
 
 ``sound.unmute``
     Whether to change the volume. *Default: true*.
