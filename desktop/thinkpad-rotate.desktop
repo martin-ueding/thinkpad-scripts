@@ -1,7 +1,7 @@
 [Desktop Entry]
 Categories=System;
 Exec=thinkpad-rotate
-GenericName=Rotate screen left
+GenericName=Rotate screen in configured direction
 Icon=object-rotate-right
 Name=thinkpad-rotate
 StartupNotify=false
