@@ -4,6 +4,12 @@
 Changelog
 #########
 
+v4.2.1
+    Released: 2015-01-20
+
+    - Fix errors in ``.desktop`` files
+    - Use built-in mocking for unit tests
+
 v4.2.0
     Released: 2015-01-15
 
