@@ -18,6 +18,7 @@ instructions and user manuals:
 If you just have this source checkout, see the documentation in ``doc/``,
 starting with ``doc/index.rst``.
 
+.. Travis CI Badge
 .. figure:: https://api.travis-ci.org/martin-ueding/thinkpad-scripts.svg
    :target: https://travis-ci.org/martin-ueding/thinkpad-scripts
 
