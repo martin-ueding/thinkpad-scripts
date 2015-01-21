@@ -125,14 +125,6 @@ def get_xinput_state(device):
     output = tps.check_output(['xinput', '--list', str(device)], logger)
     return not b'disabled' in output
 
-def main_touchpad():
-    '''
-    Command line entry point for toggling the touchpad.
-
-    :returns: None
-    '''
-    state_change_ui('touchpad_device')
-
 def set_wacom_touch(device_id, state):
     '''
     Changes the Wacom Touch property of the given device.
