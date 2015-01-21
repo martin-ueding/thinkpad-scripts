@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
 # Copyright © 2015 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
@@ -34,6 +34,9 @@ def get_rotation(screen):
                 rotation = tps.translate_direction(matcher.group(1))
                 logger.info('Current rotation is “{}”.'.format(rotation))
                 return rotation
+
+    # At this point, nothing was found in the xrandr output.
+    logger.error('Rotation of screen "%s" could not be determined. Do you have a screen like that in the output of "xrandr"? Maybe you have to adjust the option of screen.internal in the configuration.', screen)
 
 def get_externals(internal):
     '''
