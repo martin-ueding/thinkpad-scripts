@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
 
 import sys
 
@@ -34,13 +34,13 @@ if __name__ == '__main__':
                 'thinkpad-config = tps.config:main',
                 'thinkpad-dock = tps.dock:main',
                 'thinkpad-dock-hook = tps.hooks:main_dock_hook',
-                'thinkpad-rotate = tps.rotate:main',
                 'thinkpad-mutemic = tps.sound:main_mutemic',
+                'thinkpad-rotate = tps.rotate:main',
                 'thinkpad-rotate-hook = tps.hooks:main_rotate_hook',
+                'thinkpad-scripts-config-migration = tps.config:migrate_shell_config',
                 'thinkpad-touch = tps.input:main_touchscreen',
                 'thinkpad-touchpad = tps.input:main_touchpad',
                 'thinkpad-trackpoint = tps.input:main_trackpoint',
-                'thinkpad-scripts-config-migration = tps.config:migrate_shell_config',
             ],
         },
         test_suite='tps.testsuite',
