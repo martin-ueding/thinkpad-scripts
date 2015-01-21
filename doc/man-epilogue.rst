@@ -7,6 +7,11 @@ This file is part of |project| by `Martin Ueding
 <mailto:dev@martin-ueding.de>`_ and `Jim Turner
 <mailto:jturner314@gmail.com>`_.
 
+We hope that this collection of scripts is useful to you. If you experience
+bugs, find the documentation lacking or have a new kind of hardware that we do
+not yet support, feel free to open an issue on GitHub or write an email to
+Martin Ueding.
+
 .. seealso::
 
     - `GitHub Repository <http://github.com/martin-ueding/thinkpad-scripts>`_
