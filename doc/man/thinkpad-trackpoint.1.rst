@@ -40,3 +40,5 @@ Exit Status
     Everything okay.
 1
     Some error.
+
+.. include:: ../man-epilogue.rst

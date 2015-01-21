@@ -1,4 +1,4 @@
-..  Copyright © 2013-2014 Martin Ueding <dev@martin-ueding.de>
+..  Copyright © 2013-2015 Martin Ueding <dev@martin-ueding.de>
     Copyright © 2015 Jim Turner <jturner314@gmail.com>
     Licensed under The GNU Public License Version 2 (or later)
 
@@ -181,5 +181,7 @@ If you want, you can tell the script what to do: When you have it sitting on
 the docking station, call ``thinkpad-dock on`` to get the external screen
 going. When you are done, call ``thinkpad-dock off`` before you disconnect to
 get the internal screen back again.
+
+.. include:: ../man-epilogue.rst
 
 ..  vim: spell

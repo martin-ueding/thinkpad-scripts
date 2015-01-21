@@ -47,3 +47,5 @@ Examples
 
 You can just call ``thinkpad-touch`` to toggle the touch screen; otherwise
 state on/off explicitly with ``thinkpad-touch on`` or ``thinkpad-touch off``.
+
+.. include:: ../man-epilogue.rst

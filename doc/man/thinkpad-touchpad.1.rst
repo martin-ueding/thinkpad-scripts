@@ -1,4 +1,4 @@
-..  Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
+..  Copyright © 2012-2015 Martin Ueding <dev@martin-ueding.de>
     Licensed under The GNU Public License Version 2 (or later)
 
 #################
@@ -33,7 +33,4 @@ on|off
 
     If you omit this option, the script will toggle the touchpad on/off.
 
-See Also
-========
-
-- `GitHub Repository <http://github.com/martin-ueding/thinkpad-scripts>`_
+.. include:: ../man-epilogue.rst

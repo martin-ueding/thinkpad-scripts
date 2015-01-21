@@ -1,4 +1,4 @@
-..  Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
+..  Copyright © 2012-2015 Martin Ueding <dev@martin-ueding.de>
     Licensed under The GNU Public License Version 2 (or later)
 
 ###############
@@ -157,7 +157,4 @@ To specify the direction, you can use::
     thinkpad-rotate inverted
     thinkpad-rotate normal
 
-See Also
-========
-
-- `GitHub Repository <http://github.com/martin-ueding/thinkpad-scripts>`_
+.. include:: ../man-epilogue.rst

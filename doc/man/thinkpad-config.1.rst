@@ -38,3 +38,5 @@ Exit Status
 
 0
     Everything okay.
+
+.. include:: ../man-epilogue.rst

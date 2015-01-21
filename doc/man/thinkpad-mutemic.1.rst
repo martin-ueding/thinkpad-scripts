@@ -1,4 +1,4 @@
-..  Copyright © 2013-2014 Martin Ueding <dev@martin-ueding.de>
+..  Copyright © 2013-2015 Martin Ueding <dev@martin-ueding.de>
     Licensed under The GNU Public License Version 2 (or later)
 
 ################
@@ -25,3 +25,5 @@ Description
 
 This script will be called when you press the microphone mute button. It will
 mute the microphone and toggle the LED.
+
+.. include:: ../man-epilogue.rst

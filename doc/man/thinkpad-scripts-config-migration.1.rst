@@ -46,4 +46,6 @@ Options
 
 This program does not take any options.
 
+.. include:: ../man-epilogue.rst
+
 .. vim: spell tw=79
