@@ -42,6 +42,17 @@ Exit Status
 1
     Some error.
 
+Config
+======
+
+In the configuration file, you can set the ``xinput`` name of the touch screen.
+The ThinkPad X220 Tablet has ``Wacom ISDv4 E6 Finger touch`` for instance:
+
+.. code-block:: ini
+
+    [input]
+    touchscreen_device = Wacom ISDv4 E6 Finger touch
+
 Examples
 ========
 

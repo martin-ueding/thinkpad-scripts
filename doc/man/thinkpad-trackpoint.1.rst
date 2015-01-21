@@ -41,4 +41,17 @@ Exit Status
 1
     Some error.
 
+Config
+======
+
+In the configuration file, you can set the ``xinput`` name of the TrackPoint.
+The ThinkPad X220 Tablet has ``TPPS/2 IBM TrackPoint`` for instance. The
+default configuration option is just ``TrackPoint`` to be rather general. This
+is how you change it in the configuration:
+
+.. code-block:: ini
+
+    [input]
+    trackpoint_device = TrackPoint
+
 .. include:: ../man-epilogue.rst

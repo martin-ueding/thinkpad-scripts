@@ -33,4 +33,17 @@ on|off
 
     If you omit this option, the script will toggle the touchpad on/off.
 
+Config
+======
+
+In the configuration file, you can set the ``xinput`` name of the touchpad. The
+ThinkPad X220 Tablet has ``SynPS/2 Synaptics TouchPad`` for instance. The
+default configuration option is just ``TouchPad`` to be rather general. This is
+how you change it in the configuration:
+
+.. code-block:: ini
+
+    [input]
+    touchpad_device = TouchPad
+
 .. include:: ../man-epilogue.rst
