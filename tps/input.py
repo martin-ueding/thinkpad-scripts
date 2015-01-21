@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
 '''
@@ -131,7 +131,7 @@ def main_trackpoint():
 
     :returns: None
     '''
-    state_change_ui('TrackPoint')
+    state_change_ui('trackpoint_device')
 
 def main_touchpad():
     '''
@@ -139,7 +139,7 @@ def main_touchpad():
 
     :returns: None
     '''
-    state_change_ui('TouchPad')
+    state_change_ui('touchpad_device')
 
 def main_touchscreen():
     '''
@@ -147,7 +147,7 @@ def main_touchscreen():
 
     :returns: None
     '''
-    state_change_ui('Wacom ISDv4 E6 Finger touch', True)
+    state_change_ui('touchscreen_device', True)
 
 def set_wacom_touch(device_id, state):
     '''
@@ -156,7 +156,7 @@ def set_wacom_touch(device_id, state):
     tps.check_call(['xsetwacom', '--set', str(device_id), 'Touch',
                     'On' if state else 'Off'], logger)
 
-def state_change_ui(device_name, set_touch=False):
+def state_change_ui(config_name, set_touch=False):
     '''
     Change the state of the given device depending on command line options.
 
@@ -167,6 +167,8 @@ def state_change_ui(device_name, set_touch=False):
         this device.
     :returns: None
     '''
+    config = tps.config.get_config()
+    device_name = config['input'][config_name]
     state = _parse_args_to_state()
     device = get_xinput_id(device_name)
     if state is None:
