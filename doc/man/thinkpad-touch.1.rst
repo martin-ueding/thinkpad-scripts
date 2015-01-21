@@ -1,4 +1,5 @@
 ..  Copyright © 2012 Jim Turner <jturner314@gmail.com>
+    Copyright © 2015 Martin Ueding <dev@martin-ueding.de>
     Licensed under The GNU Public License Version 2 (or later)
 
 ##############
@@ -40,23 +41,6 @@ Exit Status
     Everything okay.
 1
     Some error.
-
-Files
-=====
-
-You can create a config file in ``$HOME/.config/thinkpad-scripts/touch.sh``,
-which is a simple Bash script that is going to be sourced from
-``thinkpad-touch``.
-
-A sample config would look like this::
-
-    id="Wacom ISDv4 E6 Finger touch"
-
-You can set the following options:
-
-``id``
-    The ``xinput`` id of the touch screen device. The default is
-    ``Wacom ISDv4 E6 Finger touch``
 
 Examples
 ========
