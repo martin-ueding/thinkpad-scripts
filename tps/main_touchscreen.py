@@ -8,11 +8,11 @@ import tps.input
 
 def main():
     '''
-    Command line entry point for toggling the trackpoint.
+    Command line entry point for toggling the touch screen.
 
     :returns: None
     '''
-    tps.input.state_change_ui('trackpoint_device')
+    tps.input.state_change_ui('touchscreen_device', True)
 
 
 if __name__ == '__main__':

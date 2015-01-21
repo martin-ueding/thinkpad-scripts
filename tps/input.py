@@ -133,14 +133,6 @@ def main_touchpad():
     '''
     state_change_ui('touchpad_device')
 
-def main_touchscreen():
-    '''
-    Command line entry point for toggling the touch screen.
-
-    :returns: None
-    '''
-    state_change_ui('touchscreen_device', True)
-
 def set_wacom_touch(device_id, state):
     '''
     Changes the Wacom Touch property of the given device.

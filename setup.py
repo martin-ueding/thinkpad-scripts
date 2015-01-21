@@ -38,7 +38,7 @@ if __name__ == '__main__':
                 'thinkpad-rotate = tps.rotate:main',
                 'thinkpad-rotate-hook = tps.hooks:main_rotate_hook',
                 'thinkpad-scripts-config-migration = tps.config:migrate_shell_config',
-                'thinkpad-touch = tps.input:main_touchscreen',
+                'thinkpad-touch = tps.main_touchscreen:main',
                 'thinkpad-touchpad = tps.input:main_touchpad',
                 'thinkpad-trackpoint = tps.main_trackpoint:main',
             ],
