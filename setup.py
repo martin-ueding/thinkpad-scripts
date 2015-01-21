@@ -40,7 +40,7 @@ if __name__ == '__main__':
                 'thinkpad-scripts-config-migration = tps.config:migrate_shell_config',
                 'thinkpad-touch = tps.input:main_touchscreen',
                 'thinkpad-touchpad = tps.input:main_touchpad',
-                'thinkpad-trackpoint = tps.input:main_trackpoint',
+                'thinkpad-trackpoint = tps.main_trackpoint:main',
             ],
         },
         test_suite='tps.testsuite',

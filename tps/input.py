@@ -125,14 +125,6 @@ def get_xinput_state(device):
     output = tps.check_output(['xinput', '--list', str(device)], logger)
     return not b'disabled' in output
 
-def main_trackpoint():
-    '''
-    Command line entry point for toggling the trackpoint.
-
-    :returns: None
-    '''
-    state_change_ui('trackpoint_device')
-
 def main_touchpad():
     '''
     Command line entry point for toggling the touchpad.
