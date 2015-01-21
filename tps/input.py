@@ -151,7 +151,7 @@ def state_change_ui(config_name, set_touch=False):
         state = not get_xinput_state(device)
     set_xinput_state(device, state)
 
-    if set_touch:
+    if set_touch and config['touch'].getboolean('toggle_touch_with_xsetwacom'):
         set_wacom_touch(device, state)
 
 

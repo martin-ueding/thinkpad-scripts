@@ -53,6 +53,16 @@ The ThinkPad X220 Tablet has ``Wacom ISDv4 E6 Finger touch`` for instance:
     [input]
     touchscreen_device = Wacom ISDv4 E6 Finger touch
 
+The touch screen on the ThinkPad Yoga is called ``ELAN Touchscreen`` and does
+not quite work with ``xsetwacom`` that is used to set attributes for Wacom
+devices. Therefore you can disable the use of ``xsetwacom`` for the simple
+toggle of the touch screen like so:
+
+.. code-block:: ini
+
+    [touch]
+    toggle_touch_with_xsetwacom = true
+
 Examples
 ========
 
@@ -60,3 +70,5 @@ You can just call ``thinkpad-touch`` to toggle the touch screen; otherwise
 state on/off explicitly with ``thinkpad-touch on`` or ``thinkpad-touch off``.
 
 .. include:: ../man-epilogue.rst
+
+.. vim: spell tw=79
