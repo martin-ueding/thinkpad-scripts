@@ -17,6 +17,7 @@ import tps
 
 logger = logging.getLogger(__name__)
 
+
 def get_rotation(screen):
     '''
     Gets the current rotation of the given screen.
@@ -38,6 +39,7 @@ def get_rotation(screen):
     # At this point, nothing was found in the xrandr output.
     logger.error('Rotation of screen "%s" could not be determined. Do you have a screen like that in the output of "xrandr"? Maybe you have to adjust the option of screen.internal in the configuration.', screen)
 
+
 def get_externals(internal):
     '''
     Gets the external screens.
@@ -57,6 +59,7 @@ def get_externals(internal):
                 externals.append(matcher.group(1))
     return externals
 
+
 def rotate(screen, direction):
     '''
     Rotates the screen into the direction.
@@ -68,6 +71,7 @@ def rotate(screen, direction):
     tps.check_call(['xrandr', '--output', screen, '--rotate',
                     direction.xrandr], logger)
 
+
 def set_subpixel_order(direction):
     '''
     Sets the text subpixel anti-alias order.
@@ -78,7 +82,7 @@ def set_subpixel_order(direction):
     if tps.has_program('xfconf-query'):
         try:
             tps.check_call(['xfconf-query', '-c', 'xsettings', '-p', '/Xft/RGBA',
-                        '-s', direction.subpixel], logger)
+                            '-s', direction.subpixel], logger)
         except subprocess.CalledProcessError as e:
             logger.error(e)
 
@@ -91,6 +95,7 @@ def set_subpixel_order(direction):
             logger.error(e)
     else:
         logger.warning('neither xfconf-query nor gsettings is installed')
+
 
 def set_brightness(brightness):
     '''
@@ -105,6 +110,7 @@ def set_brightness(brightness):
 
     tps.check_call(['xbacklight', '-set', brightness], logger)
 
+
 def disable(screen):
     '''
     Disables the given screen using ``xrandr``.
@@ -113,6 +119,7 @@ def disable(screen):
     :returns: None
     '''
     tps.check_call(['xrandr', '--output', screen, '--off'], logger)
+
 
 def enable(screen, primary=False, position=None):
     '''
