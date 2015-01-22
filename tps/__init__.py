@@ -44,8 +44,8 @@ NORMAL = Direction('normal', 'none', 'rgb', False, [1, 0, 0,
                                                     0, 0, 1])
 'Normal'
 
-INVERTED = Direction('inverted', 'half', 'bgr', True, [1, 0, 0,
-                                                       0, -1, 0,
+INVERTED = Direction('inverted', 'half', 'bgr', True, [-1, 0, 1,
+                                                       0, -1, 1,
                                                        0, 0, 1])
 'Inverted'
 

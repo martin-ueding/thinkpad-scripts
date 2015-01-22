@@ -240,6 +240,8 @@ def generate_xinput_coordinate_transformation_matrix(output, orientation):
 
     _matrix_print(m_total)
 
+    print(' '.join(map(str, m_total)))
+
 
 def _matrix_print(matrix):
     for row in range(3):
