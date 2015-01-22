@@ -24,7 +24,7 @@ Holds the direction names of different tools.
 
 ``xrandr`` and other programs use different names for the rotations. To avoid
 proliferation of various names, this class holds the differing names. The
-module provides four constants which have to be used within :mod:`tps`.
+module provides constants which have to be used within :mod:`tps`.
 '''
 
 #Direction.__repr__ = lambda d: d.xrandr
