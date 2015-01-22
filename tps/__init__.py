@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
 # Copyright © 2014 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
@@ -15,8 +15,9 @@ import subprocess
 import logging
 import os
 
-Direction = collections.namedtuple('Direction', ['xrandr', 'xsetwacom',
-                                                 'subpixel', 'physically_closed'])
+Direction = collections.namedtuple(
+    'Direction', ['xrandr', 'xsetwacom', 'subpixel', 'physically_closed']
+)
 '''
 Holds the direction names of different tools.
 
