@@ -16,8 +16,7 @@ import logging
 import os
 
 Direction = collections.namedtuple(
-    'Direction', ['xrandr', 'subpixel', 'physically_closed',
-                  'rot_mat']
+    'Direction', ['xrandr', 'subpixel', 'physically_closed', 'rot_mat']
 )
 '''
 Holds the direction names of different tools.
