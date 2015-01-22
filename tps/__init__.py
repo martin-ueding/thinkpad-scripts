@@ -16,7 +16,8 @@ import logging
 import os
 
 Direction = collections.namedtuple(
-    'Direction', ['xrandr', 'xsetwacom', 'subpixel', 'physically_closed']
+    'Direction', ['xrandr', 'xsetwacom', 'subpixel', 'physically_closed',
+                  'rot_mat']
 )
 '''
 Holds the direction names of different tools.
@@ -28,19 +29,29 @@ module provides four constants which have to be used within :mod:`tps`.
 
 #Direction.__repr__ = lambda d: d.xrandr
 
-LEFT = Direction('left', 'ccw', 'vrgb', True)
+LEFT = Direction('left', 'ccw', 'vrgb', True, [0, -1, 1,
+                                               1, 0, 0,
+                                               0, 0, 1])
 'Left'
 
-RIGHT = Direction('right', 'cw', 'vbgr', True)
+RIGHT = Direction('right', 'cw', 'vbgr', True, [0, 1, 0,
+                                                -1, 0, 1,
+                                                0, 0, 1])
 'Right'
 
-NORMAL = Direction('normal', 'none', 'rgb', False)
+NORMAL = Direction('normal', 'none', 'rgb', False, [1, 0, 0,
+                                                    0, 1, 0,
+                                                    0, 0, 1])
 'Normal'
 
-INVERTED = Direction('inverted', 'half', 'bgr', True)
+INVERTED = Direction('inverted', 'half', 'bgr', True, [1, 0, 0,
+                                                       0, -1, 0,
+                                                       0, 0, 1])
 'Inverted'
 
-TABLET_NORMAL = Direction('normal', 'none', 'rgb', True)
+TABLET_NORMAL = Direction('normal', 'none', 'rgb', True, [1, 0, 0,
+                                                          0, 1, 0,
+                                                          0, 0, 1])
 'Tablet normal'
 
 logger = logging.getLogger(__name__)

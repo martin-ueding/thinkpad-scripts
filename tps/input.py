@@ -207,6 +207,10 @@ def generate_xinput_coordinate_transformation_matrix(output, orientation):
     '''
     Generates the coordinate transformation matrix that is needed for xinput to
     confine the input to one screen and rotate it properly.
+
+    0.415703, 0.000000, 0.584297,
+    0.000000, -0.711111, 0.711111,
+    0.000000, 0.000000, 1.000000
     '''
     rs = tps.screen.get_resolution_and_shift(output)
 
@@ -229,6 +233,12 @@ def generate_xinput_coordinate_transformation_matrix(output, orientation):
     ]
 
     m_shift_scale = _matrix_mul(m_shift, m_scale)
+    _matrix_print(m_shift_scale)
+    print()
+
+    m_total = _matrix_mul(m_shift_scale, orientation.rot_mat)
+
+    _matrix_print(m_total)
 
 
 def _matrix_print(matrix):
@@ -250,4 +260,4 @@ def _matrix_mul(m1, m2):
 
 
 if __name__ == '__main__':
-    generate_xinput_coordinate_transformation_matrix('LVDS1', tps.NORMAL)
+    generate_xinput_coordinate_transformation_matrix('LVDS1', tps.INVERTED)
