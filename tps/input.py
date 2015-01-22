@@ -213,11 +213,40 @@ def generate_xinput_coordinate_transformation_matrix(output, orientation):
     x_scale = rs['output_width'] / rs['screen_width']
     y_scale = rs['output_height'] / rs['screen_height']
 
+    m_scale = [
+        x_scale, 0, 0,
+        0, y_scale, 0,
+        0, 0, 1,
+    ]
+
     x_shift = rs['output_x'] / rs['screen_width']
     y_shift = rs['output_y'] / rs['screen_height']
 
-    print(x_scale, y_scale)
-    print(x_shift, y_shift)
+    m_shift = [
+        1, 0, x_shift,
+        0, 1, y_shift,
+        0, 0, 1,
+    ]
+
+    m_shift_scale = _matrix_mul(m_shift, m_scale)
+
+
+def _matrix_print(matrix):
+    for row in range(3):
+        for column in range(3):
+            print('{:10.6f}'.format(matrix[row*3 + column]), end='')
+        print()
+
+
+def _matrix_mul(m1, m2):
+    output = [0]*9
+
+    for o_row in range(3):
+        for o_col in range(3):
+            for i in range(3):
+                output[o_row*3 + o_col] += m1[o_row*3 + i] * m2[i*3 + o_col]
+
+    return output
 
 
 if __name__ == '__main__':
