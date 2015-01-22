@@ -1,4 +1,4 @@
-.. Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
+.. Copyright © 2012-2015 Martin Ueding <dev@martin-ueding.de>
 .. Copyright © 2013 Jim Turner <jturner314@gmail.com>
 
 ###############
@@ -113,7 +113,6 @@ python3        python3                  python
 *setuptools*   python3-setuptools       python-setuptools
 *termcolor*    python3-termcolor [2]_   python-termcolor
 *udev*         udev                     systemd            >= 196
-xsetwacom      xserver-xorg-input-wacom xf86-input-wacom
 xinput         xinput                   xorg-xinput
 xrandr         x11-xserver-utils        xorg-xrandr
 ============== ======================== ================== =======
