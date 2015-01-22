@@ -135,10 +135,10 @@ def enable(screen, primary=False, position=None):
     tps.check_call(command, logger)
 
 
-def get_resolution_and_shift(screen):
+def get_resolution_and_shift(output):
     '''
-    Retrieves the total resolution and the position of the given screen within
-    that.
+    Retrieves the total resolution of the virtual screen and the position of
+    the given output within that.
 
     The X server seems to generate a huge screen which is then displayed by the
     physical displays. ``xrandr`` gives the size of that (virtual) screen as
@@ -158,3 +158,37 @@ def get_resolution_and_shift(screen):
     3286×1080 and the position of the internal screen is 1366×768+1920+0. This
     allows to compute the transformation matrix for this.
     '''
+    lines = tps.check_output(['xrandr', '-q'], logger).strip().decode().split('\n')
+
+    pattern_output = re.compile(r'''
+                                {}
+                                \D+
+                                (?P<width>\d+)
+                                x
+                                (?P<height>\d+)
+                                \+
+                                (?P<x>\d+)
+                                \+
+                                (?P<y>\d+)
+                                '''.format(output), re.VERBOSE)
+    pattern_screen = re.compile('current (?P<width>\d+) x (?P<height>\d+)')
+
+    result = {}
+
+    for line in lines:
+        m_output = pattern_output.search(line)
+        if m_output:
+            result['output_width'] = int(m_output.group('width'))
+            result['output_height'] = int(m_output.group('height'))
+            result['output_x'] = int(m_output.group('x'))
+            result['output_y'] = int(m_output.group('y'))
+
+        m_screen = pattern_screen.search(line)
+        if m_screen:
+            result['screen_width'] = int(m_screen.group('width'))
+            result['screen_height'] = int(m_screen.group('height'))
+
+    if len(result) != 6:
+        logger.error('The screen and output dimensions could not be gathered from xrandr. Maybe the internal output is not attached (currently %s)? Please report a bug otherwise.', output)
+
+    return result
