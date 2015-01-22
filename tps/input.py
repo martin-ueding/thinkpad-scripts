@@ -28,12 +28,12 @@ class InputDeviceNotFoundException(Exception):
 
 def get_wacom_device_ids():
     '''
-    Gets the IDs of the built-in Wacom® touch devices.
+    Gets the IDs of the built-in Wacom touch devices.
 
-    This calls ``xsetwacom list devices`` to get the list and parses that with
-    a regular expression. Only device names starting with ``Wacom ISD`` are
-    taken into account. If you have an external device, this will not be picked
-    up.
+    This calls ``xinput`` to get the list and parses that with a regular
+    expression. Only device names starting with ``Wacom ISD`` (default regex)
+    are taken into account. If you have an external device, this will not be
+    picked up.
 
     :rtype: list
     '''
@@ -42,13 +42,14 @@ def get_wacom_device_ids():
     regex = config['touch']['regex']
     logger.debug('Using “%s” as regex to find Wacom devices.', regex)
     pattern = re.compile(regex.encode())
-    output = tps.check_output(['xsetwacom', 'list', 'devices'], logger)
+    output = tps.check_output(['xinput'], logger)
     lines = output.split(b'\n')
     ids = []
     for line in lines:
-        matcher = pattern.match(line)
+        matcher = pattern.search(line)
         if matcher:
             ids.append(int(matcher.group(1)))
+
     return ids
 
 
