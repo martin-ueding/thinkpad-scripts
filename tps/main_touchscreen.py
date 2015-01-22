@@ -12,7 +12,7 @@ def main():
 
     :returns: None
     '''
-    tps.input.state_change_ui('touchscreen_device', True)
+    tps.input.state_change_ui('touchscreen_device')
 
 
 if __name__ == '__main__':

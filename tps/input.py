@@ -129,10 +129,10 @@ def set_wacom_touch(device_id, state):
     '''
     Changes the Wacom Touch property of the given device.
     '''
-    tps.check_call(['xsetwacom', '--set', str(device_id), 'Touch',
-                    'On' if state else 'Off'], logger)
+    tps.check_call(['xinput', 'set-prop', str(device_id), 'Wacom Enable Touch',
+                    '1' if state else '0'], logger)
 
-def state_change_ui(config_name, set_touch=False):
+def state_change_ui(config_name):
     '''
     Change the state of the given device depending on command line options.
 
@@ -151,8 +151,16 @@ def state_change_ui(config_name, set_touch=False):
         state = not get_xinput_state(device)
     set_xinput_state(device, state)
 
-    if set_touch and config['touch'].getboolean('toggle_touch_with_xsetwacom'):
+    if has_xinput_prop(device, b'Wacom Enable Touch'):
         set_wacom_touch(device, state)
+
+
+def has_xinput_prop(device, prop):
+    '''
+    Checks whether the device has the given xinput propery.
+    '''
+    output = tps.check_output(['xinput', 'list-props', str(device)], logger)
+    return prop in output
 
 
 def _parse_args_to_state():
