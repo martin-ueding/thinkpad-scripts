@@ -14,6 +14,7 @@ import re
 
 import tps
 import tps.config
+import tps.screen
 
 logger = logging.getLogger(__name__)
 
@@ -200,3 +201,20 @@ def _parse_args_to_state():
         return False
     else:
         return None
+
+
+def generate_xinput_coordinate_transformation_matrix(output, orientation):
+    '''
+    Generates the coordinate transformation matrix that is needed for xinput to
+    confine the input to one screen and rotate it properly.
+    '''
+    rs = tps.screen.get_resolution_and_shift(output)
+
+    x_scale = rs['output_width'] / rs['screen_width']
+    y_scale = rs['output_height'] / rs['screen_height']
+
+    print(x_scale, y_scale)
+
+
+if __name__ == '__main__':
+    generate_xinput_coordinate_transformation_matrix('LVDS1', tps.NORMAL)
