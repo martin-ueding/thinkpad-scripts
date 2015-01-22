@@ -52,42 +52,26 @@ def get_wacom_device_ids():
     return ids
 
 
-def rotate_wacom_device(device, direction):
+def map_rotate_input_device(device, matrix):
     '''
-    Rotates a Wacom® device.
+    Rotates an input device.
 
     :type device: int
     :type direction: tps.Direction
     '''
-    tps.check_call(['xsetwacom', 'set', str(device), 'rotate',
-                    direction.xsetwacom], logger)
+    tps.check_call(
+        ['xinput', 'set-prop', str(device), 'Coordinate Transformation Matrix']
+        + list(map(str, matrix)), logger
+    )
 
 
-def map_wacom_device_to_output(device, output):
-    '''
-    Maps a Wacom® device to a specific output.
-
-    :type device: int
-    :type output: str
-    '''
-    tps.check_call(['xsetwacom', 'set', str(device), 'MapToOutput', output],
-                   logger)
-
-
-def rotate_all_wacom_devices(direction):
-    '''
-    Rotates all Wacom® devices.
-    '''
-    for device in get_wacom_device_ids():
-        rotate_wacom_device(device, direction)
-
-
-def map_all_wacom_devices_to_output(output):
+def map_rotate_all_input_devices(output, orientation):
     '''
     Maps all Wacom® devices.
     '''
+    matrix = generate_xinput_coordinate_transformation_matrix(output, orientation)
     for device in get_wacom_device_ids():
-        map_wacom_device_to_output(device, output)
+        map_rotate_input_device(device, matrix)
 
 
 def get_xinput_id(name):
@@ -240,7 +224,7 @@ def generate_xinput_coordinate_transformation_matrix(output, orientation):
 
     _matrix_print(m_total)
 
-    print(' '.join(map(str, m_total)))
+    return m_total
 
 
 def _matrix_print(matrix):

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
 import argparse
@@ -43,8 +43,7 @@ def rotate_to(direction, config):
     tps.hooks.prerotate(direction, config)
 
     tps.screen.rotate(config['screen']['internal'], direction)
-    tps.input.rotate_all_wacom_devices(direction)
-    tps.input.map_all_wacom_devices_to_output(config['screen']['internal'])
+    tps.input.map_rotate_all_input_devices(config['screen']['internal'], direction)
 
     if config['rotate'].getboolean('subpixels'):
         if config['rotate'].getboolean('subpixels_with_external') \
