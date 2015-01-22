@@ -133,3 +133,28 @@ def enable(screen, primary=False, position=None):
         command += ['--primary']
 
     tps.check_call(command, logger)
+
+
+def get_resolution_and_shift(screen):
+    '''
+    Retrieves the total resolution and the position of the given screen within
+    that.
+
+    The X server seems to generate a huge screen which is then displayed by the
+    physical displays. ``xrandr`` gives the size of that (virtual) screen as
+    well as the positions of each display in that.
+
+    Example
+    =======
+
+    I currently have the 12.5" 1366×768 ThinkPad X220 display on the right of a
+    23" 1920×1080 pixel display. ``xrandr`` tells me the following::
+
+        Screen 0: … current 3286 x 1080 …
+        LVDS1 … 1366x768+1920+0
+        DP2 … 1920x1080+0+0
+
+    This only shows the interesting parts. The size of the (virtual) screen is
+    3286×1080 and the position of the internal screen is 1366×768+1920+0. This
+    allows to compute the transformation matrix for this.
+    '''
