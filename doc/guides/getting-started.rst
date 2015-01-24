@@ -43,13 +43,21 @@ Fedora
 I, Martin Ueding, just (2015-01-24) tried out to package this for Fedora using
 the `Open Build Service <https://build.opensuse.org/>`_.
 
-- `Repository overview page <https://build.opensuse.org/package/binaries/home:martinueding/thinkpad-scripts?repository=Fedora_21>`_
-- `Repository download page <http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/>`_
-
 As far as I have understood and tested this, you have to download
 `home:martinueding.repo
 <http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/home:martinueding.repo>`_
 into ``/etc/yum.repos.d/``. Then you can use ``yum`` to install |project|.
+
+.. info::
+
+    I only have a Fedora 21 VM right now, so I could only test it there. The
+    virtual screen of the virtual machine could not be rotated, so I got an error
+    message by ``xrandr``. It seems like it would work on a real machine. I would
+    be very grateful if somebody could test this and tell me about it.
+
+- `Repository overview page <https://build.opensuse.org/package/binaries/home:martinueding/thinkpad-scripts?repository=Fedora_21>`_
+- `Repository download page <http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/>`_
+
 
 .. _installation-build-manually:
 
