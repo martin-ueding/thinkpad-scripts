@@ -159,7 +159,7 @@ xrandr         x11-xserver-utils        xorg-xrandr
     even Debian) would have to check whether their kernel has the acpi patch.
 
 Optional
-````````
+^^^^^^^^
 
 These programs enhance the functionality of the scripts, but are not strictly
 required.
