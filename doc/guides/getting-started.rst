@@ -48,7 +48,7 @@ As far as I have understood and tested this, you have to download
 <http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/home:martinueding.repo>`_
 into ``/etc/yum.repos.d/``. Then you can use ``yum`` to install |project|.
 
-.. info::
+.. warning::
 
     I only have a Fedora 21 VM right now, so I could only test it there. The
     virtual screen of the virtual machine could not be rotated, so I got an error
@@ -110,7 +110,7 @@ openSUSE have a search for “provides”. In openSUSE, you could use the ``cnf`
 tool to find out the package.
 
 Build
-'''''
+~~~~~
 
 These programs are needed during the build process.
 
@@ -125,7 +125,7 @@ xgettext       gettext                gettext
 ============== ====================== ==================
 
 Run
-'''
+~~~
 
 These programs are required for the execution of the scripts.
 
