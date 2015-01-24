@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
 '''
@@ -19,8 +19,6 @@ import shlex
 import sys
 
 import pkg_resources
-
-import termcolor
 
 import tps
 
@@ -58,10 +56,12 @@ def print_config(config):
     :returns: None
     '''
     for section in sorted(config.sections()):
-        termcolor.cprint(section, attrs=('bold',))
+        print('[{}]'.format(section))
 
         for key in sorted(config[section]):
-            print(termcolor.colored(key, 'yellow'), config[section][key])
+            print('{} = {}'.format(key, config[section][key]))
+
+        print()
 
 def migrate_shell_config():
     '''
@@ -93,7 +93,7 @@ def migrate_shell_config():
         print()
         print('The following errors occured:')
         for error in errors:
-            print('-', termcolor.colored(error, 'red'))
+            print('-', error)
 
     print()
     print('This is the interpreted configuration:')
@@ -101,7 +101,7 @@ def migrate_shell_config():
 
     print()
     if os.path.isfile(CONFIGFILE):
-        termcolor.cprint('File will be overwritten!', 'yellow')
+        print('File will be overwritten!')
     user_input = input('Do you want to write this config? [Y/n]')
 
     if user_input == 'Y' or user_input == 'y' or user_input == '':

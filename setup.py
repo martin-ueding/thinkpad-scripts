@@ -44,9 +44,8 @@ if __name__ == '__main__':
             ],
         },
         test_suite='tps.testsuite',
-        install_requires=[
-            'termcolor',
-        ],
+        #install_requires=[
+        #],
         package_data={
             'tps': ['default.ini'],
         },
