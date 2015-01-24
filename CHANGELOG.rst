@@ -4,6 +4,13 @@
 Changelog
 #########
 
+v4.2.2
+    Released: 2015-01-24
+
+    - Remove dependency on ``termcolor`` since that is not packaged for Python
+      3 in Ubuntu or Fedora. It was not needed heavily anyway, so I just got
+      rid of it.
+
 v4.2.1
     Released: 2015-01-20
 
