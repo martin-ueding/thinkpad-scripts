@@ -48,6 +48,12 @@ As far as I have understood and tested this, you have to download
 <http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/home:martinueding.repo>`_
 into ``/etc/yum.repos.d/``. Then you can use ``yum`` to install |project|.
 
+.. code-block:: console
+
+    $ sudo -s
+    # wget http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/home:martinueding.repo -O /etc/yum.repos.d/home:martinueding.repo
+    # yum install thinkpad-scripts
+
 .. warning::
 
     I only have a Fedora 21 VM right now, so I could only test it there. The
