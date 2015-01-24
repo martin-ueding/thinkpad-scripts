@@ -11,6 +11,16 @@ v4.2.2
       3 in Ubuntu or Fedora. It was not needed heavily anyway, so I just got
       rid of it.
 
+    - Add manual page for ``thinkpad-config``
+    - Add manual page for ``thinkpad-trackpoint``
+    - Add manual page for ``thinkpad-scripts-config-migration``
+    - Add a common epilogue for all manual pages
+
+    - Remove mailing list from README
+    - Replace hard coded strings with configuration options (GH-91)
+    - Toggle touch screen with ``xinput`` only (GH-91)
+    - Give a real error when rotation cannot be determined (GH-92)
+
 v4.2.1
     Released: 2015-01-20
 
