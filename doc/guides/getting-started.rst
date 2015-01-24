@@ -1,4 +1,4 @@
-.. Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
+.. Copyright © 2012-2015 Martin Ueding <dev@martin-ueding.de>
 .. Copyright © 2013 Jim Turner <jturner314@gmail.com>
 
 ###############
@@ -18,7 +18,11 @@ instructions in :ref:`installation-build-manually`.
 From Package
 ------------
 
-On Ubuntu and its derivatives, you can install from `Martin's PPA`_:
+Ubuntu
+~~~~~~
+
+On Ubuntu and its derivatives, you can install from `Martin's PPA
+<https://launchpad.net/~martin-ueding/+archive/stable>`_:
 
 .. code-block:: console
 
@@ -27,10 +31,25 @@ On Ubuntu and its derivatives, you can install from `Martin's PPA`_:
     # apt-get update
     # apt-get install thinkpad-scripts
 
-On Arch Linux, you can install the ``thinkpad-scripts`` package from the AUR_.
+Arch Linux
+~~~~~~~~~~
 
-.. _Martin's PPA: https://launchpad.net/~martin-ueding/+archive/stable
-.. _AUR: https://aur.archlinux.org/packages/thinkpad-scripts
+On Arch Linux, you can install the ``thinkpad-scripts`` package from the `AUR
+<https://aur.archlinux.org/packages/thinkpad-scripts>`_.
+
+Fedora
+~~~~~~
+
+I, Martin Ueding, just (2015-01-24) tried out to package this for Fedora using
+the `Open Build Service <https://build.opensuse.org/>`_.
+
+- `Repository overview page <https://build.opensuse.org/package/binaries/home:martinueding/thinkpad-scripts?repository=Fedora_21>`_
+- `Repository download page <http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/>`_
+
+As far as I have understood and tested this, you have to download
+`home:martinueding.repo
+<http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/home:martinueding.repo>`_
+into ``/etc/yum.repos.d/``. Then you can use ``yum`` to install |project|.
 
 .. _installation-build-manually:
 
