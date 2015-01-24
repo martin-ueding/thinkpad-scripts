@@ -1,4 +1,4 @@
-.. Copyright © 2012-2014 Martin Ueding <dev@martin-ueding.de>
+.. Copyright © 2012-2015 Martin Ueding <dev@martin-ueding.de>
 .. Copyright © 2013 Jim Turner <jturner314@gmail.com>
 
 ###############
@@ -94,7 +94,6 @@ msgfmt         gettext                gettext
 python3        python3                python
 *setuptools*   python3-setuptools     python-setuptools
 sphinx-build   python3-sphinx         python-sphinx
-*termcolor*    python3-termcolor [2]_ python-termcolor
 xgettext       gettext                gettext
 ============== ====================== ==================
 
@@ -111,7 +110,6 @@ amixer         alsa-utils               alsa-utils
 linux                                                      >= 3.11.0-17 [1]_
 python3        python3                  python
 *setuptools*   python3-setuptools       python-setuptools
-*termcolor*    python3-termcolor [2]_   python-termcolor
 *udev*         udev                     systemd            >= 196
 xsetwacom      xserver-xorg-input-wacom xf86-input-wacom
 xinput         xinput                   xorg-xinput
@@ -132,15 +130,6 @@ xrandr         x11-xserver-utils        xorg-xrandr
     openSUSE and other distributions are not patching the 3.?.0 kernel, but
     ship a 3.?.? kernel. So users of distributions other than Ubuntu (maybe
     even Debian) would have to check whether their kernel has the acpi patch.
-
-.. [2]
-
-    The ``python3-termcolor`` package is not contained in the official
-    repositories, but in `Martin's PPA`_. If you install this package from said
-    PPA, the dependencies are met.
-
-    You can install the ``termcolor`` module with ``pip`` or ``easy_install``
-    on your system as well.
 
 Optional
 ````````
