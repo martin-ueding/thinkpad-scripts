@@ -18,6 +18,13 @@ import tps
 logger = logging.getLogger(__name__)
 
 
+class ScreenNotFoundException(Exception):
+    '''
+    ``xrandr`` device could not be found.
+    '''
+    pass
+
+
 def get_rotation(screen):
     '''
     Gets the current rotation of the given screen.
@@ -35,9 +42,12 @@ def get_rotation(screen):
                 rotation = tps.translate_direction(matcher.group(1))
                 logger.info('Current rotation is “{}”.'.format(rotation))
                 return rotation
-
-    # At this point, nothing was found in the xrandr output.
-    logger.error('Rotation of screen "%s" could not be determined. Do you have a screen like that in the output of "xrandr"? Maybe you have to adjust the option of screen.internal in the configuration.', screen)
+    else:
+        raise ScreenNotFoundException(
+            'Screen "{}" is not enabled. Do you have a screen like that in '
+            'the output of "xrandr", and is it enabled? Maybe you have to '
+            'adjust the option of screen.internal in the '
+            'configuration.'.format(screen))
 
 
 def get_externals(internal):
@@ -196,6 +206,9 @@ def get_resolution_and_shift(output):
             result['screen_height'] = int(m_screen.group('height'))
 
     if len(result) != 6:
-        logger.error('The screen and output dimensions could not be gathered from xrandr. Maybe the internal output is not attached (currently %s)? Please report a bug otherwise.', output)
+        raise ScreenNotFoundException(
+            'The screen and output dimensions could not be gathered from '
+            'xrandr. Maybe the "{}" output is not attached or enabled? Please '
+            'report a bug otherwise.'.format(output))
 
     return result

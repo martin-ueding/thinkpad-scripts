@@ -33,6 +33,10 @@ def main():
     except tps.UnknownDirectionException:
         logger.error('Direction cannot be understood.')
         sys.exit(1)
+    except tps.screen.ScreenNotFoundException as e:
+        logger.error('Unable to determine rotation of "{}": {}'.format(
+            config['screen']['internal'], e))
+        sys.exit(1)
 
     rotate_to(new_direction, config)
 
