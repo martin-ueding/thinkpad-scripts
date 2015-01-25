@@ -146,6 +146,17 @@ def dock(on, config):
                 tps.network.restart(connection_to_restart)
             except tps.network.MissingEthernetException:
                 logger.warning('unable to find ethernet connection')
+
+        if primary == config['screen']['internal'] or \
+           secondary == config['screen']['internal']:
+            try:
+                tps.input.map_rotate_all_input_devices(
+                    config['screen']['internal'],
+                    tps.screen.get_rotation(config['screen']['internal']))
+            except tps.screen.ScreenNotFoundException as e:
+                logger.error('Unable to map input devices to "{}": {}'.format(
+                    config['screen']['internal'], e))
+
     else:
         for external in tps.screen.get_externals(config['screen']['internal']):
             tps.screen.disable(external)
@@ -158,7 +169,13 @@ def dock(on, config):
         if config['network'].getboolean('disable_wifi'):
             tps.network.set_wifi(True)
 
-    tps.input.map_all_wacom_devices_to_output(config['screen']['internal'])
+        try:
+            tps.input.map_rotate_all_input_devices(
+                config['screen']['internal'],
+                tps.screen.get_rotation(config['screen']['internal']))
+        except tps.screen.ScreenNotFoundException as e:
+            logger.error('Unable to map input devices to "{}": {}'.format(
+                config['screen']['internal'], e))
 
     tps.hooks.postdock(on, config)
 
