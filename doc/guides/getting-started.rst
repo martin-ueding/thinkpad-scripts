@@ -223,6 +223,9 @@ direction of screen rotation by placing configuration scripts in
 ``$HOME/.config/thinkpad-scripts``. See the :doc:`../man/index` for
 more details.
 
+You may need to modify some of the parameters depending on your hardware. See
+:doc:`hw-specific-config` for more details.
+
 You can also add scripts that will be called before/after docking or rotating
 the display. See the man pages for :doc:`../man/thinkpad-dock.1` and
 :doc:`../man/thinkpad-rotate.1` for more details.
