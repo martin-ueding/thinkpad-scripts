@@ -18,7 +18,11 @@ instructions in :ref:`installation-build-manually`.
 From Package
 ------------
 
-On Ubuntu and its derivatives, you can install from `Martin's PPA`_:
+Ubuntu
+~~~~~~
+
+On Ubuntu and its derivatives, you can install from `Martin's PPA
+<https://launchpad.net/~martin-ueding/+archive/stable>`_:
 
 .. code-block:: console
 
@@ -27,10 +31,39 @@ On Ubuntu and its derivatives, you can install from `Martin's PPA`_:
     # apt-get update
     # apt-get install thinkpad-scripts
 
-On Arch Linux, you can install the ``thinkpad-scripts`` package from the AUR_.
+Arch Linux
+~~~~~~~~~~
 
-.. _Martin's PPA: https://launchpad.net/~martin-ueding/+archive/stable
-.. _AUR: https://aur.archlinux.org/packages/thinkpad-scripts
+On Arch Linux, you can install the ``thinkpad-scripts`` package from the `AUR
+<https://aur.archlinux.org/packages/thinkpad-scripts>`_.
+
+Fedora
+~~~~~~
+
+I, Martin Ueding, just (2015-01-24) tried out to package this for Fedora using
+the `Open Build Service <https://build.opensuse.org/>`_.
+
+As far as I have understood and tested this, you have to download
+`home:martinueding.repo
+<http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/home:martinueding.repo>`_
+into ``/etc/yum.repos.d/``. Then you can use ``yum`` to install |project|.
+
+.. code-block:: console
+
+    $ sudo -s
+    # wget http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/home:martinueding.repo -O /etc/yum.repos.d/home:martinueding.repo
+    # yum install thinkpad-scripts
+
+.. warning::
+
+    I only have a Fedora 21 VM right now, so I could only test it there. The
+    virtual screen of the virtual machine could not be rotated, so I got an error
+    message by ``xrandr``. It seems like it would work on a real machine. I would
+    be very grateful if somebody could test this and tell me about it.
+
+- `Repository overview page <https://build.opensuse.org/package/binaries/home:martinueding/thinkpad-scripts?repository=Fedora_21>`_
+- `Repository download page <http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/>`_
+
 
 .. _installation-build-manually:
 
@@ -83,7 +116,7 @@ openSUSE have a search for “provides”. In openSUSE, you could use the ``cnf`
 tool to find out the package.
 
 Build
-'''''
+~~~~~
 
 These programs are needed during the build process.
 
@@ -94,12 +127,11 @@ msgfmt         gettext                gettext
 python3        python3                python
 *setuptools*   python3-setuptools     python-setuptools
 sphinx-build   python3-sphinx         python-sphinx
-*termcolor*    python3-termcolor [2]_ python-termcolor
 xgettext       gettext                gettext
 ============== ====================== ==================
 
 Run
-'''
+~~~
 
 These programs are required for the execution of the scripts.
 
@@ -111,7 +143,6 @@ amixer         alsa-utils               alsa-utils
 linux                                                      >= 3.11.0-17 [1]_
 python3        python3                  python
 *setuptools*   python3-setuptools       python-setuptools
-*termcolor*    python3-termcolor [2]_   python-termcolor
 *udev*         udev                     systemd            >= 196
 xinput         xinput                   xorg-xinput
 xrandr         x11-xserver-utils        xorg-xrandr
@@ -132,17 +163,8 @@ xrandr         x11-xserver-utils        xorg-xrandr
     ship a 3.?.? kernel. So users of distributions other than Ubuntu (maybe
     even Debian) would have to check whether their kernel has the acpi patch.
 
-.. [2]
-
-    The ``python3-termcolor`` package is not contained in the official
-    repositories, but in `Martin's PPA`_. If you install this package from said
-    PPA, the dependencies are met.
-
-    You can install the ``termcolor`` module with ``pip`` or ``easy_install``
-    on your system as well.
-
 Optional
-````````
+^^^^^^^^
 
 These programs enhance the functionality of the scripts, but are not strictly
 required.
@@ -199,6 +221,9 @@ brightness to set when docking, the relative positions of displays, and the
 direction of screen rotation by placing configuration scripts in
 ``$HOME/.config/thinkpad-scripts``. See the :doc:`../man/index` for
 more details.
+
+You may need to modify some of the parameters depending on your hardware. See
+:doc:`hw-specific-config` for more details.
 
 You can also add scripts that will be called before/after docking or rotating
 the display. See the man pages for :doc:`../man/thinkpad-dock.1` and

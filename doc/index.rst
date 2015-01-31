@@ -27,10 +27,6 @@ tracker.
     `GitHub page <https://github.com/martin-ueding/thinkpad-scripts/issues>`_
         - Issue tracker
         - git repository
-    `Mailing list <http://chaos.stw-bonn.de/cgi-bin/mailman/listinfo/thinkpad-scripts>`_
-        - General help
-        - Developer discussion
-        - Announcements
 
 Short introduction
 ==================
