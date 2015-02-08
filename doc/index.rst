@@ -1,5 +1,5 @@
 ..  Copyright © 2013 Jim Turner <jturner314@gmail.com>
-    Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+    Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
 
 ###################################################################
 |project|: Scripts for ThinkPad X220 Tablet rotation, docking, etc.
@@ -61,6 +61,5 @@ Contents of the documentation
     changelog
     legal
     dev/index
-    api/index
 
 .. vim: spell
