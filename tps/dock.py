@@ -121,12 +121,19 @@ def dock(on, config):
         primary, secondary, others = select_docking_screens(
             config['screen']['internal'], config['screen']['primary'],
             config['screen']['secondary'])
-        for screen in others:
-            tps.screen.disable(screen)
         if secondary is None:
+            # This is the only screen.
             tps.screen.enable(primary, primary=True)
         else:
+            # Disable all but one screen (xrandr complains otherwise).
+            for screen in others[:-1]:
+                tps.screen.disable(screen)
+            # Enable one screen.
             tps.screen.enable(secondary)
+            # It's now safe to disable the last other screen.
+            if others:
+                tps.screen.disable(others[-1])
+            # Enable the primary screen.
             tps.screen.enable(primary)
             # Need to call this separately to work around bugs in xrandr/X11.
             tps.screen.enable(primary, primary=True,
@@ -158,10 +165,15 @@ def dock(on, config):
                     config['screen']['internal'], e))
 
     else:
-        for external in tps.screen.get_externals(config['screen']['internal']):
+        externals = tps.screen.get_externals(config['screen']['internal'])
+        # Disable all but one screen (xrandr complains otherwise).
+        for external in externals[:-1]:
             tps.screen.disable(external)
-
+        # Enable the internal screen.
         tps.screen.enable(config['screen']['internal'], primary=True)
+        # It's now safe to disable the last external screen.
+        if externals:
+            tps.screen.disable(externals[-1])
 
         if config['sound'].getboolean('unmute'):
             tps.sound.set_volume(config['sound']['undock_loudness'])
