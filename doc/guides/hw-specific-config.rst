@@ -69,3 +69,6 @@ the necessary configuration parameters:
 
     [screen]
     internal = eDP1
+
+    [touch]
+    regex = (?:Wacom ISD|ELAN Touchscreen).*id=(\d+)
