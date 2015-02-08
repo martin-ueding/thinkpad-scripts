@@ -5,7 +5,7 @@ Changelog
 #########
 
 v4.2.3
-    Released:
+    Released: 2015-02-08
 
     - Add documentation about Fedora package
     - Add hardware specific documentation
