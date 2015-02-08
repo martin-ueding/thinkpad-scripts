@@ -98,9 +98,15 @@ def set_subpixel_order(direction):
 
     elif tps.has_program('gsettings'):
         try:
-            tps.check_call(['gsettings', 'set',
-                            'org.gnome.settings-daemon.plugins.xsettings',
-                            'rgba-order', direction.subpixel], logger)
+            schemas = tps.check_output(
+                ['gsettings', 'list-schemas']).decode().split('\n')
+            schema = 'org.gnome.settings-daemon.plugins.xsettings'
+            if schema in schemas:
+                tps.check_call(['gsettings', 'set', schema, 'rgba-order',
+                                direction.subpixel], logger)
+            else:
+                logger.warning('gsettings is installed, but the "{}" schema '
+                               'is not available'.format(schema))
         except subprocess.CalledProcessError as e:
             logger.error(e)
     else:
