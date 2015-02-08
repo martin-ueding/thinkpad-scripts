@@ -4,6 +4,19 @@
 Changelog
 #########
 
+v4.2.3
+    Released:
+
+    - Add documentation about Fedora package
+    - Add hardware specific documentation
+    - Replace ``xsetwacom`` with ``xinput`` in all cases and use transformation
+      matrix (GH-91)
+    - Add a nice error message when a screen could not be found
+    - Remove ``termcolor`` as a dependency
+    - Always have at least one screen enabled
+    - Be more careful with ``gsettings``, check whether the schema exists
+      before writing to it
+
 v4.2.2
     Released: 2015-01-24
 
