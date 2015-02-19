@@ -1,4 +1,4 @@
-.. Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+.. Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
 
 Find hardware events
 ====================
@@ -17,7 +17,7 @@ and back again.
 
 This then goes into an ACPI hook file like so:
 
-.. code-block:: config
+.. code-block:: ini
 
     event=video/tabletmode TBLT 0000008A 0000000[01]
     action=/usr/bin/thinkpad-rotate-hook %e
