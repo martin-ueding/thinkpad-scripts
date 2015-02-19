@@ -4,6 +4,13 @@
 Changelog
 #########
 
+v4.2.4
+    Released: 2015-02-19 18:49:21 +0100
+
+    - Write transformation matrices to debug output.
+    - Small fixes in documentation: Remove dead navigation entry and use
+      correct syntax highlighting for config snippet.
+
 v4.2.3
     Released: 2015-02-08
 
