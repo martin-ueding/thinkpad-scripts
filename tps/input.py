@@ -218,21 +218,25 @@ def generate_xinput_coordinate_transformation_matrix(output, orientation):
     ]
 
     m_shift_scale = _matrix_mul(m_shift, m_scale)
-    _matrix_print(m_shift_scale)
-    print()
+    logger.debug("Translation and scaling matrix: %s",
+                 _matrix_to_str(m_shift_scale))
 
     m_total = _matrix_mul(m_shift_scale, orientation.rot_mat)
-
-    _matrix_print(m_total)
+    logger.debug("Complete transformation matrix: %s",
+                 _matrix_to_str(m_total))
 
     return m_total
 
 
-def _matrix_print(matrix):
+def _matrix_to_str(matrix):
+    msg = '['
     for row in range(3):
+        msg += '['
         for column in range(3):
-            print('{:10.6f}'.format(matrix[row*3 + column]), end='')
-        print()
+            msg += '{:9.5f} '.format(matrix[row*3 + column])
+        msg += ']'
+    msg += ']'
+    return msg
 
 
 def _matrix_mul(m1, m2):

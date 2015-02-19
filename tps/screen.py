@@ -167,11 +167,9 @@ def get_resolution_and_shift(output):
     physical displays. ``xrandr`` gives the size of that (virtual) screen as
     well as the positions of each display in that.
 
-    Example
-    =======
-
-    I currently have the 12.5" 1366×768 ThinkPad X220 display on the right of a
-    23" 1920×1080 pixel display. ``xrandr`` tells me the following::
+    For example, I currently have the 12.5" 1366×768 ThinkPad X220 display on
+    the right of a 23" 1920×1080 pixel display. ``xrandr`` tells me the
+    following::
 
         Screen 0: … current 3286 x 1080 …
         LVDS1 … 1366x768+1920+0
