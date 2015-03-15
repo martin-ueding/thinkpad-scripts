@@ -8,10 +8,10 @@ Getting Started
 Installation
 ============
 
-The easiest way to install |project| on Ubuntu or Arch Linux is with your
-package manager, as described in :ref:`installation-from-package`. If you are
-on another distribution, then you can build and install it manually using the
-instructions in :ref:`installation-build-manually`.
+The easiest way to install |project| on Ubuntu, Arch Linux, Fedora and openSUSE
+is with your package manager, as described in :ref:`installation-from-package`.
+If you are on another distribution, then you can build and install it manually
+using the instructions in :ref:`installation-build-manually`.
 
 .. _installation-from-package:
 
@@ -43,6 +43,8 @@ Fedora
 I, Martin Ueding, just (2015-01-24) tried out to package this for Fedora using
 the `Open Build Service <https://build.opensuse.org/>`_.
 
+.. _`Open Build Service`: https://build.opensuse.org/
+
 As far as I have understood and tested this, you have to download
 `home:martinueding.repo
 <http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/home:martinueding.repo>`_
@@ -64,6 +66,14 @@ into ``/etc/yum.repos.d/``. Then you can use ``yum`` to install |project|.
 - `Repository overview page <https://build.opensuse.org/package/binaries/home:martinueding/thinkpad-scripts?repository=Fedora_21>`_
 - `Repository download page <http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/>`_
 
+openSUSE
+~~~~~~~~
+
+Same as Fedora_, I tried to create an RPM package for openSUSE with the `Open
+Build Service`_. There is a repository__ on my home project. Feedback is
+greatly appreciated.
+
+__ http://download.opensuse.org/repositories/home:/martinueding/openSUSE_13.2/
 
 .. _installation-build-manually:
 
