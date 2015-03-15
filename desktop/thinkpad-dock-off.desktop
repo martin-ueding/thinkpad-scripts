@@ -2,7 +2,6 @@
 Categories=System;
 Exec=thinkpad-dock off
 GenericName=Undock from ThinkPad Base
-Icon=network-disconnect
 Name=thinkpad-dock off
 StartupNotify=false
 Terminal=false
