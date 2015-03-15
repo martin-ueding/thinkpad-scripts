@@ -2,7 +2,6 @@
 Categories=System;
 Exec=thinkpad-dock on
 GenericName=Dock to ThinkPad Base
-Icon=network-connect
 Name=thinkpad-dock on
 StartupNotify=false
 Terminal=false
