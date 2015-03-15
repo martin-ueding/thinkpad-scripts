@@ -4,6 +4,12 @@
 Changelog
 #########
 
+v4.2.5
+    Released: 2015-03-15 19:28:52 +0100
+
+    - Remove icons from docking desktop files to get it to build on openSUSE
+      Build Service
+
 v4.2.4
     Released: 2015-02-19 18:49:21 +0100
 
