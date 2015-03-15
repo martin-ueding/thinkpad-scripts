@@ -8,10 +8,10 @@ Getting Started
 Installation
 ============
 
-The easiest way to install |project| on Ubuntu or Arch Linux is with your
-package manager, as described in :ref:`installation-from-package`. If you are
-on another distribution, then you can build and install it manually using the
-instructions in :ref:`installation-build-manually`.
+The easiest way to install |project| on Ubuntu, Arch Linux, Fedora and openSUSE
+is with your package manager, as described in :ref:`installation-from-package`.
+If you are on another distribution, then you can build and install it manually
+using the instructions in :ref:`installation-build-manually`.
 
 .. _installation-from-package:
 
@@ -43,6 +43,8 @@ Fedora
 I, Martin Ueding, just (2015-01-24) tried out to package this for Fedora using
 the `Open Build Service <https://build.opensuse.org/>`_.
 
+.. _`Open Build Service`: https://build.opensuse.org/
+
 As far as I have understood and tested this, you have to download
 `home:martinueding.repo
 <http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/home:martinueding.repo>`_
@@ -64,6 +66,14 @@ into ``/etc/yum.repos.d/``. Then you can use ``yum`` to install |project|.
 - `Repository overview page <https://build.opensuse.org/package/binaries/home:martinueding/thinkpad-scripts?repository=Fedora_21>`_
 - `Repository download page <http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/>`_
 
+openSUSE
+~~~~~~~~
+
+Same as Fedora_, I tried to create an RPM package for openSUSE with the `Open
+Build Service`_. There is a repository__ on my home project. Feedback is
+greatly appreciated.
+
+__ http://download.opensuse.org/repositories/home:/martinueding/openSUSE_13.2/
 
 .. _installation-build-manually:
 
@@ -120,33 +130,33 @@ Build
 
 These programs are needed during the build process.
 
-============== ====================== ==================
-Needed Program Debian package         Arch Linux package
-============== ====================== ==================
-msgfmt         gettext                gettext
-python3        python3                python
-*setuptools*   python3-setuptools     python-setuptools
-sphinx-build   python3-sphinx         python-sphinx
-xgettext       gettext                gettext
-============== ====================== ==================
+============== ====================== ================== ================== ==================
+Needed Program Debian package         Arch Linux package Fedora package     openSUSE package
+============== ====================== ================== ================== ==================
+msgfmt         gettext                gettext            gettext            gettext
+python3        python3                python             python3-devel      python3-devel
+*setuptools*   python3-setuptools     python-setuptools  python3-setuptools python3-setuptools
+sphinx-build   python3-sphinx         python-sphinx      python3-sphinx     python3-Sphinx
+xgettext       gettext                gettext            gettext            gettext
+============== ====================== ================== ================== ==================
 
 Run
 ~~~
 
 These programs are required for the execution of the scripts.
 
-============== ======================== ================== =======
-Needed Program Debian package           Arch Linux package Version
-============== ======================== ================== =======
-*acpid*        acpid                    acpid
-amixer         alsa-utils               alsa-utils
-linux                                                      >= 3.11.0-17 [1]_
+============== ======================== ================== ===================== ================== =================
+Needed Program Debian package           Arch Linux package Fedora package        openSUSE package   Version
+============== ======================== ================== ===================== ================== =================
+*acpid*        acpid                    acpid              acpid                 acpid
+amixer         alsa-utils               alsa-utils         alsa-utils            alsa-utils
+linux                                                                                               >= 3.11.0-17 [1]_
 python3        python3                  python
-*setuptools*   python3-setuptools       python-setuptools
-*udev*         udev                     systemd            >= 196
-xinput         xinput                   xorg-xinput
-xrandr         x11-xserver-utils        xorg-xrandr
-============== ======================== ================== =======
+*setuptools*   python3-setuptools       python-setuptools  python3-setuptools    python3-setuptools
+*udev*         udev                     systemd                                  systemd            >= 196
+xinput         xinput                   xorg-xinput        xinput                xinput
+xrandr         x11-xserver-utils        xorg-xrandr        xorg-x11-server-utils xrandr
+============== ======================== ================== ===================== ================== =================
 
 ----
 
