@@ -4,6 +4,11 @@
 Changelog
 #########
 
+v4.2.6
+    Released: 2015-03-15 22:53:34 +0100
+
+    - Update documentation for openSUSE package
+
 v4.2.5
     Released: 2015-03-15 19:28:52 +0100
 
