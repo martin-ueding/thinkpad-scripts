@@ -120,33 +120,33 @@ Build
 
 These programs are needed during the build process.
 
-============== ====================== ==================
-Needed Program Debian package         Arch Linux package
-============== ====================== ==================
-msgfmt         gettext                gettext
-python3        python3                python
-*setuptools*   python3-setuptools     python-setuptools
-sphinx-build   python3-sphinx         python-sphinx
-xgettext       gettext                gettext
-============== ====================== ==================
+============== ====================== ================== ================== ==================
+Needed Program Debian package         Arch Linux package Fedora package     openSUSE package
+============== ====================== ================== ================== ==================
+msgfmt         gettext                gettext            gettext            gettext
+python3        python3                python             python3-devel      python3-devel
+*setuptools*   python3-setuptools     python-setuptools  python3-setuptools python3-setuptools
+sphinx-build   python3-sphinx         python-sphinx      python3-sphinx     python3-Sphinx
+xgettext       gettext                gettext            gettext            gettext
+============== ====================== ================== ================== ==================
 
 Run
 ~~~
 
 These programs are required for the execution of the scripts.
 
-============== ======================== ================== =======
-Needed Program Debian package           Arch Linux package Version
-============== ======================== ================== =======
-*acpid*        acpid                    acpid
-amixer         alsa-utils               alsa-utils
-linux                                                      >= 3.11.0-17 [1]_
+============== ======================== ================== ===================== ================== =================
+Needed Program Debian package           Arch Linux package Fedora package        openSUSE package   Version
+============== ======================== ================== ===================== ================== =================
+*acpid*        acpid                    acpid              acpid                 acpid
+amixer         alsa-utils               alsa-utils         alsa-utils            alsa-utils
+linux                                                                                               >= 3.11.0-17 [1]_
 python3        python3                  python
-*setuptools*   python3-setuptools       python-setuptools
-*udev*         udev                     systemd            >= 196
-xinput         xinput                   xorg-xinput
-xrandr         x11-xserver-utils        xorg-xrandr
-============== ======================== ================== =======
+*setuptools*   python3-setuptools       python-setuptools  python3-setuptools    python3-setuptools
+*udev*         udev                     systemd                                  systemd            >= 196
+xinput         xinput                   xorg-xinput        xinput                xinput
+xrandr         x11-xserver-utils        xorg-xrandr        xorg-x11-server-utils xrandr
+============== ======================== ================== ===================== ================== =================
 
 ----
 
