@@ -142,6 +142,10 @@ def dock(on, config):
                               position=(config['screen']['relative_position'],
                                         secondary))
 
+            if not config['screen'].getboolean('internal_docked_on'):
+                logger.info('Internal screen is supposed to be off when docked, turning it off.')
+                tps.screen.disable(config['screen']['internal'])
+
         if config['network'].getboolean('disable_wifi') \
            and tps.network.has_ethernet():
             tps.network.set_wifi(False)
