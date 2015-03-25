@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
 # Copyright © 2015 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
@@ -121,6 +121,8 @@ def dock(on, config):
         primary, secondary, others = select_docking_screens(
             config['screen']['internal'], config['screen']['primary'],
             config['screen']['secondary'])
+
+        logger.debug('primary: %s, secondary: %s, others: %s', str(primary), str(secondary), str(others))
         if secondary is None:
             # This is the only screen.
             tps.screen.enable(primary, primary=True)
@@ -139,6 +141,10 @@ def dock(on, config):
             tps.screen.enable(primary, primary=True,
                               position=(config['screen']['relative_position'],
                                         secondary))
+
+            if not config['screen'].getboolean('internal_docked_on'):
+                logger.info('Internal screen is supposed to be off when docked, turning it off.')
+                tps.screen.disable(config['screen']['internal'])
 
         if config['network'].getboolean('disable_wifi') \
            and tps.network.has_ethernet():

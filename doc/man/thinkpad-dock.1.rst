@@ -148,6 +148,9 @@ Those are the possible options:
     docking. Set it to ``right-of`` or ``left-of`` or anything else that
     ``xrandr`` supports with a ``--*`` argument. *Default: right-of*.
 
+``screen.internal_docked_on``
+    Whether to keep the internal screen on while docking. *Default: true*
+
 ``sound.unmute``
     Whether to change the volume. *Default: true*.
 
