@@ -4,12 +4,14 @@
 Changelog
 #########
 
-v4.2.7
+v4.3.0
     Released: 2015-03-25 14:53:31 +0100
 
     - Fix a bug that was introduced in 69ef6ea. This leads to premature exit
       and dump of a stacktrace. The screens got rotated, but the TrackPoint
       would not be disabled.
+
+    - Add an option to disable the internal screen on docking (GH-103).
 
 v4.2.6
     Released: 2015-03-15 22:53:34 +0100
