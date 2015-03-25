@@ -99,7 +99,7 @@ def set_subpixel_order(direction):
     elif tps.has_program('gsettings'):
         try:
             schemas = tps.check_output(
-                ['gsettings', 'list-schemas']).decode().split('\n')
+                ['gsettings', 'list-schemas'], logger).decode().split('\n')
             schema = 'org.gnome.settings-daemon.plugins.xsettings'
             if schema in schemas:
                 tps.check_call(['gsettings', 'set', schema, 'rgba-order',
