@@ -26,6 +26,9 @@ def main():
 
     config = tps.config.get_config()
 
+    if options.via_hook:
+        xrandr_bug_workaround(config)
+
     try:
         new_direction = new_rotation(
             tps.screen.get_rotation(config['screen']['internal']),
@@ -104,6 +107,22 @@ def new_rotation(current, desired_str, config):
     return new
 
 
+def xrandr_bug_workaround(config):
+    '''
+    XRandr has a `bug in Ubuntu`__, maybe even in other distributions. This
+    functions will abort if there is no external screen attached.
+
+    __ https://bugs.launchpad.net/ubuntu/+source/x11-xserver-utils/+bug/1451798
+    '''
+    if not config['rotate'].getboolean('xrandr_bug_workaround'):
+        return
+
+    externals = tps.screen.get_externals(config['screen']['internal'])
+    if (len(externals) == 0):
+        logger.warning('Aborting since there are no external screens attached and XRandr bug workout is enabled.')
+        sys.exit(1)
+
+
 def _parse_args():
     """
     Parses the command line arguments.
@@ -119,6 +138,7 @@ def _parse_args():
     parser.add_argument("-v", dest='verbose', action="count",
                         help='Enable verbose output. Can be supplied multiple '
                              'times for even more verbosity.')
+    parser.add_argument('--via-hook', action='store_true')
 
     options = parser.parse_args()
 

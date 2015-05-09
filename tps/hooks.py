@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
 '''
@@ -111,7 +111,7 @@ def main_rotate_hook():
     tps.check_call([
         'sudo', '-u', get_graphicsl_user(), '-i',
         'env', 'DISPLAY=:0.0',
-        '/usr/bin/thinkpad-rotate', set_to
+        '/usr/bin/thinkpad-rotate', set_to, '--via-hook',
     ], logger)
 
 def main_dock_hook():
