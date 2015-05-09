@@ -108,6 +108,17 @@ You can set the following option:
     Rotate the subpixel orientation if a second screen is attached. *Default:
     false*.
 
+``rotate.xrandr_bug_workaround``
+    On Ubuntu 15.04, XRandr has `a bug`__ which turns the screen black when
+    rotating with no external screen attached. If you set this to ``true``, the
+    rotate hook will only act when an external screen is attached. In the cases
+    you want to rotate the screen without external screens do the following:
+    Call ``thinkpad-rotate``, the screen will turn black. Then go to another
+    terminal with [Ctrl][Alt][F1] and back to the graphical one with
+    [Ctrl][Alt][F7]. *Default: false*.
+
+    __ https://bugs.launchpad.net/ubuntu/+source/x11-xserver-utils/+bug/1451798
+
 ``screen.internal``
     The ``xrandr`` name for the internal monitor. *Default: LVDS1*
 
