@@ -4,6 +4,11 @@
 Changelog
 #########
 
+v4.4.0
+    Released: 2015-05-09 10:51:34 +0200
+
+    - Add a workaround for an XRandr bug that I have on my machine.
+
 v4.3.0
     Released: 2015-03-25 14:53:31 +0100
 
