@@ -249,6 +249,19 @@ def _matrix_mul(m1, m2):
 
     return output
 
+def get_pulseaudio_sinks():
+    '''
+    Retrieves the available PulseAudio sinks on the current system
+    and returns them in a set of strings
+    '''
+    sinks = tps.check_output(['pactl', 'list', 'sinks'], logger)
+    sinks = sinks.splitlines()
+    result = []
+    for sink in sinks:
+        sinkstring = sink.decode('utf-8')
+        if 'index:' in sinkstring:
+	        result.append(sinkstring[-1:])
+    return result
 
 if __name__ == '__main__':
     generate_xinput_coordinate_transformation_matrix('LVDS1', tps.INVERTED)

@@ -25,9 +25,11 @@ def unmute(loudness):
     if not tps.has_program('pactl'):
         logger.warning('pactl is not installed')
         return
-
-    tps.check_call(['pactl', 'set-sink-volume', '0', loudness], logger)
-    tps.check_call(['pactl', 'set-sink-mute', '0', '0'], logger)
+    
+    sinks = tps.input.get_pulseaudio_sinks()
+    for sink in sinks:
+        tps.check_call(['pactl', 'set-sink-volume', sink, loudness], logger)
+        tps.check_call(['pactl', 'set-sink-mute', sink, '0'], logger)
 
 def set_volume(loudness):
     '''
