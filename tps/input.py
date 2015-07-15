@@ -254,7 +254,7 @@ def get_pulseaudio_sinks():
     Retrieves the available PulseAudio sinks on the current system
     and returns them in a set of strings
     '''
-    sinks = tps.check_output(['pacmd', 'list-sinks'], logger)
+    sinks = tps.check_output(['pactl', 'list', 'sinks'], logger)
     sinks = sinks.splitlines()
     result = []
     for sink in sinks:
