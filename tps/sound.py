@@ -43,9 +43,9 @@ def unmute(loudness):
     '''
     sinks = get_pulseaudio_sinks()
     for sink in sinks:
-        tps.check_call(['pactl', 'set-sink-volume', sink, loudness], logger)
         tps.check_call(['pactl', 'set-sink-mute', sink, '0'], logger)
 
+    set_volume(loudness)
 
 
 def set_volume(loudness):
