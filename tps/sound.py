@@ -69,3 +69,7 @@ def main_mutemic():
     tps.config.set_up_logging(options.verbose)
 
     tps.check_call(['amixer', 'sset', "'Capture',0", 'toggle'], logger)
+
+
+if __name__ == '__main__':
+    print(get_pulseaudio_sinks())
