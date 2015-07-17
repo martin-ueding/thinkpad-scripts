@@ -91,8 +91,8 @@ def set_subpixel_order(direction):
     '''
     if tps.has_program('xfconf-query'):
         try:
-            tps.check_call(['xfconf-query', '-c', 'xsettings', '-p', '/Xft/RGBA',
-                            '-s', direction.subpixel], logger)
+            tps.check_call(['xfconf-query', '-c', 'xsettings', '-p',
+                            '/Xft/RGBA', '-s', direction.subpixel], logger)
         except subprocess.CalledProcessError as e:
             logger.error(e)
 
@@ -179,7 +179,8 @@ def get_resolution_and_shift(output):
     3286×1080 and the position of the internal screen is 1366×768+1920+0. This
     allows to compute the transformation matrix for this.
     '''
-    lines = tps.check_output(['xrandr', '-q'], logger).strip().decode().split('\n')
+    output = tps.check_output(['xrandr', '-q'], logger).strip().decode()
+    lines = output.split('\n')
 
     pattern_output = re.compile(r'''
                                 {}

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
 '''
@@ -16,11 +16,13 @@ import tps
 
 logger = logging.getLogger(__name__)
 
+
 class MissingEthernetException(Exception):
     '''
     This exception is raised when NetworkManager has no configured Ethernet
     connections as reported by ``nmcli con list``.
     '''
+
 
 def parse_terse_line(output):
     '''
@@ -37,6 +39,7 @@ def parse_terse_line(output):
     for i in range(len(split)):
         split[i] = re.sub(r'\\([\\:])', r'\1', split[i])
     return split
+
 
 def get_nmcli_version():
     '''
@@ -55,6 +58,7 @@ def get_nmcli_version():
         version_list.pop()
     return tuple(version_list)
 
+
 def set_wifi(state):
     '''
     Sets the wifi hardware to the given state.
@@ -71,6 +75,7 @@ def set_wifi(state):
     else:
         command = ['nmcli', 'nm', 'wifi', 'on' if state else 'off']
     tps.check_call(command, logger)
+
 
 def has_ethernet():
     '''
@@ -92,6 +97,7 @@ def has_ethernet():
             if carrier_state:
                 return True
     return False
+
 
 def get_ethernet_con_name():
     '''
@@ -119,6 +125,7 @@ def get_ethernet_con_name():
         return sorted(ethernet_cons)[0]
     else:
         raise MissingEthernetException('No configured Ethernet connections.')
+
 
 def restart(connection):
     '''

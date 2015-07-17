@@ -70,7 +70,8 @@ def map_rotate_all_input_devices(output, orientation):
     '''
     Maps all Wacom® devices.
     '''
-    matrix = generate_xinput_coordinate_transformation_matrix(output, orientation)
+    matrix = generate_xinput_coordinate_transformation_matrix(output,
+                                                              orientation)
     for device in get_wacom_device_ids():
         map_rotate_input_device(device, matrix)
 

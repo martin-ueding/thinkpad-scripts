@@ -6,6 +6,7 @@
 
 import tps.input
 
+
 def main():
     '''
     Command line entry point for toggling the touch screen.

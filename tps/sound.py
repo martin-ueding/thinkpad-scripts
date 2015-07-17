@@ -17,6 +17,7 @@ import tps.config
 
 logger = logging.getLogger(__name__)
 
+
 def get_pulseaudio_sinks():
     '''
     Retrieves the available PulseAudio sinks on the current system
