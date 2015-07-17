@@ -31,6 +31,8 @@ def unmute(loudness):
         tps.check_call(['pactl', 'set-sink-volume', sink, loudness], logger)
         tps.check_call(['pactl', 'set-sink-mute', sink, '0'], logger)
 
+
+
 def set_volume(loudness):
     '''
     Sets the volume to the given loudness.

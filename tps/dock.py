@@ -44,6 +44,7 @@ def is_docked():
     logger.info('No docking station found.')
     return False
 
+
 def select_docking_screens(internal, primary='', secondary=''):
     '''
     Selects the primary, secondary, and remaining screens when docking.
@@ -99,6 +100,7 @@ def select_docking_screens(internal, primary='', secondary=''):
             logger.warning('Configured screen "{}" does not exist or is not '
                            'connected.'.format(screen))
     return screens[0], screens[1] if len(screens) > 1 else None, screens[2:]
+
 
 def dock(on, config):
     '''
@@ -197,6 +199,7 @@ def dock(on, config):
 
     tps.hooks.postdock(on, config)
 
+
 def main():
     '''
     Command line entry point.
@@ -219,6 +222,7 @@ def main():
 
     dock(desired, config)
 
+
 def _parse_args():
     """
     Parses the command line arguments.
@@ -240,6 +244,7 @@ def _parse_args():
     tps.config.set_up_logging(options.verbose)
 
     return options
+
 
 if __name__ == '__main__':
     main()
