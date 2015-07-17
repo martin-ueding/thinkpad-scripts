@@ -54,8 +54,10 @@ def set_volume(loudness):
 
     :param str loudness: Loudness value as string with percent
     '''
+    sinks = get_pulseaudio_sinks()
+    for sink in sinks:
+        tps.check_call(['pactl', 'set-sink-volume', sink, loudness], logger)
 
-    tps.check_call(['pactl', 'set-sink-volume', '0', loudness], logger)
 
 def main_mutemic():
     '''
