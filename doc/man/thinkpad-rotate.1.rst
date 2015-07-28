@@ -124,8 +124,8 @@ You can set the following option:
 
 ``touch.regex``
     Regular expression to match Wacom devices against. If your devices do not
-    start with ``Wacom ISD``, change this appropriately. *Default:* ``Wacom
-    ISD.*id: (\d+).*``
+    start with ``Wacom ISD``, change this appropriately.
+    *Default:* ``Wacom ISD.*id=(\d+)``
 
 ``unity.toggle_launcher``
     The Unity Launcher on the left side is only shown if you excert pressure

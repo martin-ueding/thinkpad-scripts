@@ -44,7 +44,7 @@ the necessary configuration parameters:
     touchscreen_device = Serial Wacom Tablet touch
 
     [touch]
-    regex = Serial Wacom Tablet.*id: (\d+).*
+    regex = Serial Wacom Tablet.*id=(\d+)
 
 Lenovo Thinkpad X220 & Lenovo Thinkpad X220 Tablet
 --------------------------------------------------
