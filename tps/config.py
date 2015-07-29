@@ -27,6 +27,7 @@ CONFIGFILE = os.path.expanduser('~/.config/thinkpad-scripts/config.ini')
 
 logger = logging.getLogger(__name__)
 
+
 def get_config():
     '''
     Loads the config from the config files.
@@ -48,6 +49,7 @@ def get_config():
 
     return config
 
+
 def print_config(config):
     '''
     Pretty prints config with colors.
@@ -62,6 +64,7 @@ def print_config(config):
             print('{} = {}'.format(key, config[section][key]))
 
         print()
+
 
 def migrate_shell_config():
     '''
@@ -108,6 +111,7 @@ def migrate_shell_config():
         with open(CONFIGFILE, 'w') as handle:
             config.write(handle)
 
+
 def interpret_shell_line(line, config):
     '''
     Interprets a single Bash line to parse for variable assignments.
@@ -147,7 +151,7 @@ def interpret_shell_line(line, config):
     matcher = re.match(r'([^=]+)=(.*)$', line)
     if matcher:
         option = matcher.group(1)
-        if not option in known_options:
+        if option not in known_options:
             raise ShellParseException(
                 'Cannot parse “{}”: Not a known option'.format(line))
 
@@ -170,9 +174,10 @@ def interpret_shell_line(line, config):
         print(option, '->', argument)
 
         section, subsection = known_options[option]
-        if not section in config:
+        if section not in config:
             config[section] = {}
         config[section][subsection] = argument
+
 
 def set_up_logging(verbosity):
     '''
@@ -184,7 +189,7 @@ def set_up_logging(verbosity):
 
     The ``address`` parameter for the syslog is taken from an answer from `dr
     jimbob`__.
-    
+
     __ http://stackoverflow.com/a/3969772
     '''
     if verbosity == 1:
@@ -222,6 +227,7 @@ class ShellParseException(Exception):
     '''
     pass
 
+
 def main():
     '''
     Command line entry point.
@@ -229,6 +235,7 @@ def main():
     :returns: None
     '''
     print_config(get_config())
+
 
 if __name__ == '__main__':
     main()

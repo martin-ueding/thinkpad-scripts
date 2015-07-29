@@ -18,6 +18,7 @@ import tps.vkeyboard
 
 logger = logging.getLogger(__name__)
 
+
 def main():
     '''
     Entry point for ``thinkpad-rotate``.
@@ -43,6 +44,7 @@ def main():
 
     rotate_to(new_direction, config)
 
+
 def rotate_to(direction, config):
     '''
     Performs all steps needed for a screen rotation.
@@ -50,7 +52,8 @@ def rotate_to(direction, config):
     tps.hooks.prerotate(direction, config)
 
     tps.screen.rotate(config['screen']['internal'], direction)
-    tps.input.map_rotate_all_input_devices(config['screen']['internal'], direction)
+    tps.input.map_rotate_all_input_devices(config['screen']['internal'],
+                                           direction)
 
     if config['rotate'].getboolean('subpixels'):
         if config['rotate'].getboolean('subpixels_with_external') \
@@ -85,6 +88,7 @@ def rotate_to(direction, config):
 
     tps.hooks.postrotate(direction, config)
 
+
 def new_rotation(current, desired_str, config):
     '''
     Determines the new rotation based on desired and current one.
@@ -100,7 +104,8 @@ def new_rotation(current, desired_str, config):
         desired = tps.translate_direction(desired_str)
         if desired == current:
             new = tps.NORMAL
-            logger.info('You try to rotate into the direction it is, reverting to normal.')
+            logger.info('You try to rotate into the direction it is, '
+                        'reverting to normal.')
         else:
             new = desired
             logger.info('User chose to set to {}'.format(new))
@@ -119,7 +124,8 @@ def xrandr_bug_workaround(config):
 
     externals = tps.screen.get_externals(config['screen']['internal'])
     if (len(externals) == 0):
-        logger.warning('Aborting since there are no external screens attached and XRandr bug workout is enabled.')
+        logger.warning('Aborting since there are no external screens attached '
+                       'and XRandr bug workout is enabled.')
         sys.exit(1)
 
 
@@ -145,6 +151,7 @@ def _parse_args():
     tps.config.set_up_logging(options.verbose)
 
     return options
+
 
 if __name__ == "__main__":
     main()

@@ -26,8 +26,6 @@ proliferation of various names, this class holds the differing names. The
 module provides constants which have to be used within :mod:`tps`.
 '''
 
-#Direction.__repr__ = lambda d: d.xrandr
-
 LEFT = Direction('left', 'vrgb', True, [0, -1, 1,
                                         1, 0, 0,
                                         0, 0, 1])
@@ -55,10 +53,12 @@ TABLET_NORMAL = Direction('normal', 'rgb', True, [1, 0, 0,
 
 logger = logging.getLogger(__name__)
 
+
 class UnknownDirectionException(Exception):
     '''
     Unknown direction given at the command line.
     '''
+
 
 def translate_direction(direction):
     '''
@@ -84,11 +84,13 @@ def translate_direction(direction):
         result = TABLET_NORMAL
 
     else:
-        raise UnknownDirectionException('Direction “{}” cannot be understood.'.format(direction))
+        raise UnknownDirectionException(
+            'Direction “{}” cannot be understood.'.format(direction))
 
     logger.debug('Converted “{}” to “{}”.'.format(direction, result))
 
     return result
+
 
 def has_program(command):
     '''
@@ -117,6 +119,7 @@ def has_program(command):
     logger.debug('Command “{}” not found.'.format(command))
     return False
 
+
 def print_command_decorate(function):
     '''
     Decorates a func from the subprocess module to log the `command` parameter.
@@ -134,15 +137,18 @@ def print_command_decorate(function):
         return function(command, *args, **kwargs)
     return wrapper
 
+
 def assert_python3():
     '''
     Asserts that this is running with Python 3
     '''
     assert sys.version_info >= (3, 0), 'You need Python 3 to run this!'
 
+
 check_call = print_command_decorate(subprocess.check_call)
 call = print_command_decorate(subprocess.call)
 check_output = print_command_decorate(subprocess.check_output)
+
 
 if __name__ == '__main__':
     assert_python3()

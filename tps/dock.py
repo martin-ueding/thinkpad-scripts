@@ -24,6 +24,7 @@ import tps.sound
 
 logger = logging.getLogger(__name__)
 
+
 def is_docked():
     '''
     Determines whether the laptop is on a docking station.
@@ -43,6 +44,7 @@ def is_docked():
                 return True
     logger.info('No docking station found.')
     return False
+
 
 def select_docking_screens(internal, primary='', secondary=''):
     '''
@@ -100,6 +102,7 @@ def select_docking_screens(internal, primary='', secondary=''):
                            'connected.'.format(screen))
     return screens[0], screens[1] if len(screens) > 1 else None, screens[2:]
 
+
 def dock(on, config):
     '''
     Performs the makroscopic docking action.
@@ -122,7 +125,8 @@ def dock(on, config):
             config['screen']['internal'], config['screen']['primary'],
             config['screen']['secondary'])
 
-        logger.debug('primary: %s, secondary: %s, others: %s', str(primary), str(secondary), str(others))
+        logger.debug('primary: %s, secondary: %s, others: %s', str(primary),
+                     str(secondary), str(others))
         if secondary is None:
             # This is the only screen.
             tps.screen.enable(primary, primary=True)
@@ -138,12 +142,13 @@ def dock(on, config):
             # Enable the primary screen.
             tps.screen.enable(primary)
             # Need to call this separately to work around bugs in xrandr/X11.
-            tps.screen.enable(primary, primary=True,
-                              position=(config['screen']['relative_position'],
-                                        secondary))
+            tps.screen.enable(
+                primary, primary=True,
+                position=(config['screen']['relative_position'], secondary))
 
             if not config['screen'].getboolean('internal_docked_on'):
-                logger.info('Internal screen is supposed to be off when docked, turning it off.')
+                logger.info('Internal screen is supposed to be off when '
+                            'docked, turning it off.')
                 tps.screen.disable(config['screen']['internal'])
 
         if config['network'].getboolean('disable_wifi') \
@@ -197,6 +202,7 @@ def dock(on, config):
 
     tps.hooks.postdock(on, config)
 
+
 def main():
     '''
     Command line entry point.
@@ -212,12 +218,14 @@ def main():
     elif options.state is None:
         desired = is_docked()
     else:
-        logging.error('Desired state “%s” cannot be understood.', options.state)
+        logging.error('Desired state “%s” cannot be understood.',
+                      options.state)
         sys.exit(1)
 
     logger.info('Desired is {}'.format(desired))
 
     dock(desired, config)
+
 
 def _parse_args():
     """
@@ -240,6 +248,7 @@ def _parse_args():
     tps.config.set_up_logging(options.verbose)
 
     return options
+
 
 if __name__ == '__main__':
     main()

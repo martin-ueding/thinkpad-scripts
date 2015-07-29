@@ -20,6 +20,7 @@ import tps.config
 
 logger = logging.getLogger(__name__)
 
+
 def prerotate(direction, config):
     '''
     Executes prerotate hook if it exists.
@@ -31,6 +32,7 @@ def prerotate(direction, config):
     hook = os.path.expanduser(config['hooks']['prerotate'])
     if tps.has_program(hook):
         tps.call([hook, direction.xrandr], logger)
+
 
 def postrotate(direction, config):
     '''
@@ -44,6 +46,7 @@ def postrotate(direction, config):
     if tps.has_program(hook):
         tps.call([hook, direction.xrandr], logger)
 
+
 def predock(state, config):
     '''
     Executes predock hook if it exists.
@@ -55,6 +58,7 @@ def predock(state, config):
     hook = os.path.expanduser(config['hooks']['predock'])
     if tps.has_program(hook):
         tps.call([hook, 'on' if state else 'off'], logger)
+
 
 def postdock(state, config):
     '''
@@ -68,6 +72,7 @@ def postdock(state, config):
     if tps.has_program(hook):
         tps.call([hook, 'on' if state else 'off'], logger)
 
+
 def get_graphicsl_user():
     pattern = re.compile(r'\(:0(\.0)?\)')
 
@@ -77,6 +82,7 @@ def get_graphicsl_user():
         if m:
             words = line.split()
             return words[0]
+
 
 def main_rotate_hook():
     '''
@@ -113,6 +119,7 @@ def main_rotate_hook():
         'env', 'DISPLAY=:0.0',
         '/usr/bin/thinkpad-rotate', set_to, '--via-hook',
     ], logger)
+
 
 def main_dock_hook():
     '''

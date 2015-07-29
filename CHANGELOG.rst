@@ -4,6 +4,15 @@
 Changelog
 #########
 
+v4.4.1
+    Released: 2015-07-29 08:23:28 +0200
+
+    - Check list of PulseAudio devices to get sound settings right.
+      (Contributed by Jannis Stoppe, thank you!)
+    - Update regular expressions for ``xinput``. We have been using the ones
+      for ``xsetwacom`` until now. Since we have switched to ``xinput`` in
+      version 4.2.3, this should fix bugs since then.
+
 v4.4.0
     Released: 2015-05-09 10:51:34 +0200
 
