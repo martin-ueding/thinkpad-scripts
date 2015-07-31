@@ -99,21 +99,37 @@ def _get_pgrep():
     return uid_str
 
 
-def _is_loginctl_user_active(user):
+def _try_get_graphical_user(session):
     '''
-    Determined whether a user has an active login using ``loginctl``.
+    Returns username for graphical sessions, ``None`` otherwise.
 
-    :rtype: bool
+    :param str session: Session ID
+    :rtype: str or None
     '''
-    output = tps.check_output(['loginctl', 'show-user', user, '--property=State'], logger)
-    line = output.decode().strip()
+    def prop_getter(prop):
+        output = tps.check_output(['loginctl', 'show-session', session, '--property='+prop], logger)
+        line = output.decode().strip()
+        return line[len(prop) + 1:]
 
-    return line == 'State=active'
+    user = prop_getter('Name')
+    active = prop_getter('Active')
+    class_ = prop_getter('Class')
+    type_ = prop_getter('Type')
+
+    logger.debug(
+        'Session %s has user `%s`, active `%s`, class `%s`, type `%s`.',
+        session, user, active, class_, type_)
+
+    if active == 'yes' and class_ == 'user' and type_ == 'x11':
+        return user
+    else:
+        return None
 
 
-def _loginctl_seat_users():
+
+def _loginctl_sessions():
     '''
-    Retrieves list of users having sessions.
+    Retrieves list of sessions.
 
     :rtype: list of str
     '''
@@ -122,28 +138,31 @@ def _loginctl_seat_users():
 
     pattern = re.compile(r'(?P<session>\d+)\s*(?P<uid>\d+)\s*(?P<user>\S+)\s*(?P<seat>\S+)')
 
-    users = []
+    sessions = []
 
     for line in lines:
         matcher = pattern.search(line)
         if matcher:
             group_dict = matcher.groupdict()
-            users.append(group_dict['user'])
+            sessions.append(group_dict['session'])
 
-    return list(set(users))
+    unique = list(set(sessions))
+    logger.debug('Unique session ids: %s', repr(unique))
+    return unique
 
 
 def _get_loginctl():
     '''
     Get the currently logged in user by asking ``loginctl``.
     '''
-    users = _loginctl_seat_users()
-    active = [user for user in users if _is_loginctl_user_active(user)]
+    sessions = _loginctl_sessions()
+    try_users = [_try_get_graphical_user(session) for session in sessions]
+    users = [user for user in try_users if user is not None]
 
-    if len(active) == 1:
-        return active[0]
+    if len(users) == 1:
+        return users[0]
     else:
-        logging.debug('Users determined active by loginctl are: %s', ', '.join(active))
+        logging.debug('Users determined active by loginctl are: %s', repr(users))
         return None
 
 

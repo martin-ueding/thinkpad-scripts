@@ -132,6 +132,7 @@ def main_dock_hook():
     options = parser.parse_args()
     tps.config.set_up_logging(options.verbose)
 
+    # TODO Maybe get the display ID from loginctl as well?
     tps.check_call([
         'sudo', '-u', get_graphicsl_user(), '-i',
         'env', 'DISPLAY=:0.0',
