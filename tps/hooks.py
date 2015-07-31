@@ -74,60 +74,6 @@ def postdock(state, config):
         tps.call([hook, 'on' if state else 'off'], logger)
 
 
-def get_graphicsl_user():
-    '''
-    Get the currently logged in user.
-
-    First it will try ``who -u`` and parse the output. Since this does not give
-    a result in every case (see GH-107__), we also use ``pgrep`` to search for
-    the user of the currently running instance of X.org.
-
-    __ https://github.com/martin-ueding/thinkpad-scripts/issues/107
-    '''
-    #pattern = re.compile(r'\(:0(\.0)?\)')
-
-    #lines = tps.check_output(['who', '-u'], logger).decode().split('\n')
-    #for line in lines:
-    #    m = pattern.search(line)
-    #    if m:
-    #        words = line.split()
-    #        return words[0]
-
-
-    # We reached this point without returning yet. Therefore `who -u` did not
-    # yield any usable result. We will have to make another try to guess the
-    # currently logged in user. See GH-107 for more details.
-
-    pgrep_output = tps.check_output([
-        'pgrep', '-f',
-        r'^/usr/(local/)?(bin|lib)/([^[:blank:]]+/)?(Xorg|X)([[:blank:]]+|$)'],
-        logger)
-    pids = pgrep_output.decode().strip().split()
-
-    logger.debug('pgrep gave PIDs: %s', ', '.join(pids))
-
-    if len(pids) > 1:
-        logger.error('There are two instances of X.org running. I cannot '
-                     'decide which is the user which should have the script '
-                     'executed on behalf. PIDs are %s', ', '.join(pids))
-        sys.exit(1)
-
-    if len(pids) == 0:
-        logger.error('No X.org seems to be running.')
-        sys.exit(1)
-
-    ps_output = tps.check_output(['ps', '--no-headers', '--format=ruser',
-                                 pids[0]], logger)
-    uid_str = ps_output.decode().strip()
-
-    if uid_str == 'root':
-        logger.error('X server is running as root. User cannot be determined this way.')
-        sys.exit(1)
-
-    return uid_str
-
-
-
 def main_rotate_hook():
     '''
     Entry point for ``thinkpad-rotate-hook``.
@@ -158,8 +104,14 @@ def main_rotate_hook():
         logger.error('Unexpected keycode %s given in rotate-hook', key)
         sys.exit(1)
 
+    user = tps.graphicaluser.get()
+
+    if user is None:
+        logger.error('No sensible graphical user was given. Aborting this hook.')
+        sys.exit(1)
+
     tps.check_call([
-        'sudo', '-u', get_graphicsl_user(), '-i',
+        'sudo', '-u', user, '-i',
         'env', 'DISPLAY=:0.0',
         '/usr/bin/thinkpad-rotate', set_to, '--via-hook',
     ], logger)
@@ -185,6 +137,3 @@ def main_dock_hook():
         'env', 'DISPLAY=:0.0',
         '/usr/bin/thinkpad-dock', options.action
     ], logger)
-
-if __name__ == '__main__':
-    print(get_graphicsl_user())
