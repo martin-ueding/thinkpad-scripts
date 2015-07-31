@@ -23,4 +23,5 @@ This then goes into an ACPI hook file like so:
     action=/usr/bin/thinkpad-rotate-hook %e
 
 If you give us the output of ``acpi_listen``, we can try to get the hardware
-event working for you.
+event working for you. The hook in ``tps/hooks.py`` needs to be made aware of
+the hardware keys as well in order to decide which action to take.
