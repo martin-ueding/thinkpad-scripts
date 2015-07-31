@@ -29,8 +29,8 @@ def get():
     until a sensible result is found.
     '''
     methods = [
-        _get_pgrep,
         _get_who,
+        _get_pgrep,
     ]
 
     for method in methods:
