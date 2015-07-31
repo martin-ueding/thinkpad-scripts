@@ -120,6 +120,10 @@ def get_graphicsl_user():
                                  pids[0]], logger)
     uid_str = ps_output.decode().strip()
 
+    if uid_str == 'root':
+        logger.error('X server is running as root. User cannot be determined this way.')
+        sys.exit(1)
+
     return uid_str
 
 
