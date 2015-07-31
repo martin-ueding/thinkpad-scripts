@@ -100,31 +100,44 @@ def _get_pgrep():
 
 
 def _is_loginctl_user_active(user):
+    '''
+    Determined whether a user has an active login using ``loginctl``.
+
+    :rtype: bool
+    '''
     output = tps.check_output(['loginctl', 'show-user', user, '--property=State'], logger)
     line = output.decode().strip()
 
     return line == 'State=active'
 
 
-def _loginctl_users():
-    output = tps.check_output(['loginctl', 'list-users', '--no-legend'], logger)
+def _loginctl_seat_users():
+    '''
+    Retrieves list of users having sessions.
+
+    :rtype: list of str
+    '''
+    output = tps.check_output(['loginctl', 'list-sessions', '--no-legend'], logger)
     lines = output.decode().split('\n')
 
-    uid_name_pattern = re.compile(r'(?P<uid>\d+)\s*(?P<name>\S+)')
+    pattern = re.compile(r'(?P<session>\d+)\s*(?P<uid>\d+)\s*(?P<user>\S+)\s*(?P<seat>\S+)')
 
     users = []
 
     for line in lines:
-        matcher = uid_name_pattern.search(line)
+        matcher = pattern.search(line)
         if matcher:
             group_dict = matcher.groupdict()
-            users.append(group_dict['name'])
+            users.append(group_dict['user'])
 
-    return users
+    return list(set(users))
 
 
 def _get_loginctl():
-    users = _loginctl_users()
+    '''
+    Get the currently logged in user by asking ``loginctl``.
+    '''
+    users = _loginctl_seat_users()
     active = [user for user in users if _is_loginctl_user_active(user)]
 
     if len(active) == 1:
@@ -136,4 +149,4 @@ def _get_loginctl():
 
 if __name__ == '__main__':
     tps.config.set_up_logging(2)
-    print(get())
+    print('Active user:', get())
