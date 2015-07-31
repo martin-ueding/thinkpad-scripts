@@ -28,7 +28,10 @@ def get():
     This uses the various methods implemented in this module automatically
     until a sensible result is found.
     '''
-    methods = [_get_who, _get_pgrep]
+    methods = [
+        _get_pgrep,
+        _get_who,
+    ]
 
     for method in methods:
         result = method()
@@ -51,6 +54,7 @@ def _get_who():
             words = line.split()
             return words[0]
 
+    logger.warning('Could not determine user with `who -u`.')
     return None
 
 
@@ -73,13 +77,13 @@ def _get_pgrep():
     logger.debug('pgrep gave PIDs: %s', ', '.join(pids))
 
     if len(pids) > 1:
-        logger.error('There are two instances of X.org running. I cannot '
-                     'decide which is the user which should have the script '
-                     'executed on behalf. PIDs are %s', ', '.join(pids))
+        logger.warning('There are two instances of X.org running. I cannot '
+                       'decide which is the user which should have the script '
+                       'executed on behalf. PIDs are %s', ', '.join(pids))
         return None
 
     if len(pids) == 0:
-        logger.error('No X.org seems to be running.')
+        logger.warning('No X.org seems to be running.')
         return None
 
     ps_output = tps.check_output(['ps', '--no-headers', '--format=euser',
@@ -87,7 +91,7 @@ def _get_pgrep():
     uid_str = ps_output.decode().strip()
 
     if uid_str == 'root':
-        logger.error('X server is running as root. User cannot be determined this way.')
+        logger.warning('X server is running as root. User cannot be determined this way.')
         return None
 
     return uid_str
