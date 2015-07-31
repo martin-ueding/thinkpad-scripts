@@ -179,8 +179,8 @@ def get_resolution_and_shift(output):
     3286×1080 and the position of the internal screen is 1366×768+1920+0. This
     allows to compute the transformation matrix for this.
     '''
-    output = tps.check_output(['xrandr', '-q'], logger).strip().decode()
-    lines = output.split('\n')
+    xrandr_output = tps.check_output(['xrandr', '-q'], logger).strip().decode()
+    lines = xrandr_output.split('\n')
 
     pattern_output = re.compile(r'''
                                 {}

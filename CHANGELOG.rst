@@ -4,6 +4,13 @@
 Changelog
 #########
 
+v4.4.2
+    Released: 2015-07-31 15:14:59 +0200
+
+    - Fix error in docking. I have broken it by assigning a temporary to a
+      variable ``output`` which also happened to be the function argument.
+      Sorry. I wish I had ``const`` in Python :-/.
+
 v4.4.1
     Released: 2015-07-29 08:23:28 +0200
 
