@@ -159,6 +159,8 @@ def needs_xrandr_bug_workaround(config):
     if not config['rotate'].getboolean('xrandr_bug_workaround'):
         return False
 
+    logger.debug('xrandr bug workaround requested')
+
     # Do nothing if an external screen is attached. The bug does not appear
     # then.
     if has_external_screens(config):
