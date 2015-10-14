@@ -86,7 +86,7 @@ def rotate_to(direction, config):
         logger.info('TouchPad was not found, could not be (de)activated.')
         logger.debug('Exception was: “%s”', str(e))
 
-    if config['rotate'].getboolean('xrandr_bug_workaround') and can_use_chvt():
+    if needs_xrandr_bug_workaround(config) and can_use_chvt():
         toggle_virtual_terminal()
 
     tps.hooks.postrotate(direction, config)
@@ -129,13 +129,6 @@ def can_use_chvt():
 
 def toggle_virtual_terminal():
     '''
-    XRandr has a `bug in Ubuntu`__, maybe even in other distributions. In
-    Ubuntu 15.04 a workaround is to change the virtual terminal to a different
-    one and back to the seventh, the graphical one. This can be automated using
-    the ``chvt`` command which requires superuser privileges. An entry in the
-    sudo file can let the normal user execute this program.
-
-    __ https://bugs.launchpad.net/ubuntu/+source/x11-xserver-utils/+bug/1451798
     '''
     assert can_use_chvt()
     tps.check_call(['sudo', '-n', 'chvt', '6'], logger)
@@ -150,30 +143,38 @@ def has_external_screens(config):
     return len(externals) > 0
 
 
-def xrandr_bug_fail_early(config):
+def needs_xrandr_bug_workaround(config):
     '''
-    Quits the program if xrandr bug cannot be coped with.
+    Determines whether xrandr bug needs to be worked around.
 
-    Abort the program if no external screen is attached and ``chvt`` workaround
-    does not work. In case the workaround is not enabled in the configuration,
-    this program does nothing.
+    XRandr has a `bug in Ubuntu`__, maybe even in other distributions. In
+    Ubuntu 15.04 a workaround is to change the virtual terminal to a different
+    one and back to the seventh, the graphical one. This can be automated using
+    the ``chvt`` command which requires superuser privileges. An entry in the
+    sudo file can let the normal user execute this program.
+
+    __ https://bugs.launchpad.net/ubuntu/+source/x11-xserver-utils/+bug/1451798
     '''
     # Do nothing if workaround is not requested.
     if not config['rotate'].getboolean('xrandr_bug_workaround'):
-        return
-
-    # Do nothing if ``chvt`` can be called.
-    if not can_use_chvt():
-        return
+        return False
 
     # Do nothing if an external screen is attached. The bug does not appear
     # then.
     if has_external_screens(config):
-        return
+        return False
 
-    logger.warning('Aborting since there are no external screens attached '
-                   'and XRandr bug workaround is enabled.')
-    sys.exit(1)
+    return True
+
+
+def xrandr_bug_fail_early(config):
+    '''
+    Quits the program if xrandr bug cannot be coped with.
+    '''
+    if needs_xrandr_bug_workaround(config) and not can_use_chvt():
+        logger.warning('Aborting since there are no external screens attached '
+                       'and XRandr bug workaround is enabled.')
+        sys.exit(1)
 
 
 def _parse_args():
