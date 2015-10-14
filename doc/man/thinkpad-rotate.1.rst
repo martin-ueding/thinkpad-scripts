@@ -119,11 +119,11 @@ You can set the following option:
     do anything. A workaround is to go to another terminal with [Ctrl][Alt][F1]
     and back to the graphical one with [Ctrl][Alt][F7].
 
-    That can be automated with ``chvt`` such that the hook will work in a
-    useful way for users with that XRandr bug. However, this program needs
-    superuser privileges. One can use ``sudo`` to allow oneself to call this
-    program without a password entry. Add the following line in a file like
-    ``/etc/sudoers.d/chvt``::
+    As contributed by Cody Christensen, that can be automated with ``chvt``.
+    This way the hook will work in a useful way for users with that XRandr bug.
+    However, this program needs superuser privileges. One can use ``sudo`` to
+    allow oneself to call this program without a password entry. Add the
+    following line in a file like ``/etc/sudoers.d/chvt``::
 
         myuser  ALL = NOPASSWD: /bin/chvt
 
