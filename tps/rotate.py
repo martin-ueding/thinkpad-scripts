@@ -119,12 +119,28 @@ def can_use_chvt():
     '''
     Checks whether ``chvt`` can be called with ``sudo`` without a password.
 
+    The ``sudo`` command has the ``-n`` option which will just make the command
+    fail when the user does not have the appropriate permissions. The problem
+    with ``chvt`` is that it does not have any intelligent command line
+    argument parsing. If will return code 1 if no argument is given, the same
+    code that ``sudo`` gives when no permission is available. Therefore I chose
+    to use ``sudo -l` to get the whole list and see whether the full path to
+    ``chvt`` is in there. This might break on Fedora where the ``usr``-merge
+    has been done now.
+
+    The following line is needed in a file like ``/etc/sudoers.d/chvt``::
+
+        myuser  ALL = NOPASSWD: /bin/chvt
+
+    You have to replace ``myuser`` which your username. Giving too broad
+    permissions to every other user account is probably not a good idea.
+
     :rtype: bool
     '''
-    command = ['sudo', '-n', 'chvt']
-    returncode = tps.call(command, logger)
+    command = ['sudo', '-l']
+    output = tps.check_output(command, logger)
 
-    return returncode == 0
+    return b'/bin/chvt' in output
 
 
 def toggle_virtual_terminal():
