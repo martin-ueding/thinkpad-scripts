@@ -142,6 +142,14 @@ def toggle_virtual_terminal():
     tps.check_call(['sudo', '-n', 'chvt', '7'], logger)
 
 
+def has_external_screens(config):
+    '''
+    Checks whether any external screens are attached.
+    '''
+    externals = tps.screen.get_externals(config['screen']['internal'])
+    return len(externals) > 0
+
+
 def xrandr_bug_fail_early(config):
     '''
     Quits the program if xrandr bug cannot be coped with.
@@ -158,11 +166,14 @@ def xrandr_bug_fail_early(config):
     if not can_use_chvt():
         return
 
-    externals = tps.screen.get_externals(config['screen']['internal'])
-    if (len(externals) == 0):
-        logger.warning('Aborting since there are no external screens attached '
-                       'and XRandr bug workout is enabled.')
-        sys.exit(1)
+    # Do nothing if an external screen is attached. The bug does not appear
+    # then.
+    if has_external_screens(config):
+        return
+
+    logger.warning('Aborting since there are no external screens attached '
+                   'and XRandr bug workaround is enabled.')
+    sys.exit(1)
 
 
 def _parse_args():
