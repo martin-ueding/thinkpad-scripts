@@ -211,6 +211,7 @@ def _parse_args():
                         help='Enable verbose output. Can be supplied multiple '
                              'times for even more verbosity.')
     parser.add_argument('--via-hook', action='store_true')
+    parser.add_argument('--force-direction', action='store_true', help='Do not try to be smart. Actually rotate in the direction given even it already is the case.')
 
     options = parser.parse_args()
 
