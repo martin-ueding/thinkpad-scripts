@@ -110,6 +110,14 @@ the ``thinkpad-scripts-config-migrate`` script that was introduced in version
 
 You can set the following option:
 
+``hooks.postrotate``
+    Executable file to run after rotation.
+    *Default: ~/.config/thinkpad-scripts/hooks/postrotate*
+
+``hooks.prerotate``
+    Executable file to run before rotation.
+    *Default: ~/.config/thinkpad-scripts/hooks/prerotate*
+
 ``rotate.default_rotation``
     Default rotation if device is in normal rotation and no arguments are
     given. *Default: right*
