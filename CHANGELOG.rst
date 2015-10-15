@@ -4,6 +4,11 @@
 Changelog
 #########
 
+v4.5.0
+    Released: 2015-10-15 16:50:57 +0200
+
+    - Add ``chvt`` workaround as suggested by Cody Christensen.
+
 v4.4.2
     Released: 2015-07-31 15:14:59 +0200
 
