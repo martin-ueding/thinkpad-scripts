@@ -43,7 +43,7 @@ screen.
 Options
 =======
 
-direction
+``direction``
     The direction can be any of:
 
     - ccw
@@ -58,6 +58,19 @@ direction
     Since the Wacom tools and ``xrandr`` have different names, this program
     accepts all of them, so that you do not have to learn yet another set of
     directions.
+
+``-v``
+    Enable verbose output. Can be supplied multiple times for even more
+    verbosity.
+
+``--via-hook``
+    Let the program know that it was called using the hook. This will then
+    enable some workarounds. You do not need to care about this.
+
+``--force-direction``
+    Do not try to be smart. Actually rotate in the direction given even it
+    already is the case.
+
 
 Exit Status
 ===========
