@@ -25,6 +25,7 @@ def main():
     '''
     options = _parse_args()
 
+
     config = tps.config.get_config()
 
     if options.via_hook:
@@ -33,7 +34,7 @@ def main():
     try:
         new_direction = new_rotation(
             tps.screen.get_rotation(config['screen']['internal']),
-            options.direction, config)
+            options.direction, config, options.force_direction)
     except tps.UnknownDirectionException:
         logger.error('Direction cannot be understood.')
         sys.exit(1)
@@ -92,9 +93,13 @@ def rotate_to(direction, config):
     tps.hooks.postrotate(direction, config)
 
 
-def new_rotation(current, desired_str, config):
+def new_rotation(current, desired_str, config, force=False):
     '''
     Determines the new rotation based on desired and current one.
+
+    :param bool force: If set the function does not try to be too clever but
+    just uses the rotation given. If no rotation is given in ``desired_str``,
+    it still uses the default from the configuration.
     '''
     if desired_str is None:
         if not current.physically_closed:
@@ -105,13 +110,14 @@ def new_rotation(current, desired_str, config):
             logger.info('Using default, setting to {}'.format(new))
     else:
         desired = tps.translate_direction(desired_str)
-        if desired == current:
+        if desired == current and not force:
             new = tps.NORMAL
             logger.info('You try to rotate into the direction it is, '
                         'reverting to normal.')
         else:
             new = desired
             logger.info('User chose to set to {}'.format(new))
+
     return new
 
 
@@ -210,7 +216,8 @@ def _parse_args():
     parser.add_argument("-v", dest='verbose', action="count",
                         help='Enable verbose output. Can be supplied multiple '
                              'times for even more verbosity.')
-    parser.add_argument('--via-hook', action='store_true')
+    parser.add_argument('--via-hook', action='store_true', help='Let the program know that it was called using the hook. This will then enable some workarounds. You do not need to care about this.')
+    parser.add_argument('--force-direction', action='store_true', help='Do not try to be smart. Actually rotate in the direction given even it already is the case.')
 
     options = parser.parse_args()
 
