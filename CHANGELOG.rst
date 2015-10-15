@@ -4,6 +4,17 @@
 Changelog
 #########
 
+v4.6.0
+    Released: 2015-10-15 20:30:31 +0200
+
+    - Add a ``--force-direction`` command line option for ``thinkpad-rotate``
+      such that this can be used in a script. When starting up the computer an
+      autostart entry like ::
+
+          thinkpad-rotate --force-direction normal
+
+      could be very handy to normalize the setup.
+
 v4.5.0
     Released: 2015-10-15 16:50:57 +0200
 
