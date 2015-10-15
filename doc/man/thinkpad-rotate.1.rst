@@ -110,14 +110,37 @@ You can set the following option:
 
 ``rotate.xrandr_bug_workaround``
     On Ubuntu 15.04, XRandr has `a bug`__ which turns the screen black when
-    rotating with no external screen attached. If you set this to ``true``, the
-    rotate hook will only act when an external screen is attached. In the cases
-    you want to rotate the screen without external screens do the following:
-    Call ``thinkpad-rotate``, the screen will turn black. Then go to another
-    terminal with [Ctrl][Alt][F1] and back to the graphical one with
-    [Ctrl][Alt][F7]. *Default: false*.
+    rotating with no external screen attached.
 
     __ https://bugs.launchpad.net/ubuntu/+source/x11-xserver-utils/+bug/1451798
+
+    This is problematic when the rotation is executed from a hardware event
+    hook. Then the screen is physically laying on the keyboard and one cannot
+    do anything. A workaround is to go to another terminal with [Ctrl][Alt][F1]
+    and back to the graphical one with [Ctrl][Alt][F7].
+
+    As contributed by Cody Christensen, that can be automated with ``chvt``.
+    This way the hook will work in a useful way for users with that XRandr bug.
+    However, this program needs superuser privileges. One can use ``sudo`` to
+    allow oneself to call this program without a password entry. Add the
+    following line in a file like ``/etc/sudoers.d/chvt``::
+
+        myuser  ALL = NOPASSWD: /bin/chvt
+
+    Replace ``myuser`` with your username! Then check with ``visudo -c``
+    whether the syntax is fine.
+
+    |project| can figure out whether this line is implemented by querying
+    ``sudo -l`` for a list of available commands with higher privileges. If you
+    set this option to ``true`` and the line is configured, it will call ``chvt
+    6; chvt 7`` after the rotation and before the hook.
+
+    If ``chvt`` cannot be used, the hook will be disabled by enabling this
+    option. That way you can manually rotate the contents of the display with
+    ``thinkpad-rotate``, press [Ctrl][Alt][F1] and [Ctrl][Alt][F7] and only
+    then physically rotate the screen. The hook will not fire and rotate back.
+
+    *Default: false*.
 
 ``screen.internal``
     The ``xrandr`` name for the internal monitor. *Default: LVDS1*
