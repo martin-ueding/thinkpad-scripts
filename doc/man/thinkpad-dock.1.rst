@@ -102,6 +102,10 @@ hierarchical, I will denote the options with a dot. The first one would be
 
 Those are the possible options:
 
+``gui.kdialog``
+    Please see the appropriate section in thinkpad-rotate(1), it has the same
+    option. *Default:*.
+
 ``hooks.postdock``
     Full path to postdock hook. *Default: ~/.config/thinkpad-scripts/hooks/postdock*
 
@@ -160,9 +164,9 @@ Those are the possible options:
 ``sound.undock_loudness``
     Volume to set to when undocking. *Default: 50%*.
 
-``gui.kdialog``
-    Please see the appropriate section in thinkpad-rotate(1), it has the same
-    option. *Default:*.
+``trigger.enable_dock``
+    Sets whether the docking should be executed by the hardware trigger.
+    *Default: true*.
 
 Hooks
 -----

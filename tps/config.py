@@ -207,7 +207,11 @@ def set_up_logging(verbosity):
     logging.basicConfig(level=console_log_level, format=console_format)
 
     if config['logging'].getboolean('syslog'):
-        syslog = logging.handlers.SysLogHandler(address='/dev/log')
+        kwargs = {}
+        dev_log = '/dev/log'
+        if os.path.exists(dev_log):
+            kwargs['address'] = dev_log
+        syslog = logging.handlers.SysLogHandler(**kwargs)
         syslog.setLevel(logging.DEBUG)
         formatter = logging.Formatter(syslog_format)
         syslog.setFormatter(formatter)

@@ -139,5 +139,5 @@ def main_dock_hook():
     tps.check_call([
         'sudo', '-u', get_graphicsl_user(), '-i',
         'env', 'DISPLAY=:0.0',
-        '/usr/bin/thinkpad-dock', options.action
+        '/usr/bin/thinkpad-dock', options.action, '--via-hook'
     ], logger)

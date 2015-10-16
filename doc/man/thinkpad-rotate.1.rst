@@ -166,6 +166,10 @@ You can set the following option:
 ``screen.internal``
     The ``xrandr`` name for the internal monitor. *Default: LVDS1*
 
+``trigger.enable_rotate``
+    Sets whether the rotation should be executed by the hardware trigger.
+    *Default: true*.
+
 ``touch.regex``
     Regular expression to match Wacom devices against. If your devices do not
     start with ``Wacom ISD``, change this appropriately.

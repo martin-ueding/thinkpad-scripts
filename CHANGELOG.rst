@@ -4,6 +4,14 @@
 Changelog
 #########
 
+v4.7.0
+    Released: 2015-10-16 10:10:16 +0200
+
+    - Add configuration option to disable the rotate and dock hook
+      individually.
+    - In cases where ``/dev/log`` does not exist, it will use standard UDP to
+      connect to the log.
+
 v4.6.0
     Released: 2015-10-15 20:30:31 +0200
 
