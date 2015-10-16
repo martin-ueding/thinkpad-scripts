@@ -27,8 +27,8 @@ def main():
 
     config = tps.config.get_config()
 
-    # Quickly abort if the call is by the hook and the user disabled the hook.
-    if options.via_hook and not config['hooks'].getboolean('enable_rotate'):
+    # Quickly abort if the call is by the hook and the user disabled the trigger.
+    if options.via_hook and not config['trigger'].getboolean('enable_rotate'):
         sys.exit(0)
 
     if options.via_hook:
