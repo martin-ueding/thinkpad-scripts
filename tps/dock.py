@@ -211,6 +211,11 @@ def main():
     '''
     options = _parse_args()
     config = tps.config.get_config()
+
+    # Quickly abort if the call is by the hook and the user disabled the hook.
+    if options.via_hook and not config['hooks'].getboolean('enable_dock'):
+        sys.exit(0)
+
     if options.state == 'on':
         desired = True
     elif options.state == 'off':
@@ -242,6 +247,7 @@ def _parse_args():
     parser.add_argument("-v", dest='verbose', action="count",
                         help='Enable verbose output. Can be supplied multiple '
                              'times for even more verbosity.')
+    parser.add_argument('--via-hook', action='store_true', help='Let the program know that it was called using the hook. This will then enable some workarounds. You do not need to care about this.')
 
     options = parser.parse_args()
 

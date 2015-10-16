@@ -25,8 +25,11 @@ def main():
     '''
     options = _parse_args()
 
-
     config = tps.config.get_config()
+
+    # Quickly abort if the call is by the hook and the user disabled the hook.
+    if options.via_hook and not config['hooks'].getboolean('enable_rotate'):
+        sys.exit(0)
 
     if options.via_hook:
         xrandr_bug_fail_early(config)
