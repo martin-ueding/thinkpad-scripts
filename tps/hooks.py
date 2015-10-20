@@ -114,8 +114,13 @@ def main_rotate_hook():
         logger.error('Unexpected keycode %s given in rotate-hook', key)
         sys.exit(1)
 
+    user = get_graphicsl_user()
+    if user is None:
+        logger.warning('Unable to get graphical user. Ignoring trigger.')
+        sys.exit(0)
+
     tps.check_call([
-        'sudo', '-u', get_graphicsl_user(), '-i',
+        'sudo', '-u', user, '-i',
         'env', 'DISPLAY=:0.0',
         '/usr/bin/thinkpad-rotate', set_to, '--via-hook',
     ], logger)
@@ -136,8 +141,13 @@ def main_dock_hook():
     options = parser.parse_args()
     tps.config.set_up_logging(options.verbose)
 
+    user = get_graphicsl_user()
+    if user is None:
+        logger.warning('Unable to get graphical user. Ignoring trigger.')
+        sys.exit(0)
+
     tps.check_call([
-        'sudo', '-u', get_graphicsl_user(), '-i',
+        'sudo', '-u', user, '-i',
         'env', 'DISPLAY=:0.0',
         '/usr/bin/thinkpad-dock', options.action, '--via-hook'
     ], logger)
