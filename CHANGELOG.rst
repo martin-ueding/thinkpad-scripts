@@ -4,6 +4,14 @@
 Changelog
 #########
 
+v4.7.1
+    Released: 2015-10-20 17:14:26 +0200
+
+    - Fix errors caused by hooks at boot time. Hooks are sometimes executed at
+      boot when no user is logged in yet. This would cause error logs that are
+      just annoying for the user as he/she is greeted with crash reports. This
+      fixes GH-110 and GH-111.
+
 v4.7.0
     Released: 2015-10-16 10:10:16 +0200
 
