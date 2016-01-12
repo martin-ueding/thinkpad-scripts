@@ -127,7 +127,7 @@ def print_command_decorate(function):
     @functools.wraps(function)
     def wrapper(command, local_logger, *args, **kwargs):
         local_logger.debug('subprocess “{}”'.format(' '.join(command)))
-        kwargs['stderr'] = subprocess.STDOUT
+        #kwargs['stderr'] = subprocess.STDOUT
         return function(command, *args, **kwargs)
     return wrapper
 
