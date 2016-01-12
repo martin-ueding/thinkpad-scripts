@@ -1,0 +1,17 @@
+[Unit]
+Description=ThinkPad Rotate - automatic screen rotation using HDAPS accelerometer
+Documentation=man:thinkpad-scripts(8)
+Requires=display-manager.service
+After=display-manager.service
+
+[Service]
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/%i/.Xauthority
+Nice=-5
+ExecStart=/usr/bin/thinkpad-rotate -d -p /home/%i/.thinkpad-rotated.pid
+User=%i
+PIDFile=/home/%i/.thinkpad-rotated.pid
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

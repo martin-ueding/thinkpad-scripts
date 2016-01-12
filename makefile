@@ -20,14 +20,14 @@ common-install:
 	install -d "$(DESTDIR)/etc/acpi/events/"
 	install -m 644 acpid/thinkpad-scripts-mutemic -t "$(DESTDIR)/etc/acpi/events/"
 	install -m 644 acpid/thinkpad-scripts-rotate -t "$(DESTDIR)/etc/acpi/events/"
-	install -m 644 acpid/thinkpad-scripts-rotated-start -t "$(DESTDIR)/etc/acpi/events/"
-	install -m 644 acpid/thinkpad-scripts-rotated-stop -t "$(DESTDIR)/etc/acpi/events/"
+#	install -m 644 acpid/thinkpad-scripts-rotated-start -t "$(DESTDIR)/etc/acpi/events/"
+#	install -m 644 acpid/thinkpad-scripts-rotated-stop -t "$(DESTDIR)/etc/acpi/events/"
 	
 	install -d "$(DESTDIR)/etc/modules-load.d/"
 	install -m 644 modules-load.d/thinkpad-scripts.conf -t "$(DESTDIR)/etc/modules-load.d/"
 	
 	install -d "$(DESTDIR)/usr/lib/systemd/system/"
-	install -m 644 init/thinkpad-rotated -t "$(DESTDIR)/usr/lib/systemd/system/"
+	install -m 644 init/thinkpad-rotated@.service -t "$(DESTDIR)/usr/lib/systemd/system/"
 #
 	cd desktop && $(MAKE) install
 	cd doc && $(MAKE) install
@@ -46,12 +46,13 @@ install: common-install
 
 full-install: common-install
 	@if [[ -n "$(DESTDIR)" ]]; then echo; echo '==> DESTDIR is set, so you have to install this stepwise. See `doc/guides/getting-started.rst` or http://thinkpad-scripts.readthedocs.org/en/latest/guides/getting-started.html#build-manually for more information. <=='; false; fi
-	#
+
 	./setup.py install
 	udevadm hwdb --update
 	
 	if which systemctl &> /dev/null; then
 	    systemctl restart acpid;
+	    systemctl daemon-reload;
 	    systemctl enable thinkpad-rotated;
 	    systemctl start thinkpad-rotated
 	elif which service &> /dev/null; then

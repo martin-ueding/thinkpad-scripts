@@ -256,8 +256,6 @@ class Hdaps(object):
         @see: Tilt Sensing Using a Three-Axis Accelerometer by: Mark Pedle
         """
         dy, dx = self.getNormalizedPosition()
-        print(dy, dx, inverted)
-        
         if dx > 0.5 and abs(dy) < 0.4:
             return INVERTED if inverted else NORMAL
         elif dx < -0.5 and abs(dy) < 0.4:

@@ -44,7 +44,8 @@ def main():
             
         main_cmdline(options, config)
     else:
-        with DaemonContext(pidfile = PIDLockFile(options.pidfile)):
+        with DaemonContext(pidfile = PIDLockFile(options.pidfile), \
+		    stdout = sys.stdout, stderr = sys.stderr):
             main_daemon(options, config)
     
     sys.exit(0)
