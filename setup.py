@@ -48,6 +48,7 @@ if __name__ == '__main__':
         #],
         package_data={
             'tps': ['default.ini'],
+            '' : ['acpid/*', 'init/*', 'modules-load.d/*', 'udevd/*']
         },
         url="https://github.com/martin-ueding/thinkpad-scripts",
         download_url="http://martin-ueding.de/download/thinkpad-scripts/",

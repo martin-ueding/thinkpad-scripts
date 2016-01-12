@@ -12,15 +12,22 @@ all: $(mo)
 
 common-install:
 	install -d "$(DESTDIR)/lib/udev/rules.d/"
-	install -m 644 81-thinkpad-dock.rules -t "$(DESTDIR)/lib/udev/rules.d/"
+	install -m 644 udevd/81-thinkpad-dock.rules -t "$(DESTDIR)/lib/udev/rules.d/"
 #
 	install -d "$(DESTDIR)/lib/udev/hwdb.d/"
-	install -m 644 90-X2x0T-keyboard.hwdb -t "$(DESTDIR)/lib/udev/hwdb.d/"
+	install -m 644 udevd/90-X2x0T-keyboard.hwdb -t "$(DESTDIR)/lib/udev/hwdb.d/"
 #
 	install -d "$(DESTDIR)/etc/acpi/events/"
-	install -m 644 thinkpad-mutemic-acpi-hook -t "$(DESTDIR)/etc/acpi/events/"
-	install -m 644 thinkpad-rotate-acpi-hook-1 -t "$(DESTDIR)/etc/acpi/events/"
-	install -m 644 thinkpad-rotate-acpi-hook-2 -t "$(DESTDIR)/etc/acpi/events/"
+	install -m 644 acpid/thinkpad-scripts-mutemic -t "$(DESTDIR)/etc/acpi/events/"
+	install -m 644 acpid/thinkpad-scripts-rotate -t "$(DESTDIR)/etc/acpi/events/"
+	install -m 644 acpid/thinkpad-scripts-rotated-start -t "$(DESTDIR)/etc/acpi/events/"
+	install -m 644 acpid/thinkpad-scripts-rotated-stop -t "$(DESTDIR)/etc/acpi/events/"
+	
+	install -d "$(DESTDIR)/etc/modules-load.d/"
+	install -m 644 modules-load.d/thinkpad-scripts.conf -t "$(DESTDIR)/etc/modules-load.d/"
+	
+	install -d "$(DESTDIR)/usr/lib/systemd/system/"
+	install -m 644 init/thinkpad-rotated -t "$(DESTDIR)/usr/lib/systemd/system/"
 #
 	cd desktop && $(MAKE) install
 	cd doc && $(MAKE) install
@@ -42,8 +49,12 @@ full-install: common-install
 	#
 	./setup.py install
 	udevadm hwdb --update
-	if which service &> /dev/null; then service acpid restart; fi
-	if which systemctl &> /dev/null; then systemctl restart acpid; fi
+	if which service &> /dev/null; then
+	    service acpid restart;
+	elif which systemctl &> /dev/null; then
+	    systemctl restart acpid;
+	    systemctl enable thinkpad-rotated;
+	fi
 
 test:
 	./setup.py test

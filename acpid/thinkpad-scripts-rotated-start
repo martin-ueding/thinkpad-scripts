@@ -1,0 +1,3 @@
+# called when tablet head swivels down (into tablet mode)
+event=ibm/hotkey HKEY 00000080 00005009
+action=/usr/sbin/service thinkpad-rotated start
