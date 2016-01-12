@@ -1,0 +1,40 @@
+Source: thinkpad-scripts
+Section: utils
+Priority: optional
+Maintainer: Martin Ueding <dev@martin-ueding.de>
+Build-Depends: debhelper (>= 9.0.0),
+               dh-systemd (>= 1.5),
+               python3,
+               python3-setuptools,
+               python3-sphinx,
+               gettext,
+               dh-python,
+               python3-termcolor,
+               python3-daemon
+Standards-Version: 3.9.5
+Homepage: http://martin-ueding.de/en/projects/thinkpad-scripts/
+
+Package: thinkpad-scripts
+Architecture: all
+Depends: ${python3:Depends},
+         python3-setuptools,
+         python3-daemon,
+         ${misc:Depends},
+         acpid,
+         alsa-utils,
+         udev (>= 196),
+         xserver-xorg-input-wacom,
+         xinput,
+         x11-xserver-utils
+Recommends: kde-baseapps-bin,
+            kvkbd,
+            network-manager,
+            pulseaudio-utils,
+            qdbus,
+            xbacklight
+Breaks: think-rotate (<= 3.3)
+Replaces: think-rotate (<= 3.3)
+Description: Rotation and docking scripts for ThinkPad X220 Tablet
+ A couple scripts that make the life with a ThinkPad X220 Tablet easier.
+ Including one for rotation, docking station and toggling the trackpad.
+ Microphone mute button works with this too.
