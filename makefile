@@ -49,11 +49,15 @@ full-install: common-install
 	#
 	./setup.py install
 	udevadm hwdb --update
-	if which service &> /dev/null; then
-	    service acpid restart;
-	elif which systemctl &> /dev/null; then
+	
+	if which systemctl &> /dev/null; then
 	    systemctl restart acpid;
 	    systemctl enable thinkpad-rotated;
+	    systemctl start thinkpad-rotated
+	elif which service &> /dev/null; then
+	    service acpid restart;
+	    update-rc.d thinkpad-rotated defaults;
+	    service thinkpad-rotated start;
 	fi
 
 test:
