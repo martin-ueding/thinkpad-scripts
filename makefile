@@ -52,13 +52,8 @@ full-install: common-install
 	
 	if which systemctl &> /dev/null; then
 	    systemctl restart acpid;
-	    systemctl daemon-reload;
-	    systemctl enable thinkpad-rotated;
-	    systemctl start thinkpad-rotated
 	elif which service &> /dev/null; then
 	    service acpid restart;
-	    update-rc.d thinkpad-rotated defaults;
-	    service thinkpad-rotated start;
 	fi
 
 test:
