@@ -24,21 +24,22 @@ if __name__ == '__main__':
         classifiers=[
             "Environment :: Console",
             "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
-            "Programming Language :: Python",
-
+            "Programming Language :: Python"
         ],
         name="thinkpad-scripts",
         packages=packages,
         entry_points={
             'console_scripts': [
-                'thinkpad-config = tps.config:main',
-                'thinkpad-dock = tps.dock:main',
-                'thinkpad-dock-hook = tps.hooks:main_dock_hook',
-                'thinkpad-mutemic = tps.sound:main_mutemic',
-                'thinkpad-rotate = tps.rotate:main',
-                'thinkpad-rotate-hook = tps.hooks:main_rotate_hook',
-                'thinkpad-scripts-config-migration = tps.config:migrate_shell_config',
-                'thinkpad-touch = tps.main_touchscreen:main',
+                'thinkpad = tps.thinkpad:main',
+                # legacy EPs - use 'thinkpad' for all purposes
+                'thinkpad-config = tps.thinkpad:main_legacy',
+                'thinkpad-dock = tps.thinkpad:main_legacy',
+                'thinkpad-dock-hook = tps.thinkpad:main_legacy',
+                'thinkpad-mutemic = tps.thinkpad:main_legacy',
+                'thinkpad-rotate = tps.thinkpad:main_legacy',
+                'thinkpad-rotate-hook = tps.thinkpad:main_legacy',
+                'thinkpad-scripts-config-migration = tps.thinkpad:main_legacy',
+                'thinkpad-touch = tps.thinkpad:main_legacy',
                 'thinkpad-touchpad = tps.main_touchpad:main',
                 'thinkpad-trackpoint = tps.main_trackpoint:main',
             ],

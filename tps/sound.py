@@ -8,7 +8,6 @@
 Logic for sound.
 '''
 
-import argparse
 import logging
 import re
 
@@ -58,21 +57,6 @@ def set_volume(loudness):
     sinks = get_pulseaudio_sinks()
     for sink in sinks:
         tps.check_call(['pactl', 'set-sink-volume', sink, loudness], logger)
-
-
-def main_mutemic():
-    '''
-    Entry point for ``thinkpad-mutemic``.
-    '''
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-v", dest='verbose', action="count",
-                        help='Enable verbose output. Can be supplied multiple '
-                             'times for even more verbosity.')
-    options = parser.parse_args()
-    tps.config.set_up_logging(options.verbose)
-
-    tps.check_call(['amixer', 'sset', "'Capture',0", 'toggle'], logger)
-
 
 if __name__ == '__main__':
     print(get_pulseaudio_sinks())

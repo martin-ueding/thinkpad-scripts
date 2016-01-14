@@ -18,16 +18,16 @@ case "$1" in
   start)
     echo "Starting server"
     # Start the daemon
-    /usr/bin/thinkpad-rotate start
+    /usr/bin/thinkpad rotate start
     ;;
   stop)
     echo "Stopping server"
     # Stop the daemon
-    /usr/bin/thinkpad-rotate stop
+    /usr/bin/thinkpad rotate stop
     ;;
   restart)
     echo "Restarting server"
-    /usr/bin/thinkpad-rotate restart
+    /usr/bin/thinkpad rotate restart
     ;;
   *)
     # Refuse to do other stuff

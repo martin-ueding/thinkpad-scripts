@@ -3,4 +3,4 @@
 # Licensed under The GNU Public License Version 2 (or later)
 
 event=video/tabletmode TBLT 0000008A 0000000[01].*
-action=/usr/bin/thinkpad-rotate-hook %e
+action=/usr/bin/thinkpad --via-hook %e rotate

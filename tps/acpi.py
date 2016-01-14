@@ -7,6 +7,10 @@ import logging
 import os
 import sys
 
+'''
+http://www.thinkwiki.org/wiki/Tablet_Hardware_Buttons
+'''
+
 logger = logging.getLogger(__name__)
 
 class Acpi(object):

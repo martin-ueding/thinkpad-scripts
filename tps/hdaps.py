@@ -7,9 +7,12 @@
 HDAPS accelerometer sensor machinery
 
 Information:
+http://www.thinkwiki.org/wiki/HDAPS
 http://www.thinkwiki.org/wiki/Active_Protection_System
 http://www.thinkwiki.org/wiki/Tp_smapi
 https://wiki.archlinux.org/index.php/Hard_Drive_Active_Protection_System
+http://www.thinkwiki.org/wiki/Script_for_theft_alarm_using_HDAPS
+http://liken.otsoa.net/blog/?x=entry:entry080617-120522 - x41 example
 
 Inspired by:
 https://github.com/caio/playground/blob/master/hdaps/hdaps.py

@@ -8,7 +8,6 @@
 Logic related to input devices.
 '''
 
-import argparse
 import logging
 import re
 
@@ -24,7 +23,6 @@ class InputDeviceNotFoundException(Exception):
     ``xinput`` device could not be found.
     '''
     pass
-
 
 def get_wacom_device_ids():
     '''
@@ -52,7 +50,6 @@ def get_wacom_device_ids():
 
     return ids
 
-
 def map_rotate_input_device(device, matrix):
     '''
     Rotates an input device.
@@ -65,7 +62,6 @@ def map_rotate_input_device(device, matrix):
         + list(map(str, matrix)), logger
     )
 
-
 def map_rotate_all_input_devices(output, orientation):
     '''
     Maps all Wacom® devices.
@@ -74,7 +70,6 @@ def map_rotate_all_input_devices(output, orientation):
                                                               orientation)
     for device in get_wacom_device_ids():
         map_rotate_input_device(device, matrix)
-
 
 def get_xinput_id(name):
     '''
@@ -94,7 +89,6 @@ def get_xinput_id(name):
     raise InputDeviceNotFoundException(
         'Input device “{}” could not be found'.format(name))
 
-
 def set_xinput_state(device, state):
     '''
     Sets the device state.
@@ -108,7 +102,6 @@ def set_xinput_state(device, state):
     tps.check_call(['xinput', 'set-prop', str(device), 'Device Enabled',
                     set_to], logger)
 
-
 def get_xinput_state(device):
     '''
     Gets the device state.
@@ -121,7 +114,6 @@ def get_xinput_state(device):
     output = tps.check_output(['xinput', '--list', str(device)], logger)
     return b'disabled' not in output
 
-
 def set_wacom_touch(device_id, state):
     '''
     Changes the Wacom Touch property of the given device.
@@ -129,65 +121,12 @@ def set_wacom_touch(device_id, state):
     tps.check_call(['xinput', 'set-prop', str(device_id), 'Wacom Enable Touch',
                     '1' if state else '0'], logger)
 
-
-def state_change_ui(config_name):
-    '''
-    Change the state of the given device depending on command line options.
-
-    It parses the command line options. If no state is given there, it will be
-    the opposite of the current state.
-
-    :param bool set_touch: Whether to also toggle the ``Touch`` property on
-        this device.
-    :returns: None
-    '''
-    config = tps.config.get_config()
-    device_name = config['input'][config_name]
-    state = _parse_args_to_state()
-    device = get_xinput_id(device_name)
-    if state is None:
-        state = not get_xinput_state(device)
-    set_xinput_state(device, state)
-
-    if has_xinput_prop(device, b'Wacom Enable Touch'):
-        set_wacom_touch(device, state)
-
-
 def has_xinput_prop(device, prop):
     '''
     Checks whether the device has the given xinput propery.
     '''
     output = tps.check_output(['xinput', 'list-props', str(device)], logger)
     return prop in output
-
-
-def _parse_args_to_state():
-    """
-    Parses the command line arguments.
-
-    If the logging module is imported, set the level according to the number of
-    ``-v`` given on the command line.
-
-    :return: State
-    :rtype: bool or None
-    """
-    parser = argparse.ArgumentParser()
-    parser.add_argument("state", nargs='?', help="Positional arguments.")
-    parser.add_argument("-v", dest='verbose', action="count",
-                        help='Enable verbose output. Can be supplied multiple '
-                             'times for even more verbosity.')
-
-    options = parser.parse_args()
-
-    tps.config.set_up_logging(options.verbose)
-
-    if options.state == 'on':
-        return True
-    elif options.state == 'off':
-        return False
-    else:
-        return None
-
 
 def generate_xinput_coordinate_transformation_matrix(output, orientation):
     '''
@@ -228,7 +167,6 @@ def generate_xinput_coordinate_transformation_matrix(output, orientation):
 
     return m_total
 
-
 def _matrix_to_str(matrix):
     msg = '['
     for row in range(3):
@@ -239,7 +177,6 @@ def _matrix_to_str(matrix):
     msg += ']'
     return msg
 
-
 def _matrix_mul(m1, m2):
     output = [0]*9
 
@@ -249,7 +186,6 @@ def _matrix_mul(m1, m2):
                 output[o_row*3 + o_col] += m1[o_row*3 + i] * m2[i*3 + o_col]
 
     return output
-
 
 if __name__ == '__main__':
     generate_xinput_coordinate_transformation_matrix('LVDS1', tps.INVERTED)

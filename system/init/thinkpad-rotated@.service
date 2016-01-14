@@ -8,7 +8,7 @@ After=display-manager.service
 Environment=DISPLAY=:0
 Environment=XAUTHORITY=/home/%i/.Xauthority
 Nice=-5
-ExecStart=/usr/bin/thinkpad-rotate -d -p /home/%i/.thinkpad-rotated.pid
+ExecStart=/usr/bin/thinkpad rotate -d -p /home/%i/.thinkpad-rotated.pid
 User=%i
 PIDFile=/home/%i/.thinkpad-rotated.pid
 Restart=on-abort

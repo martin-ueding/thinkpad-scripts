@@ -9,13 +9,11 @@
 Logic related to the UltraBase® docks.
 '''
 
-import argparse
 import glob
 import logging
 import sys
 
 import tps
-import tps.config
 import tps.hooks
 import tps.input
 import tps.network
@@ -24,6 +22,14 @@ import tps.sound
 
 logger = logging.getLogger(__name__)
 
+
+def get_docking_state(state):
+    if state == 'on':
+        return True
+    elif state == 'off':
+        return False
+    elif state is None:
+        return is_docked()
 
 def is_docked():
     '''
@@ -202,59 +208,5 @@ def dock(on, config):
 
     tps.hooks.postdock(on, config)
 
-
-def main():
-    '''
-    Command line entry point.
-
-    :returns: None
-    '''
-    options = _parse_args()
-    config = tps.config.get_config()
-
-    # Quickly abort if the call is by the hook and the user disabled the trigger.
-    if options.via_hook and not config['trigger'].getboolean('enable_dock'):
-        sys.exit(0)
-
-    if options.state == 'on':
-        desired = True
-    elif options.state == 'off':
-        desired = False
-    elif options.state is None:
-        desired = is_docked()
-    else:
-        logging.error('Desired state “%s” cannot be understood.',
-                      options.state)
-        sys.exit(1)
-
-    logger.info('Desired is {}'.format(desired))
-
-    dock(desired, config)
-
-
-def _parse_args():
-    """
-    Parses the command line arguments.
-
-    If the logging module is imported, set the level according to the number of
-    ``-v`` given on the command line.
-
-    :return: Namespace with arguments.
-    :rtype: Namespace
-    """
-    parser = argparse.ArgumentParser()
-    parser.add_argument("state", nargs='?', help="`on` or `off`")
-    parser.add_argument("-v", dest='verbose', action="count",
-                        help='Enable verbose output. Can be supplied multiple '
-                             'times for even more verbosity.')
-    parser.add_argument('--via-hook', action='store_true', help='Let the program know that it was called using the hook. This will then enable some workarounds. You do not need to care about this.')
-
-    options = parser.parse_args()
-
-    tps.config.set_up_logging(options.verbose)
-
-    return options
-
-
 if __name__ == '__main__':
-    main()
+    is_docked()

@@ -231,15 +231,5 @@ class ShellParseException(Exception):
     '''
     pass
 
-
-def main():
-    '''
-    Command line entry point.
-
-    :returns: None
-    '''
-    print_config(get_config())
-
-
 if __name__ == '__main__':
-    main()
+    print_config(get_config())

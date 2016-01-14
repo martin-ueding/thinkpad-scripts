@@ -5,13 +5,9 @@
 # Copyright © 2016 Lukasz Czuja <pub@czuja.pl>
 # Licensed under The GNU Public License Version 2 (or later)
 
-import argparse
 import logging
 import sys
 import time
-
-from daemon import DaemonContext
-from lockfile.pidlockfile import PIDLockFile
 
 import tps
 from tps.acpi import Acpi
@@ -25,32 +21,8 @@ import tps.vkeyboard
 
 logger = logging.getLogger(__name__)
 
-
-def main():
-    '''
-    Entry point for ``thinkpad-rotate``.
-    '''
-    options = _parse_args()
-
-    config = tps.config.get_config()
-
-    if options.via_hook:
-        xrandr_bug_fail_early(config)
         
-    if not options.daemonize:
-        # Quickly abort if the call is by the hook and the user disabled the trigger.
-        if options.via_hook and not config['trigger'].getboolean('enable_rotate'):
-            sys.exit(0)
-            
-        main_cmdline(options, config)
-    else:
-        with DaemonContext(pidfile = PIDLockFile(options.pidfile), \
-		    stdout = sys.stdout, stderr = sys.stderr):
-            main_daemon(options, config)
-    
-    sys.exit(0)
-        
-def main_cmdline(options, config):
+def rotate_cmdline(options, config):
     try:
         new_direction = new_rotation(
             tps.screen.get_rotation(config['screen']['internal']),
@@ -62,10 +34,12 @@ def main_cmdline(options, config):
         logger.error('Unable to determine rotation of "{}": {}'.format(
             config['screen']['internal'], e))
         sys.exit(1)
+        
+    input_state = get_input_state(options.state, options.direction)
 
-    rotate_to(new_direction, config, Acpi.inTabletMode())
+    rotate_to(new_direction, config, input_state)
 
-def main_daemon(options, config):
+def rotate_daemon(options, config):
     if not Hdaps.hasHDAPS():
         sys.exit(1)
     
@@ -94,12 +68,12 @@ def main_daemon(options, config):
     hadps_poll_interval = config['rotate'].\
         getfloat('hadps_poll_interval')
         
-    tablet_mode = Acpi.inTabletMode()
+    input_state = get_input_state(options.state, options.direction)
     
     while True:
         time.sleep(hadps_poll_interval);
-        tablet_mode_prev = tablet_mode
-        tablet_mode = Acpi.inTabletMode()
+        input_state_prev = input_state
+        input_state = get_input_state(options.state, options.direction)
         try:
             if tablet_mode:
                 if not hadps_autorotate_tablet_mode:
@@ -113,10 +87,10 @@ def main_daemon(options, config):
                 
             if desired_rotation is None or \
                 current_rotation == desired_rotation:                    
-                if tablet_mode != tablet_mode_prev:
+                if input_state != input_state_prev:
                     # when orientation does not change but table mode
                     # does we're left with disabled controls
-                    toggle_tablet_mode(config, tablet_mode)
+                    inputs_toggle_state(config, input_state)
                 continue
         except tps.UnknownDirectionException:
             logger.error('Direction cannot be understood.')
@@ -124,8 +98,16 @@ def main_daemon(options, config):
 
         rotate_to(desired_rotation, config, tablet_mode)
         current_rotation = desired_rotation
+        
+def get_input_state(state, direction):
+    if state == 'on':
+        return True
+    elif state == 'off' or direction == 'tablet-normal':
+        return False
+    elif state is None:
+        return not Acpi.inTabletMode()
 
-def rotate_to(direction, config, tablet_mode):
+def rotate_to(direction, config, input_state):
     '''
     Performs all steps needed for a screen rotation.
     '''
@@ -140,27 +122,27 @@ def rotate_to(direction, config, tablet_mode):
            or not tps.screen.get_externals(config['screen']['internal']):
             tps.screen.set_subpixel_order(direction)
 
-    toggle_tablet_mode(config, tablet_mode)
+    inputs_toggle_state(config, input_state)
 
     if needs_xrandr_bug_workaround(config) and can_use_chvt():
         toggle_virtual_terminal()
 
     tps.hooks.postrotate(direction, config)
     
-def toggle_tablet_mode(config, tablet_mode):
+def inputs_toggle_state(config, state):
     '''
     Steps dependant on tablet mode
     '''
     if config['unity'].getboolean('toggle_launcher'):
-        tps.unity.set_launcher(not tablet_mode)
+        tps.unity.set_launcher(state)
 
-    tps.vkeyboard.toggle(config['vkeyboard']['program'], tablet_mode)
+    tps.vkeyboard.toggle(config['vkeyboard']['program'], not state)
 
     try:
         trackpoint_xinput_id = tps.input.get_xinput_id('TrackPoint')
         tps.input.set_xinput_state(
             trackpoint_xinput_id,
-            not tablet_mode,
+            state
         )
     except tps.input.InputDeviceNotFoundException as e:
         logger.info('TrackPoint was not found, could not be (de)activated.')
@@ -170,7 +152,7 @@ def toggle_tablet_mode(config, tablet_mode):
         touchpad_xinput_id = tps.input.get_xinput_id('TouchPad')
         tps.input.set_xinput_state(
             touchpad_xinput_id,
-            not tablet_mode,
+            state
         )
     except tps.input.InputDeviceNotFoundException as e:
         logger.info('TouchPad was not found, could not be (de)activated.')
@@ -283,44 +265,3 @@ def xrandr_bug_fail_early(config):
         logger.warning('Aborting since there are no external screens attached '
                        'and XRandr bug workaround is enabled.')
         sys.exit(1)
-
-
-def _parse_args():
-    """
-    Parses the command line arguments.
-
-    If the logging module is imported, set the level according to the number of
-    ``-v`` given on the command line.
-
-    :return: Namespace with arguments.
-    :rtype: Namespace
-    """
-    parser = argparse.ArgumentParser(description='Thinkpad screen rotate')
-    parser.add_argument("direction", nargs='?', help="Positional arguments.")
-    parser.add_argument("-d", dest='daemonize', action="store_true",
-                        help='Daemonize screen rotation to take use of '
-                        'HDAPS accelerometer for automatic rotation.')
-    parser.add_argument("--pidfile", "-p", dest='pidfile', action='store', 
-                        default='/var/run/thinkpad-rotated.pid',
-                        help='Pid File location for daemon mode.')
-    parser.add_argument("-v", dest='verbose', action="count",
-                        help='Enable verbose output. Can be supplied '
-                        'multiple times for even more verbosity.')
-    parser.add_argument('--via-hook', action='store_true', 
-                        help='Let the program know that it was called '
-                        'using the hook. This will then enable some '
-                        'workarounds. You do not need to care about this.')
-    parser.add_argument('--force-direction', action='store_true', 
-                        help='Do not try to be smart. Actually rotate '
-                        'in the direction given even it already is the '
-                        'case.')
-
-    options = parser.parse_args()
-
-    tps.config.set_up_logging(options.verbose)
-
-    return options
-
-
-if __name__ == "__main__":
-    main()
