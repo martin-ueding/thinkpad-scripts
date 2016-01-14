@@ -50,23 +50,22 @@ def rotate_daemon(options, config):
             config['screen']['internal'], e))
         sys.exit(1)
        
-    hdaps_resting_x = config['rotate'].getint('hdaps_resting_x')
-    hdaps_resting_y = config['rotate'].getint('hdaps_resting_y')
-    hdaps_resolution_x = config['rotate'].getint('hdaps_resolution_x')
-    hdaps_resolution_y = config['rotate'].getint('hdaps_resolution_y')
-    hdaps_invert = config['rotate'].getint('hdaps_invert')
+    hdaps_resting_x = config['hdaps'].getint('resting_x')
+    hdaps_resting_y = config['hdaps'].getint('resting_y')
+    hdaps_resolution_x = config['hdaps'].getint('resolution_x')
+    hdaps_resolution_y = config['hdaps'].getint('resolution_y')
+    hdaps_invert = config['hdaps'].getint('invert')
+    hadps_poll_interval = config['hdaps'].getfloat('poll_interval')
     
     hdaps = Hdaps((hdaps_resting_x, hdaps_resting_y), 
         (hdaps_resolution_x, hdaps_resolution_y))
     if hdaps_invert > 0:
         hdaps.setInvertion(hdaps_invert)
     
-    hadps_autorotate_tablet_mode = config['rotate'].\
-        getboolean('hadps_autorotate_tablet_mode')
-    hadps_autorotate_laptop_mode = config['rotate'].\
-        getboolean('hadps_autorotate_laptop_mode')
-    hadps_poll_interval = config['rotate'].\
-        getfloat('hadps_poll_interval')
+    autorotate_tablet_mode = config['rotate'].\
+        getboolean('autorotate_tablet_mode')
+    autorotate_laptop_mode = config['rotate'].\
+        getboolean('autorotate_laptop_mode')
         
     tablet_mode = Acpi.inTabletMode()
     
@@ -76,11 +75,11 @@ def rotate_daemon(options, config):
         tablet_mode = Acpi.inTabletMode()
         try:
             if tablet_mode:
-                if not hadps_autorotate_tablet_mode:
+                if not autorotate_tablet_mode:
                     desired_rotation = tps.translate_direction(config['rotate']['default_rotation'])
                 else:
                     desired_rotation = hdaps.getOrientation(True)
-            elif not hadps_autorotate_laptop_mode:
+            elif not autorotate_laptop_mode:
                 desired_rotation = tps.NORMAL
             else:
                 desired_rotation = hdaps.getOrientation(False)
