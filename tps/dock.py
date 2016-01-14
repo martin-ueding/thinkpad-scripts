@@ -29,7 +29,7 @@ def get_docking_state(state):
     elif state == 'off':
         return False
     elif state is None:
-        return is_docked()
+        return not is_docked()
 
 def is_docked():
     '''
