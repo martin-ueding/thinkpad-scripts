@@ -68,12 +68,12 @@ def rotate_daemon(options, config):
     hadps_poll_interval = config['rotate'].\
         getfloat('hadps_poll_interval')
         
-    input_state = get_input_state(options.state, options.direction)
+    tablet_mode = Acpi.inTabletMode()
     
     while True:
         time.sleep(hadps_poll_interval);
-        input_state_prev = input_state
-        input_state = get_input_state(options.state, options.direction)
+        tablet_mode_prev = tablet_mode
+        tablet_mode = Acpi.inTabletMode()
         try:
             if tablet_mode:
                 if not hadps_autorotate_tablet_mode:
@@ -87,16 +87,16 @@ def rotate_daemon(options, config):
                 
             if desired_rotation is None or \
                 current_rotation == desired_rotation:                    
-                if input_state != input_state_prev:
+                if tablet_mode != tablet_mode_prev:
                     # when orientation does not change but table mode
                     # does we're left with disabled controls
-                    inputs_toggle_state(config, input_state)
+                    set_inputs_state(config, not tablet_mode)
                 continue
         except tps.UnknownDirectionException:
             logger.error('Direction cannot be understood.')
             sys.exit(1)
 
-        rotate_to(desired_rotation, config, tablet_mode)
+        rotate_to(desired_rotation, config, not tablet_mode)
         current_rotation = desired_rotation
         
 def get_input_state(state, direction):
@@ -106,32 +106,10 @@ def get_input_state(state, direction):
         return False
     elif state is None:
         return not Acpi.inTabletMode()
-
-def rotate_to(direction, config, input_state):
-    '''
-    Performs all steps needed for a screen rotation.
-    '''
-    tps.hooks.prerotate(direction, config)
-
-    tps.screen.rotate(config['screen']['internal'], direction)
-    tps.input.map_rotate_all_input_devices(config['screen']['internal'],
-                                           direction)
-
-    if config['rotate'].getboolean('subpixels'):
-        if config['rotate'].getboolean('subpixels_with_external') \
-           or not tps.screen.get_externals(config['screen']['internal']):
-            tps.screen.set_subpixel_order(direction)
-
-    inputs_toggle_state(config, input_state)
-
-    if needs_xrandr_bug_workaround(config) and can_use_chvt():
-        toggle_virtual_terminal()
-
-    tps.hooks.postrotate(direction, config)
     
-def inputs_toggle_state(config, state):
+def set_inputs_state(config, state):
     '''
-    Steps dependant on tablet mode
+    Change input devices enabled state
     '''
     if config['unity'].getboolean('toggle_launcher'):
         tps.unity.set_launcher(state)
@@ -158,6 +136,27 @@ def inputs_toggle_state(config, state):
         logger.info('TouchPad was not found, could not be (de)activated.')
         logger.debug('Exception was: “%s”', str(e))
 
+def rotate_to(direction, config, input_state):
+    '''
+    Performs all steps needed for a screen rotation.
+    '''
+    tps.hooks.prerotate(direction, config)
+
+    tps.screen.rotate(config['screen']['internal'], direction)
+    tps.input.map_rotate_all_input_devices(config['screen']['internal'],
+                                           direction)
+
+    if config['rotate'].getboolean('subpixels'):
+        if config['rotate'].getboolean('subpixels_with_external') \
+           or not tps.screen.get_externals(config['screen']['internal']):
+            tps.screen.set_subpixel_order(direction)
+
+    set_inputs_state(config, input_state)
+
+    if needs_xrandr_bug_workaround(config) and can_use_chvt():
+        toggle_virtual_terminal()
+
+    tps.hooks.postrotate(direction, config)
 
 def new_rotation(current, desired_str, config, force=False):
     '''

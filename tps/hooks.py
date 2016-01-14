@@ -10,7 +10,6 @@ Functions that execute the appropriate hooks.
 
 import logging
 import os.path
-import sys
 
 import tps
 

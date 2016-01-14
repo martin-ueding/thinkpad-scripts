@@ -7,7 +7,7 @@ SHELL = /bin/bash
 .PHONY: all common-install install full-install test clean
 
 all: $(mo)
-	cd desktop && $(MAKE)
+	cd system/desktop && $(MAKE)
 	cd doc && $(MAKE)
 
 common-install:

@@ -113,6 +113,19 @@ def get_xinput_state(device):
     '''
     output = tps.check_output(['xinput', '--list', str(device)], logger)
     return b'disabled' not in output
+    
+def toggle_xinput_state(device_name, state):
+    '''
+    Change the state of the given device.
+    :returns: None
+    '''
+    device = get_xinput_id(device_name)
+    if state is None:
+        state = not get_xinput_state(device)
+    set_xinput_state(device, state)
+
+    if has_xinput_prop(device, b'Wacom Enable Touch'):
+        set_wacom_touch(device, state)
 
 def set_wacom_touch(device_id, state):
     '''

@@ -7,17 +7,16 @@
 import argparse
 import sys
 import logging
+import os.path
 
 from daemon import DaemonContext
 from lockfile.pidlockfile import PIDLockFile
-
 
 from tps import check_call
 from tps.config import get_config, migrate_shell_config, \
                        print_config, set_up_logging
 from tps.dock import dock, get_docking_state
-from tps.input import get_xinput_id, get_xinput_state, \
-                      set_xinput_state, has_xinput_prop, set_wacom_touch
+from tps.input import toggle_xinput_state
 from tps.rotate import rotate_cmdline, rotate_daemon, xrandr_bug_fail_early
 
 logger = logging.getLogger(__name__)
@@ -40,7 +39,8 @@ def main():
         dock(get_docking_state(options.state), config)
     elif options.command == 'input':
         device_name = config['input'][options.input + '_device']
-        change_input_device_state(device_name, options.state)
+        input_state = parse_input_state(options.state)
+        toggle_xinput_state(device_name, input_state)
     elif options.command == 'mutemic':
         check_call(['amixer', 'sset', "'Capture',0", 'toggle'], logger)
     elif options.command == 'rotate':
@@ -55,58 +55,50 @@ def main_legacy():
     
     # swap progname
     entrypoint_name = os.path.basename(sys.argv[0])
-    sys.argv[0].replace(entrypoint_name, "thinkpad")
+    sys.argv[0] = sys.argv[0].replace(entrypoint_name, "thinkpad")
     
     # translate entrypoint name into command and insert onto argv
     # in the correct position
     i = 1
-    while i < sys.argc:
+    while i < len(sys.argv):
         if sys.argv[i].startswith('-v'):
             i += 1
         elif sys.argv[i].startswith('--via-hook'):
             i += 1
             if not sys.argv[i].startswith('-'):
                 i += 1
-            break
+        break
     
     command = entrypoint_name.replace('thinkpad-', '')
     input_device = None
-    if command.startswith('touch'):
+    if command.startswith('touch') or command == 'trackpoint':
         input_device = command
         command = 'input'
     elif command.endswith('-hook'):
         command.replace('-hook', '')
         sys.argv.insert(i, "--via-hook")
-        sys.argc += 1
         i += 1
         # positional argument to --via-hook
         if command == 'rotate' and not sys.argv[i].startswith('-'):
             i += 1
         
     sys.argv.insert(i, command)
-    sys.argc += 1
     i += 1
     # positional argument to input command
     if input_device is not None:
         if input_device == 'touch':
             input_device = 'touchscreen'
         sys.argv.insert(i, input_device)
-        sys.argc += 1
         
     main()
-        
-def change_input_device_state(device_name, state):
-    '''
-    Change the state of the given device.
-    :returns: None
-    '''
-    device = get_xinput_id(device_name)
-    if state is None:
-        state = not get_xinput_state(device)
-    set_xinput_state(device, state)
-
-    if has_xinput_prop(device, b'Wacom Enable Touch'):
-        set_wacom_touch(device, state)
+    
+def parse_input_state(state):
+    if state == 'on':
+        return True
+    elif state == 'off':
+        return False
+    else:
+        return None
         
 def rotate(options, config):
     if options.via_hook is not None:
@@ -144,7 +136,7 @@ def _parse_cmdline():
                         epilog='Collection of thinkpad utilility commands')
                         #, version='x.y')
     
-    parser.add_argument("-v", dest='verbose', action="count",
+    parser.add_argument('-v', dest='verbose', action='count',
                         help='Enable verbose output. Can be supplied '
                         'multiple times for even more verbosity.')
     parser.add_argument('--via-hook', nargs='?',
@@ -158,17 +150,18 @@ def _parse_cmdline():
     
     dock = subparsers.add_parser('dock', help='Toggle Docking station state')
     
-    dock.add_argument("state", nargs='?', choices=('on', 'off'),
-                      help="Desired docking station state. "
-                      "Toggle if not specified")
+    dock.add_argument('state', nargs='?', choices=('on', 'off'),
+                      help='Desired docking station state. '
+                      'Toggle if not specified')
                       
     inputs = subparsers.add_parser('input', help='Input devices')
     
-    inputs.add_argument("input",
+    inputs.add_argument('input',
                         choices=('touchpad', 'touchscreen', 'trackpoint'),
-                        help="Input device")
-    inputs.add_argument("state", choices=('on', 'off'),
-                        help="Desired input device state")
+                        help='Input device')
+    inputs.add_argument('state', nargs='?', choices=('on', 'off'),
+                        help='Desired input device state. '
+                        'Toggle if not specified')
                         
     subparsers.add_parser('mutemic', help='Toggle Microphone state')
     
@@ -178,18 +171,18 @@ def _parse_cmdline():
                         help='Do not try to be smart. Actually rotate '
                         'in the direction given even it already is the '
                         'case')
-    rotate.add_argument("direction", nargs='?',
+    rotate.add_argument('direction', nargs='?',
                         choices=('normal', 'none', 'left', 'ccw', 
                         'right', 'cw', 'flip', 'inverted', 'half', 
                         'tablet-normal'),
-                        help="Desired screen orientation")
-    rotate.add_argument("state", nargs='?', choices=('on', 'off'),
+                        help='Desired screen orientation')
+    rotate.add_argument('state', nargs='?', choices=('on', 'off'),
                         help='Forced input devices state after change')
                         
-    rotate.add_argument("--daemonize", "-d", action="store_true",
+    rotate.add_argument('--daemonize', '-d', action='store_true',
                         help='Daemonize screen rotation to take use of '
                         'HDAPS accelerometer for automatic rotation.')
-    rotate.add_argument("--pidfile", "-p", action='store', 
+    rotate.add_argument('--pidfile', '-p', action='store', 
                         default='/var/run/thinkpad-rotated.pid',
                         help='Pid File location for daemon mode')
                         
