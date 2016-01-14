@@ -7,6 +7,7 @@ locale/de/LC_MESSAGES/think-rotate.mo
 build/
 thinkpad_scripts.egg-info/
 dist/
+debian
 packaging/debian/files
 packaging/debian/thinkpad-scripts/
 packaging/debian/thinkpad-scripts.*
