@@ -65,7 +65,7 @@ def main_legacy():
             i += 1
         elif sys.argv[i].startswith('--via-hook'):
             i += 1
-            if not sys.argv[i].startswith('-'):
+            if i < len(sys.argv) and not sys.argv[i].startswith('-'):
                 i += 1
         break
     
