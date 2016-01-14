@@ -290,4 +290,4 @@ class Hdaps(object):
     def _readPosition(positionFile):
         position = fileRead(positionFile, \
             'Unable to read HDAPS sensor file: %s!' % positionFile)
-        return list(map(int, position[1:-2].split(",")))
+        return list(map(int, position[1:-1].split(",")))
