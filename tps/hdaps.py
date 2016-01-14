@@ -24,6 +24,7 @@ import os
 import sys
 
 from tps import LEFT, RIGHT, NORMAL, INVERTED
+from tps.utils import fileExists, fileRead, fileReadInt, fileWriteInt
 
 logger = logging.getLogger(__name__)
 
@@ -100,16 +101,16 @@ class Hdaps(object):
     HDAPS_SYSFS_BASE = '/sys/devices/platform/hdaps/'
     
     # HDAPS current position (ro)
-    HDAPS_POSITION_FILE = 'position'
+    HDAPS_POSITION_FILE = HDAPS_SYSFS_BASE + 'position'
     
     # HDAPS calibration - device "resting" position (rw)
-    HDAPS_CALIBRATION_FILE = 'calibrate'
+    HDAPS_CALIBRATION_FILE = HDAPS_SYSFS_BASE + 'calibrate'
     
     # HDAPS accelerometer sapling rate (ro)
-    HDAPS_SAMPLING_RATE_FILE = 'sampling_rate'
+    HDAPS_SAMPLING_RATE_FILE = HDAPS_SYSFS_BASE + 'sampling_rate'
     
     # HDAPS axis position data inversion (rw):
-    HDAPS_INVERT_FILE = 'invert'
+    HDAPS_INVERT_FILE = HDAPS_SYSFS_BASE + 'invert'
     
     def __init__(self, calibration, resolution = (150, 150)):
         """Allowing to specify custom callibration.
@@ -126,8 +127,8 @@ class Hdaps(object):
 
     @staticmethod
     def hasHDAPS():
-        return os.path.exists(Hdaps.HDAPS_SYSFS_BASE + Hdaps.HDAPS_POSITION_FILE) \
-            and os.path.exists(Hdaps.HDAPS_SYSFS_BASE + Hdaps.HDAPS_CALIBRATION_FILE)
+        return fileExists(Hdaps.HDAPS_POSITION_FILE) \
+            and fileExists(Hdaps.HDAPS_CALIBRATION_FILE)
 
     @staticmethod
     def getAbsolutePosition():
@@ -190,32 +191,19 @@ class Hdaps(object):
         """Initialize calibration settings to current position reading.
         Warning: Will require root priviledges to write to sysfs!
         """
-        try:
-            with open(Hdaps.HDAPS_SYSFS_BASE + Hdaps.HDAPS_CALIBRATION_FILE, 'w') as f:
-                f.write("1")
-            return True
-        except IOError:
-            logger.error('Unable to initialize HDAPS sensor calibration!')
-            return False
+        return fileWriteInt(Hdaps.HDAPS_CALIBRATION_FILE, \
+            'Unable to initialize HDAPS sensor calibration!', 1)
     
     @staticmethod
     def getSamplingRate():
         """Accelerometer Sampling Rate in Hz"""
-        try:
-            with open(Hdaps.HDAPS_SYSFS_BASE + Hdaps.HDAPS_SAMPLING_RATE_FILE, 'r') as f:
-                return int(f.read())
-        except IOError:
-            logger.error('Unable to read HDAPS sampling rate!')
-            raise
+        return fileReadInt(Hdaps.HDAPS_SAMPLING_RATE_FILE, \
+            'Unable to read HDAPS sampling rate!')
             
     @staticmethod
     def getInvertion():
-        try:
-            with open(Hdaps.HDAPS_SYSFS_BASE + Hdaps.HDAPS_INVERT_FILE, 'r') as f:
-                return int(f.read())
-        except IOError:
-            logger.error('Unable to read HDAPS invertion!')
-            raise
+        return fileReadInt(Hdaps.HDAPS_INVERT_FILE, \
+            'Unable to read HDAPS invertion!')
             
     @staticmethod
     def setInvertion(invertion):
@@ -244,13 +232,8 @@ class Hdaps(object):
         Warning: Will require root priviledges to write to sysfs!
         Warning: Will cause to refresh driver calibration settings!
         """
-        try:
-            with open(Hdaps.HDAPS_SYSFS_BASE + Hdaps.HDAPS_INVERT_FILE, 'w') as f:
-                f.write(str(invertion))
-            return True
-        except IOError:
-            logger.error('Unable to write HDAPS invertion!')
-            return False
+        return fileWriteInt(Hdaps.HDAPS_INVERT_FILE, \
+            'Unable to write HDAPS invertion!', invertion)
         
     def getOrientation(self, inverted = False):
         """Orientation based upon a normalized position.
@@ -305,9 +288,6 @@ class Hdaps(object):
 
     @staticmethod
     def _readPosition(positionFile):
-        try:
-            with open(Hdaps.HDAPS_SYSFS_BASE + positionFile, 'r') as f:
-                return list(map(int, f.read()[1:-2].split(",")))
-        except IOError:
-            logger.error('Unable to read HDAPS sensor file: %s!' % positionFile)
-            raise
+        position = fileRead(positionFile, \
+            'Unable to read HDAPS sensor file: %s!' % positionFile)
+        return list(map(int, position[1:-2].split(",")))
