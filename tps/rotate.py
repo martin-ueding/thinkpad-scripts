@@ -10,7 +10,7 @@ import sys
 import time
 
 import tps
-from tps.acpi import Acpi
+from tps.acpi.thinkpad_acpi import ThinkpadAcpi
 import tps.config
 from tps.hdaps import Hdaps
 import tps.hooks
@@ -67,12 +67,12 @@ def rotate_daemon(options, config):
     autorotate_laptop_mode = config['rotate'].\
         getboolean('autorotate_laptop_mode')
         
-    tablet_mode = Acpi.inTabletMode()
+    tablet_mode = ThinkpadAcpi.inTabletMode()
     
     while True:
         time.sleep(hadps_poll_interval);
         tablet_mode_prev = tablet_mode
-        tablet_mode = Acpi.inTabletMode()
+        tablet_mode = ThinkpadAcpi.inTabletMode()
         try:
             if tablet_mode:
                 if not autorotate_tablet_mode:
@@ -104,7 +104,7 @@ def get_input_state(state, direction):
     elif state == 'off' or direction == 'tablet-normal':
         return False
     elif state is None:
-        return not Acpi.inTabletMode()
+        return not ThinkpadAcpi.inTabletMode()
     
 def set_inputs_state(config, state):
     '''
@@ -166,7 +166,7 @@ def new_rotation(current, desired_str, config, force=False):
     it still uses the default from the configuration.
     '''
     if desired_str is None:
-        if not Acpi.inTabletMode():
+        if not ThinkpadAcpi.inTabletMode():
             new = tps.translate_direction(config['rotate']['default_rotation'])
             logger.info('Using default, setting to {}'.format(new))
         else:

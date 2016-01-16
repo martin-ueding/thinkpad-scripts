@@ -3,7 +3,10 @@
 # Copyright © 2016 Lukasz Czuja <pub@czuja.pl>
 # Licensed under The GNU Public License Version 2 (or later)
 
+import logging
 import os
+
+logger = logging.getLogger(__name__)
 
 def fileExists(file):
     return os.path.exists(file)
@@ -21,8 +24,9 @@ def fileRead(file, errMsg):
     try:
         with open(file, 'r') as f:
             return f.read().strip()
-    except IOError:
+    except IOError as e:
         logger.error(errMsg)
+        logger.error(e)
         raise
 
 def fileWriteBoolean(file, errMsg, data):
@@ -39,6 +43,13 @@ def fileWrite(file, errMsg, data):
         with open(file, 'w') as f:
             f.write(str(data))
         return True
-    except IOError:
+    except IOError as e:
         logger.error(errMsg)
+        logger.error(e)
         return False
+
+
+class DictInitialised(object):
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)

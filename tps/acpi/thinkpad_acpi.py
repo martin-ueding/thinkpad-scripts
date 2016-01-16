@@ -17,10 +17,20 @@ http://www.thinkwiki.org/wiki/Tablet_Hardware_Buttons
 
 logger = logging.getLogger(__name__)
 
-class Acpi(object):
+class ThinkpadAcpi(object):
     '''
     Utility class for interacting with Thinkpad ACPI Extras kernel module.
+    
+    #/sys/bus/platform/drivers/thinkpad_hwmon/
     '''
+    
+    POWER_SUPPLY_SYS_GLOB = "/sys/class/power_supply/{BAT0,BAT1,AC,ADP0,ADP1}/device/path"
+    
+    THINKPAD_ACPI_PROC_BASE = '/proc/acpi/ibm/'
+    # beep  bluetooth  cmos  driver  fan  hotkey  led  light  video  volume
+    # thermal
+    
+    THINKPAD_ACPI_PROC_FAN = THINKPAD_ACPI_PROC_BASE + 'fan'
     
     THINKPAD_ACPI_SYSFS_BASE = '/sys/devices/platform/thinkpad_acpi/'
     
@@ -45,78 +55,114 @@ class Acpi(object):
     # (ro)
     SOURCE_MASK = THINKPAD_ACPI_SYSFS_BASE + 'hotkey_source_mask'
     
+    GPU_BBSWITCH = '/proc/acpi/bbswitch'
+        
+    @staticmethod
+    def hasFan():
+        return fileExists(ThinkpadAcpi.THINKPAD_ACPI_PROC_FAN)
+    
+    @staticmethod
+    def getFanState():
+        def getValue(line):
+            return line.split(':')[-1].strip()
+
+        status = speed = level = None
+        with open(ThinkpadAcpi.THINKPAD_ACPI_PROC_FAN, 'r') as f:
+            for line in f:
+                if line.startswith('status:'):
+                    status = getValue(line)
+                if line.startswith('speed:'):
+                    speed = int(getVaue(line))
+                if line.startswith('level:'):
+                    # level is 0-7, auto, disengaged, full-speed
+                    level = getValue(line)
+        return (status, speed, level)
+    
     @staticmethod
     def sendCmosCommand():
-        return filewrite(Acpi.CMOS_COMMAND, \
+        return fileWrite(ThinkpadAcpi.CMOS_COMMAND, \
             'Unable to send CMOS Command', data)
     
     @staticmethod
     def hasBluetooth():
-        return fileexists(Acpi.BLUETOOTH_ENABLED)
+        return fileExists(ThinkpadAcpi.BLUETOOTH_ENABLED)
         
     @staticmethod
     def isBluetoothEnabled():
         '''Whether Bluetooth is enabled
         '''
-        if not Acpi.hasBluetooth():
+        if not ThinkpadAcpi.hasBluetooth():
             return False
             
-        return fileReadBoolean(Acpi.BLUETOOTH_ENABLED, \
+        return fileReadBoolean(ThinkpadAcpi.BLUETOOTH_ENABLED, \
             'Unable to detect Bluetooth status!')
         
     @staticmethod
     def setBluetoothEnabled(enabled):
-        if not Acpi.hasBluetooth():
+        if not ThinkpadAcpi.hasBluetooth():
             return False
-        return fileWriteBoolean(Acpi.BLUETOOTH_ENABLED, \
+        return fileWriteBoolean(ThinkpadAcpi.BLUETOOTH_ENABLED, \
             'Unable to set Bluetooth status!', enabled)
     
     @staticmethod
     def hasTabletMode():
-        return fileExists(Acpi.TABLET_MODE)
+        return fileExists(ThinkpadAcpi.TABLET_MODE)
 
     @staticmethod
     def inTabletMode():
         '''Whether tablet sievel is rotated
         '''
-        if not Acpi.hasTabletMode():
+        if not ThinkpadAcpi.hasTabletMode():
             return False            
-        return fileReadBoolean(Acpi.TABLET_MODE, \
+        return fileReadBoolean(ThinkpadAcpi.TABLET_MODE, \
             'Unable to detect Tablet Mode!')
         
     @staticmethod
     def getAllMask():
-        return fileReadHex(Acpi.ALL_MASK, \
+        return fileReadHex(ThinkpadAcpi.ALL_MASK, \
             'Unable to obtain Hotkey All Mask!')
             
     @staticmethod
     def getMask():
-        return fileReadHex(Acpi.MASK, \
+        return fileReadHex(ThinkpadAcpi.MASK, \
             'Unable to obtain Hotkey Mask!')
             
     @staticmethod
     def setMask(data):
-        return fileWriteHex(Acpi.MASK, \
+        return fileWriteHex(ThinkpadAcpi.MASK, \
             'Unable to obtain Hotkey Mask!', data)
             
     @staticmethod
     def getPollingFrequency():
-        return fileReadHex(Acpi.POLL_FREQ, \
+        return fileReadHex(ThinkpadAcpi.POLL_FREQ, \
             'Unable to obtain Polling Frequency!')
             
     @staticmethod
     def setPollingFrequency(data):
-        return fileWriteHex(Acpi.POLL_FREQ, \
+        return fileWriteHex(ThinkpadAcpi.POLL_FREQ, \
             'Unable to obtain Polling Frequency!', data)
             
     @staticmethod
     def getRecommendedMask():
-        return fileReadHex(Acpi.RECOMMENDED_MASK, \
+        return fileReadHex(ThinkpadAcpi.RECOMMENDED_MASK, \
             'Unable to obtain Hotkey Recommended Mask!')
             
     @staticmethod
     def getSourceMask():
-        return fileReadHex(Acpi.SOURCE_MASK, \
+        return fileReadHex(ThinkpadAcpi.SOURCE_MASK, \
             'Unable to obtain Hotkey Source Mask!')
         
+    @staticmethod
+    def hasBbSwitch():
+        return os.path.exists(ThinkpadAcpi.GPU_BBSWITCH)
 
+    @staticmethod
+    def getBbSwitchState():
+        state = fileRead(ThinkpadAcpi.GPU_BBSWITCH, \
+            'Unable to obtain BB Switch State!')
+        if state == 'ON':
+            return True
+        elif state == 'OFF':
+            return False
+        else:
+            raise NameError('Unknown bbswitch state')

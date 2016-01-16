@@ -23,6 +23,9 @@ common-install:
 #	install -m 644 system/acpid/thinkpad-scripts-rotated-start -t "$(DESTDIR)/etc/acpi/events/"
 #	install -m 644 system/acpid/thinkpad-scripts-rotated-stop -t "$(DESTDIR)/etc/acpi/events/"
 	
+	install -d "$(DESTDIR)/etc/modprobe.d/"
+	install -m 644 system/modprobe.d/thinkpad-scripts.conf -t "$(DESTDIR)/etc/modprobe.d/"
+	
 	install -d "$(DESTDIR)/etc/modules-load.d/"
 	install -m 644 system/modules-load.d/thinkpad-scripts.conf -t "$(DESTDIR)/etc/modules-load.d/"
 	
