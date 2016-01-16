@@ -5,6 +5,7 @@
 # Copyright © 2016 Lukasz Czuja <pub@czuja.pl>
 # Licensed under The GNU Public License Version 2 (or later)
 
+import collections
 import logging
 import sys
 import time
@@ -21,13 +22,47 @@ import tps.vkeyboard
 
 logger = logging.getLogger(__name__)
 
+
+Direction = collections.namedtuple(
+    'Direction', ['xrandr', 'subpixel', 'rot_mat']
+)
+'''
+Holds the direction names of different tools.
+
+``xrandr`` and other programs use different names for the rotations. To avoid
+proliferation of various names, this class holds the differing names. The
+module provides constants which have to be used within :mod:`tps`.
+'''
+
+LEFT = Direction('left', 'vrgb', [0,-1, 1,
+                                  1, 0, 0,
+                                  0, 0, 1])
+
+RIGHT = Direction('right', 'vbgr', [0, 1, 0,
+                                   -1, 0, 1,
+                                    0, 0, 1])
+
+NORMAL = Direction('normal', 'rgb', [1, 0, 0,
+                                     0, 1, 0,
+                                     0, 0, 1])
+
+INVERTED = Direction('inverted', 'bgr', [-1, 0, 1,
+                                          0,-1, 1,
+                                          0, 0, 1])
+
+TABLET_NORMAL = NORMAL
+
+class UnknownDirectionException(Exception):
+    '''
+    Unknown direction given at the command line.
+    '''
         
 def rotate_cmdline(options, config):
     try:
         new_direction = new_rotation(
             tps.screen.get_rotation(config['screen']['internal']),
             options.direction, config, options.force_direction)
-    except tps.UnknownDirectionException:
+    except UnknownDirectionException:
         logger.error('Direction cannot be understood.')
         sys.exit(1)
     except tps.screen.ScreenNotFoundException as e:
@@ -76,11 +111,11 @@ def rotate_daemon(options, config):
         try:
             if tablet_mode:
                 if not autorotate_tablet_mode:
-                    desired_rotation = tps.translate_direction(config['rotate']['default_rotation'])
+                    desired_rotation = translate_direction(config['rotate']['default_rotation'])
                 else:
                     desired_rotation = hdaps.getOrientation(True)
             elif not autorotate_laptop_mode:
-                desired_rotation = tps.NORMAL
+                desired_rotation = NORMAL
             else:
                 desired_rotation = hdaps.getOrientation(False)
                 
@@ -91,7 +126,7 @@ def rotate_daemon(options, config):
                     # does we're left with disabled controls
                     set_inputs_state(config, not tablet_mode)
                 continue
-        except tps.UnknownDirectionException:
+        except UnknownDirectionException:
             logger.error('Direction cannot be understood.')
             sys.exit(1)
 
@@ -135,6 +170,37 @@ def set_inputs_state(config, state):
         logger.info('TouchPad was not found, could not be (de)activated.')
         logger.debug('Exception was: “%s”', str(e))
 
+def translate_direction(direction):
+    '''
+    :param str direction: Direction string
+    :returns: Direction object
+    :rtype: Direction
+    :raises UnknownDirectionException:
+    '''
+
+    if direction in ['normal', 'none']:
+        result = NORMAL
+
+    elif direction in ['left', 'ccw']:
+        result = LEFT
+
+    elif direction in ['right', 'cw']:
+        result = RIGHT
+
+    elif direction in ['flip', 'inverted', 'half']:
+        result = INVERTED
+
+    elif direction == 'tablet-normal':
+        result = TABLET_NORMAL
+
+    else:
+        raise UnknownDirectionException(
+            'Direction “{}” cannot be understood.'.format(direction))
+
+    logger.debug('Converted “{}” to “{}”.'.format(direction, result))
+
+    return result
+
 def rotate_to(direction, config, input_state):
     '''
     Performs all steps needed for a screen rotation.
@@ -167,15 +233,15 @@ def new_rotation(current, desired_str, config, force=False):
     '''
     if desired_str is None:
         if not ThinkpadAcpi.inTabletMode():
-            new = tps.translate_direction(config['rotate']['default_rotation'])
+            new = translate_direction(config['rotate']['default_rotation'])
             logger.info('Using default, setting to {}'.format(new))
         else:
-            new = tps.NORMAL
+            new = NORMAL
             logger.info('Using default, setting to {}'.format(new))
     else:
         desired = tps.translate_direction(desired_str)
         if desired == current and not force:
-            new = tps.NORMAL
+            new = NORMAL
             logger.info('You try to rotate into the direction it is, '
                         'reverting to normal.')
         else:
