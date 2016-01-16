@@ -13,7 +13,6 @@ import glob
 import logging
 import sys
 
-import tps
 import tps.hooks
 import tps.input
 import tps.network

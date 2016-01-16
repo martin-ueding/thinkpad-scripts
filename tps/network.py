@@ -12,7 +12,7 @@ import glob
 import logging
 import re
 
-import tps
+from tps.utils import check_call, check_output, command_exists
 
 logger = logging.getLogger(__name__)
 
@@ -47,11 +47,11 @@ def get_nmcli_version():
 
     :returns: tuple, e.g. (0, 9, 10) for version 0.9.10.0
     '''
-    if not tps.has_program('nmcli'):
+    if not command_exists('nmcli'):
         logger.warning('nmcli is not installed')
         return
 
-    response = tps.check_output(['nmcli', '--version'], logger).decode()
+    response = check_output(['nmcli', '--version'], logger).decode()
     version_str = re.search(r'\d+(\.\d+)*', response).group(0)
     version_list = [int(n) for n in version_str.split('.')]
     while version_list[-1] == 0:
@@ -66,7 +66,7 @@ def set_wifi(state):
     :param bool state: Desired state
     :returns: None
     '''
-    if not tps.has_program('nmcli'):
+    if not command_exists('nmcli'):
         logger.warning('nmcli is not installed')
         return
 
@@ -74,7 +74,7 @@ def set_wifi(state):
         command = ['nmcli', 'radio', 'wifi', 'on' if state else 'off']
     else:
         command = ['nmcli', 'nm', 'wifi', 'on' if state else 'off']
-    tps.check_call(command, logger)
+    check_call(command, logger)
 
 
 def has_ethernet():
@@ -106,7 +106,7 @@ def get_ethernet_con_name():
     :returns: str
     :raises tps.network.MissingEthernetException:
     '''
-    if not tps.has_program('nmcli'):
+    if not command_exists('nmcli'):
         logger.warning('nmcli is not installed')
         return
 
@@ -114,7 +114,7 @@ def get_ethernet_con_name():
         command = ['nmcli', '--terse', '--fields', 'NAME,TYPE', 'con', 'show']
     else:
         command = ['nmcli', '--terse', '--fields', 'NAME,TYPE', 'con', 'list']
-    lines = tps.check_output(command, logger).decode()
+    lines = check_output(command, logger).decode()
     ethernet_cons = []
     for line in lines.split('\n'):
         if line.strip():
@@ -134,8 +134,8 @@ def restart(connection):
     :param str connection: Name of the connection
     :returns: None
     '''
-    if not tps.has_program('nmcli'):
+    if not command_exists('nmcli'):
         logger.warning('nmcli is not installed')
         return
 
-    tps.check_call(['nmcli', 'con', 'up', 'id', connection], logger)
+    check_call(['nmcli', 'con', 'up', 'id', connection], logger)

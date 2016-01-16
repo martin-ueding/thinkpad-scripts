@@ -3,10 +3,89 @@
 # Copyright © 2016 Lukasz Czuja <pub@czuja.pl>
 # Licensed under The GNU Public License Version 2 (or later)
 
+from functools import wraps
+import subprocess
 import logging
 import os
 
 logger = logging.getLogger(__name__)
+
+
+def command_exists(command):
+    '''
+    Checks whether a given command is installed on this system.
+
+    :param str command: Name of command
+    :returns: Whether command is found and executable
+    :rtype: bool
+    '''
+    def is_exe(path):
+        return os.path.isfile(path) and os.access(path, os.X_OK)
+
+    # Check if `command` is a path to an executable
+    if os.sep in command:
+        if is_exe(os.path.expanduser(command)):
+            logger.debug('Command “{}” found.'.format(command))
+            return True
+
+    # Check if `command` is an executable on PATH
+    else:
+        for dir in os.get_exec_path():
+            if is_exe(os.path.join(dir, command)):
+                logger.debug('Command “{}” found.'.format(command))
+                return True
+
+    logger.debug('Command “{}” not found.'.format(command))
+    return False
+    
+def command_toggle_state(program, state):
+    '''
+    Toggles the running state of the given progam.
+
+    If state is true, the program will be spawned.
+
+    :param str program: Name of the program
+    :param bool state: Desired state
+    :returns: None
+    '''
+    if state:
+        try:
+            check_output(['pgrep', program], logger)
+        except subprocess.CalledProcessError:
+            if command_exists(program):
+                logger.debug(program)
+                subprocess.Popen([program])
+            else:
+                logger.warning('{} is not installed'.format(program))
+    else:
+        try:
+            check_output(['pgrep', program], logger)
+            check_call(['killall', program], logger)
+        except subprocess.CalledProcessError:
+            pass
+
+
+def print_command_decorate(function):
+    '''
+    Decorates a func from the subprocess module to log the `command` parameter.
+
+    Note that the wrapper adds an additional `local_logger` parameter following
+    the `command` parameter that is used for the logging. All other parameters
+    are passed to the wrapped function.
+
+    :param function: Function to wrap
+    :returns: Decorated function
+    '''
+    @wraps(function)
+    def wrapper(command, local_logger, *args, **kwargs):
+        local_logger.debug('subprocess “{}”'.format(' '.join(command)))
+        #kwargs['stderr'] = subprocess.STDOUT
+        return function(command, *args, **kwargs)
+    return wrapper
+    
+check_call = print_command_decorate(subprocess.check_call)
+call = print_command_decorate(subprocess.call)
+check_output = print_command_decorate(subprocess.check_output)
 
 def fileExists(file):
     return os.path.exists(file)
@@ -47,7 +126,6 @@ def fileWrite(file, errMsg, data):
         logger.error(errMsg)
         logger.error(e)
         return False
-
 
 class DictInitialised(object):
     def __init__(self, **kwargs):

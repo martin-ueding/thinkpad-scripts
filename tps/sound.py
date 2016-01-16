@@ -11,8 +11,8 @@ Logic for sound.
 import logging
 import re
 
-import tps
 import tps.config
+from tps.utils import check_call, check_output, command_exists
 
 logger = logging.getLogger(__name__)
 
@@ -26,11 +26,11 @@ def get_pulseaudio_sinks():
     returned instead.
     :rtype: list of str
     '''
-    if not tps.has_program('pactl'):
+    if not command_exists('pactl'):
         logger.warning('pactl is not installed')
         return []
 
-    output = tps.check_output(['pactl', 'list', 'sinks'], logger).decode()
+    output = check_output(['pactl', 'list', 'sinks'], logger).decode()
     sinks = re.findall('^Sink #(\d+)$', output, flags=re.MULTILINE)
     return sinks
 
@@ -43,7 +43,7 @@ def unmute(loudness):
     '''
     sinks = get_pulseaudio_sinks()
     for sink in sinks:
-        tps.check_call(['pactl', 'set-sink-mute', sink, '0'], logger)
+        check_call(['pactl', 'set-sink-mute', sink, '0'], logger)
 
     set_volume(loudness)
 
@@ -56,7 +56,7 @@ def set_volume(loudness):
     '''
     sinks = get_pulseaudio_sinks()
     for sink in sinks:
-        tps.check_call(['pactl', 'set-sink-volume', sink, loudness], logger)
+        check_call(['pactl', 'set-sink-volume', sink, loudness], logger)
 
 if __name__ == '__main__':
     print(get_pulseaudio_sinks())

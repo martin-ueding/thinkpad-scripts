@@ -10,7 +10,7 @@ Logic for Ubuntu Unity.
 
 import logging
 
-import tps
+from tps.utils import check_call, command_exists
 
 logger = logging.getLogger(__name__)
 
@@ -24,12 +24,12 @@ def set_launcher(autohide):
 
     :param bool autohide: True if autohide is desired
     '''
-    if not tps.has_program('dconf'):
+    if not command_exists('dconf'):
         logger.warning('dconf is not installed')
         return
 
     set_to = '1' if autohide else '0'
-    tps.check_call(
+    check_call(
         ['dconf', 'write',
          '/org/compiz/profiles/unity/plugins/unityshell/launcher-hide-mode',
          set_to],

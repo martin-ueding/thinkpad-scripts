@@ -11,7 +11,7 @@ Functions that execute the appropriate hooks.
 import logging
 import os.path
 
-import tps
+from tps.utils import call, command_exists
 
 logger = logging.getLogger(__name__)
 
@@ -25,8 +25,8 @@ def prerotate(direction, config):
     :returns: None
     '''
     hook = os.path.expanduser(config['hooks']['prerotate'])
-    if tps.has_program(hook):
-        tps.call([hook, direction.xrandr], logger)
+    if command_exists(hook):
+        call([hook, direction.xrandr], logger)
 
 
 def postrotate(direction, config):
@@ -38,8 +38,8 @@ def postrotate(direction, config):
     :returns: None
     '''
     hook = os.path.expanduser(config['hooks']['postrotate'])
-    if tps.has_program(hook):
-        tps.call([hook, direction.xrandr], logger)
+    if command_exists(hook):
+        call([hook, direction.xrandr], logger)
 
 
 def predock(state, config):
@@ -51,8 +51,8 @@ def predock(state, config):
     :returns: None
     '''
     hook = os.path.expanduser(config['hooks']['predock'])
-    if tps.has_program(hook):
-        tps.call([hook, 'on' if state else 'off'], logger)
+    if command_exists(hook):
+        call([hook, 'on' if state else 'off'], logger)
 
 
 def postdock(state, config):
@@ -64,5 +64,5 @@ def postdock(state, config):
     :returns: None
     '''
     hook = os.path.expanduser(config['hooks']['postdock'])
-    if tps.has_program(hook):
-        tps.call([hook, 'on' if state else 'off'], logger)
+    if command_exists(hook):
+        call([hook, 'on' if state else 'off'], logger)

@@ -13,7 +13,7 @@ import logging
 import re
 import subprocess
 
-import tps
+from tps.utils import check_call, check_output, command_exists
 
 logger = logging.getLogger(__name__)
 
@@ -31,9 +31,9 @@ def get_rotation(screen):
 
     :param str screen: Find rotation of given output
     :returns: Current direction
-    :rtype: tps.Direction
+    :rtype: tps.rotate.Direction
     '''
-    output = tps.check_output(['xrandr', '-q', '--verbose'], logger).decode()
+    output = check_output(['xrandr', '-q', '--verbose'], logger).decode()
     lines = output.split('\n')
     for line in lines:
         if screen in line:
@@ -61,7 +61,7 @@ def get_externals(internal):
     :rtype: str
     '''
     externals = []
-    lines = tps.check_output(['xrandr'], logger).decode().split('\n')
+    lines = check_output(['xrandr'], logger).decode().split('\n')
     for line in lines:
         if not line.startswith(internal):
             matcher = re.search(r'^(\S+) connected', line)
@@ -78,7 +78,7 @@ def rotate(screen, direction):
     :param tps.Direction direction: New direction
     :returns: None
     '''
-    tps.check_call(['xrandr', '--output', screen, '--rotate',
+    check_call(['xrandr', '--output', screen, '--rotate',
                     direction.xrandr], logger)
 
 
@@ -89,20 +89,20 @@ def set_subpixel_order(direction):
     :param tps.Direction direction: New direction
     :returns: None
     '''
-    if tps.has_program('xfconf-query'):
+    if command_exists('xfconf-query'):
         try:
-            tps.check_call(['xfconf-query', '-c', 'xsettings', '-p',
+            check_call(['xfconf-query', '-c', 'xsettings', '-p',
                             '/Xft/RGBA', '-s', direction.subpixel], logger)
         except subprocess.CalledProcessError as e:
             logger.error(e)
 
-    elif tps.has_program('gsettings'):
+    elif command_exists('gsettings'):
         try:
-            schemas = tps.check_output(
+            schemas = check_output(
                 ['gsettings', 'list-schemas'], logger).decode().split('\n')
             schema = 'org.gnome.settings-daemon.plugins.xsettings'
             if schema in schemas:
-                tps.check_call(['gsettings', 'set', schema, 'rgba-order',
+                check_call(['gsettings', 'set', schema, 'rgba-order',
                                 direction.subpixel], logger)
             else:
                 logger.warning('gsettings is installed, but the "{}" schema '
@@ -120,11 +120,11 @@ def set_brightness(brightness):
     :param str brightness: Percent value of brightness, e. g. ``60%``
     :returns: None
     '''
-    if not tps.has_program('xbacklight'):
+    if not command_exists('xbacklight'):
         logger.warning('xbacklight is not installed')
         return
 
-    tps.check_call(['xbacklight', '-set', brightness], logger)
+    check_call(['xbacklight', '-set', brightness], logger)
 
 
 def disable(screen):
@@ -134,7 +134,7 @@ def disable(screen):
     :param str screen: Name of the output to disable
     :returns: None
     '''
-    tps.check_call(['xrandr', '--output', screen, '--off'], logger)
+    check_call(['xrandr', '--output', screen, '--off'], logger)
 
 
 def enable(screen, primary=False, position=None):
@@ -155,7 +155,7 @@ def enable(screen, primary=False, position=None):
     if primary:
         command += ['--primary']
 
-    tps.check_call(command, logger)
+    check_call(command, logger)
 
 
 def get_resolution_and_shift(output):
@@ -179,7 +179,7 @@ def get_resolution_and_shift(output):
     3286×1080 and the position of the internal screen is 1366×768+1920+0. This
     allows to compute the transformation matrix for this.
     '''
-    xrandr_output = tps.check_output(['xrandr', '-q'], logger).strip().decode()
+    xrandr_output = check_output(['xrandr', '-q'], logger).strip().decode()
     lines = xrandr_output.split('\n')
 
     pattern_output = re.compile(r'''

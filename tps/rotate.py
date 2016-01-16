@@ -18,7 +18,7 @@ import tps.hooks
 import tps.input
 import tps.screen
 import tps.unity
-import tps.vkeyboard
+from tps.utils import check_call, check_output
 
 logger = logging.getLogger(__name__)
 
@@ -148,7 +148,7 @@ def set_inputs_state(config, state):
     if config['unity'].getboolean('toggle_launcher'):
         tps.unity.set_launcher(state)
 
-    tps.vkeyboard.toggle(config['vkeyboard']['program'], not state)
+    command_toggle_state(config['vkeyboard']['program'], not state)
 
     try:
         trackpoint_xinput_id = tps.input.get_xinput_id('TrackPoint')
@@ -239,7 +239,7 @@ def new_rotation(current, desired_str, config, force=False):
             new = NORMAL
             logger.info('Using default, setting to {}'.format(new))
     else:
-        desired = tps.translate_direction(desired_str)
+        desired = translate_direction(desired_str)
         if desired == current and not force:
             new = NORMAL
             logger.info('You try to rotate into the direction it is, '
@@ -274,7 +274,7 @@ def can_use_chvt():
     :rtype: bool
     '''
     command = ['sudo', '-l']
-    output = tps.check_output(command, logger)
+    output = check_output(command, logger)
 
     return b'/bin/chvt' in output
 
@@ -283,8 +283,8 @@ def toggle_virtual_terminal():
     '''
     '''
     assert can_use_chvt()
-    tps.check_call(['sudo', '-n', 'chvt', '6'], logger)
-    tps.check_call(['sudo', '-n', 'chvt', '7'], logger)
+    check_call(['sudo', '-n', 'chvt', '6'], logger)
+    check_call(['sudo', '-n', 'chvt', '7'], logger)
 
 
 def has_external_screens(config):

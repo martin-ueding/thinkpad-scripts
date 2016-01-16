@@ -12,13 +12,13 @@ import os.path
 from daemon import DaemonContext
 from lockfile.pidlockfile import PIDLockFile
 
-from tps import check_call
 from tps.config import get_config, migrate_shell_config, \
                        print_config, set_up_logging
 from tps.acpi.battery import ThinkpadAcpiBatteryController
 from tps.dock import dock, get_docking_state
 from tps.input import toggle_xinput_state
 from tps.rotate import rotate_cmdline, rotate_daemon, xrandr_bug_fail_early
+from tps.utils import check_call
 
 logger = logging.getLogger(__name__)
 

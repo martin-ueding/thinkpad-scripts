@@ -11,9 +11,9 @@ Logic related to input devices.
 import logging
 import re
 
-import tps
 import tps.config
 import tps.screen
+from tps.utils import check_call, check_output
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +40,7 @@ def get_wacom_device_ids():
     regex = config['touch']['regex']
     logger.debug('Using “%s” as regex to find Wacom devices.', regex)
     pattern = re.compile(regex.encode())
-    output = tps.check_output(['xinput'], logger)
+    output = check_output(['xinput'], logger)
     lines = output.split(b'\n')
     ids = []
     for line in lines:
@@ -57,7 +57,7 @@ def map_rotate_input_device(device, matrix):
     :type device: int
     :type direction: tps.Direction
     '''
-    tps.check_call(
+    check_call(
         ['xinput', 'set-prop', str(device), 'Coordinate Transformation Matrix']
         + list(map(str, matrix)), logger
     )
@@ -81,7 +81,7 @@ def get_xinput_id(name):
     :raises InputDeviceNotFoundException: Device not found in ``xinput`` output
     :rtype: int
     '''
-    output = tps.check_output(['xinput', 'list'], logger).decode()
+    output = check_output(['xinput', 'list'], logger).decode()
     matcher = re.search(name + r'\s*id=(\d+)', output)
     if matcher:
         return int(matcher.group(1))
@@ -99,7 +99,7 @@ def set_xinput_state(device, state):
     :type state: bool
     '''
     set_to = '1' if state else '0'
-    tps.check_call(['xinput', 'set-prop', str(device), 'Device Enabled',
+    check_call(['xinput', 'set-prop', str(device), 'Device Enabled',
                     set_to], logger)
 
 def get_xinput_state(device):
@@ -111,7 +111,7 @@ def get_xinput_state(device):
     :returns: Whether device is enabled
     :rtype: bool
     '''
-    output = tps.check_output(['xinput', '--list', str(device)], logger)
+    output = check_output(['xinput', '--list', str(device)], logger)
     return b'disabled' not in output
     
 def toggle_xinput_state(device_name, state):
@@ -131,14 +131,14 @@ def set_wacom_touch(device_id, state):
     '''
     Changes the Wacom Touch property of the given device.
     '''
-    tps.check_call(['xinput', 'set-prop', str(device_id), 'Wacom Enable Touch',
+    check_call(['xinput', 'set-prop', str(device_id), 'Wacom Enable Touch',
                     '1' if state else '0'], logger)
 
 def has_xinput_prop(device, prop):
     '''
     Checks whether the device has the given xinput propery.
     '''
-    output = tps.check_output(['xinput', 'list-props', str(device)], logger)
+    output = check_output(['xinput', 'list-props', str(device)], logger)
     return prop in output
 
 def generate_xinput_coordinate_transformation_matrix(output, orientation):
@@ -201,4 +201,5 @@ def _matrix_mul(m1, m2):
     return output
 
 if __name__ == '__main__':
-    generate_xinput_coordinate_transformation_matrix('LVDS1', tps.INVERTED)
+    from tps.rotate import INVERTED
+    generate_xinput_coordinate_transformation_matrix('LVDS1', INVERTED)
