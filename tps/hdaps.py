@@ -23,7 +23,7 @@ import math
 import os
 import sys
 
-from tps import LEFT, RIGHT, NORMAL, INVERTED
+from tps.compositor import LEFT, RIGHT, NORMAL, INVERTED
 from tps.utils import fileExists, fileRead, fileReadInt, fileWriteInt
 
 logger = logging.getLogger(__name__)
@@ -234,7 +234,7 @@ class Hdaps(object):
         """
         return fileWriteInt(Hdaps.HDAPS_INVERT_FILE, \
             'Unable to write HDAPS invertion!', invertion)
-        
+
     def getOrientation(self, inverted = False):
         """Orientation based upon a normalized position.
         The exception here is that we swap x<>y for the sake of the 

@@ -16,8 +16,9 @@ from tps.config import get_config, migrate_shell_config, \
                        print_config, set_up_logging
 from tps.acpi.battery import ThinkpadAcpiBatteryController
 from tps.dock import dock, get_docking_state
-from tps.input import toggle_xinput_state
-from tps.rotate import rotate_cmdline, rotate_daemon, xrandr_bug_fail_early
+from tps.compositor import toggle_input_state
+from tps.compositor.x11.screen import xrandr_bug_fail_early
+from tps.rotate import rotate_cmdline, rotate_daemon
 from tps.utils import check_call
 
 logger = logging.getLogger(__name__)
@@ -43,7 +44,7 @@ def main():
     elif options.command == 'input':
         device_name = config['input'][options.input + '_device']
         input_state = parse_input_state(options.state)
-        toggle_xinput_state(device_name, input_state)
+        toggle_input_state(device_name, input_state)
     elif options.command == 'mutemic':
         check_call(['amixer', 'sset', "'Capture',0", 'toggle'], logger)
     elif options.command == 'rotate':
@@ -183,6 +184,7 @@ def battery(options, config):
         
 def rotate(options, config):
     if options.via_hook is not None:
+        # TODO: get rid of this if possible to remain compositor agnostic
         xrandr_bug_fail_early(config)
     
     # acpi hook values

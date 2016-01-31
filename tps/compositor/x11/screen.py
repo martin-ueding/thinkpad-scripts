@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 # Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
@@ -12,17 +11,13 @@ Screen related logic.
 import logging
 import re
 import subprocess
+import sys
 
+from tps.compositor.common import ScreenNotFoundException, \
+                                  translate_direction
 from tps.utils import check_call, check_output, command_exists
 
 logger = logging.getLogger(__name__)
-
-
-class ScreenNotFoundException(Exception):
-    '''
-    ``xrandr`` device could not be found.
-    '''
-    pass
 
 
 def get_rotation(screen):
@@ -39,7 +34,7 @@ def get_rotation(screen):
         if screen in line:
             matcher = re.search(r'\) (normal|left|inverted|right) \(', line)
             if matcher:
-                rotation = tps.translate_direction(matcher.group(1))
+                rotation = translate_direction(matcher.group(1))
                 logger.info('Current rotation is “{}”.'.format(rotation))
                 return rotation
     else:
@@ -68,6 +63,14 @@ def get_externals(internal):
             if matcher:
                 externals.append(matcher.group(1))
     return externals
+
+
+def has_external_screens(config):
+    '''
+    Checks whether any external screens are attached.
+    '''
+    externals = tps.screen.get_externals(config['screen']['internal'])
+    return len(externals) > 0
 
 
 def rotate(screen, direction):
@@ -217,3 +220,80 @@ def get_resolution_and_shift(output):
             'report a bug otherwise.'.format(output))
 
     return result
+
+
+def xrandr_bug_fail_early(config):
+    '''
+    Quits the program if xrandr bug cannot be coped with.
+    '''
+    if needs_xrandr_bug_workaround(config) and not can_use_chvt():
+        logger.warning('Aborting since there are no external screens attached '
+                       'and XRandr bug workaround is enabled.')
+        sys.exit(1)
+
+
+def xrandr_bug_workaround(config):
+    if needs_xrandr_bug_workaround(config) and can_use_chvt():
+        toggle_virtual_terminal()
+
+
+def needs_xrandr_bug_workaround(config):
+    '''
+    Determines whether xrandr bug needs to be worked around.
+
+    XRandr has a `bug in Ubuntu`__, maybe even in other distributions. In
+    Ubuntu 15.04 a workaround is to change the virtual terminal to a different
+    one and back to the seventh, the graphical one. This can be automated using
+    the ``chvt`` command which requires superuser privileges. An entry in the
+    sudo file can let the normal user execute this program.
+
+    __ https://bugs.launchpad.net/ubuntu/+source/x11-xserver-utils/+bug/1451798
+    '''
+    # Do nothing if workaround is not requested.
+    if not config['rotate'].getboolean('xrandr_bug_workaround'):
+        return False
+
+    logger.debug('xrandr bug workaround requested')
+
+    # Do nothing if an external screen is attached. The bug does not appear
+    # then.
+    if has_external_screens(config):
+        return False
+
+    return True
+
+
+def can_use_chvt():
+    '''
+    Checks whether ``chvt`` can be called with ``sudo`` without a password.
+
+    The ``sudo`` command has the ``-n`` option which will just make the command
+    fail when the user does not have the appropriate permissions. The problem
+    with ``chvt`` is that it does not have any intelligent command line
+    argument parsing. If will return code 1 if no argument is given, the same
+    code that ``sudo`` gives when no permission is available. Therefore I chose
+    to use ``sudo -l` to get the whole list and see whether the full path to
+    ``chvt`` is in there. This might break on Fedora where the ``usr``-merge
+    has been done now.
+
+    The following line is needed in a file like ``/etc/sudoers.d/chvt``::
+
+        myuser  ALL = NOPASSWD: /bin/chvt
+
+    You have to replace ``myuser`` which your username. Giving too broad
+    permissions to every other user account is probably not a good idea.
+
+    :rtype: bool
+    '''
+    command = ['sudo', '-l']
+    output = check_output(command, logger)
+
+    return b'/bin/chvt' in output
+
+
+def toggle_virtual_terminal():
+    '''
+    '''
+    assert can_use_chvt()
+    check_call(['sudo', '-n', 'chvt', '6'], logger)
+    check_call(['sudo', '-n', 'chvt', '7'], logger)

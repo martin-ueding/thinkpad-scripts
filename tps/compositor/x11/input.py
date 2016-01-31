@@ -1,7 +1,7 @@
-#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 # Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2016 Lukasz Czuja <pub@czuja.pl>
 # Licensed under The GNU Public License Version 2 (or later)
 
 '''
@@ -11,20 +11,14 @@ Logic related to input devices.
 import logging
 import re
 
-import tps.config
-import tps.screen
+from tps.compositor.common import InputDeviceNotFoundException
+from tps.compositor.x11.screen import get_resolution_and_shift
 from tps.utils import check_call, check_output
 
 logger = logging.getLogger(__name__)
 
 
-class InputDeviceNotFoundException(Exception):
-    '''
-    ``xinput`` device could not be found.
-    '''
-    pass
-
-def get_wacom_device_ids():
+def get_device_ids(regex):
     '''
     Gets the IDs of the built-in Wacom touch devices.
 
@@ -35,10 +29,7 @@ def get_wacom_device_ids():
 
     :rtype: list
     '''
-    config = tps.config.get_config()
-
-    regex = config['touch']['regex']
-    logger.debug('Using “%s” as regex to find Wacom devices.', regex)
+    logger.debug('Using “%s” as regex to find devices.', regex)
     pattern = re.compile(regex.encode())
     output = check_output(['xinput'], logger)
     lines = output.split(b'\n')
@@ -50,7 +41,7 @@ def get_wacom_device_ids():
 
     return ids
 
-def map_rotate_input_device(device, matrix):
+def rotate_input_device(device, matrix):
     '''
     Rotates an input device.
 
@@ -62,14 +53,14 @@ def map_rotate_input_device(device, matrix):
         + list(map(str, matrix)), logger
     )
 
-def map_rotate_all_input_devices(output, orientation):
+def rotate_input_devices(regex, output, orientation):
     '''
-    Maps all Wacom® devices.
+    Rotates all touch (Wacom®) devices by regex.
     '''
     matrix = generate_xinput_coordinate_transformation_matrix(output,
                                                               orientation)
-    for device in get_wacom_device_ids():
-        map_rotate_input_device(device, matrix)
+    for device in get_device_ids(regex):
+        rotate_input_device(device, matrix)
 
 def get_xinput_id(name):
     '''
@@ -150,7 +141,7 @@ def generate_xinput_coordinate_transformation_matrix(output, orientation):
     0.000000, -0.711111, 0.711111,
     0.000000, 0.000000, 1.000000
     '''
-    rs = tps.screen.get_resolution_and_shift(output)
+    rs = get_resolution_and_shift(output)
 
     x_scale = rs['output_width'] / rs['screen_width']
     y_scale = rs['output_height'] / rs['screen_height']
@@ -199,7 +190,3 @@ def _matrix_mul(m1, m2):
                 output[o_row*3 + o_col] += m1[o_row*3 + i] * m2[i*3 + o_col]
 
     return output
-
-if __name__ == '__main__':
-    from tps.rotate import INVERTED
-    generate_xinput_coordinate_transformation_matrix('LVDS1', INVERTED)
