@@ -8,9 +8,9 @@
 Logic related to the UltraBase® docks.
 '''
 
-import glob
 import logging
 
+from tps.acpi.thinkpad_acpi import ThinkpadAcpi
 from tps.compositor import get_rotation, get_externals, set_brightness, \
                            screen_enable, screen_disable, \
                            rotate_input_devices, ScreenNotFoundException
@@ -27,28 +27,7 @@ def get_docking_state(state):
     elif state == 'off':
         return False
     elif state is None:
-        return not is_docked()
-
-def is_docked():
-    '''
-    Determines whether the laptop is on a docking station.
-
-    This checks for ``/sys/devices/platform/dock.*/docked``.
-
-    :returns: True if laptop is docked
-    :rtype: bool
-    '''
-    dockfiles = glob.glob('/sys/devices/platform/dock.*/docked')
-    for dockfile in dockfiles:
-        with open(dockfile) as handle:
-            contents = handle.read()
-            dock_state = int(contents) == 1
-            if dock_state:
-                logger.info('Docking station found.')
-                return True
-    logger.info('No docking station found.')
-    return False
-
+        return not ThinkpadAcpi.isDocked()
 
 def select_docking_screens(internal, primary='', secondary=''):
     '''

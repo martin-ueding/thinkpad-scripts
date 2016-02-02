@@ -3,6 +3,7 @@
 # Copyright © 2016 Lukasz Czuja <pub@czuja.pl>
 # Licensed under The GNU Public License Version 2 (or later)
 
+import glob
 import logging
 import os
 import sys
@@ -11,17 +12,25 @@ from tps.utils import fileExists, fileRead, fileReadBoolean, \
                       fileReadHex, fileReadInt, fileWrite, \
                       fileWriteBoolean, fileWriteHex, fileWriteInt
 
-'''
+'''Interface to thinkpad_acpi kernel module via sysfs under:
+/proc/acpi/ibm/
+/sys/devices/platform/thinkpad_acpi/
+/sys/devices/platform/thinkpad_hwmon/
+and additionally:
+/sys/devices/platform/dock.*
+/sys/class/power_supply/
+/sys/class/dmi/id
+
+Info and docs:
+https://www.kernel.org/doc/Documentation/laptops/thinkpad-acpi.txt
 http://www.thinkwiki.org/wiki/Tablet_Hardware_Buttons
+http://www.thinkwiki.org/wiki/Table_of_thinkpad-acpi_LEDs
 '''
 
 logger = logging.getLogger(__name__)
 
 class ThinkpadAcpi(object):
-    '''
-    Utility class for interacting with Thinkpad ACPI Extras kernel module.
-    
-    #/sys/bus/platform/drivers/thinkpad_hwmon/
+    '''Class for interacting with Thinkpad ACPI Extras kernel module.
     '''
     
     POWER_SUPPLY_SYS_GLOB = "/sys/class/power_supply/{BAT0,BAT1,AC,ADP0,ADP1}/device/path"
@@ -65,6 +74,17 @@ class ThinkpadAcpi(object):
     def getFanState():
         def getValue(line):
             return line.split(':')[-1].strip()
+            
+        def getLevel(line):
+            value = getValue(line)
+            if value == 'disengaged':
+                return 254
+            elif value == 'auto':
+                return 255
+            elif value == 'full-speed':
+                return 256
+            else:
+                return int(value)
 
         status = speed = level = None
         with open(ThinkpadAcpi.THINKPAD_ACPI_PROC_FAN, 'r') as f:
@@ -72,14 +92,41 @@ class ThinkpadAcpi(object):
                 if line.startswith('status:'):
                     status = getValue(line)
                 if line.startswith('speed:'):
-                    speed = int(getVaue(line))
+                    speed = int(getValue(line))
                 if line.startswith('level:'):
-                    # level is 0-7, auto, disengaged, full-speed
                     level = getValue(line)
-        return (status, speed, level)
+        return {'status': status,
+                'level': level,
+                'rpm': speed}
+        
+    @staticmethod
+    def setFanSpeed(speed):
+        '''Set fan to specified level:
+        0=off, 1-7=normal, 254=disengaged, 255=auto, 256=full-speed
+        '''
+        fan_state = ThinkpadAcpi.getFanState()
+        
+        if speed == fan_state['level']:
+            logger.debug('Keeping the current fan level unchanged')
+        else:
+            logger.debug('Setting fan level to ' + str(speed))
+            with open(ThinkpadAcpi.THINKPAD_ACPI_PROC_FAN, 'w') as f:
+                if speed == 0:
+                    f.write('disable')
+                else:
+                    f.write('enable')
+                    if speed == 254:
+                        f.write('level disengaged')
+                    if speed == 255:
+                        f.write('level auto')
+                    elif speed == 256:
+                        f.write('level full-speed')
+                    else:
+                        f.write('level %d' % speed)
+                f.flush()
     
     @staticmethod
-    def sendCmosCommand():
+    def sendCmosCommand(data):
         return fileWrite(ThinkpadAcpi.CMOS_COMMAND, \
             'Unable to send CMOS Command', data)
     
@@ -166,3 +213,24 @@ class ThinkpadAcpi(object):
             return False
         else:
             raise NameError('Unknown bbswitch state')
+            
+    @staticmethod
+    def isDocked():
+        '''
+        Determines whether the laptop is on a docking station.
+
+        This checks for ``/sys/devices/platform/dock.*/docked``.
+
+        :returns: True if laptop is docked
+        :rtype: bool
+        '''
+        dockfiles = glob.glob('/sys/devices/platform/dock.*/docked')
+        for dockfile in dockfiles:
+            with open(dockfile) as handle:
+                contents = handle.read()
+                dock_state = int(contents) == 1
+                if dock_state:
+                    logger.info('Docking station found.')
+                    return True
+        logger.info('No docking station found.')
+        return False

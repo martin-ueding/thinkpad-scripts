@@ -12,9 +12,13 @@ import os.path
 from daemon import DaemonContext
 from lockfile.pidlockfile import PIDLockFile
 
+import os
+sys.path.insert(0, os.path.abspath(os.path.dirname(os.path.dirname(__file__))))
+
 from tps.config import get_config, migrate_shell_config, \
                        print_config, set_up_logging
 from tps.acpi.battery import ThinkpadAcpiBatteryController
+from tps.acpi.thinkpad_acpi import ThinkpadAcpi
 from tps.dock import dock, get_docking_state
 from tps.compositor import toggle_input_state
 from tps.compositor.x11.screen import xrandr_bug_fail_early
@@ -41,6 +45,8 @@ def main():
             not config['trigger'].getboolean('enable_dock'):
             sys.exit(0)
         dock(get_docking_state(options.state), config)
+    elif options.command == 'fan':
+        fan(options, config)
     elif options.command == 'input':
         device_name = config['input'][options.input + '_device']
         input_state = parse_input_state(options.state)
@@ -181,6 +187,24 @@ def battery(options, config):
         result = batteryController.setPeakShiftState(options.inhibit, options.min)
     elif options.battery_command == 'list':
         raise NotImplemented('Feature not yet implemented')
+        
+def fanLevelType(string):
+    if string == 'disengaged':
+        return 254
+    elif string == 'auto':
+        return 255
+    elif string == 'full-speed':
+        return 256
+    else:
+        return int(string)
+        
+def fan(options, config):
+    if not ThinkpadAcpi.hasFan():
+        print('No fan available')
+    elif options.level is not None:
+        ThinkpadAcpi.setFanSpeed(options.level)
+    else:
+        print(ThinkpadAcpi.getFanState())
         
 def rotate(options, config):
     if options.via_hook is not None:
@@ -348,6 +372,13 @@ def _parse_cmdline():
                             
     battery_cmds.add_parser('list', help='List known power devices')
 
+    fan = commands.add_parser('fan', help='Control Fan speed')
+    
+    fan.add_argument('level', nargs='?', type=fanLevelType,
+                     choices=('auto', 'disengaged', 'full-speed', \
+                     0, 1, 2, 3, 4, 5, 6, 7, 254, 255, 256),
+                     help='Sets the fan speed (0=off, 1-7=normal, '
+                     '254=disengaged, 255=auto, 256=full-speed)')
     
     dock = commands.add_parser('dock', help='Toggle Docking station state')
     
