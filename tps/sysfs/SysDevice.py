@@ -38,3 +38,11 @@ class SysDevice(object):
 
     def _join(self, file_name):
         return os.path.join(self._path, file_name)
+        
+    def __str__(self):
+        sb = [self.name]
+        properties = [ p for p in dir(self.__class__) \
+            if isinstance(getattr(self.__class__,p), property) ]
+        for prop in properties:
+            sb.append("\t{prop}='{value}'".format(prop=prop, value=getattr(self, prop)))
+        return '\n'.join(sb)

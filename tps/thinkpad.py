@@ -23,6 +23,7 @@ from tps.dock import dock, get_docking_state
 from tps.compositor import toggle_input_state
 from tps.compositor.x11.screen import xrandr_bug_fail_early
 from tps.rotate import rotate_cmdline, rotate_daemon
+from tps.sysfs.PowerSource import PowerSources
 from tps.utils import check_call
 
 logger = logging.getLogger(__name__)
@@ -181,7 +182,8 @@ def battery(options, config):
     elif options.battery_command in ['PS', 'ps', 'peakShiftState']:
         result = batteryController.setPeakShiftState(options.inhibit, options.min)
     elif options.battery_command == 'list':
-        raise NotImplemented('Feature not yet implemented')
+        for ps in PowerSources().values():
+            print (ps)
         
 def fan(options, config):
     if not ThinkpadAcpi.hasFan():
@@ -299,7 +301,7 @@ def _parse_cmdline():
     battery = commands.add_parser('battery', help='Battery management')
     
     # only to achieve compatibility with tpacpi-bat utility - NO OP
-    battery_ops = battery.add_mutually_exclusive_group(required=True)
+    battery_ops = battery.add_mutually_exclusive_group(required=False)
     battery_ops.add_argument('--get', '-g', action='store_const', 
                              dest='batop', const='get', 
                              help='Get value. No action argument - for '
