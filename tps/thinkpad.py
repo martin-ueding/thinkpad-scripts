@@ -188,23 +188,14 @@ def battery(options, config):
     elif options.battery_command == 'list':
         raise NotImplemented('Feature not yet implemented')
         
-def fanLevelType(string):
-    if string == 'disengaged':
-        return 254
-    elif string == 'auto':
-        return 255
-    elif string == 'full-speed':
-        return 256
-    else:
-        return int(string)
-        
 def fan(options, config):
     if not ThinkpadAcpi.hasFan():
         print('No fan available')
     elif options.level is not None:
-        ThinkpadAcpi.setFanSpeed(options.level)
+        ThinkpadAcpi.setFanSpeed(ThinkpadAcpi.getFanLevelInt(options.level))
     else:
-        print(ThinkpadAcpi.getFanState())
+        fanState = ThinkpadAcpi.getFanState()
+        print (fanState['status'], ThinkpadAcpi.getFanLevelStr(fanState['level']), fanState['rpm'])
         
 def rotate(options, config):
     if options.via_hook is not None:
@@ -374,7 +365,7 @@ def _parse_cmdline():
 
     fan = commands.add_parser('fan', help='Control Fan speed')
     
-    fan.add_argument('level', nargs='?', type=fanLevelType,
+    fan.add_argument('level', nargs='?', type=ThinkpadAcpi.getFanLevelInt,
                      choices=('auto', 'disengaged', 'full-speed', \
                      0, 1, 2, 3, 4, 5, 6, 7, 254, 255, 256),
                      help='Sets the fan speed (0=off, 1-7=normal, '

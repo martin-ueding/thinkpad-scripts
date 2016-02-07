@@ -64,6 +64,8 @@ class ThinkpadAcpi(object):
     # (ro)
     SOURCE_MASK = THINKPAD_ACPI_SYSFS_BASE + 'hotkey_source_mask'
     
+    DOCK_STATIONS = '/sys/devices/platform/dock.*'
+    
     GPU_BBSWITCH = '/proc/acpi/bbswitch'
         
     @staticmethod
@@ -74,17 +76,6 @@ class ThinkpadAcpi(object):
     def getFanState():
         def getValue(line):
             return line.split(':')[-1].strip()
-            
-        def getLevel(line):
-            value = getValue(line)
-            if value == 'disengaged':
-                return 254
-            elif value == 'auto':
-                return 255
-            elif value == 'full-speed':
-                return 256
-            else:
-                return int(value)
 
         status = speed = level = None
         with open(ThinkpadAcpi.THINKPAD_ACPI_PROC_FAN, 'r') as f:
@@ -94,7 +85,7 @@ class ThinkpadAcpi(object):
                 if line.startswith('speed:'):
                     speed = int(getValue(line))
                 if line.startswith('level:'):
-                    level = getValue(line)
+                    level = ThinkpadAcpi.getFanLevelInt(getValue(line))
         return {'status': status,
                 'level': level,
                 'rpm': speed}
@@ -115,15 +106,31 @@ class ThinkpadAcpi(object):
                     f.write('disable')
                 else:
                     f.write('enable')
-                    if speed == 254:
-                        f.write('level disengaged')
-                    if speed == 255:
-                        f.write('level auto')
-                    elif speed == 256:
-                        f.write('level full-speed')
-                    else:
-                        f.write('level %d' % speed)
+                    f.write('level %s' % \
+                        ThinkpadAcpi.getFanLevelStr(speed))
                 f.flush()
+    
+    @staticmethod
+    def getFanLevelInt(speed):
+        if speed == 'disengaged':
+            return 254
+        elif speed == 'auto':
+            return 255
+        elif speed == 'full-speed':
+            return 256
+        else:
+            return int(speed)
+    
+    @staticmethod
+    def getFanLevelStr(speed):
+        if speed == 254:
+            return 'disengaged'
+        elif speed == 255:
+            return 'auto'
+        elif speed == 256:
+            return 'full-speed'
+        else:
+            return str(speed)
     
     @staticmethod
     def sendCmosCommand(data):
@@ -224,7 +231,7 @@ class ThinkpadAcpi(object):
         :returns: True if laptop is docked
         :rtype: bool
         '''
-        dockfiles = glob.glob('/sys/devices/platform/dock.*/docked')
+        dockfiles = glob.glob(DOCK_STATIONS)
         for dockfile in dockfiles:
             with open(dockfile) as handle:
                 contents = handle.read()
