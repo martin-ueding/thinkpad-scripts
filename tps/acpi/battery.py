@@ -26,20 +26,21 @@ EC - Embedded Controller
 '''
 
 import logging
+import re
 
 from tps.acpi.acpicall import AcpiCallDevice, AcpiCallArguments
+from tps.sysfs.PowerSource import PowerSources
 
 logger = logging.getLogger(__name__)
 
 
 class ThinkpadAcpiBatteryController(object):
 
-    _asl_base = r'\_SB.PCI0.LPC.EC.HKEY'
-
     either_both_battery, main_battery, secondary_battery = list(range(3))
 
     def __init__(self):
 
+        self._asl_base = self._getAslBase()
         self._device = AcpiCallDevice()
         
         # Battery Charge Start Threshold
@@ -246,6 +247,14 @@ class ThinkpadAcpiBatteryController(object):
     def _defineFunction(self, name, input_arguments, output_arguments):
         return self._device.defineFunction(self._asl_base + '.' + name,
                                            input_arguments, output_arguments)
+                                           
+    def _getAslBase(self):
+        pses = PowerSources()
+        for ps in pses.values():
+            aslBase = re.sub(r'_+(\.|$)', r'\1', ps.device_path) #trim trailing _s from components
+            return re.sub(r'(\.([A-Z,0-9])+)$', r'.HKEY', aslBase) #replace final .dddd with .HKEY
+        # default
+        return r'\_SB.PCI0.LPC.EC.HKEY'
 
     def _check_battery_id_for_reading(self, battery):
         if battery == self.either_both_battery:

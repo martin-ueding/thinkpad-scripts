@@ -22,7 +22,7 @@ class PowerSources(dict):
         super(PowerSources, self).__init__()
         for file_name in os.listdir(self.__sys_class_power_supply__):
             path = os.path.join(self.__sys_class_power_supply__, file_name)
-            if file_name == 'AC':
+            if file_name == 'AC' or file_name.startswith('ADP'):
                 power_source = AcPower(path)
             else:
                 power_source = Battery(path)
@@ -33,10 +33,15 @@ class PowerSource(SysDevice):
     def __init__(self, path):
         super(PowerSource, self).__init__(path)
         self._type = self.read('type')
+        self._device_path = self.read('device/path')
 
     @property
     def type(self):
         return self._type
+
+    @property
+    def device_path(self):
+        return self._device_path
 
 class AcPower(PowerSource):
 

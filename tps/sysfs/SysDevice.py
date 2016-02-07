@@ -11,6 +11,7 @@
 
 import os
 
+from tps.utils import fileRead
 
 class SysDevice(object):
 
@@ -22,15 +23,18 @@ class SysDevice(object):
     def name(self):
         return self._name
 
-    def _join(self, file_name):
-        return os.path.join(self._path, file_name)
-
     def read(self, file_name):
-        with open(self._join(file_name), 'r') as f:
-            return f.read().strip()
+        try:
+            return fileRead(self._join(file_name), \
+                'Unable to read PS property: %s' % file_name)
+        except IOError as e:
+            raise AttributeError(e)
 
     def read_int(self, file_name):
         return int(self.read(file_name))
 
     def read_bool(self, file_name):
         return bool(self.read_int(file_name))
+
+    def _join(self, file_name):
+        return os.path.join(self._path, file_name)

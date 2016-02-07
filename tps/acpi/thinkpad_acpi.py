@@ -20,7 +20,6 @@ from tps.utils import fileExists, fileRead, fileReadLines, \
 /sys/devices/platform/thinkpad_hwmon/
 and additionally:
 /sys/devices/platform/dock.*
-/sys/class/power_supply/
 /sys/class/dmi/id
 
 Info and docs:
@@ -34,8 +33,6 @@ logger = logging.getLogger(__name__)
 class ThinkpadAcpi(object):
     '''Class for interacting with Thinkpad ACPI Extras kernel module.
     '''
-    
-    POWER_SUPPLY_SYS_GLOB = "/sys/class/power_supply/{BAT0,BAT1,AC,ADP0,ADP1}/device/path"
     
     THINKPAD_ACPI_PROC_BASE = '/proc/acpi/ibm/'
     

@@ -329,7 +329,8 @@ def _parse_cmdline():
     battery_st.add_argument('level', nargs='?', type=int, 
                             choices=range(0, 100), default=None,
                             help='Charge level: 0 for default, 1-99 for '
-                            'percentage')
+                            'percentage. A value of 0 is translated to '
+                            'the hardware default 96%.')
     
     battery_sp = battery_cmds.add_parser('SP', aliases=['sp', 'stop', 
                                          'stopThreshold'], 
@@ -342,7 +343,8 @@ def _parse_cmdline():
     battery_sp.add_argument('level', nargs='?', type=int, 
                             choices=range(0, 100), default=None,
                             help='Charge level: 0 for default, 1-99 for '
-                            'percentage')
+                            'percentage. A value of 0 is translated to '
+                            'the hardware default 100%.')
     
     battery_ic = battery_cmds.add_parser('IC', aliases=['ic', 'inhibit',
                                          'inhibitCharge'], 
