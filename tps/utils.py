@@ -107,6 +107,33 @@ def fileRead(file, errMsg):
         logger.error(errMsg)
         logger.error(e)
         raise
+        
+def fileReadLines(file, errMsg):
+    try:
+        lines = []
+        with open(file, 'r') as f:
+            for line in f:
+                lines.append(line.strip())
+        return lines
+    except IOError as e:
+        logger.error(errMsg)
+        logger.error(e)
+        raise
+
+def fileReadLineValue(file, valueName, errMsg):
+    try:
+        with open(file, 'r') as f:
+            for line in f:
+                if line.startswith(valueName + ":"):
+                    return fileGetLineValue(line)
+        raise ValueError('Unable to read value named: %s' % valueName)
+    except IOError as e:
+        logger.error(errMsg)
+        logger.error(e)
+        raise
+
+def fileGetLineValue(line):
+    return line.split(':')[-1].strip()
 
 def fileWriteBoolean(file, errMsg, data):
     return fileWriteInt(file, errMsg, 1 if data else 0)
@@ -117,10 +144,12 @@ def fileWriteHex(file, errMsg, data):
 def fileWriteInt(file, errMsg, data):
     return fileWrite(file, errMsg, str(data))
 
-def fileWrite(file, errMsg, data):        
+def fileWrite(file, errMsg, *lines):        
     try:
         with open(file, 'w') as f:
-            f.write(str(data))
+            for line in lines:
+                f.write(str(line))
+            f.flush()
         return True
     except IOError as e:
         logger.error(errMsg)

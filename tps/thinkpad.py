@@ -39,6 +39,8 @@ def main():
         print_config(get_config())
     elif options.command == 'battery':
         battery(options, config)
+    elif options.command == 'beep':
+        ThinkpadAcpi.beep(options.sound)
     elif options.command == 'dock':
         # Quickly abort if the call is by the hook and the user disabled the trigger.
         if options.via_hook and \
@@ -49,8 +51,9 @@ def main():
         fan(options, config)
     elif options.command == 'input':
         device_name = config['input'][options.input + '_device']
-        input_state = parse_input_state(options.state)
-        toggle_input_state(device_name, input_state)
+        toggle_input_state(device_name, getState(options.state))
+    elif options.command == 'led':
+        led(options, config)
     elif options.command == 'mutemic':
         check_call(['amixer', 'sset', "'Capture',0", 'toggle'], logger)
     elif options.command == 'rotate':
@@ -101,15 +104,7 @@ def main_legacy():
         sys.argv.insert(i, input_device)
         
     main()
-    
-def parse_input_state(state):
-    if state == 'on':
-        return True
-    elif state == 'off':
-        return False
-    else:
-        return None
-        
+
 def displayThreshhold(level):
     if level == 0:
         print(str(level) + " (default)")
@@ -117,7 +112,7 @@ def displayThreshhold(level):
         print(str(level) + " (relative percent)")
     else:
         print(str(level) + " (unknown)")
-        
+
 def displayInhibit(result):
     if result.inhibit_charge_status == 1:
         result_str = "yes";
@@ -197,6 +192,29 @@ def fan(options, config):
         fanState = ThinkpadAcpi.getFanState()
         print (fanState['status'], ThinkpadAcpi.getFanLevelStr(fanState['level']), fanState['rpm'])
         
+def getState(string):
+    '''Booleanize on/off'''
+    if string == 'on':
+        return True
+    elif string == 'off':
+        return False
+    else:
+        return string
+        
+def led(options, config):
+    if options.led is not None:
+        if options.state is None:
+            print('on' if ThinkpadAcpi.getLedState(options.led) else 'off')
+        else:
+            ThinkpadAcpi.setLedState(options.led, getState(options.state))
+    else:
+        print("\n".join(ThinkpadAcpi.getAvailableLeds()))
+        
+def ledType(string):
+    if string is not None and string.isdigit():
+        return int(string)
+    return string
+        
 def rotate(options, config):
     if options.via_hook is not None:
         # TODO: get rid of this if possible to remain compositor agnostic
@@ -250,7 +268,18 @@ def _parse_cmdline():
     parser = argparse.ArgumentParser(description='ThinkPad Scripts',
                         epilog='Collection of thinkpad utilility commands')
                         #, version='x.y')
-    
+
+#    parser.add_argument('--backend', '-b', nargs='?', 
+#                        choices=('proc', 'sys', 'auto'), default='auto',
+#                        help='Most of the commands interact with '
+#                        'hardware via thinkpad_acpi kernel module. This '
+#                        'module exposes its functionality via proc and '
+#                        'sys filesystems for userspace tools. By '
+#                        'default use sys interface and fallback to proc'
+#                        'if the needed functionality is not implemented'
+#                        'via sys yet. Specify value to force to a '
+#                        'specific fs.')
+
     parser.add_argument('-v', dest='verbose', action='count',
                         help='Enable verbose output. Can be supplied '
                         'multiple times for even more verbosity.')
@@ -362,6 +391,25 @@ def _parse_cmdline():
                             'never, or 65535 for forever.')
                             
     battery_cmds.add_parser('list', help='List known power devices')
+    
+    beep = commands.add_parser('beep', help='Emit BIOS beep sound')
+    
+    beep.add_argument('sound', type=int, choices=(0, 2, 3, 4, 5, 6, 7, 
+                      9, 10, 12, 15, 16, 17), help='''Beep sound code:
+	0 - stop a sound in progress (but use 17 to stop 16),
+	2 - two beeps, pause, third beep ("low battery"),
+	3 - single beep,
+	4 - high, followed by low-pitched beep ("unable"),
+	5 - single beep,
+	6 - very high, followed by high-pitched beep ("AC/DC"),
+	7 - high-pitched beep,
+	9 - three short beeps,
+	10 - very long beep,
+	12 - low-pitched beep,
+	15 - three high-pitched beeps repeating constantly, stop with 0,
+	16 - one medium-pitched beep repeating constantly, stop with 17,
+	17 - stop 16.
+''')
 
     fan = commands.add_parser('fan', help='Control Fan speed')
     
@@ -385,6 +433,41 @@ def _parse_cmdline():
     inputs.add_argument('state', nargs='?', choices=('on', 'off'),
                         help='Desired input device state. '
                         'Toggle if not specified')
+                        
+    led = commands.add_parser('led', help='Led state management')
+    
+    led.add_argument('led', nargs='?', type=ledType,
+                     choices=['power', 'orange:batt', 'green:batt',
+                     'dock_active', 'bay_active', 'dock_batt',
+                     'unknown_led', 'standby', 'dock_status1',
+                     'dock_status2', 'unknown_led2', 'unknown_led3',
+                     'thinkvantage', 'thinklight'] + list(range(0, 16)),
+                     help='''The led to operate on. Leds can be accessed
+by LED ID (numered 0-15, via depreceated procfs interface) or by name 
+(via sysfs interface). Leave this argument empty to obtain list of LEDs 
+by name currently available on your Thinkpad.
+
+The LEDs are named (in LED ID order, from 0 to 12):
+'power', 'orange:batt', 'green:batt',
+'dock_active', 'bay_active', 'dock_batt',
+'unknown_led', 'standby', 'dock_status1',
+'dock_status2', 'unknown_led2', 'unknown_led3',
+'thinkvantage'.
+
+LEDs with IDs 13-15 may have no known name mapping (no spec in docs).
+
+Additionally you may specify a value of 'thinklight' wich will operate 
+on builtin ThinkLight or (on newer models) will enable keyboard backlight.
+
+@see: http://www.thinkwiki.org/wiki/Table_of_thinkpad-acpi_LEDs for more 
+information.
+''')
+
+    led.add_argument('state', nargs='?',
+                     choices=('on', 'off', 'blink', 'toggle'),
+                     help='Desired led state. Read LED state if not '
+                     'specified. The blink operation is available only '
+                     'via procfs interface.')
                         
     commands.add_parser('mutemic', help='Toggle Microphone state')
     
