@@ -2,55 +2,75 @@
 # -*- coding: utf-8 -*-
 
 # Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2016 Lukasz Czuja <pub@czuja.pl>
 
+import imp
+import os
 import sys
 
 print('This is running on:')
 print(sys.version)
 print()
 
-from setuptools import setup, find_packages
+try:
+    from setuptools import setup
+except ImportError:
+    from distribute_setup import use_setuptools
+    use_setuptools()
+    from setuptools import setup
+except ImportError:
+    from ez_setup import use_setuptools
+    use_setuptools()
+    from setuptools import setup
 
-import getversion
+from setuptools import find_packages
 
-if __name__ == '__main__':
-    packages = find_packages()
+meta_pathname = os.path.join(
+    os.path.abspath(os.path.dirname(__file__)),
+    "tps", "__meta__.py"
+)
+if os.path.exists(meta_pathname):
+    __meta__ = imp.load_source("tps.__meta__", meta_pathname)
+else:
+    __meta__ = imp.load_compiled("tps.__meta__", meta_pathname + "c")
 
-    setup(
-        author="Martin Ueding",
-        author_email="dev@martin-ueding.de",
-        description="Scripts for ThinkPad®",
-        license="GNU GPLv2+",
-        classifiers=[
-            "Environment :: Console",
-            "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
-            "Programming Language :: Python"
-        ],
-        name="thinkpad-scripts",
-        packages=packages,
-        entry_points={
-            'console_scripts': [
-                'thinkpad = tps.thinkpad:main',
-                # legacy EPs - use 'thinkpad' for all purposes
-                'thinkpad-config = tps.thinkpad:main_legacy',
-                'thinkpad-dock = tps.thinkpad:main_legacy',
-                'thinkpad-dock-hook = tps.thinkpad:main_legacy',
-                'thinkpad-mutemic = tps.thinkpad:main_legacy',
-                'thinkpad-rotate = tps.thinkpad:main_legacy',
-                'thinkpad-rotate-hook = tps.thinkpad:main_legacy',
-                'thinkpad-scripts-config-migration = tps.thinkpad:main_legacy',
-                'thinkpad-touch = tps.thinkpad:main_legacy',
-                'thinkpad-touchpad = tps.thinkpad:main_legacy',
-                'thinkpad-trackpoint = tps.thinkpad:main_legacy',
-            ],
-        },
-        test_suite='tps.testsuite',
-        #install_requires=[
-        #],
-        package_data={
-            'tps': ['default.ini']
-        },
-        url="https://github.com/martin-ueding/thinkpad-scripts",
-        download_url="http://martin-ueding.de/download/thinkpad-scripts/",
-        version=getversion.get_version(),
-    )
+
+setup(
+    # distutils.dist.DistributionMetaData options
+    name                = __meta__.name,
+    version             = __meta__.short,
+    author              = __meta__.author,
+    author_email        = __meta__.author_email,
+    maintainer          = __meta__.maintainer,
+    maintainer_email    = __meta__.maintainer_email,
+    url                 = __meta__.url,
+    license             = __meta__.license,
+    description         = __meta__.description,
+    long_description    = __meta__.text,
+    keywords            = __meta__.keywords,
+    platforms           = __meta__.platforms,
+    classifiers         = __meta__.classifiers,
+    download_url        = __meta__.download_url,
+    # PEP 314 (metadata_version == '1.1')
+    #requires            = __meta__.requires,
+    #provides            = __meta__.provides,
+    #obsoletes           = __meta__.obsoletes,
+    # Options specific to distutils/setuptools/distribute commands
+    packages            = find_packages(exclude = [ 'ez_setup' , 'distribute_setup', 'examples', 'tests' ]),
+    namespace_packages  = __meta__.namespace_packages,
+    package_dir         = __meta__.package_dir,
+    package_data        = __meta__.package_data,
+    include_package_data= __meta__.include_package_data,
+    exclude_package_data= __meta__.exclude_package_data,
+    py_modules          = __meta__.py_modules,
+    scripts             = __meta__.scripts,
+    zip_safe            = __meta__.zip_safe,
+    test_suite          = __meta__.test_suite,
+    entry_points        = __meta__.entry_points,
+    setup_requires      = __meta__.setup_requires,
+    install_requires    = __meta__.install_requires,
+    extras_require      = __meta__.extras_require,
+    tests_require       = __meta__.tests_require,
+    dependency_links    = __meta__.dependency_links,
+    data_files          = __meta__.data_files
+)
