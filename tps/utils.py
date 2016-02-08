@@ -3,6 +3,7 @@
 # Copyright © 2016 Lukasz Czuja <pub@czuja.pl>
 # Licensed under The GNU Public License Version 2 (or later)
 
+import errno
 from functools import wraps
 import subprocess
 import logging
@@ -103,10 +104,16 @@ def fileRead(file, errMsg):
     try:
         with open(file, 'r') as f:
             return f.read().strip()
-    except IOError as e:
-        logger.error(errMsg)
-        logger.error(e)
-        raise
+    except (IOError, OSError) as e:
+        if e.errno == errno.ENXIO and fileExists(file):
+            # sometimes even though file exists we can't read it
+            logger.debug(errMsg)
+            logger.debug(e)
+            return None
+        else:
+            logger.error(errMsg)
+            logger.error(e)
+            raise
         
 def fileReadLines(file, errMsg):
     try:
@@ -115,10 +122,16 @@ def fileReadLines(file, errMsg):
             for line in f:
                 lines.append(line.strip())
         return lines
-    except IOError as e:
-        logger.error(errMsg)
-        logger.error(e)
-        raise
+    except (IOError, OSError) as e:
+        if e.errno == errno.ENXIO and fileExists(file):
+            # sometimes even though file exists we can't read it
+            logger.debug(errMsg)
+            logger.debug(e)
+            return []
+        else:
+            logger.error(errMsg)
+            logger.error(e)
+            raise
 
 def fileReadLineValue(file, valueName, errMsg):
     try:
@@ -127,10 +140,16 @@ def fileReadLineValue(file, valueName, errMsg):
                 if line.startswith(valueName + ":"):
                     return fileGetLineValue(line)
         raise ValueError('Unable to read value named: %s' % valueName)
-    except IOError as e:
-        logger.error(errMsg)
-        logger.error(e)
-        raise
+    except (IOError, OSError) as e:
+        if e.errno == errno.ENXIO and fileExists(file):
+            # sometimes even though file exists we can't read it
+            logger.debug(errMsg)
+            logger.debug(e)
+            return None
+        else:
+            logger.error(errMsg)
+            logger.error(e)
+            raise
 
 def fileGetLineValue(line):
     return line.split(':')[-1].strip()

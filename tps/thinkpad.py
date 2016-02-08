@@ -23,8 +23,9 @@ from tps.dock import dock, get_docking_state
 from tps.compositor import toggle_input_state
 from tps.compositor.x11.screen import xrandr_bug_fail_early
 from tps.rotate import rotate_cmdline, rotate_daemon
-from tps.sysfs.PowerSource import PowerSources
+from tps.sysfs.tp_smapi import TpSmapi
 from tps.utils import check_call
+from tps.__meta__ import short as version
 
 logger = logging.getLogger(__name__)
 
@@ -182,8 +183,9 @@ def battery(options, config):
     elif options.battery_command in ['PS', 'ps', 'peakShiftState']:
         result = batteryController.setPeakShiftState(options.inhibit, options.min)
     elif options.battery_command == 'list':
-        for ps in PowerSources().values():
-            print (ps)
+        for battery in TpSmapi().values():
+            if battery.installed:
+                print (battery, "\n")
         
 def fan(options, config):
     if not ThinkpadAcpi.hasFan():
@@ -255,15 +257,11 @@ def _tpacpi_bat_cmdline_compat():
             i += 1
             
 def _parse_cmdline():
-    """
-    Parses the command line arguments.
-
-    If the logging module is imported, set the level according to the number of
-    ``-v`` given on the command line.
+    '''Parses the command line arguments.
 
     :return: Namespace with arguments.
     :rtype: Namespace
-    """
+    '''
     
     _tpacpi_bat_cmdline_compat()
     
@@ -287,18 +285,28 @@ def _parse_cmdline():
                         'multiple times for even more verbosity.')
     parser.add_argument('--via-hook', nargs='?',
                         help='Let the program know that it was called '
-                        'using the hook. This will then enable some '
-                        'workarounds. You do not need to care about this.')
+                        'using a system hook. End user should not use '
+                        'this switch!')
                         
-    parser.add_argument('--version', action='version', version='%(prog)s 4.7.1')
+    parser.add_argument('--version', action='version', 
+                        version='%(prog)s ' + version)
     
     commands = parser.add_subparsers(title='Available commands',
-                                     description='Valid subcommands', 
+                                     description='ThinkPad specific '
+                                     'commands that utilize hardware '
+                                     'builtin functionality and expose '
+                                     'it to userspace', 
                                      help='commands', dest='command')
     
     commands.add_parser('config', help='Display current configuration')
     
     battery = commands.add_parser('battery', help='Battery management')
+    
+    battery.add_argument('--api', '-a', nargs='?', 
+                         choices=('acpi', 'smapi'), default='smapi',
+                         help='Backend method to execute operations: '
+                         '\'acpi\' use direct ACPI calls (unoffical API), '
+                         '\'smapi\' use tp_smapi kernel module')
     
     # only to achieve compatibility with tpacpi-bat utility - NO OP
     battery_ops = battery.add_mutually_exclusive_group(required=False)
@@ -312,16 +320,22 @@ def _parse_cmdline():
                              'CLI compatibility with tpacpi-bat')
     
     battery_cmds = battery.add_subparsers(title='Available battery commands',
-                                          description='Exposes ACPI interface '
-                                          'for battery controls to change: '
-                                          'force discharge, inhibit charge, '
-                                          'start/stop charge threshold and '
-                                          'peak shift state.',
+                                          description='''
+Exposes an interface for battery controls to change:
+start/stop charge thresholds, inhibit charge, force discharge and 
+peak shift state.''',
                                        help='Battery commands with aliases',
                                        dest='battery_command')
     
     battery_st = battery_cmds.add_parser('ST', aliases=['st', 'start', 
-                                        'startThreshold'], 
+                                        'startThreshold'],
+                                         description='''
+Control of battery charging thresholds (in percents of current full 
+charge capacity).
+This is useful since Li-Ion batteries wear out much faster at very 
+high or low charge levels. When using the tp_smapi driver it will also 
+keep the thresholds across suspend-to-disk with AC disconnected - this 
+isn't done automatically by the hardware.''', 
                                          help='Start charge threshold')
     
     battery_st.add_argument('battery', type=int, choices=range(0,3),
@@ -332,10 +346,11 @@ def _parse_cmdline():
                             choices=range(0, 100), default=None,
                             help='Charge level: 0 for default, 1-99 for '
                             'percentage. A value of 0 is translated to '
-                            'the hardware default 96%.')
+                            'the hardware default 96%%.')
     
     battery_sp = battery_cmds.add_parser('SP', aliases=['sp', 'stop', 
                                          'stopThreshold'], 
+                                         description=battery_st.description,
                                          help='Stop charge threshold')
                                          
     battery_sp.add_argument('battery', type=int, choices=range(0,3),
@@ -346,10 +361,14 @@ def _parse_cmdline():
                             choices=range(0, 100), default=None,
                             help='Charge level: 0 for default, 1-99 for '
                             'percentage. A value of 0 is translated to '
-                            'the hardware default 100%.')
+                            'the hardware default 100%%.')
     
     battery_ic = battery_cmds.add_parser('IC', aliases=['ic', 'inhibit',
-                                         'inhibitCharge'], 
+                                         'inhibitCharge'],
+                                         description='''
+Inhibiting battery charging for 'min' minutes (overriding thresholds).
+This can be used to control which battery is charged when using an
+Ultrabay battery.''',
                                          help='Inhibit Charge')
                                          
     battery_ic.add_argument('battery', type=int, choices=range(0,3),
@@ -359,14 +378,21 @@ def _parse_cmdline():
     battery_ic.add_argument('inhibit', nargs='?', type=int, 
                             choices=range(0, 2), default=None,
                             help='Charging inhibition: 1 to inhibit '
-                            'charge, 0 for stop inhibiting charge')
+                            'charge, 0 for stop inhibiting charge '
+                            '(not available via smapi)')
                             
     battery_ic.add_argument('min', nargs='?', type=timerType(True), default=0,
                             help='Time in minutes: 1-720 or 0 for never, '
                             'or 65535 for forever.')
                                          
     battery_fd = battery_cmds.add_parser('FD', aliases=['fd', 
-                                         'forceDischarge'], 
+                                         'forceDischarge'],
+                                         description='''
+Forcing battery discharging even if AC power available.
+When AC is connected, forced discharging will automatically stop 
+when battery is fully depleted - this is useful for calibration. 
+Also, this attribute can be used to control which battery is discharged 
+when both a system battery and an Ultrabay battery are connected.''', 
                                          help='Force discharge')
                                          
     battery_fd.add_argument('battery', type=int, choices=range(0,3),
@@ -380,10 +406,15 @@ def _parse_cmdline():
     battery_fd.add_argument('acbreak', nargs='?', type=int, choices=range(0,2),
                             default=0, help='AC Detached stop: 1 to '
                             'stop forcing when AC is detached, 0 '
-                            'to continue')
+                            'to continue (not available via smapi)')
                                          
     battery_ps = battery_cmds.add_parser('PS', aliases=['ps', 
                                          'peakShiftState'], 
+                                         description='''
+The concept of 'peak shift' is to switch temporarily electrical devices 
+on battery during a power peak consumption period so as to unload the 
+grid. This power management strategy is relevant for country like Japan, 
+where these peak periods represent a risk of electrical black out.''',
                                          help='Peak shift state')
                                          
     battery_ps.add_argument('inhibit', type=int, choices=range(0, 2),
@@ -394,7 +425,9 @@ def _parse_cmdline():
                             help='Time in minutes: 1-1440 or 0 for '
                             'never, or 65535 for forever.')
                             
-    battery_cmds.add_parser('list', help='List known power devices')
+    battery_cmds.add_parser('list', description='Always obtained using '
+                            'smapi driver', help='List known batteries '
+                            'with properties')
     
     beep = commands.add_parser('beep', help='Emit BIOS beep sound')
     

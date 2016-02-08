@@ -29,7 +29,7 @@ import logging
 import re
 
 from tps.acpi.acpicall import AcpiCallDevice, AcpiCallArguments
-from tps.sysfs.PowerSource import PowerSources
+from tps.sysfs.power_supply import PowerSources
 
 logger = logging.getLogger(__name__)
 

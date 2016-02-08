@@ -27,7 +27,7 @@ class SysDevice(object):
         try:
             return fileRead(self._join(file_name), \
                 'Unable to read PS property: %s' % file_name)
-        except IOError as e:
+        except (IOError, OSError) as e:
             raise AttributeError(e)
 
     def read_int(self, file_name):
