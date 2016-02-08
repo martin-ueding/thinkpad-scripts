@@ -217,7 +217,10 @@ class Hdaps(object):
         Note that options can be summed. For instance, invert=5 swaps 
         the axes and inverts them. The maximum value of invert is obviously 7.
         
-        Invert parameters
+        Let X,Y denote the hardware readouts.
+        Let R denote the laptop's roll (tilt left/right).
+        Let P denote the laptop's pitch (tilt forward/backward)
+
         value 	R 	P
           0     X   Y
           1    -X   -Y
