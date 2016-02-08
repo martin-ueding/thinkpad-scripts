@@ -20,7 +20,6 @@ from tps.utils import fileExists, fileRead, fileReadLines, \
 /sys/devices/platform/thinkpad_hwmon/
 and additionally:
 /sys/devices/platform/dock.*
-/sys/class/dmi/id
 
 Info and docs:
 https://www.kernel.org/doc/Documentation/laptops/thinkpad-acpi.txt
@@ -125,7 +124,6 @@ class ThinkpadAcpi(object):
             if speed == 0:
                 fileWrite(ThinkpadAcpi.THINKPAD_ACPI_PROC_FAN, \
                     'Unable to set Fan Speed', 'disable')
-                f.write('disable')
             else:
                 fileWrite(ThinkpadAcpi.THINKPAD_ACPI_PROC_FAN, \
                     'Unable to set Fan Speed', 'enable', 
