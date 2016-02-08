@@ -35,21 +35,22 @@ class TpSmapi(SysDevice, dict):
         self._setBatteryAttr(batteryId, 'stop_charge_thresh', level)
         
     def getInhibitCharge(self, batteryId):
-        return self._getBattery(batteryId).inhibit_charge_minutes()
+        min = self._getBattery(batteryId).inhibit_charge_minutes()
+        return (min > 0, min)
     
     def setInhibitCharge(self, batteryId, inhibit, min):
         if inhibit and min is None: min = 1
         self._setBatteryAttr(batteryId, 'inhibit_charge_minutes', min)
         
     def getForceDischarge(self, batteryId):
-        return self._getBattery(batteryId).force_discharge()
+        return (self._getBattery(batteryId).force_discharge(), None)
     
     def setForceDischarge(self, batteryId, discharge, acbreak):
         self._setBatteryAttr(batteryId, 'force_discharge', discharge)
         
     def setPeakShiftState(self, inhibit, min):
-        raise NotImplemented('Setting Peak Shift State is not '
-            'implemented via tp_smapi module!')
+        raise NotImplementedError('Setting Peak Shift State is not '
+            'implemented in tp_smapi driver!')
         
     def _getBattery(batteryId):
         if batteryId not in [ 1, 2 ]:
@@ -102,6 +103,9 @@ class TpSmapiBattery(SysDevice):
     @property
     def force_discharge(self): return self.read('force_discharge')
     
+    @force_discharge.setter
+    def force_discharge(self, discharge): self.write('force_discharge', discharge)
+    
     @property
     def group0_voltage(self): return self.read_int('group0_voltage')
     
@@ -118,7 +122,7 @@ class TpSmapiBattery(SysDevice):
     def inhibit_charge_minutes(self): return self.read_int('inhibit_charge_minutes')
     
     @inhibit_charge_minutes.setter
-    def inhibit_charge_minutes(self, inhibit, min): return self.read_int('inhibit_charge_minutes')
+    def inhibit_charge_minutes(self, min): self.write('inhibit_charge_minutes', min)
     
     @property
     def installed(self): return self.read_bool('installed')

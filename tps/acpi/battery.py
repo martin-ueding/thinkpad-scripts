@@ -205,7 +205,8 @@ class ThinkpadAcpiBatteryController(object):
             # and result.inhibit_charge_auto_reset_capability != 1
             raise ValueError('Inhibit charge unsupported')
             
-        return result
+        return (result.inhibit_charge_status == 1, \
+            result.inhibit_charge_effective_timer)
 
     def setInhibitCharge(self, battery_id=main_battery, inhibit_charge=True, timer=None):
         result = self._set_inhibit_charge_state.call(battery_id=battery_id,
@@ -221,7 +222,8 @@ class ThinkpadAcpiBatteryController(object):
             and result.can_specify_every_battery != 1:
             raise ValueError('Force discharge unsupported')
             
-        return result
+        return (result.discharge_status == 1, \
+            result.break_by_ac_detaching == 1)
         
     def setForceDischarge(self, battery=main_battery, 
                           force_discharge=True, break_by_ac_detaching=False):

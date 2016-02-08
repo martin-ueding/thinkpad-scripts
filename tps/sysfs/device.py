@@ -11,7 +11,7 @@
 
 import os
 
-from tps.utils import fileRead
+from tps.utils import fileRead, fileWrite
 
 class SysDevice(object):
 
@@ -26,7 +26,16 @@ class SysDevice(object):
     def read(self, file_name):
         try:
             return fileRead(self._join(file_name), \
-                'Unable to read PS property: %s' % file_name)
+                'Unable to read %s property: %s' \
+                % (self._path, file_name))
+        except (IOError, OSError) as e:
+            raise AttributeError(e)
+    
+    def write(self, file_name, value):
+        try:
+            return fileWrite(self._join(file_name), \
+                'Unable to write %s property: %s' % \
+                (self._path, file_name), value)
         except (IOError, OSError) as e:
             raise AttributeError(e)
 

@@ -115,10 +115,9 @@ def displayThreshhold(level):
     else:
         print(str(level) + " (unknown)")
 
-def displayInhibit(result):
-    if result.inhibit_charge_status == 1:
+def displayInhibit(inhibit, timer):
+    if inhibit:
         result_str = "yes";
-        timer = result.inhibit_charge_effective_timer
         if timer == 0:
             result_str += " (unspecified min)"
         elif timer == 65535:
@@ -129,9 +128,9 @@ def displayInhibit(result):
     else:
         print('no')
   
-def displayForceDischarge(result):
-    result_str = 'yes' if result.discharge_status == 1 else 'no'
-    if result.break_by_ac_detaching == 1:
+def displayForceDischarge(discharge, acbreak):
+    result_str = 'yes' if discharge else 'no'
+    if acbreak:
         result_str += ' (break on AC detach)'
     print(result_str)
     
@@ -154,34 +153,36 @@ def timerType(forInhibitCharge):
     return getInhibitCharge
         
 def battery(options, config):
-    batteryController = ThinkpadAcpiBatteryController()
+    batteryController = ThinkpadAcpiBatteryController() \
+        if options.api == 'acpi' else TpSmapi()
     if options.battery_command in ['ST', 'st', 'start', 'startThreshold']:
         if options.level is not None:
-            result = batteryController.setStartThreshold(options.battery, options.level)
+            batteryController.setStartThreshold(options.battery, options.level)
         else:
             result = batteryController.getStartThreshold(options.battery)
             displayThreshhold(result)
     elif options.battery_command in ['SP', 'sp', 'stop', 'stopThreshold']:
         if options.level is not None:
-            result = batteryController.setStopThreshold(options.battery, options.level)
+            batteryController.setStopThreshold(options.battery, options.level)
         else:
             result = batteryController.getStopThreshold(options.battery)
             displayThreshhold(result)
     elif options.battery_command in ['IC', 'ic', 'inhibit', 'inhibitCharge']:
         if options.inhibit is not None:
-            result = batteryController.setInhibitCharge(options.battery, options.inhibit, options.min)
+            batteryController.setInhibitCharge(options.battery, \
+                options.inhibit, options.min)
         else:
             result = batteryController.getInhibitCharge(options.battery)
-            displayInhibit(result)
+            displayInhibit(*result)
     elif options.battery_command in ['FD', 'fd', 'forceDischarge']:
-        print(options)
         if options.discharge is not None:
-            result = batteryController.setForceDischarge(options.battery, options.discharge, options.acbreak)
+            batteryController.setForceDischarge(options.battery, \
+                options.discharge, options.acbreak)
         else:
             result = batteryController.getForceDischarge(options.battery)
-            displayForceDischarge(result)
+            displayForceDischarge(*result)
     elif options.battery_command in ['PS', 'ps', 'peakShiftState']:
-        result = batteryController.setPeakShiftState(options.inhibit, options.min)
+        batteryController.setPeakShiftState(options.inhibit, options.min)
     elif options.battery_command == 'list':
         for battery in TpSmapi().values():
             if battery.installed:
@@ -194,7 +195,9 @@ def fan(options, config):
         ThinkpadAcpi.setFanSpeed(ThinkpadAcpi.getFanLevelInt(options.level))
     else:
         fanState = ThinkpadAcpi.getFanState()
-        print (fanState['status'], ThinkpadAcpi.getFanLevelStr(fanState['level']), fanState['rpm'])
+        print (fanState['status'], \
+            ThinkpadAcpi.getFanLevelStr(fanState['level']), \
+            fanState['rpm'])
         
 def getState(string):
     '''Booleanize on/off'''
