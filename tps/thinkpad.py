@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+# PYTHON_ARGCOMPLETE_OK
 
 # Copyright © 2016 Lukasz Czuja <pub@czuja.pl>
 # Licensed under The GNU Public License Version 2 (or later)
