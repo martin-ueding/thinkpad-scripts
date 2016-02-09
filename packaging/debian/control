@@ -10,7 +10,8 @@ Build-Depends: debhelper (>= 9.0.0),
                gettext,
                dh-python,
                python3-termcolor,
-               python3-daemon
+               python3-daemon,
+               python3-argcomplete
 Standards-Version: 3.9.5
 Homepage: http://martin-ueding.de/en/projects/thinkpad-scripts/
 
@@ -19,6 +20,7 @@ Architecture: all
 Depends: ${python3:Depends},
          python3-setuptools,
          python3-daemon,
+         python3-argcomplete,
          ${misc:Depends},
          acpid,
          acpi-call-dkms,

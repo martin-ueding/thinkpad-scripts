@@ -9,6 +9,7 @@ import sys
 import logging
 import os.path
 
+from argcomplete import autocomplete
 from daemon import DaemonContext
 from lockfile.pidlockfile import PIDLockFile
 
@@ -546,6 +547,8 @@ information.
                         
     commands.add_parser('scripts-config-migration', 
                         help='Migrate configuration')
+                        
+    autocomplete(parser)
                           
     if len(sys.argv) == 1:
         parser.print_help()
