@@ -10,6 +10,8 @@
 import collections
 import logging
 
+from tps.acpi.thinkpad_acpi import ThinkpadAcpi
+
 
 logger = logging.getLogger(__name__)
 
@@ -81,3 +83,46 @@ def translate_direction(direction):
     logger.debug('Converted “{}” to “{}”.'.format(direction, result))
 
     return result
+    
+def cycle_rotation(current, clockwise):
+    '''Cycle clockwise or counter clockwise between screen rotations'''
+    if current == NORMAL:
+        return RIGHT if clockwise else LEFT
+    elif current == RIGHT:
+        return INVERTED if clockwise else NORMAL
+    elif current == INVERTED:
+        return LEFT if clockwise else RIGHT
+    elif current == LEFT:
+        return NORMAL if clockwise else INVERTED
+    else:
+        raise UnknownDirectionException(
+            'Direction “{}” is invalid.'.format(current))
+
+def new_rotation(current, desired_str, config, force=False):
+    '''
+    Determines the new rotation based on desired and current one.
+
+    :param bool force: If set the function does not try to be too clever but
+    just uses the rotation given. If no rotation is given in ``desired_str``,
+    it still uses the default from the configuration.
+    '''
+    if desired_str is None:
+        if not ThinkpadAcpi.inTabletMode():
+            new = translate_direction(config['rotate']['default_rotation'])
+            logger.info('Using default, setting to {}'.format(new))
+        else:
+            new = NORMAL
+            logger.info('Using default, setting to {}'.format(new))
+    elif desired_str.startswith('cycle'):
+        new = cycle_rotation(current, desired_str != 'cycle-ccw')
+        logger.info('User chose to set to {}'.format(new))
+    else:
+        desired = translate_direction(desired_str, current)
+        if desired == current and not force:
+            new = NORMAL
+            logger.info('You try to rotate into the direction it is, '
+                        'reverting to normal.')
+        else:
+            new = desired
+            logger.info('User chose to set to {}'.format(new))
+    return new

@@ -17,7 +17,8 @@ from tps.compositor.common import LEFT, RIGHT, NORMAL, INVERTED, \
                                   InputDeviceNotFoundException, \
                                   ScreenNotFoundException, \
                                   UnknownDirectionException, \
-                                  translate_direction
+                                  translate_direction, \
+                                  new_rotation
 from tps.compositor.x11.input import rotate_input_devices, \
                                      get_xinput_id, set_xinput_state, \
                                      toggle_xinput_state as \
@@ -42,34 +43,6 @@ __all__ = [ 'LEFT', 'RIGHT', 'NORMAL', 'INVERTED',
     'screen_disable', 'translate_direction', 'new_rotation', 'rotate',
     'get_input_state', 'set_inputs_state', 'toggle_xinput_state'
 ]
-
-
-def new_rotation(current, desired_str, config, force=False):
-    '''
-    Determines the new rotation based on desired and current one.
-
-    :param bool force: If set the function does not try to be too clever but
-    just uses the rotation given. If no rotation is given in ``desired_str``,
-    it still uses the default from the configuration.
-    '''
-    if desired_str is None:
-        if not ThinkpadAcpi.inTabletMode():
-            new = translate_direction(config['rotate']['default_rotation'])
-            logger.info('Using default, setting to {}'.format(new))
-        else:
-            new = NORMAL
-            logger.info('Using default, setting to {}'.format(new))
-    else:
-        desired = translate_direction(desired_str)
-        if desired == current and not force:
-            new = NORMAL
-            logger.info('You try to rotate into the direction it is, '
-                        'reverting to normal.')
-        else:
-            new = desired
-            logger.info('User chose to set to {}'.format(new))
-    return new
-
 
 def rotate(direction, config, input_state):
     '''

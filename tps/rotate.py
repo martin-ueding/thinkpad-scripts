@@ -65,6 +65,8 @@ def rotate_daemon(options, config):
     autorotate_laptop_mode = config['rotate'].\
         getboolean('autorotate_laptop_mode')
         
+    default_rotation = translate_direction(
+        config['rotate']['default_rotation'])
     tablet_mode = ThinkpadAcpi.inTabletMode()
     
     while True:
@@ -74,7 +76,7 @@ def rotate_daemon(options, config):
         try:
             if tablet_mode:
                 if not autorotate_tablet_mode:
-                    desired_rotation = translate_direction(config['rotate']['default_rotation'])
+                    desired_rotation = default_rotation
                 else:
                     desired_rotation = hdaps.getHdapsOrientation(True)
             elif not autorotate_laptop_mode:

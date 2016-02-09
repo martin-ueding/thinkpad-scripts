@@ -303,13 +303,21 @@ def _parse_cmdline():
     
     commands.add_parser('config', help='Display current configuration')
     
-    battery = commands.add_parser('battery', help='Battery management')
+    battery = commands.add_parser('battery', 
+                                  description='''
+Query and control battery parameters through various subcommands.
+
+Depending on the '--api' you choose, kernel version and hardware some
+or all of the battery commands may be unavailable. For a more or less
+accurate capability of tp_smapi please refer to: 
+www.thinkwiki.org/wiki/Tp_smapi#Model-specific_status''',
+                                  help='Battery management')
     
     battery.add_argument('--api', '-a', nargs='?', 
                          choices=('acpi', 'smapi'), default='smapi',
                          help='Backend method to execute operations: '
                          '\'acpi\' use direct ACPI calls (unoffical API), '
-                         '\'smapi\' use tp_smapi kernel module')
+                         '\'smapi\' use tp_smapi kernel driver.')
     
     # only to achieve compatibility with tpacpi-bat utility - NO OP
     battery_ops = battery.add_mutually_exclusive_group(required=False)
@@ -324,7 +332,7 @@ def _parse_cmdline():
     
     battery_cmds = battery.add_subparsers(title='Available battery commands',
                                           description='''
-Exposes an interface for battery controls to change:
+Exposes commands to query and control battery charging status:
 start/stop charge thresholds, inhibit charge, force discharge and 
 peak shift state.''',
                                        help='Battery commands with aliases',
@@ -335,7 +343,9 @@ peak shift state.''',
                                          description='''
 Control of battery charging thresholds (in percents of current full 
 charge capacity).
-This is useful since Li-Ion batteries wear out much faster at very 
+Battery charging thresholds can be used to keep Li-Ion and Li-Polymer 
+batteries partially charged, in order to increase their lifetime. 
+This is useful since those batteries wear out much faster at very 
 high or low charge levels. When using the tp_smapi driver it will also 
 keep the thresholds across suspend-to-disk with AC disconnected - this 
 isn't done automatically by the hardware.''', 
@@ -370,8 +380,10 @@ isn't done automatically by the hardware.''',
                                          'inhibitCharge'],
                                          description='''
 Inhibiting battery charging for 'min' minutes (overriding thresholds).
-This can be used to control which battery is charged when using an
-Ultrabay battery.''',
+Charge inhibiting can be used to reduce the power draw of the laptop, 
+in order to use an under-spec power supply that can't handle the 
+combined power draw of running and charging. This can be used to 
+control which battery is charged when using an Ultrabay battery.''',
                                          help='Inhibit Charge')
                                          
     battery_ic.add_argument('battery', type=int, choices=range(0,3),
@@ -520,7 +532,7 @@ information.
     rotate.add_argument('direction', nargs='?',
                         choices=('normal', 'none', 'left', 'ccw', 
                         'right', 'cw', 'flip', 'inverted', 'half', 
-                        'tablet-normal'),
+                        'tablet-normal', 'cycle', 'cycle-cw', 'cycle-ccw'),
                         help='Desired screen orientation')
     rotate.add_argument('state', nargs='?', choices=('on', 'off'),
                         help='Forced input devices state after change')
