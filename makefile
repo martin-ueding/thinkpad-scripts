@@ -13,15 +13,18 @@ all: $(mo)
 common-install:
 	install -d "$(DESTDIR)/lib/udev/rules.d/"
 	install -m 644 system/udevd/81-thinkpad-dock.rules -t "$(DESTDIR)/lib/udev/rules.d/"
-#
+
 	install -d "$(DESTDIR)/lib/udev/hwdb.d/"
 	install -m 644 system/udevd/90-X2x0T-keyboard.hwdb -t "$(DESTDIR)/lib/udev/hwdb.d/"
-#
+
 	install -d "$(DESTDIR)/etc/acpi/events/"
 	install -m 644 system/acpid/thinkpad-scripts-mutemic -t "$(DESTDIR)/etc/acpi/events/"
 	install -m 644 system/acpid/thinkpad-scripts-rotate -t "$(DESTDIR)/etc/acpi/events/"
 #	install -m 644 system/acpid/thinkpad-scripts-rotated-start -t "$(DESTDIR)/etc/acpi/events/"
 #	install -m 644 system/acpid/thinkpad-scripts-rotated-stop -t "$(DESTDIR)/etc/acpi/events/"
+
+	install -d "$(DESTDIR)/etc/bash_completion.d/"
+	install -m 644 system/bash_completion.d/thinkpad-scripts -t "$(DESTDIR)/etc/bash_completion.d/"
 	
 	install -d "$(DESTDIR)/etc/modprobe.d/"
 	install -m 644 system/modprobe.d/thinkpad-scripts.conf -t "$(DESTDIR)/etc/modprobe.d/"
@@ -31,10 +34,9 @@ common-install:
 	
 	install -d "$(DESTDIR)/usr/lib/systemd/system/"
 	install -m 644 system/init/thinkpad-rotated@.service -t "$(DESTDIR)/usr/lib/systemd/system/"
-#
+
 	cd system/desktop && $(MAKE) install
 	cd doc && $(MAKE) install
-#
 
 install: common-install
 	@echo
