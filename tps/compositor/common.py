@@ -117,7 +117,7 @@ def new_rotation(current, desired_str, config, force=False):
         new = cycle_rotation(current, desired_str != 'cycle-ccw')
         logger.info('User chose to set to {}'.format(new))
     else:
-        desired = translate_direction(desired_str, current)
+        desired = translate_direction(desired_str)
         if desired == current and not force:
             new = NORMAL
             logger.info('You try to rotate into the direction it is, '
