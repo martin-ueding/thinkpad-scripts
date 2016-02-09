@@ -40,6 +40,7 @@ class TpSmapi(SysDevice, dict):
     
     def setInhibitCharge(self, batteryId, inhibit, min):
         if inhibit and min is None: min = 1
+        elif not inhibit: min = 0
         self._setBatteryAttr(batteryId, 'inhibit_charge_minutes', min)
         
     def getForceDischarge(self, batteryId):
