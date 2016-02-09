@@ -1,8 +1,8 @@
 [Desktop Entry]
 Categories=System;
-Exec=thinkpad-touchpad
+Exec=thinkpad input touchpad
 GenericName=ThinkPad Touchpad toggle
-Name=thinkpad-touchpad
+Name=thinkpad input touchpad
 StartupNotify=false
 Terminal=false
 Type=Application

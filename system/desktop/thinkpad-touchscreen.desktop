@@ -1,8 +1,9 @@
 [Desktop Entry]
 Categories=System;
-Exec=thinkpad-touch
+Exec=thinkpad input touchscreen
 GenericName=ThinkPad Touchscreen toggle
-Name=thinkpad-touch
+Name=thinkpad input touchscreen
 StartupNotify=false
 Terminal=false
 Type=Application
+Name[pl_PL]=thinkpad-touchscreen.desktop

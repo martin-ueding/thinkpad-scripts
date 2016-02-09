@@ -1,8 +1,8 @@
 [Desktop Entry]
 Categories=System;
-Exec=thinkpad-dock on
+Exec=thinkpad dock on
 GenericName=Dock to ThinkPad Base
-Name=thinkpad-dock on
+Name=thinkpad dock on
 StartupNotify=false
 Terminal=false
 Type=Application
