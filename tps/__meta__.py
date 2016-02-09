@@ -3,22 +3,34 @@
 # Copyright © 2013-2014 Martin Ueding <dev@martin-ueding.de>
 # Copyright © 2016 Lukasz Czuja <pub@czuja.pl>
 
-# nifty necessity
 
+# nifty necessity
 def _get_version_from_changelog():
-    import re
+    import builtins
+    import gzip
     import os
+    import re
+    import sys
     
     filename = '../CHANGELOG.rst'
     if not os.path.isfile(filename):
         filename = os.path.basename(filename)
-
-    pattern = re.compile(r'^v(\d+(?:\.\d+)+)$')
-    with open(filename, encoding='utf-8') as f:
-        for line in f:
-            m = pattern.match(line)
-            if m:
-                return list(map(int, m.group(1).lstrip('v').split('.')))
+        if not os.path.isfile(filename):
+            filename = os.path.join(sys.prefix, 'share', 'doc', \
+                'thinkpad-scripts', filename)
+            if not os.path.isfile(filename):
+                filename += '.gz'
+    
+    if os.path.isfile(filename):
+        pattern = re.compile(r'^v(\d+(?:\.\d+)+)$')
+        open = gzip.open if filename.endswith('.gz') else builtins.open
+        with open(filename) as f:
+            for line in f:
+                if isinstance(line, bytes):
+                    line = line.decode()
+                m = pattern.match(line)
+                if m:
+                    return list(map(int, m.group(1).lstrip('v').split('.')))
 
     raise ValueError('Unable to obtain version from changelog!')
 
