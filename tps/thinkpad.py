@@ -74,6 +74,9 @@ def main_legacy():
     entrypoint_name = os.path.basename(sys.argv[0])
     sys.argv[0] = sys.argv[0].replace(entrypoint_name, "thinkpad")
     
+    logger.warning('%s: is deprecated! Please use '
+        '\'thinkpad <command>\' instead.' % entrypoint_name)
+    
     # translate entrypoint name into command and insert onto argv
     # in the correct position
     i = 1
@@ -270,8 +273,10 @@ def _parse_cmdline():
     
     _tpacpi_bat_cmdline_compat()
     
-    parser = argparse.ArgumentParser(description='ThinkPad Scripts',
-                        epilog='Collection of thinkpad utilility commands')
+    parser = argparse.ArgumentParser(description='ThinkPad Scripts - '
+                        'A collection of thinkpad utilility commands.',
+                        epilog='Consult various thinkpad* man pages for '
+                        'more information about available commands.')
                         #, version='x.y')
 
 #    parser.add_argument('--backend', '-b', nargs='?', 
