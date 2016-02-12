@@ -48,11 +48,11 @@ class AcpiCallDevice(object):
     ACPI_CALL = '/proc/acpi/call'
 
     def __init__(self):
-        if not AcpiCallDevice.hasAcpiCallDevice():
+        if not AcpiCallDevice.isAvailable():
             logger.error("Could not find %s. Is module acpi_call loaded?" % AcpiCallDevice.ACPI_CALL)
             
     @staticmethod
-    def hasAcpiCallDevice():
+    def isAvailable():
         return fileExists(AcpiCallDevice.ACPI_CALL)
 
     def call(self, asl_base, *args):

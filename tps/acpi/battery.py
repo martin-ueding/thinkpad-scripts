@@ -29,12 +29,13 @@ import logging
 import re
 
 from tps.acpi.acpicall import AcpiCallDevice, AcpiCallArguments
-from tps.sysfs.power_supply import PowerSources
+from tps.battery import BatteryControllerBase
+from tps.sysfs.power_supply import PowerSourceInfo
 
 logger = logging.getLogger(__name__)
 
 
-class ThinkpadAcpiBatteryController(object):
+class ThinkpadAcpiBatteryController(BatteryControllerBase):
 
     either_both_battery, main_battery, secondary_battery = list(range(3))
 
@@ -166,6 +167,10 @@ class ThinkpadAcpiBatteryController(object):
                                               reserved=31),
             output_arguments=AcpiCallArguments(reserved=30, error_status=31),
             )
+    
+    @staticmethod
+    def isAvailable():
+        return AcpiCallDevice.isAvailable()
 
     def getStartThreshold(self, battery_id=main_battery):
         self._check_battery_id_for_reading(battery_id)
@@ -231,7 +236,6 @@ class ThinkpadAcpiBatteryController(object):
                                                 force_discharge=force_discharge,
                                                 break_by_ac_detaching=break_by_ac_detaching)
         self._check_error_status(result)
-        
 
     def getPeakShiftState(self, battery_id=main_battery):
         return self._get_peak_shift_state.call(battery_id=battery_id)
@@ -251,11 +255,16 @@ class ThinkpadAcpiBatteryController(object):
                                            input_arguments, output_arguments)
                                            
     def _getAslBase(self):
-        pses = PowerSources()
-        for ps in pses.values():
-            aslBase = re.sub(r'_+(\.|$)', r'\1', ps.device_path) #trim trailing _s from components
-            return re.sub(r'(\.([A-Z,0-9])+)$', r'.HKEY', aslBase) #replace final .dddd with .HKEY
-        # default
+        if PowerSourceInfo.isAvailable():
+            pses = PowerSourceInfo()
+            for ps in pses.getPowerSources():
+                # trim trailing _s from components
+                aslBase = re.sub(r'_+(\.|$)', r'\1', ps.device_path)
+                # replace final .dddd with .HKEY
+                return re.sub(r'(\.([A-Z,0-9])+)$', r'.HKEY', aslBase)
+        else:
+            logger.warning('Unable to obtain ASL Base! PowerSourceInfo '
+                '(syfs) is not available, using default.')
         return r'\_SB.PCI0.LPC.EC.HKEY'
 
     def _check_battery_id_for_reading(self, battery):

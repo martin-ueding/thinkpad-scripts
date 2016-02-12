@@ -11,7 +11,7 @@
 
 import os
 
-from tps.utils import fileRead, fileWrite
+from tps.utils import fileExists, fileRead, fileWrite
 
 class SysDevice(object):
 
@@ -22,36 +22,54 @@ class SysDevice(object):
     @property
     def name(self):
         return self._name
+        
+    def exists(self, fileName):
+        return fileExists(self._join(fileName))
 
-    def read(self, file_name):
+    def read(self, fileName):
         try:
-            return fileRead(self._join(file_name), \
+            return fileRead(self._join(fileName), \
                 'Unable to read %s property: %s' \
-                % (self._path, file_name))
+                % (self._path, fileName))
         except (IOError, OSError) as e:
             raise AttributeError(e)
     
-    def write(self, file_name, value):
+    def write(self, fileName, value):
         try:
-            return fileWrite(self._join(file_name), \
+            return fileWrite(self._join(fileName), \
                 'Unable to write %s property: %s' % \
-                (self._path, file_name), value)
+                (self._path, fileName), value)
         except (IOError, OSError) as e:
             raise AttributeError(e)
 
-    def read_int(self, file_name):
-        return int(self.read(file_name))
+    def readInt(self, fileName):
+        value = self.read(fileName)
+        return int(value) if value != None else value
+        
+    def readFloat(self, fileName, div=0, rounding=3):
+        return self.roundFloat(self.read(fileName), div, rounding)
+        
+    def roundFloat(self, value, div=0, rounding=3):
+        if value is not None:
+            if div > 0:
+                return round(int(value) / (10**div), rounding)
+            return float(value)
+        return value
 
-    def read_bool(self, file_name):
-        return bool(self.read_int(file_name))
+    def readBool(self, fileName):
+        return bool(self.readInt(fileName))
+        
+    def list(self):
+        return os.listdir(self._path)
 
-    def _join(self, file_name):
-        return os.path.join(self._path, file_name)
+    def _join(self, fileName):
+        return os.path.join(self._path, fileName)
         
     def __str__(self):
         sb = [self.name]
         properties = [ p for p in dir(self.__class__) \
             if isinstance(getattr(self.__class__,p), property) ]
-        for prop in properties:
-            sb.append("\t{prop}='{value}'".format(prop=prop, value=getattr(self, prop)))
+        for name in sorted(properties):
+            if not name.startswith('_'):
+                sb.append("\t{name}='{value}'".format(name=name, value=getattr(self, name)))
         return '\n'.join(sb)

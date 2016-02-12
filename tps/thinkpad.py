@@ -6,9 +6,10 @@
 # Licensed under The GNU Public License Version 2 (or later)
 
 import argparse
-import sys
 import logging
 import os.path
+import sys
+import time
 
 from argcomplete import autocomplete
 from daemon import DaemonContext
@@ -26,6 +27,7 @@ from tps.compositor import toggle_input_state
 from tps.compositor.x11.screen import xrandr_bug_fail_early
 from tps.rotate import rotate_cmdline, rotate_daemon
 from tps.sysfs.tp_smapi import TpSmapi
+from tps.sysfs.power_supply import PowerSourceInfo, PowerSourceInfoLegacy
 from tps.utils import check_call
 from tps.__meta__ import short as version
 
@@ -156,10 +158,49 @@ def timerType(forInhibitCharge):
                                              '65535 for forever')
         return timer
     return getInhibitCharge
+    
+def getPowerSourceInfoBackend(name):
+    backend = None
+    if name == 'smapi':
+        backend = TpSmapi
+    elif name == 'sysfs':
+        backend = PowerSourceInfo
+    elif name == 'acpi':
+        backend = PowerSourceInfoLegacy
+    else:
+        raise ValueError('Unknown Power Source Info backend: %s' % name)
+    if not backend.isAvailable():
+        logger.error('Specified Power Source info backend: \'%s\' '
+            'is not available on your machine!' % name)
+        return None
+    return backend()
+
+def getPowerSourceActionBackend(name):
+    backend = None
+    if name == 'smapi':
+        backend = TpSmapi
+    elif name == 'acpi':
+        backend = ThinkpadAcpiBatteryController
+    else:
+        raise ValueError('Unknown Power Source Action backend: %s' % name)
+    if not backend.isAvailable():
+        logger.error('Specified Power Source action backend: \'%s\' '
+            'is not available on your machine!' % name)
+        return None
+    return backend()
         
 def battery(options, config):
-    batteryController = ThinkpadAcpiBatteryController() \
-        if options.api == 'acpi' else TpSmapi()
+    # common option
+    if options.action == 'smapi' and options.info == 'smapi':
+        batteryController = batteryInfo = \
+            getPowerSourceActionBackend(options.action)
+    else:
+        batteryController = getPowerSourceActionBackend(options.action)
+        batteryInfo = getPowerSourceInfoBackend(options.info)
+        
+    if batteryController is None or batteryInfo is None:
+        return
+
     if options.battery_command in ['ST', 'st', 'start', 'startThreshold']:
         if options.level is not None:
             batteryController.setStartThreshold(options.battery, options.level)
@@ -189,9 +230,19 @@ def battery(options, config):
     elif options.battery_command in ['PS', 'ps', 'peakShiftState']:
         batteryController.setPeakShiftState(options.inhibit, options.min)
     elif options.battery_command == 'list':
-        for battery in TpSmapi().values():
-            if battery.installed:
+        for battery in batteryInfo.getBatteries():
+            if battery.isInstalled():
                 print (battery, "\n")
+    elif options.battery_command == 'balance':
+        while(True):
+            try:
+                if not batteryController.balanceCharge(config, \
+                    batteryInfo, options.chargeStrategy, \
+                    options.dischargeStrategy):
+                    break
+            except (KeyboardInterrupt, SystemExit):
+                break
+            time.sleep(config['battery']['update_interval'])
         
 def fan(options, config):
     if not ThinkpadAcpi.hasFan():
@@ -320,10 +371,17 @@ accurate capability of tp_smapi please refer to:
 www.thinkwiki.org/wiki/Tp_smapi#Model-specific_status''',
                                   help='Battery management')
     
-    battery.add_argument('--api', '-a', nargs='?', 
-                         choices=('acpi', 'smapi'), default='smapi',
-                         help='Backend method to execute operations: '
+    battery.add_argument('--action', '-a', nargs='?', 
+                         choices=('acpi', 'smapi'), default='acpi',
+                         help='Backend method to execute actions: '
                          '\'acpi\' use direct ACPI calls (unoffical API), '
+                         '\'smapi\' use tp_smapi kernel driver.')
+    
+    battery.add_argument('--info', '-i', nargs='?', 
+                         choices=('acpi', 'sysfs', 'smapi'), default='smapi',
+                         help='Backend method to obtain power source info: '
+                         '\'acpi\' use deprecated /proc/acpi/battery, '
+                         '\'sysfs\' use /sys/class/power_supply '
                          '\'smapi\' use tp_smapi kernel driver.')
     
     # only to achieve compatibility with tpacpi-bat utility - NO OP
@@ -447,9 +505,28 @@ where these peak periods represent a risk of electrical black out.''',
                             help='Time in minutes: 1-1440 or 0 for '
                             'never, or 65535 for forever.')
                             
-    battery_cmds.add_parser('list', description='Always obtained using '
-                            'smapi driver', help='List known batteries '
+    battery_cmds.add_parser('list', help='List known batteries '
                             'with properties')
+                            
+    battery_balancer = battery_cmds.add_parser('balance', description='''
+Evenly distribute system power consumption among available batteries 
+(if more than one battery is available) by querying and comparing 
+battery charge and forcing discharge/inhibiting charge.''',
+                            help='Charge/discharge batteries evenly')
+                            
+    battery_balancer.add_argument('chargeStrategy', nargs='?', 
+                                  default='brackets', choices=('system',
+                                  'leapfrog', 'chasing', 'brackets'),
+                                  help='Strategy algorithm for '
+                                  'selecting battery to charge')
+    
+    battery_balancer.add_argument('dischargeStrategy', nargs='?', 
+                                  default='leapfrog', choices=('system',
+                                  'leapfrog', 'chasing'),
+                                  help='Strategy algorithm for '
+                                  'selecting battery to charge')
+    
+    # Indicate charging/discharing by orange/green led blinking
     
     beep = commands.add_parser('beep', help='Emit BIOS beep sound')
     
