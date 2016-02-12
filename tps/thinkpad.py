@@ -365,9 +365,9 @@ def _parse_cmdline():
                                   description='''
 Query and control battery parameters through various subcommands.
 
-Depending on the '--api' you choose, kernel version and hardware some
-or all of the battery commands may be unavailable. For a more or less
-accurate capability of tp_smapi please refer to: 
+Depending on the '--action' and/or '--info' you choose, kernel version 
+and hardware some or all of the battery commands may be unavailable. 
+For a more or less accurate capability of tp_smapi please refer to: 
 www.thinkwiki.org/wiki/Tp_smapi#Model-specific_status''',
                                   help='Battery management')
     
@@ -381,7 +381,7 @@ www.thinkwiki.org/wiki/Tp_smapi#Model-specific_status''',
                          choices=('acpi', 'sysfs', 'smapi'), default='smapi',
                          help='Backend method to obtain power source info: '
                          '\'acpi\' use deprecated /proc/acpi/battery, '
-                         '\'sysfs\' use /sys/class/power_supply '
+                         '\'sysfs\' use /sys/class/power_supply, '
                          '\'smapi\' use tp_smapi kernel driver.')
     
     # only to achieve compatibility with tpacpi-bat utility - NO OP
@@ -398,8 +398,8 @@ www.thinkwiki.org/wiki/Tp_smapi#Model-specific_status''',
     battery_cmds = battery.add_subparsers(title='Available battery commands',
                                           description='''
 Exposes commands to query and control battery charging status:
-start/stop charge thresholds, inhibit charge, force discharge and 
-peak shift state.''',
+start/stop charge thresholds, inhibit charge, force discharge,
+peak shift state and charge balancing''',
                                        help='Battery commands with aliases',
                                        dest='battery_command')
     
@@ -524,7 +524,7 @@ battery charge and forcing discharge/inhibiting charge.''',
                                   default='leapfrog', choices=('system',
                                   'leapfrog', 'chasing'),
                                   help='Strategy algorithm for '
-                                  'selecting battery to charge')
+                                  'selecting battery to discharge')
     
     # Indicate charging/discharing by orange/green led blinking
     
