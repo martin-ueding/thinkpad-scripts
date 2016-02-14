@@ -29,10 +29,7 @@ meta_pathname = os.path.join(
     os.path.abspath(os.path.dirname(__file__)),
     "tps", "__meta__.py"
 )
-if os.path.exists(meta_pathname):
-    __meta__ = imp.load_source("tps.__meta__", meta_pathname)
-else:
-    __meta__ = imp.load_compiled("tps.__meta__", meta_pathname + "c")
+__meta__ = imp.load_source("tps.__meta__", meta_pathname)
 
 
 setup(
