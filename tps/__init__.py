@@ -9,7 +9,14 @@
 Main module for thinkpad-scripts.
 '''
 
+__all__ = []
+
 import sys
+
+from tps.i18n import application, install
+
+# setup i18n app wide
+install(application)
 
 
 '''
