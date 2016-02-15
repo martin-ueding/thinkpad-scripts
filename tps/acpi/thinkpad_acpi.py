@@ -89,7 +89,7 @@ class ThinkpadAcpi(object):
     @staticmethod
     def beep(sound):
         fileWriteInt(ThinkpadAcpi.THINKPAD_ACPI_PROC_BEEP, \
-            'Unable to emit sound!', sound)
+            _('Unable to emit sound!'), sound)
         
     @staticmethod
     def hasFan():
@@ -99,7 +99,7 @@ class ThinkpadAcpi(object):
     def getFanState():
         status = speed = level = None
         for line in fileReadLines(ThinkpadAcpi.THINKPAD_ACPI_PROC_FAN, \
-            'Unable to read Fan State'):
+            _('Unable to read Fan State')):
             if line.startswith('status:'):
                 status = fileGetLineValue(line)
             if line.startswith('speed:'):
