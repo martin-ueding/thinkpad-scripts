@@ -29,7 +29,7 @@ def get_device_ids(regex):
 
     :rtype: list
     '''
-    logger.debug('Using “%s” as regex to find devices.', regex)
+    logger.debug(_('Using “%s” as regex to find devices.'), regex)
     pattern = re.compile(regex.encode())
     output = check_output(['xinput'], logger)
     lines = output.split(b'\n')
@@ -78,7 +78,7 @@ def get_xinput_id(name):
         return int(matcher.group(1))
 
     raise InputDeviceNotFoundException(
-        'Input device “{}” could not be found'.format(name))
+        _('Input device “{}” could not be found').format(name))
 
 def set_xinput_state(device, state):
     '''
@@ -162,12 +162,12 @@ def generate_xinput_coordinate_transformation_matrix(output, orientation):
     ]
 
     m_shift_scale = _matrix_mul(m_shift, m_scale)
-    logger.debug("Translation and scaling matrix: %s",
-                 _matrix_to_str(m_shift_scale))
+    logger.debug(_('Translation and scaling matrix: %s'),
+                   _matrix_to_str(m_shift_scale))
 
     m_total = _matrix_mul(m_shift_scale, orientation.rot_mat)
-    logger.debug("Complete transformation matrix: %s",
-                 _matrix_to_str(m_total))
+    logger.debug(_('Complete transformation matrix: %s'),
+                   _matrix_to_str(m_total))
 
     return m_total
 

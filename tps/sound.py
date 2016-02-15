@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 # Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
@@ -27,7 +26,7 @@ def get_pulseaudio_sinks():
     :rtype: list of str
     '''
     if not command_exists('pactl'):
-        logger.warning('pactl is not installed')
+        logger.warning(_('pactl is not installed'))
         return []
 
     output = check_output(['pactl', 'list', 'sinks'], logger).decode()
@@ -57,6 +56,3 @@ def set_volume(loudness):
     sinks = get_pulseaudio_sinks()
     for sink in sinks:
         check_call(['pactl', 'set-sink-volume', sink, loudness], logger)
-
-if __name__ == '__main__':
-    print(get_pulseaudio_sinks())

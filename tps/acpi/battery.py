@@ -177,7 +177,7 @@ class ThinkpadAcpiBatteryController(BatteryControllerBase):
         result = self._get_charge_start_threshold.call(battery_id=battery_id)
         
         if result.capability != 1 and result.can_specify_every_battery != 1:
-            raise ValueError("Start charge threshold unsupported!")
+            raise ValueError(_('Start charge threshold unsupported!'))
         
         return result.start_threshold
 
@@ -192,7 +192,7 @@ class ThinkpadAcpiBatteryController(BatteryControllerBase):
         result = self._get_charge_stop_threshold.call(battery_id=battery_id)
         
         if result.capability != 1 and result.can_specify_every_battery != 1:
-            raise ValueError("Start charge threshold unsupported")
+            raise ValueError(_('Start charge threshold unsupported!'))
         
         return result.stop_threshold
 
@@ -208,7 +208,7 @@ class ThinkpadAcpiBatteryController(BatteryControllerBase):
         
         if result.inhibit_charge_capability != 1:
             # and result.inhibit_charge_auto_reset_capability != 1
-            raise ValueError('Inhibit charge unsupported')
+            raise ValueError(_('Inhibit charge unsupported'))
             
         return (result.inhibit_charge_status == 1, \
             result.inhibit_charge_effective_timer)
@@ -225,7 +225,7 @@ class ThinkpadAcpiBatteryController(BatteryControllerBase):
         
         if result.discharge_capability != 1 \
             and result.can_specify_every_battery != 1:
-            raise ValueError('Force discharge unsupported')
+            raise ValueError(_('Force discharge unsupported'))
             
         return (result.discharge_status == 1, \
             result.break_by_ac_detaching == 1)
@@ -263,21 +263,21 @@ class ThinkpadAcpiBatteryController(BatteryControllerBase):
                 # replace final .dddd with .HKEY
                 return re.sub(r'(\.([A-Z,0-9])+)$', r'.HKEY', aslBase)
         else:
-            logger.warning('Unable to obtain ASL Base! PowerSourceInfo '
-                '(syfs) is not available, using default.')
+            logger.warning(_('Unable to obtain ASL Base! PowerSourceInfo '
+                '(syfs) is not available, using default.'))
         return r'\_SB.PCI0.LPC.EC.HKEY'
 
     def _check_battery_id_for_reading(self, battery):
         if battery == self.either_both_battery:
-            raise ValueError("Can't specify either or both battery for reading.")
+            raise ValueError(_('Can\'t specify either or both battery for reading.'))
 
     def _check_charge_threshold(self, threshold=None):
         if threshold is None:
             threshold = 0
         elif not (0 <= threshold <= 99):
-            raise ValueError("Wrong charge threshold value " + str(threshold))
+            raise ValueError(_('Wrong charge threshold value ') + str(threshold))
         return str(threshold)
 
     def _check_error_status(self, result):
         if result.error_status:
-            raise ValueError("ACPI call failed! Error status: %s" % str(result.error_status))
+            raise ValueError(_('ACPI call failed! Error status: ') + str(result.error_status))

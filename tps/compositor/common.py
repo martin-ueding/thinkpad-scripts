@@ -78,9 +78,9 @@ def translate_direction(direction):
         result = INVERTED
     else:
         raise UnknownDirectionException(
-            'Direction “{}” cannot be understood.'.format(direction))
+            _('Direction “{}” cannot be understood.').format(direction))
 
-    logger.debug('Converted “{}” to “{}”.'.format(direction, result))
+    logger.debug(_('Converted “{}” to “{}”.').format(direction, result))
 
     return result
     
@@ -96,7 +96,7 @@ def cycle_rotation(current, clockwise):
         return NORMAL if clockwise else INVERTED
     else:
         raise UnknownDirectionException(
-            'Direction “{}” is invalid.'.format(current))
+            _('Direction “{}” is invalid.').format(current))
 
 def new_rotation(current, desired_str, config, force=False):
     '''
@@ -109,20 +109,20 @@ def new_rotation(current, desired_str, config, force=False):
     if desired_str is None:
         if not ThinkpadAcpi.inTabletMode():
             new = translate_direction(config['rotate']['default_rotation'])
-            logger.info('Using default, setting to {}'.format(new))
+            logger.info(_('Using default, setting to {}').format(new))
         else:
             new = NORMAL
-            logger.info('Using default, setting to {}'.format(new))
+            logger.info(_('Using default, setting to {}').format(new))
     elif desired_str.startswith('cycle'):
         new = cycle_rotation(current, desired_str != 'cycle-ccw')
-        logger.info('User chose to set to {}'.format(new))
+        logger.info(_('User chose to set to {}').format(new))
     else:
         desired = translate_direction(desired_str)
         if desired == current and not force:
             new = NORMAL
-            logger.info('You try to rotate into the direction it is, '
-                        'reverting to normal.')
+            logger.info(_('You try to rotate into the direction it is, '
+                          'reverting to normal.'))
         else:
             new = desired
-            logger.info('User chose to set to {}'.format(new))
+            logger.info(_('User chose to set to {}').format(new))
     return new

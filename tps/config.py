@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 # Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
@@ -41,7 +40,7 @@ def get_config():
     config = configparser.ConfigParser(interpolation=None)
 
     default_filename = pkg_resources.resource_filename(__name__, "default.ini")
-    logger.debug('Default configfile is %s.', default_filename)
+    logger.debug(_('Default configfile is %s.'), default_filename)
 
     config.read(default_filename, encoding='utf-8')
     if os.path.isfile(CONFIGFILE):
@@ -94,18 +93,18 @@ def migrate_shell_config():
 
     if len(errors) > 0:
         print()
-        print('The following errors occured:')
+        print(_('The following errors occured:'))
         for error in errors:
             print('-', error)
 
     print()
-    print('This is the interpreted configuration:')
+    print(_('This is the interpreted configuration:'))
     print_config(config)
 
     print()
     if os.path.isfile(CONFIGFILE):
-        print('File will be overwritten!')
-    user_input = input('Do you want to write this config? [Y/n]')
+        print(_('File will be overwritten!'))
+    user_input = input(_('Do you want to write this config? [Y/n]'))
 
     if user_input == 'Y' or user_input == 'y' or user_input == '':
         with open(CONFIGFILE, 'w') as handle:
@@ -153,22 +152,22 @@ def interpret_shell_line(line, config):
         option = matcher.group(1)
         if option not in known_options:
             raise ShellParseException(
-                'Cannot parse “{}”: Not a known option'.format(line))
+                _('Cannot parse “{}”: Not a known option').format(line))
 
         try:
             arguments = list(shlex.split(matcher.group(2)))
         except ValueError as e:
-            raise ShellParseException('Cannot parse “{}”: {}'.format(line, e))
+            raise ShellParseException(_('Cannot parse “{}”: {}').format(line, e))
 
         if len(arguments) != 1:
             raise ShellParseException(
-                'Cannot parse “{}”: Not a single value'.format(line))
+                _('Cannot parse “{}”: Not a single value').format(line))
 
         argument = arguments[0]
 
         if '$' in argument:
             raise ShellParseException(
-                'Cannot parse “{}”: Contains “$”, indicates complex value'
+                _('Cannot parse “{}”: Contains “$”, indicates complex value')
                 .format(line))
 
         print(option, '->', argument)
@@ -218,7 +217,7 @@ def set_up_logging(verbosity):
         logging.getLogger('').addHandler(syslog)
 
     logger.debug('----------------------------------')
-    logger.debug('Program was started with arguments: {}'.format(sys.argv))
+    logger.debug(_('Program was started with arguments: {}').format(sys.argv))
 
 
 class ShellParseException(Exception):
@@ -230,6 +229,3 @@ class ShellParseException(Exception):
     raised.
     '''
     pass
-
-if __name__ == '__main__':
-    print_config(get_config())

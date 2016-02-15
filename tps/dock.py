@@ -81,8 +81,8 @@ def select_docking_screens(internal, primary='', secondary=''):
             screens.remove(screen)
             screens.insert(index, screen)
         elif screen != '':
-            logger.warning('Configured screen "{}" does not exist or is not '
-                           'connected.'.format(screen))
+            logger.warning(_('Configured screen "{}" does not exist or is not '
+                             'connected.').format(screen))
     return screens[0], screens[1] if len(screens) > 1 else None, screens[2:]
 
 
@@ -108,7 +108,7 @@ def dock(on, config):
             config['screen']['internal'], config['screen']['primary'],
             config['screen']['secondary'])
 
-        logger.debug('primary: %s, secondary: %s, others: %s', str(primary),
+        logger.debug(_('primary: %s, secondary: %s, others: %s'), str(primary),
                      str(secondary), str(others))
         if secondary is None:
             # This is the only screen.
@@ -130,8 +130,8 @@ def dock(on, config):
                 position=(config['screen']['relative_position'], secondary))
 
             if not config['screen'].getboolean('internal_docked_on'):
-                logger.info('Internal screen is supposed to be off when '
-                            'docked, turning it off.')
+                logger.info(_('Internal screen is supposed to be off when '
+                              'docked, turning it off.'))
                 screen_disable(config['screen']['internal'])
 
         if config['network'].getboolean('disable_wifi') \
@@ -146,7 +146,7 @@ def dock(on, config):
                     'connection_name', tps.network.get_ethernet_con_name())
                 tps.network.restart(connection_to_restart)
             except tps.network.MissingEthernetException:
-                logger.warning('unable to find ethernet connection')
+                logger.warning(_('unable to find ethernet connection'))
 
         if primary == config['screen']['internal'] or \
            secondary == config['screen']['internal']:
@@ -155,7 +155,7 @@ def dock(on, config):
                     config['screen']['internal'],
                     get_rotation(config['screen']['internal']))
             except ScreenNotFoundException as e:
-                logger.error('Unable to map input devices to "{}": {}'.format(
+                logger.error(_('Unable to map input devices to "{}": {}').format(
                     config['screen']['internal'], e))
 
     else:
@@ -180,7 +180,7 @@ def dock(on, config):
                 config['screen']['internal'],
                 get_rotation(config['screen']['internal']))
         except ScreenNotFoundException as e:
-            logger.error('Unable to map input devices to "{}": {}'.format(
+            logger.error(_('Unable to map input devices to "{}": {}').format(
                 config['screen']['internal'], e))
 
     postdock_hook(on, config)

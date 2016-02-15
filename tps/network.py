@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 # Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
@@ -48,7 +47,7 @@ def get_nmcli_version():
     :returns: tuple, e.g. (0, 9, 10) for version 0.9.10.0
     '''
     if not command_exists('nmcli'):
-        logger.warning('nmcli is not installed')
+        logger.warning(_('nmcli is not installed'))
         return
 
     response = check_output(['nmcli', '--version'], logger).decode()
@@ -107,7 +106,7 @@ def get_ethernet_con_name():
     :raises tps.network.MissingEthernetException:
     '''
     if not command_exists('nmcli'):
-        logger.warning('nmcli is not installed')
+        logger.warning(_('nmcli is not installed'))
         return
 
     if get_nmcli_version() >= (0, 9, 10):
@@ -135,7 +134,7 @@ def restart(connection):
     :returns: None
     '''
     if not command_exists('nmcli'):
-        logger.warning('nmcli is not installed')
+        logger.warning(_('nmcli is not installed'))
         return
 
     check_call(['nmcli', 'con', 'up', 'id', connection], logger)

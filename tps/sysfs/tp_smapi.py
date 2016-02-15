@@ -63,17 +63,17 @@ class TpSmapi(SysDevice, PowerSourceControllerBase, dict):
         self._setBatteryAttr(batteryId, 'force_discharge', discharge)
         
     def setPeakShiftState(self, inhibit, min):
-        raise NotImplementedError('Setting Peak Shift State is not '
-            'implemented in tp_smapi driver!')
+        raise NotImplementedError(_('Setting Peak Shift State is not '
+            'implemented in tp_smapi driver!'))
         
     def _getBattery(batteryId):
         if batteryId not in [ 1, 2 ]:
-            raise ValueError('Battery ID must be 1 or 2!')
+            raise ValueError(_('Battery ID must be 1 or 2!'))
         return self['BAT' + (batteryId - 1)]
         
     def _setBatteryAttr(self, batteryId, attr, value):
         if batteryId not in [ 0, 1, 2 ]:
-            raise ValueError('Battery ID must be one of 0, 1 or 2!')
+            raise ValueError(_('Battery ID must be one of 0, 1 or 2!'))
         if batteryId in [ 1, 0 ] and self['BAT0'].installed:
             setattr(self['BAT0'], attr, value)
         if batteryId in [ 2, 0 ] and self['BAT1'].installed:

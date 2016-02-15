@@ -76,8 +76,8 @@ def main_legacy():
     entrypoint_name = os.path.basename(sys.argv[0])
     sys.argv[0] = sys.argv[0].replace(entrypoint_name, "thinkpad")
     
-    logger.warning('%s: is deprecated! Please use '
-        '\'thinkpad <command>\' instead.' % entrypoint_name)
+    logger.warning(_('$entrypoint_name: is deprecated! Please use '
+        '\'thinkpad <command>\' instead.'))
     
     # translate entrypoint name into command and insert onto argv
     # in the correct position
@@ -153,9 +153,9 @@ def timerType(forInhibitCharge):
         ############################################################
 
         if timer > 1440 and timer != 65535:
-            raise argparse.ArgumentTypeError('Invalid value for <min>: number '
-                                             'of minutes, or 0 for never, or '
-                                             '65535 for forever')
+            raise argparse.ArgumentTypeError(_('Invalid value for <min>: '
+                                             'number of minutes, or 0 for '
+                                             'never, or 65535 for forever'))
         return timer
     return getInhibitCharge
     
@@ -168,10 +168,10 @@ def getPowerSourceInfoBackend(name):
     elif name == 'acpi':
         backend = PowerSourceInfoLegacy
     else:
-        raise ValueError('Unknown Power Source Info backend: %s' % name)
+        raise ValueError(_('Unknown Power Source Info backend: $name'))
     if not backend.isAvailable():
-        logger.error('Specified Power Source info backend: \'%s\' '
-            'is not available on your machine!' % name)
+        logger.error(_('Specified Power Source info backend: \'$name\' '
+            'is not available on your machine!'))
         return None
     return backend()
 
@@ -182,10 +182,10 @@ def getPowerSourceActionBackend(name):
     elif name == 'acpi':
         backend = ThinkpadAcpiBatteryController
     else:
-        raise ValueError('Unknown Power Source Action backend: %s' % name)
+        raise ValueError(_('Unknown Power Source Action backend: $name'))
     if not backend.isAvailable():
-        logger.error('Specified Power Source action backend: \'%s\' '
-            'is not available on your machine!' % name)
+        logger.error(_('Specified Power Source action backend: \'$name\' '
+            'is not available on your machine!'))
         return None
     return backend()
         
@@ -324,88 +324,88 @@ def _parse_cmdline():
     
     _tpacpi_bat_cmdline_compat()
     
-    parser = argparse.ArgumentParser(description='ThinkPad Scripts - '
-                        'A collection of thinkpad utilility commands.',
-                        epilog='Consult various thinkpad* man pages for '
-                        'more information about available commands.')
+    parser = argparse.ArgumentParser(description=_('ThinkPad Scripts - '
+                        'A collection of thinkpad utilility commands.'),
+                        epilog=_('Consult various thinkpad* man pages for '
+                        'more information about available commands.'))
                         #, version='x.y')
 
 #    parser.add_argument('--backend', '-b', nargs='?', 
 #                        choices=('proc', 'sys', 'auto'), default='auto',
-#                        help='Most of the commands interact with '
+#                        help=_('Most of the commands interact with '
 #                        'hardware via thinkpad_acpi kernel module. This '
 #                        'module exposes its functionality via proc and '
 #                        'sys filesystems for userspace tools. By '
 #                        'default use sys interface and fallback to proc'
 #                        'if the needed functionality is not implemented'
 #                        'via sys yet. Specify value to force to a '
-#                        'specific fs.')
+#                        'specific fs.'))
 
     parser.add_argument('-v', dest='verbose', action='count',
-                        help='Enable verbose output. Can be supplied '
-                        'multiple times for even more verbosity.')
+                        help=_('Enable verbose output. Can be supplied '
+                        'multiple times for even more verbosity.'))
     parser.add_argument('--via-hook', nargs='?',
-                        help='Let the program know that it was called '
+                        help=_('Let the program know that it was called '
                         'using a system hook. End user should not use '
-                        'this switch!')
+                        'this switch!'))
                         
     parser.add_argument('--version', action='version', 
                         version='%(prog)s ' + version)
     
-    commands = parser.add_subparsers(title='Available commands',
-                                     description='ThinkPad specific '
+    commands = parser.add_subparsers(title=_('Available commands'),
+                                     description=_('ThinkPad specific '
                                      'commands that utilize hardware '
                                      'builtin functionality and expose '
-                                     'it to userspace', 
-                                     help='commands', dest='command')
+                                     'it to userspace'), 
+                                     help=_('commands'), dest='command')
     
-    commands.add_parser('config', help='Display current configuration')
+    commands.add_parser('config', help=_('Display current configuration'))
     
     battery = commands.add_parser('battery', 
-                                  description='''
+                                  description=_('''
 Query and control battery parameters through various subcommands.
 
 Depending on the '--action' and/or '--info' you choose, kernel version 
 and hardware some or all of the battery commands may be unavailable. 
 For a more or less accurate capability of tp_smapi please refer to: 
-www.thinkwiki.org/wiki/Tp_smapi#Model-specific_status''',
-                                  help='Battery management')
+www.thinkwiki.org/wiki/Tp_smapi#Model-specific_status'''),
+                                  help=_('Battery management'))
     
     battery.add_argument('--action', '-a', nargs='?', 
                          choices=('acpi', 'smapi'), default='acpi',
-                         help='Backend method to execute actions: '
+                         help=_('Backend method to execute actions: '
                          '\'acpi\' use direct ACPI calls (unoffical API), '
-                         '\'smapi\' use tp_smapi kernel driver.')
+                         '\'smapi\' use tp_smapi kernel driver.'))
     
     battery.add_argument('--info', '-i', nargs='?', 
                          choices=('acpi', 'sysfs', 'smapi'), default='smapi',
-                         help='Backend method to obtain power source info: '
+                         help=_('Backend method to obtain power source info: '
                          '\'acpi\' use deprecated /proc/acpi/battery, '
                          '\'sysfs\' use /sys/class/power_supply, '
-                         '\'smapi\' use tp_smapi kernel driver.')
+                         '\'smapi\' use tp_smapi kernel driver.'))
     
     # only to achieve compatibility with tpacpi-bat utility - NO OP
     battery_ops = battery.add_mutually_exclusive_group(required=False)
     battery_ops.add_argument('--get', '-g', action='store_const', 
                              dest='batop', const='get', 
-                             help='Get value. No action argument - for '
-                             'CLI compatibility with tpacpi-bat')
+                             help=_('Get value. No action argument - for '
+                             'CLI compatibility with tpacpi-bat'))
     battery_ops.add_argument('--set', '-s', action='store_const', 
                              dest='batop', const='set', 
-                             help='Set value. No action argument - for '
-                             'CLI compatibility with tpacpi-bat')
+                             help=_('Set value. No action argument - for '
+                             'CLI compatibility with tpacpi-bat'))
     
-    battery_cmds = battery.add_subparsers(title='Available battery commands',
-                                          description='''
+    battery_cmds = battery.add_subparsers(title=_('Available battery '
+                                          'commands'), description=_('''
 Exposes commands to query and control battery charging status:
 start/stop charge thresholds, inhibit charge, force discharge,
-peak shift state and charge balancing''',
-                                       help='Battery commands with aliases',
+peak shift state and charge balancing'''),
+                                       help=_('Battery commands with aliases'),
                                        dest='battery_command')
     
     battery_st = battery_cmds.add_parser('ST', aliases=['st', 'start', 
                                         'startThreshold'],
-                                         description='''
+                                         description=_('''
 Control of battery charging thresholds (in percents of current full 
 charge capacity).
 Battery charging thresholds can be used to keep Li-Ion and Li-Polymer 
@@ -413,125 +413,125 @@ batteries partially charged, in order to increase their lifetime.
 This is useful since those batteries wear out much faster at very 
 high or low charge levels. When using the tp_smapi driver it will also 
 keep the thresholds across suspend-to-disk with AC disconnected - this 
-isn't done automatically by the hardware.''', 
-                                         help='Start charge threshold')
+isn't done automatically by the hardware.'''), 
+                                         help=_('Start charge threshold'))
     
     battery_st.add_argument('battery', type=int, choices=range(0,3),
-                            help='Battery selection: 1 for main, 2 for '
-                            'secondary, 0 for either/both')
+                            help=_('Battery selection: 1 for main, 2 for '
+                            'secondary, 0 for either/both'))
                             
     battery_st.add_argument('level', nargs='?', type=int, 
                             choices=range(0, 100), default=None,
-                            help='Charge level: 0 for default, 1-99 for '
+                            help=_('Charge level: 0 for default, 1-99 for '
                             'percentage. A value of 0 is translated to '
-                            'the hardware default 96%%.')
+                            'the hardware default 96%%.'))
     
     battery_sp = battery_cmds.add_parser('SP', aliases=['sp', 'stop', 
                                          'stopThreshold'], 
                                          description=battery_st.description,
-                                         help='Stop charge threshold')
+                                         help=_('Stop charge threshold'))
                                          
     battery_sp.add_argument('battery', type=int, choices=range(0,3),
-                            help='Battery selection: 1 for main, 2 for '
-                            'secondary, 0 for either/both')
+                            help=_('Battery selection: 1 for main, 2 for '
+                            'secondary, 0 for either/both'))
                             
     battery_sp.add_argument('level', nargs='?', type=int, 
                             choices=range(0, 100), default=None,
-                            help='Charge level: 0 for default, 1-99 for '
+                            help=_('Charge level: 0 for default, 1-99 for '
                             'percentage. A value of 0 is translated to '
-                            'the hardware default 100%%.')
+                            'the hardware default 100%%.'))
     
     battery_ic = battery_cmds.add_parser('IC', aliases=['ic', 'inhibit',
                                          'inhibitCharge'],
-                                         description='''
+                                         description=_('''
 Inhibiting battery charging for 'min' minutes (overriding thresholds).
 Charge inhibiting can be used to reduce the power draw of the laptop, 
 in order to use an under-spec power supply that can't handle the 
 combined power draw of running and charging. This can be used to 
-control which battery is charged when using an Ultrabay battery.''',
-                                         help='Inhibit Charge')
+control which battery is charged when using an Ultrabay battery.'''),
+                                         help=_('Inhibit Charge'))
                                          
     battery_ic.add_argument('battery', type=int, choices=range(0,3),
-                            help='Battery selection: 1 for main, 2 for '
-                            'secondary, 0 for either/both')
+                            help=_('Battery selection: 1 for main, 2 for '
+                            'secondary, 0 for either/both'))
                             
     battery_ic.add_argument('inhibit', nargs='?', type=int, 
                             choices=range(0, 2), default=None,
-                            help='Charging inhibition: 1 to inhibit '
+                            help=_('Charging inhibition: 1 to inhibit '
                             'charge, 0 for stop inhibiting charge '
-                            '(not available via smapi)')
+                            '(not available via smapi)'))
                             
     battery_ic.add_argument('min', nargs='?', type=timerType(True), default=0,
-                            help='Time in minutes: 1-720 or 0 for never, '
-                            'or 65535 for forever.')
+                            help=_('Time in minutes: 1-720 or 0 for never, '
+                            'or 65535 for forever.'))
                                          
     battery_fd = battery_cmds.add_parser('FD', aliases=['fd', 
                                          'forceDischarge'],
-                                         description='''
+                                         description=_('''
 Forcing battery discharging even if AC power available.
 When AC is connected, forced discharging will automatically stop 
 when battery is fully depleted - this is useful for calibration. 
 Also, this attribute can be used to control which battery is discharged 
-when both a system battery and an Ultrabay battery are connected.''', 
-                                         help='Force discharge')
+when both a system battery and an Ultrabay battery are connected.'''), 
+                                         help=_('Force discharge'))
                                          
     battery_fd.add_argument('battery', type=int, choices=range(0,3),
-                            help='Battery selection: 1 for main, 2 for '
-                            'secondary, 0 for either/both')
+                            help=_('Battery selection: 1 for main, 2 for '
+                            'secondary, 0 for either/both'))
                             
     battery_fd.add_argument('discharge', nargs='?', type=int, choices=range(0, 2),
-                            default=None, help='Force Discharge: 1 for force '
-                            'discharge, 0 for stop forcing discharge')
+                            default=None, help=_('Force Discharge: 1 for force '
+                            'discharge, 0 for stop forcing discharge'))
                             
     battery_fd.add_argument('acbreak', nargs='?', type=int, choices=range(0,2),
-                            default=0, help='AC Detached stop: 1 to '
+                            default=0, help=_('AC Detached stop: 1 to '
                             'stop forcing when AC is detached, 0 '
-                            'to continue (not available via smapi)')
+                            'to continue (not available via smapi)'))
                                          
     battery_ps = battery_cmds.add_parser('PS', aliases=['ps', 
                                          'peakShiftState'], 
-                                         description='''
+                                         description=_('''
 The concept of 'peak shift' is to switch temporarily electrical devices 
 on battery during a power peak consumption period so as to unload the 
 grid. This power management strategy is relevant for country like Japan, 
-where these peak periods represent a risk of electrical black out.''',
-                                         help='Peak shift state')
+where these peak periods represent a risk of electrical black out.'''),
+                                         help=_('Peak shift state'))
                                          
     battery_ps.add_argument('inhibit', type=int, choices=range(0, 2),
-                            help='Charging inhibition: 1 to inhibit '
-                            'charge, 0 for stop inhibiting charge')
+                            help=_('Charging inhibition: 1 to inhibit '
+                            'charge, 0 for stop inhibiting charge'))
                             
     battery_ps.add_argument('min', nargs='?', type=timerType(False), default=0,
-                            help='Time in minutes: 1-1440 or 0 for '
-                            'never, or 65535 for forever.')
+                            help=_('Time in minutes: 1-1440 or 0 for '
+                            'never, or 65535 for forever.'))
                             
-    battery_cmds.add_parser('list', help='List known batteries '
-                            'with properties')
+    battery_cmds.add_parser('list', help=_('List known batteries '
+                            'with properties'))
                             
-    battery_balancer = battery_cmds.add_parser('balance', description='''
+    battery_balancer = battery_cmds.add_parser('balance', description=_('''
 Evenly distribute system power consumption among available batteries 
 (if more than one battery is available) by querying and comparing 
-battery charge and forcing discharge/inhibiting charge.''',
-                            help='Charge/discharge batteries evenly')
+battery charge and forcing discharge/inhibiting charge.'''),
+                            help=_('Charge/discharge batteries evenly'))
                             
     battery_balancer.add_argument('chargeStrategy', nargs='?', 
                                   default='brackets', choices=('system',
                                   'leapfrog', 'chasing', 'brackets'),
-                                  help='Strategy algorithm for '
-                                  'selecting battery to charge')
+                                  help=_('Strategy algorithm for '
+                                  'selecting battery to charge'))
     
     battery_balancer.add_argument('dischargeStrategy', nargs='?', 
                                   default='leapfrog', choices=('system',
                                   'leapfrog', 'chasing'),
-                                  help='Strategy algorithm for '
-                                  'selecting battery to discharge')
+                                  help=_('Strategy algorithm for '
+                                  'selecting battery to discharge'))
     
     # Indicate charging/discharing by orange/green led blinking
     
-    beep = commands.add_parser('beep', help='Emit BIOS beep sound')
+    beep = commands.add_parser('beep', help=_('Emit BIOS beep sound'))
     
     beep.add_argument('sound', type=int, choices=(0, 2, 3, 4, 5, 6, 7, 
-                      9, 10, 12, 15, 16, 17), help='''Beep sound code:
+                      9, 10, 12, 15, 16, 17), help=_('''Beep sound code:
 	0 - stop a sound in progress (but use 17 to stop 16),
 	2 - two beeps, pause, third beep ("low battery"),
 	3 - single beep,
@@ -545,32 +545,32 @@ battery charge and forcing discharge/inhibiting charge.''',
 	15 - three high-pitched beeps repeating constantly, stop with 0,
 	16 - one medium-pitched beep repeating constantly, stop with 17,
 	17 - stop 16.
-''')
+'''))
 
-    fan = commands.add_parser('fan', help='Control Fan speed')
+    fan = commands.add_parser('fan', help=_('Control Fan speed'))
     
     fan.add_argument('level', nargs='?', type=ThinkpadAcpi.getFanLevelInt,
                      choices=('auto', 'disengaged', 'full-speed', \
                      0, 1, 2, 3, 4, 5, 6, 7, 254, 255, 256),
-                     help='Sets the fan speed (0=off, 1-7=normal, '
-                     '254=disengaged, 255=auto, 256=full-speed)')
+                     help=_('Sets the fan speed (0=off, 1-7=normal, '
+                     '254=disengaged, 255=auto, 256=full-speed)'))
     
-    dock = commands.add_parser('dock', help='Toggle Docking station state')
+    dock = commands.add_parser('dock', help=_('Toggle Docking station state'))
     
     dock.add_argument('state', nargs='?', choices=('on', 'off'),
-                      help='Desired docking station state. '
-                      'Toggle if not specified')
+                      help=_('Desired docking station state. '
+                      'Toggle if not specified'))
                       
-    inputs = commands.add_parser('input', help='Input devices')
+    inputs = commands.add_parser('input', help=_('Input devices'))
     
     inputs.add_argument('input',
                         choices=('touchpad', 'touchscreen', 'trackpoint'),
-                        help='Input device')
+                        help=_('Input device'))
     inputs.add_argument('state', nargs='?', choices=('on', 'off'),
-                        help='Desired input device state. '
-                        'Toggle if not specified')
+                        help=_('Desired input device state. '
+                        'Toggle if not specified'))
                         
-    led = commands.add_parser('led', help='Led state management')
+    led = commands.add_parser('led', help=_('Led state management'))
     
     led.add_argument('led', nargs='?', type=ledType,
                      choices=['power', 'orange:batt', 'green:batt',
@@ -578,7 +578,7 @@ battery charge and forcing discharge/inhibiting charge.''',
                      'unknown_led', 'standby', 'dock_status1',
                      'dock_status2', 'unknown_led2', 'unknown_led3',
                      'thinkvantage', 'thinklight'] + list(range(0, 16)),
-                     help='''The led to operate on. Leds can be accessed
+                     help=_('''The led to operate on. Leds can be accessed
 by LED ID (numered 0-15, via depreceated procfs interface) or by name 
 (via sysfs interface). Leave this argument empty to obtain list of LEDs 
 by name currently available on your Thinkpad.
@@ -597,39 +597,39 @@ on builtin ThinkLight or (on newer models) will enable keyboard backlight.
 
 @see: http://www.thinkwiki.org/wiki/Table_of_thinkpad-acpi_LEDs for more 
 information.
-''')
+'''))
 
     led.add_argument('state', nargs='?',
                      choices=('on', 'off', 'blink', 'toggle'),
-                     help='Desired led state. Read LED state if not '
+                     help=_('Desired led state. Read LED state if not '
                      'specified. The blink operation is available only '
-                     'via procfs interface.')
+                     'via procfs interface.'))
                         
-    commands.add_parser('mutemic', help='Toggle Microphone state')
+    commands.add_parser('mutemic', help=_('Toggle Microphone state'))
     
-    rotate = commands.add_parser('rotate', help='Rotate screen')
+    rotate = commands.add_parser('rotate', help=_('Rotate screen'))
     
     rotate.add_argument('--force-direction', action='store_true', 
-                        help='Do not try to be smart. Actually rotate '
+                        help=_('Do not try to be smart. Actually rotate '
                         'in the direction given even it already is the '
-                        'case')
+                        'case'))
     rotate.add_argument('direction', nargs='?',
                         choices=('normal', 'none', 'left', 'ccw', 
                         'right', 'cw', 'flip', 'inverted', 'half', 
                         'tablet-normal', 'cycle', 'cycle-cw', 'cycle-ccw'),
-                        help='Desired screen orientation')
+                        help=_('Desired screen orientation'))
     rotate.add_argument('state', nargs='?', choices=('on', 'off'),
-                        help='Forced input devices state after change')
+                        help=_('Forced input devices state after change'))
                         
     rotate.add_argument('--daemonize', '-d', action='store_true',
-                        help='Daemonize screen rotation to take use of '
-                        'HDAPS accelerometer for automatic rotation.')
+                        help=_('Daemonize screen rotation to take use of '
+                        'HDAPS accelerometer for automatic rotation.'))
     rotate.add_argument('--pidfile', '-p', action='store', 
                         default='/var/run/thinkpad-rotated.pid',
-                        help='Pid File location for daemon mode')
+                        help=_('Pid File location for daemon mode'))
                         
     commands.add_parser('scripts-config-migration', 
-                        help='Migrate configuration')
+                        help=_('Migrate configuration'))
                         
     autocomplete(parser)
                           

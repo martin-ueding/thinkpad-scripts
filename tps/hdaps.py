@@ -120,7 +120,7 @@ class Hdaps(object):
         than advertised.
         """
         if not Hdaps.hasHDAPS():
-            logger.error('HDAPS not available in sysfs. Have you loaded hdaps kernel module?')
+            logger.error(_('HDAPS not available in sysfs. Have you loaded hdaps kernel module?'))
         else:
             self.setRestingPosition(calibration)
         self.setResolution(resolution)
@@ -192,18 +192,18 @@ class Hdaps(object):
         Warning: Will require root priviledges to write to sysfs!
         """
         return fileWriteInt(Hdaps.HDAPS_CALIBRATION_FILE, \
-            'Unable to initialize HDAPS sensor calibration!', 1)
+            _('Unable to initialize HDAPS sensor calibration!'), 1)
     
     @staticmethod
     def getSamplingRate():
         """Accelerometer Sampling Rate in Hz"""
         return fileReadInt(Hdaps.HDAPS_SAMPLING_RATE_FILE, \
-            'Unable to read HDAPS sampling rate!')
+            _('Unable to read HDAPS sampling rate!'))
             
     @staticmethod
     def getInvertion():
         return fileReadInt(Hdaps.HDAPS_INVERT_FILE, \
-            'Unable to read HDAPS invertion!')
+            _('Unable to read HDAPS invertion!'))
             
     @staticmethod
     def setInvertion(invertion):
@@ -236,7 +236,7 @@ class Hdaps(object):
         Warning: Will cause to refresh driver calibration settings!
         """
         return fileWriteInt(Hdaps.HDAPS_INVERT_FILE, \
-            'Unable to write HDAPS invertion!', invertion)
+            _('Unable to write HDAPS invertion!'), invertion)
 
     def getOrientation(self, inverted = False):
         """Orientation based upon a normalized position.
@@ -292,5 +292,5 @@ class Hdaps(object):
     @staticmethod
     def _readPosition(positionFile):
         position = fileRead(positionFile, \
-            'Unable to read HDAPS sensor file: %s!' % positionFile)
+            _('Unable to read HDAPS sensor file: %s!') % positionFile)
         return list(map(int, position[1:-1].split(",")))

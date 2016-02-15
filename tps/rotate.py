@@ -26,10 +26,10 @@ def rotate_cmdline(options, config):
             get_rotation(config['screen']['internal']),
             options.direction, config, options.force_direction)
     except UnknownDirectionException:
-        logger.error('Direction cannot be understood.')
+        logger.error(_('Direction cannot be understood.'))
         sys.exit(1)
     except ScreenNotFoundException as e:
-        logger.error('Unable to determine rotation of "{}": {}'.format(
+        logger.error(_('Unable to determine rotation of "{}": {}').format(
             config['screen']['internal'], e))
         sys.exit(1)
         
@@ -44,7 +44,7 @@ def rotate_daemon(options, config):
     try:
         current_rotation = get_rotation(config['screen']['internal'])
     except ScreenNotFoundException as e:
-        logger.error('Unable to determine rotation of "{}": {}'.format(
+        logger.error(_('Unable to determine rotation of "{}": {}').format(
             config['screen']['internal'], e))
         sys.exit(1)
        
@@ -92,7 +92,7 @@ def rotate_daemon(options, config):
                     set_inputs_state(config, not tablet_mode)
                 continue
         except UnknownDirectionException:
-            logger.error('Direction cannot be understood.')
+            logger.error(_('Direction cannot be understood.'))
             sys.exit(1)
 
         rotate(desired_rotation, config, not tablet_mode)

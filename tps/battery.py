@@ -216,14 +216,14 @@ class BatteryControllerBase(object):
         
         batteries = batteryStatus.getBatteries()
         if len(batteries) != 2:
-            logger.error('You need two batteries present in your '
-                         'system to balance charge!')
+            logger.error(_('You need two batteries present in your '
+                           'system to balance charge!'))
             return False
         
         (bat1, bat2) = batteries
         if not bat1.isInstalled() or not bat2.isInstalled():
-            logger.error('You need two batteries present in your '
-                         'system to balance charge!')
+            logger.error(_('You need two batteries present in your '
+                           'system to balance charge!'))
             return False
         
         ac = batteryStatus.getAcAdapter()

@@ -35,14 +35,14 @@ def get_rotation(screen):
             matcher = re.search(r'\) (normal|left|inverted|right) \(', line)
             if matcher:
                 rotation = translate_direction(matcher.group(1))
-                logger.info('Current rotation is “{}”.'.format(rotation))
+                logger.info(_('Current rotation is “{}”.').format(rotation))
                 return rotation
     else:
-        raise ScreenNotFoundException(
+        raise ScreenNotFoundException(_(
             'Screen "{}" is not enabled. Do you have a screen like that in '
             'the output of "xrandr", and is it enabled? Maybe you have to '
             'adjust the option of screen.internal in the '
-            'configuration.'.format(screen))
+            'configuration.').format(screen))
 
 
 def get_externals(internal):
@@ -108,12 +108,12 @@ def set_subpixel_order(direction):
                 check_call(['gsettings', 'set', schema, 'rgba-order',
                                 direction.subpixel], logger)
             else:
-                logger.warning('gsettings is installed, but the "{}" schema '
-                               'is not available'.format(schema))
+                logger.warning(_('gsettings is installed, but the "{}" schema '
+                                 'is not available').format(schema))
         except subprocess.CalledProcessError as e:
             logger.error(e)
     else:
-        logger.warning('neither xfconf-query nor gsettings is installed')
+        logger.warning(_('neither xfconf-query nor gsettings is installed'))
 
 
 def set_brightness(brightness):
@@ -124,7 +124,7 @@ def set_brightness(brightness):
     :returns: None
     '''
     if not command_exists('xbacklight'):
-        logger.warning('xbacklight is not installed')
+        logger.warning(_('xbacklight is not installed'))
         return
 
     check_call(['xbacklight', '-set', brightness], logger)
@@ -214,10 +214,10 @@ def get_resolution_and_shift(output):
             result['screen_height'] = int(m_screen.group('height'))
 
     if len(result) != 6:
-        raise ScreenNotFoundException(
+        raise ScreenNotFoundException(_(
             'The screen and output dimensions could not be gathered from '
             'xrandr. Maybe the "{}" output is not attached or enabled? Please '
-            'report a bug otherwise.'.format(output))
+            'report a bug otherwise.').format(output))
 
     return result
 
@@ -227,8 +227,8 @@ def xrandr_bug_fail_early(config):
     Quits the program if xrandr bug cannot be coped with.
     '''
     if needs_xrandr_bug_workaround(config) and not can_use_chvt():
-        logger.warning('Aborting since there are no external screens attached '
-                       'and XRandr bug workaround is enabled.')
+        logger.warning(_('Aborting since there are no external screens attached '
+                         'and XRandr bug workaround is enabled.'))
         sys.exit(1)
 
 
@@ -253,7 +253,7 @@ def needs_xrandr_bug_workaround(config):
     if not config['rotate'].getboolean('xrandr_bug_workaround'):
         return False
 
-    logger.debug('xrandr bug workaround requested')
+    logger.debug(_('xrandr bug workaround requested'))
 
     # Do nothing if an external screen is attached. The bug does not appear
     # then.

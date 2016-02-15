@@ -29,7 +29,7 @@ class SysDevice(object):
     def read(self, fileName):
         try:
             return fileRead(self._join(fileName), \
-                'Unable to read %s property: %s' \
+                _('Unable to read %s property: %s') \
                 % (self._path, fileName))
         except (IOError, OSError) as e:
             raise AttributeError(e)
@@ -37,7 +37,7 @@ class SysDevice(object):
     def write(self, fileName, value):
         try:
             return fileWrite(self._join(fileName), \
-                'Unable to write %s property: %s' % \
+                _('Unable to write %s property: %s') % \
                 (self._path, fileName), value)
         except (IOError, OSError) as e:
             raise AttributeError(e)

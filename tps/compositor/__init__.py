@@ -88,12 +88,12 @@ def set_inputs_state(config, state):
         trackpoint_xinput_id = get_xinput_id('TrackPoint')
         set_xinput_state(trackpoint_xinput_id, state)
     except InputDeviceNotFoundException as e:
-        logger.info('TrackPoint was not found, could not be (de)activated.')
-        logger.debug('Exception was: “%s”', str(e))
+        logger.info(_('TrackPoint was not found, could not be (de)activated.'))
+        logger.debug(_('Exception was: “%s”'), str(e))
 
     try:
         touchpad_xinput_id = get_xinput_id('TouchPad')
         set_xinput_state(touchpad_xinput_id, state)
     except InputDeviceNotFoundException as e:
-        logger.info('TouchPad was not found, could not be (de)activated.')
-        logger.debug('Exception was: “%s”', str(e))
+        logger.info(_('TouchPad was not found, could not be (de)activated.'))
+        logger.debug(_('Exception was: “%s”'), str(e))

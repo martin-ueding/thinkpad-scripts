@@ -118,15 +118,15 @@ class ThinkpadAcpi(object):
         fanState = ThinkpadAcpi.getFanState()
         
         if speed == fanState['level']:
-            logger.debug('Keeping the current fan level unchanged')
+            logger.debug(_('Keeping the current fan level unchanged'))
         else:
-            logger.debug('Setting fan level to ' + str(speed))
+            logger.debug(_('Setting fan level to ') + str(speed))
             if speed == 0:
                 fileWrite(ThinkpadAcpi.THINKPAD_ACPI_PROC_FAN, \
-                    'Unable to set Fan Speed', 'disable')
+                    _('Unable to set Fan Speed'), 'disable')
             else:
                 fileWrite(ThinkpadAcpi.THINKPAD_ACPI_PROC_FAN, \
-                    'Unable to set Fan Speed', 'enable', 
+                    _('Unable to set Fan Speed'), 'enable', 
                     'level %s' % ThinkpadAcpi.getFanLevelStr(speed))
     
     @staticmethod
@@ -154,7 +154,7 @@ class ThinkpadAcpi(object):
     @staticmethod
     def sendCmosCommand(data):
         return fileWrite(ThinkpadAcpi.CMOS_COMMAND, \
-            'Unable to send CMOS Command!', data)
+            _('Unable to send CMOS Command!'), data)
     
     @staticmethod
     def hasBluetooth():
@@ -168,14 +168,14 @@ class ThinkpadAcpi(object):
             return False
             
         return fileReadBoolean(ThinkpadAcpi.BLUETOOTH_ENABLED, \
-            'Unable to detect Bluetooth status!')
+            _('Unable to detect Bluetooth status!'))
         
     @staticmethod
     def setBluetoothEnabled(enabled):
         if not ThinkpadAcpi.hasBluetooth():
             return False
         return fileWriteBoolean(ThinkpadAcpi.BLUETOOTH_ENABLED, \
-            'Unable to set Bluetooth status!', enabled)
+            _('Unable to set Bluetooth status!'), enabled)
     
     @staticmethod
     def hasTabletMode():
@@ -188,42 +188,42 @@ class ThinkpadAcpi(object):
         if not ThinkpadAcpi.hasTabletMode():
             return False            
         return fileReadBoolean(ThinkpadAcpi.TABLET_MODE, \
-            'Unable to detect Tablet Mode!')
+            _('Unable to detect Tablet Mode!'))
         
     @staticmethod
     def getAllMask():
         return fileReadHex(ThinkpadAcpi.ALL_MASK, \
-            'Unable to obtain Hotkey All Mask!')
+            _('Unable to obtain Hotkey All Mask!'))
             
     @staticmethod
     def getMask():
         return fileReadHex(ThinkpadAcpi.MASK, \
-            'Unable to obtain Hotkey Mask!')
+            _('Unable to obtain Hotkey Mask!'))
             
     @staticmethod
     def setMask(data):
         return fileWriteHex(ThinkpadAcpi.MASK, \
-            'Unable to obtain Hotkey Mask!', data)
+            _('Unable to obtain Hotkey Mask!'), data)
             
     @staticmethod
     def getPollingFrequency():
         return fileReadHex(ThinkpadAcpi.POLL_FREQ, \
-            'Unable to obtain Polling Frequency!')
+            _('Unable to obtain Polling Frequency!'))
             
     @staticmethod
     def setPollingFrequency(data):
         return fileWriteHex(ThinkpadAcpi.POLL_FREQ, \
-            'Unable to obtain Polling Frequency!', data)
+            _('Unable to obtain Polling Frequency!'), data)
             
     @staticmethod
     def getRecommendedMask():
         return fileReadHex(ThinkpadAcpi.RECOMMENDED_MASK, \
-            'Unable to obtain Hotkey Recommended Mask!')
+            _('Unable to obtain Hotkey Recommended Mask!'))
             
     @staticmethod
     def getSourceMask():
         return fileReadHex(ThinkpadAcpi.SOURCE_MASK, \
-            'Unable to obtain Hotkey Source Mask!')
+            _('Unable to obtain Hotkey Source Mask!'))
         
     @staticmethod
     def hasBbSwitch():
@@ -232,13 +232,13 @@ class ThinkpadAcpi(object):
     @staticmethod
     def getBbSwitchState():
         state = fileRead(ThinkpadAcpi.GPU_BBSWITCH, \
-            'Unable to obtain BB Switch State!')
+            _('Unable to obtain BB Switch State!'))
         if state == 'ON':
             return True
         elif state == 'OFF':
             return False
         else:
-            raise NameError('Unknown bbswitch state')
+            raise NameError(_('Unknown bbswitch state'))
             
     @staticmethod
     def isDocked():
@@ -256,9 +256,9 @@ class ThinkpadAcpi(object):
                 contents = handle.read()
                 dock_state = int(contents) == 1
                 if dock_state:
-                    logger.info('Docking station found.')
+                    logger.info(_('Docking station found.'))
                     return True
-        logger.info('No docking station found.')
+        logger.info(_('No docking station found.'))
         return False
 
     @staticmethod
@@ -269,12 +269,12 @@ class ThinkpadAcpi(object):
     def getThinkLightState():
         return 'on' == fileReadLineValue(
             ThinkpadAcpi.THINKPAD_ACPI_PROC_LIGHT, 'status', \
-            'Unable to read ThinkLight State')
+            _('Unable to read ThinkLight State'))
 
     @staticmethod
     def setThinkLightState(state):
         fileWrite(ThinkpadAcpi.THINKPAD_ACPI_PROC_LIGHT, \
-            'Unable to read ThinkLight State', \
+            _('Unable to read ThinkLight State'), \
             'on' if state == True else 'off')
 
     @staticmethod
@@ -295,10 +295,10 @@ class ThinkpadAcpi(object):
         if isinstance(led, int):
             # translate LED ID to LED name to read state via sysfs
             if led < 0 and led > 15:
-                raise ValueError('Invalid LED ID')
+                raise ValueError(_('Invalid LED ID'))
             if led > len(ThinkpadAcpi.LEDS) - 1:
-                raise ValueError('LED ID to name mapping is unknown. '
-                    'Unable to read LED State')
+                raise ValueError(_('LED ID to name mapping is unknown. '
+                    'Unable to read LED State'))
             ledName = ThinkpadAcpi.LEDS[led]
         else:
             ledName = led
@@ -308,32 +308,32 @@ class ThinkpadAcpi(object):
                 and ThinkpadAcpi.getThinkLightState()
 
         brightness = fileReadInt(ThinkpadAcpi._getLedFileName(ledName) \
-            + '/brightness', 'Unable to read LED State!')
+            + '/brightness', _('Unable to read LED State!'))
         return brightness != 0
 
     @staticmethod
     def setLedState(led, state):
         if isinstance(led, int):
             if led < 0 and led > 15:
-                raise ValueError('Invalid LED ID')
+                raise ValueError(_('Invalid LED ID'))
 
-            logger.warn('Setting LED state via procfs will render sysfs '
-                'LED state information inaccurate (reading and toggling '
-                'state will not work reliably)! '
-                'Access LEDs by name to avoid this problem.')
+            logger.warn(_('Setting LED state via procfs will render sysfs '
+                          'LED state information inaccurate (reading and toggling '
+                          'state will not work reliably)! '
+                          'Access LEDs by name to avoid this problem.'))
 
             ledState = str(led) + ' ' + \
                 ThinkpadAcpi._getProcLedState(led, state)
     
             fileWrite(ThinkpadAcpi.THINKPAD_ACPI_PROC_LED, \
-                'Unable to set LED State!', str(led) + ' ' + ledState)
+                _('Unable to set LED State!'), str(led) + ' ' + ledState)
         else:
             ledState = ThinkpadAcpi._getSysLedState(led, state)
             if led == 'thinklight' and not ThinkpadAcpi.hasLed(led):
                 ThinkpadAcpi.setThinkLightState(ledState)
             else:
                 fileWriteBoolean(ThinkpadAcpi._getLedFileName(led) \
-                    + '/brightness', 'Unable to set LED State!', ledState)
+                    + '/brightness', _('Unable to set LED State!'), ledState)
 
     @staticmethod
     def _getLedNameFromFileName(fileName):
@@ -355,20 +355,20 @@ class ThinkpadAcpi(object):
         elif state == 'blink':
             return 'blink'
         elif state == None or state == 'toggle':
-            logger.warn('LED toggle does not work reliably when '
-                'setting value via procfs but reading via sysfs! '
-                'Access LEDs by name to avoid this problem.')
+            logger.warn(_('LED toggle does not work reliably when '
+                          'setting value via procfs but reading via sysfs! '
+                          'Access LEDs by name to avoid this problem.'))
             return 'on' if not ThinkpadAcpi.getLedState(led) else 'off'
         else:
-            raise ValueError('Invalid target LED State')
+            raise ValueError(_('Invalid target LED State'))
 
     @staticmethod
     def _getSysLedState(led, state):
         if isinstance(state, bool):
             return state
         elif state == 'blink':
-            raise ValueError('Blink Led State not supported via sysfs')
+            raise ValueError(_('Blink Led State not supported via sysfs'))
         elif state == None or state == 'toggle':
             return not ThinkpadAcpi.getLedState(led)
         else:
-            raise ValueError('Invalid target LED State')
+            raise ValueError(_('Invalid target LED State'))

@@ -26,17 +26,17 @@ def command_exists(command):
     # Check if `command` is a path to an executable
     if os.sep in command:
         if is_exe(os.path.expanduser(command)):
-            logger.debug('Command “{}” found.'.format(command))
+            logger.debug(_('Command “{}” found.').format(command))
             return True
 
     # Check if `command` is an executable on PATH
     else:
         for dir in os.get_exec_path():
             if is_exe(os.path.join(dir, command)):
-                logger.debug('Command “{}” found.'.format(command))
+                logger.debug(_('Command “{}” found.').format(command))
                 return True
 
-    logger.debug('Command “{}” not found.'.format(command))
+    logger.debug(_('Command “{}” not found.').format(command))
     return False
     
 def command_toggle_state(program, state):
@@ -57,7 +57,7 @@ def command_toggle_state(program, state):
                 logger.debug(program)
                 subprocess.Popen([program])
             else:
-                logger.warning('{} is not installed'.format(program))
+                logger.warning(_('{} is not installed').format(program))
     else:
         try:
             check_output(['pgrep', program], logger)
@@ -139,7 +139,7 @@ def fileReadLineValue(file, valueName, errMsg):
             for line in f:
                 if line.startswith(valueName + ":"):
                     return fileGetLineValue(line)
-        raise ValueError('Unable to read value named: %s' % valueName)
+        raise ValueError(_('Unable to read value named: %s') % valueName)
     except (IOError, OSError) as e:
         if e.errno == errno.ENXIO and fileExists(file):
             # sometimes even though file exists we can't read it

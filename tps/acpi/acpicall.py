@@ -61,13 +61,13 @@ class AcpiCallDevice(object):
         logger.debug("Call ACPI Function '%s'" % call_request)
         
         if not fileWrite(AcpiCallDevice.ACPI_CALL, \
-            'Unable to send ACPI CALL request!', call_request):
+            _('Unable to send ACPI CALL request!'), call_request):
             return False
         
         call_result = fileRead(AcpiCallDevice.ACPI_CALL, \
-            'Unable to read ACPI CALL result!')
+            _('Unable to read ACPI CALL result!'))
 
-        logger.debug("Call returned '%s'" % call_result)
+        logger.debug(_("Call returned '%s'") % call_result)
 
         # it appears that the buffer is initialized with 'not called'
         # the command response is a null terminaed string
@@ -81,8 +81,8 @@ class AcpiCallDevice(object):
     def encodeCallRequest(self, asl_base, call_args):
         call_request = asl_base + ' '
         if len(call_args) > 1:
-            onCallError(asl_base, call_args, None, 'ACPI Call encoding '
-                        'multiple request parameters is unsupported: %s' % call_args)
+            onCallError(asl_base, call_args, None, _('ACPI Call encoding '
+                        'multiple request parameters is unsupported: %s') % call_args)
         for arg in call_args:
             if isinstance(arg, int):
                 call_request += hex(arg)
@@ -92,8 +92,8 @@ class AcpiCallDevice(object):
                 call_request += '"' + arg + '"'
             else:
             #elif isinstance(arg, (list, tuple)):
-                onCallError(asl_base, call_args, None, 'ACPI Call Unknown '
-                        'request argument format: %s' % arg)
+                onCallError(asl_base, call_args, None, _('ACPI Call Unknown '
+                        'request argument format: %s') % arg)
         return call_request
         
     def parseCallResponse(self, asl_base, call_args, call_result):
@@ -113,24 +113,24 @@ class AcpiCallDevice(object):
                 result.append(self.parseCallResponse(asl_base, call_args, result_part))
             return result
         elif call_result.startswith('[') and call_result.endswith(']'):
-            logger.error('ACPI Call Package type response parsing is '
-                         'not yet supported for: %s' % call_result)
+            logger.error(_('ACPI Call Package type response parsing is '
+                           'not yet supported for: %s') % call_result)
             return call_result
         else:
-            onCallError(asl_base, call_args, call_result, 'ACPI Call Unknown '
-                        'result format: %s' % call_result)
+            onCallError(asl_base, call_args, call_result, _('ACPI Call Unknown '
+                        'result format: %s') % call_result)
 
     def checkCallError(self, asl_base, call_args, call_result):
         error_msg = None
         if call_result == 'not called':
-            error_msg = 'ACPI Call failed due to missing query: %s' % call_result
+            error_msg = _('ACPI Call failed due to missing query: %s') % call_result
         elif call_result == '0x80000000':
-            error_msg = 'ACPI Call failure status returned: %s' % call_result
+            error_msg = _('ACPI Call failure status returned: %s') % call_result
         elif call_result.startswith('Error: AE_NOT_FOUND'):
-            error_msg = 'ACPI Call failed: ASL base not found for this ' \
-                        'machine: %s' % asl_base
+            error_msg = _('ACPI Call failed: ASL base not found for this ' \
+                          'machine: %s') % asl_base
         elif call_result.startswith('Error: '):
-            error_msg = 'ACPI Call error response: %s' % call_result
+            error_msg = _('ACPI Call error response: %s') % call_result
         if error_msg:
             self.onCallError(asl_base, call_args, call_result, error_msg)
             return True
@@ -171,7 +171,7 @@ class AcpiCallArguments(object):
     def encode(self, **kwargs):
         for given_argument in kwargs:
             if given_argument not in self._argument_names:
-                raise ValueError("Wrong argument %s" % (given_argument))
+                raise ValueError(_('Wrong argument %s') % (given_argument))
         double_word = 0
         for argument in self._arguments:
             if argument.name in kwargs:
@@ -187,7 +187,7 @@ class AcpiCallArguments(object):
             value = argument.decode(double_word)
             if argument.name.startswith('reserved'):
                 if value != 0:
-                    raise ValueError("Reserved %s bits are non-zero %u" % (argument.name, value))
+                    raise ValueError(_('Reserved %s bits are non-zero %u') % (argument.name, value))
             else:
                 values[argument.name] = value
         logger.debug(str(values))
@@ -206,7 +206,7 @@ class AcpiCallArgument(object):
             value= bool(value)
         value = int(value)
         if value >= 2**self.number_of_bits:
-            raise ValueError("Out of range")
+            raise ValueError(_('Out of range'))
         return value
 
     def encode(self, value):
