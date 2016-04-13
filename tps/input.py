@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2016 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
 '''
@@ -72,8 +72,26 @@ def map_rotate_all_input_devices(output, orientation):
     '''
     matrix = generate_xinput_coordinate_transformation_matrix(output,
                                                               orientation)
-    for device in get_wacom_device_ids():
+    wacom_device_ids = get_wacom_device_ids()
+    for device in wacom_device_ids:
         map_rotate_input_device(device, matrix)
+    for device in wacom_device_ids:
+        wacom_rotate_reset(device)
+
+
+def wacom_rotate_reset(device):
+    '''
+    Resets the “Wacom Rotation” property of devices.
+
+    In GH-117__ we noticed that in Ubuntu the ``xrandr`` rotation command will
+    also rotate some input devices. This is probably meant in a good way but
+    interferes with out rotation here. Therefore we reset the “Wacom Rotation”
+    after setting the transformation matrix.
+
+    __ https://github.com/martin-ueding/thinkpad-scripts/issues/117
+    '''
+    command = ['xinput', 'set-prop', 'device', 'Wacom Rotation', '0']
+    tps.check_call(command, logger)
 
 
 def get_xinput_id(name):
