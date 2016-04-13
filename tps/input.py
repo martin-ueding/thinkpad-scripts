@@ -90,8 +90,18 @@ def wacom_rotate_reset(device):
 
     __ https://github.com/martin-ueding/thinkpad-scripts/issues/117
     '''
-    command = ['xinput', 'set-prop', 'device', 'Wacom Rotation', '0']
-    tps.check_call(command, logger)
+    if has_device_property(device, 'Wacom Rotation'):
+        command = ['xinput', 'set-prop', str(device), 'Wacom Rotation', '0']
+        tps.check_call(command, logger)
+
+
+def has_device_property(device, property_):
+    '''
+    Checks whether a given device supports a property.
+    '''
+    command = ['xinput', '--list-props', str(device)]
+    output = tps.check_output(command, logger).decode()
+    return property_ in output
 
 
 def get_xinput_id(name):
