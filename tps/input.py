@@ -73,8 +73,12 @@ def map_rotate_all_input_devices(output, orientation):
     matrix = generate_xinput_coordinate_transformation_matrix(output,
                                                               orientation)
     wacom_device_ids = get_wacom_device_ids()
+
+    logger.info('Mapping and rotating all input devices.')
     for device in wacom_device_ids:
         map_rotate_input_device(device, matrix)
+
+    logger.info('Resetting “Wacom Rotation” property.')
     for device in wacom_device_ids:
         wacom_rotate_reset(device)
 
