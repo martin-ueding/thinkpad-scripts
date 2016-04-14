@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2016 Martin Ueding <dev@martin-ueding.de>
 # Copyright © 2014 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
@@ -11,9 +11,10 @@ Main module for thinkpad-scripts.
 
 import collections
 import functools
-import subprocess
 import logging
 import os
+import shlex
+import subprocess
 
 Direction = collections.namedtuple(
     'Direction', ['xrandr', 'subpixel', 'physically_closed', 'rot_mat']
@@ -133,7 +134,8 @@ def print_command_decorate(function):
     '''
     @functools.wraps(function)
     def wrapper(command, local_logger, *args, **kwargs):
-        local_logger.debug('subprocess “{}”'.format(' '.join(command)))
+        shell_command = ' '.join(map(shlex.quote,command))
+        local_logger.debug('subprocess “{}”'.format(shell_command))
         return function(command, *args, **kwargs)
     return wrapper
 

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2016 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
 import argparse
@@ -27,7 +27,8 @@ def main():
 
     config = tps.config.get_config()
 
-    # Quickly abort if the call is by the hook and the user disabled the trigger.
+    # Quickly abort if the call is by the hook and the user disabled the
+    # trigger.
     if options.via_hook and not config['trigger'].getboolean('enable_rotate'):
         sys.exit(0)
 
