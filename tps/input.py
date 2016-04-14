@@ -105,7 +105,11 @@ def has_device_property(device, property_):
     '''
     command = ['xinput', '--list-props', str(device)]
     output = tps.check_output(command, logger).decode()
-    return property_ in output
+    regex = r'^\s+{}\s+\(\d+\):'.format(property_)
+    has_property = re.search(regex, output, re.MULTILINE) is not None
+    logger.debug('Device %i %s property “%s”', device,
+                 'has' if has_property else 'does not have', property_)
+    return has_property
 
 
 def get_xinput_id(name):
