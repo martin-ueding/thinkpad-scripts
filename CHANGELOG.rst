@@ -13,6 +13,10 @@ v4.7.2
       interfere with each other. Now we reset the rotation made by XRandR. Jim
       tested this on Ubuntu 15.10, so that should fix GH-117 and GH-112.
 
+    - Debug shell commands are pretty-printed using ``shlex.quote``. That way,
+      one can directly paste the log output into a shell and re-run a given
+      command.
+
 v4.7.1
     Released: 2015-10-20 17:14:26 +0200
 
