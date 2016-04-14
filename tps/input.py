@@ -89,7 +89,7 @@ def wacom_rotate_reset(device):
 
     In GH-117__ we noticed that in Ubuntu the ``xrandr`` rotation command will
     also rotate some input devices. This is probably meant in a good way but
-    interferes with out rotation here. Therefore we reset the “Wacom Rotation”
+    interferes with our rotation here. Therefore we reset the “Wacom Rotation”
     after setting the transformation matrix.
 
     __ https://github.com/martin-ueding/thinkpad-scripts/issues/117
