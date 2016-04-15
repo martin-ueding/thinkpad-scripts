@@ -4,6 +4,12 @@
 Changelog
 #########
 
+v4.7.3
+    Released: 2016-04-15 13:14:40 +0200
+
+    - Fix location of ``sphinx-build`` on Fedora (GH-119). Contributed by
+      Aruee.
+
 v4.7.2
     Released: 2016-04-14 21:07:41 +0200
 
