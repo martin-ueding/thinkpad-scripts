@@ -4,6 +4,12 @@
 Changelog
 #########
 
+v4.7.4
+    Released: 2016-07-13 10:35:07 +0200
+
+    - Update the name of the Wacom touch screen such that its name also works
+      on Fedora 23 (GH-120).
+
 v4.7.3
     Released: 2016-04-15 13:14:40 +0200
 
