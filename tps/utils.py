@@ -5,9 +5,10 @@
 
 import errno
 from functools import wraps
-import subprocess
 import logging
 import os
+import shlex
+import subprocess
 
 logger = logging.getLogger(__name__)
 
@@ -79,7 +80,8 @@ def print_command_decorate(function):
     '''
     @wraps(function)
     def wrapper(command, local_logger, *args, **kwargs):
-        local_logger.debug('subprocess “{}”'.format(' '.join(command)))
+        shell_command = ' '.join(map(shlex.quote,command))
+        local_logger.debug('subprocess “{}”'.format(' '.join(shell_command)))
         #kwargs['stderr'] = subprocess.STDOUT
         return function(command, *args, **kwargs)
     return wrapper

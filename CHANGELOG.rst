@@ -1,8 +1,33 @@
-.. Copyright © 2012-2015 Martin Ueding <dev@martin-ueding.de>
+.. Copyright © 2012-2016 Martin Ueding <dev@martin-ueding.de>
 
 #########
 Changelog
 #########
+
+v4.7.4
+    Released: 2016-07-13 10:35:07 +0200
+
+    - Update the name of the Wacom touch screen such that its name also works
+      on Fedora 23 (GH-120).
+
+v4.7.3
+    Released: 2016-04-15 13:14:40 +0200
+
+    - Fix location of ``sphinx-build`` on Fedora (GH-119). Contributed by
+      Aruee.
+
+v4.7.2
+    Released: 2016-04-14 21:07:41 +0200
+
+    - Ubuntu seems to ship with a version of XRandR which set the ``Wacom
+      Rotation`` property of a few devices, but not all of them. As we have
+      switched to the rotation matrix some versions ago, we and XRandR
+      interfere with each other. Now we reset the rotation made by XRandR. Jim
+      tested this on Ubuntu 15.10, so that should fix GH-117 and GH-112.
+
+    - Debug shell commands are pretty-printed using ``shlex.quote``. That way,
+      one can directly paste the log output into a shell and re-run a given
+      command.
 
 v4.7.1
     Released: 2015-10-20 17:14:26 +0200

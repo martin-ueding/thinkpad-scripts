@@ -19,7 +19,6 @@ from tps.utils import check_call, check_output
 logger = logging.getLogger(__name__)
 
 
-
 def rotate_cmdline(options, config):
     try:
         new_direction = new_rotation(

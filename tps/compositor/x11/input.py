@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2016 Martin Ueding <dev@martin-ueding.de>
 # Copyright © 2016 Lukasz Czuja <pub@czuja.pl>
 # Licensed under The GNU Public License Version 2 (or later)
 
@@ -59,8 +59,46 @@ def rotate_input_devices(regex, output, orientation):
     '''
     matrix = generate_xinput_coordinate_transformation_matrix(output,
                                                               orientation)
-    for device in get_device_ids(regex):
+
+    device_ids = get_device_ids(regex)
+
+    logger.info('Mapping and rotating all input devices.')
+    for device in device_ids:
         rotate_input_device(device, matrix)
+
+    logger.info('Resetting “Wacom Rotation” property.')
+    for device in device_ids:
+        wacom_rotate_reset(device)
+
+
+def wacom_rotate_reset(device):
+    '''
+    Resets the “Wacom Rotation” property of devices.
+
+    In GH-117__ we noticed that in Ubuntu the ``xrandr`` rotation command will
+    also rotate some input devices. This is probably meant in a good way but
+    interferes with our rotation here. Therefore we reset the “Wacom Rotation”
+    after setting the transformation matrix.
+
+    __ https://github.com/martin-ueding/thinkpad-scripts/issues/117
+    '''
+    if has_device_property(device, 'Wacom Rotation'):
+        command = ['xinput', 'set-prop', str(device), 'Wacom Rotation', '0']
+        check_call(command, logger)
+
+
+def has_device_property(device, property_):
+    '''
+    Checks whether a given device supports a property.
+    '''
+    command = ['xinput', '--list-props', str(device)]
+    output = check_output(command, logger).decode()
+    regex = r'^\s+({})\s+\(\d+\):'.format(re.escape(property_))
+    has_property = re.search(regex, output, re.MULTILINE) is not None
+    logger.debug('Device %i %s property “%s”', device,
+                 'has' if has_property else 'does not have', property_)
+    return has_property
+
 
 def get_xinput_id(name):
     '''

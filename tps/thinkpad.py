@@ -48,7 +48,8 @@ def main():
     elif options.command == 'beep':
         ThinkpadAcpi.beep(options.sound)
     elif options.command == 'dock':
-        # Quickly abort if the call is by the hook and the user disabled the trigger.
+        # Quickly abort if the call is by the hook and the user disabled 
+        # the trigger.
         if options.via_hook and \
             not config['trigger'].getboolean('enable_dock'):
             sys.exit(0)
