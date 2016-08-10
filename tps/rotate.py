@@ -38,6 +38,8 @@ def rotate_cmdline(options, config):
 
 def rotate_daemon(options, config):
     if not Hdaps.hasHDAPS():
+        logger.error(_('HDAPS module not found on system! Unable to '
+            'automatically rotate screen without HDAPS.'))
         sys.exit(1)
     
     try:
