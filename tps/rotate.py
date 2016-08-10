@@ -13,7 +13,7 @@ from tps.hdaps import Hdaps
 from tps.compositor import NORMAL, UnknownDirectionException, \
                            ScreenNotFoundException, get_rotation, \
                            new_rotation, rotate, get_input_state, \
-                           set_inputs_state 
+                           set_inputs_state, translate_direction
 from tps.utils import check_call, check_output
 
 logger = logging.getLogger(__name__)
@@ -77,11 +77,11 @@ def rotate_daemon(options, config):
                 if not autorotate_tablet_mode:
                     desired_rotation = default_rotation
                 else:
-                    desired_rotation = hdaps.getHdapsOrientation(True)
+                    desired_rotation = hdaps.getOrientation(True)
             elif not autorotate_laptop_mode:
                 desired_rotation = NORMAL
             else:
-                desired_rotation = hdaps.getHdapsOrientation(False)
+                desired_rotation = hdaps.getOrientation(False)
                 
             if desired_rotation is None or \
                 current_rotation == desired_rotation:                    
