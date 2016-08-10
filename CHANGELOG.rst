@@ -4,6 +4,78 @@
 Changelog
 #########
 
+v5.0-Alfa
+    Released: Unreleased
+
+    - Introduce system dir (for system integration purposes) with: init, acpid, 
+      udevd and modules-load.d dirs to hold system configuration files 
+    - Introduce HDAPS accelerometer based automatic screen rotation
+    - Ability to rotate main screen automatically when hardware changes 
+      position with sensitive defaults
+    - Ability to enable/disable automatic screen roattion in laptop and tablet 
+      mode separately
+    - Ability to specify HDAPS accelerometer calibration, resolution and 
+      inversion through configuration
+    - Inputs are no longer disabled when in laptop mode when screen is rotated
+    - Input will no longer automatically rotate when entering tablet mode 
+      unless thinkpad-rotated service is running
+    - Prefer systemd service control - enable and start thinkpad-rotated service
+    - Add packaging/debian directory from thinkpad-scripts-debian repo 
+      (with minor changes)
+    - New single entry point 'thinkpad' for all exposed commands Legacy 
+      commands still work but are emulated and handled by 'thinkpad' entry 
+      point down the road Hooks are now handled through new entry point, with 
+      the ability to receive an argument via --via-hook <argument> acpid 
+      handlers updated to use new entry point with --via-hook directly
+    - Add Thinkpad battery and acpi-call interface adopted from project 
+      "A Laptop Control Panel" by Fabrice Salvaire (author consented) Both the 
+      battery and acpi-call modules have seen some bug fixing and feature 
+      additions because lots of the functionality was not there 
+    - New command line command "battery" with an API identical to tpacpi-bat 
+      (should be a drop in replacement) 
+    - Make sure thinkpad_acpi is loaded with fan_control=1 and hotkeys enabled
+    - Add sysfs utility classes from project "A Laptop Control Panel" by 
+      Fabrice Salvaire (author consented)
+    - Create XServer/Compositor agnostic interface to interact with 
+      displays/inputs
+    - Simple Thinkpad Fan control
+    - Add beep/led subcommands for operating on LEDS and emitting BIOS sounds
+    - Add a copy of battery ACPI ASL info (from tpacpi-bat project)
+    - Move tps.testsuite -> tps.tests
+    - Add __meta__ module to store constants needed for setup() but which 
+      could also be referenced within source
+    - tp_smapi driver implementation using sysfs rename couple modules account 
+      for ENXIO when reading file contents (some tp_smapi battery properties 
+      cannot be read - may be system dependant)
+    - Allow to use TpSmapi interface when --api=smapi SysDevice add missing 
+      write() method Common method signatures between 
+      ThinkpadAcpiBatteryController and TpSmapi (interchangeability)
+    - thinkpad_acpi: enable volume_control
+    - Add possibility to cycle screen rotation through 'cycle', 'cycle-cw', 
+      'cycle-ccw' direction options
+    - Include CHANGELOG.rst for debian packaging to be able to extract version 
+      information runtime (Fixup __meta__ changelog version extraction to 
+      account for system director and gzip compression)
+    - Add argcomplete dependency and enable automatic bash completion (2 LOC!)
+    - Enable global bash completion (that makes it total of 3 LOC!)
+    - Add manual bash completion
+    - Add a warning when using legacy EPs
+    - Battery information and action executor interface/abstraction layer 
+    - New battery balance feature (balancing battery charging/discharging) 
+      among available batteries (balancing algorithm borrowed from TPBattStat 
+      by Eliot Wolk)
+    - New cache_property decorator (mainly used now when reading battery info)
+    - Ability to specify info and action execution backend (if a backend is 
+      not available exit gracefully)
+    - Add i18n support using Babel and flufl.i18n Install system wide _() 
+      method as a proxy to flufl.i18n Application/_Underscore which in turn 
+      use Babel.support.Translations
+    - Wrap translatable strings in gettext global function
+
+    TODO:
+    - update tests and documentation to follow changes
+    - WIP: DBus interface 
+
 v4.7.4
     Released: 2016-07-13 10:35:07 +0200
 
