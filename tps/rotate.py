@@ -53,7 +53,7 @@ def rotate_daemon(options, config):
     hdaps_resolution_x = config['hdaps'].getint('resolution_x')
     hdaps_resolution_y = config['hdaps'].getint('resolution_y')
     hdaps_invert = config['hdaps'].getint('invert')
-    hadps_poll_interval = config['hdaps'].getfloat('poll_interval')
+    hdaps_poll_interval = config['hdaps'].getfloat('poll_interval')
     
     hdaps = Hdaps((hdaps_resting_x, hdaps_resting_y), 
         (hdaps_resolution_x, hdaps_resolution_y))
@@ -70,7 +70,7 @@ def rotate_daemon(options, config):
     tablet_mode = ThinkpadAcpi.inTabletMode()
     
     while True:
-        time.sleep(hadps_poll_interval);
+        time.sleep(hdaps_poll_interval);
         tablet_mode_prev = tablet_mode
         tablet_mode = ThinkpadAcpi.inTabletMode()
         try:
