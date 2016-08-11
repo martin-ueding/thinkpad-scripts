@@ -291,7 +291,8 @@ def rotate(options, config):
         options.direction = 'normal'
         
     if not options.daemonize:
-        # Quickly abort if the call is by the hook and the user disabled the trigger.
+        # Quickly abort if the call is by the hook and the user disabled
+        # the trigger.
         if options.via_hook is not None and \
             not config['trigger'].getboolean('enable_rotate'):
             sys.exit(0)
