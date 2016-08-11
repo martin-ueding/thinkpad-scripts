@@ -13,7 +13,7 @@ class SelectDockingScreensTestCase(unittest.TestCase):
 
     def setUp(self):
         self.get_externals_patcher = unittest.mock.patch(
-            'tps.screen.get_externals', autospec=True)
+            'tps.dock.get_externals', autospec=True)
         self.get_externals_mock = self.get_externals_patcher.start()
 
     def tearDown(self):
