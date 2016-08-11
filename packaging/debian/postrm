@@ -15,10 +15,13 @@ case "$1" in
     ;;
 esac
 
+udevadm hwdb --update
+
 if which systemctl &> /dev/null; then
-  systemctl restart acpid;
+    systemctl restart acpid;
+    systemctl daemon-reload;
 elif which service &> /dev/null; then
-  service acpid restart;
+    service acpid restart;
 fi
 
 #DEBHELPER#

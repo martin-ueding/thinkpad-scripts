@@ -53,14 +53,24 @@ full-install: common-install
 	@if [[ -n "$(DESTDIR)" ]]; then echo; echo '==> DESTDIR is set, so you have to install this stepwise. See `doc/guides/getting-started.rst` or http://thinkpad-scripts.readthedocs.org/en/latest/guides/getting-started.html#build-manually for more information. <=='; false; fi
 
 	./setup.py install
-
+	
 	udevadm hwdb --update
 	
+	modprobe thinkpad_acpi
+	modprobe tp_smapi
+	modprobe hdaps
+	modprobe acpi_call
+	
 	if which systemctl &> /dev/null; then
-	    systemctl restart acpid;
+		systemctl restart acpid;
+		systemctl daemon-reload;
+		#systemctl enable thinkpad-rotated;
+		#systemctl restart thinkpad-rotated;
 	elif which service &> /dev/null; then
 	    service acpid restart;
+	    #service thinkpad-rotated restart;
 	fi
+	
 
 test:
 	./setup.py test

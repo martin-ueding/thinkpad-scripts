@@ -16,10 +16,19 @@ esac
 
 udevadm hwdb --update
 
+modprobe thinkpad_acpi
+modprobe tp_smapi
+modprobe hdaps
+modprobe acpi_call
+
 if which systemctl &> /dev/null; then
     systemctl restart acpid;
+    systemctl daemon-reload;
+    #systemctl enable thinkpad-rotated@;
+    #systemctl start thinkpad-rotated@$LOGNAME;
 elif which service &> /dev/null; then
     service acpid restart;
+    #service thinkpad-rotated restart;
 fi
 
 #DEBHELPER#
