@@ -165,6 +165,8 @@ def dock(on, config):
                 tps.network.restart(connection_to_restart)
             except tps.network.MissingEthernetException:
                 logger.warning('unable to find ethernet connection')
+            except subprocess.CalledProcessError:
+                logger.warning('unable to restart ethernet connection')
 
         if primary == config['screen']['internal'] or \
            secondary == config['screen']['internal']:
