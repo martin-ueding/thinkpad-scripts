@@ -76,14 +76,13 @@ def map_rotate_all_input_devices(output, orientation):
 
     logger.info('Mapping and rotating all input devices.')
     for device in wacom_device_ids:
-        has_wacom_rotation = has_device_property(device, 'Wacom Rotation')
-        if has_wacom_rotation:
+        if has_device_property(device, 'Wacom Rotation'):
             logger.info('Device %d has “Wacom Rotation” property, use xsetwacom.', device)
             map_rotate_wacom_device(device, output, orientation)
         else:
             logger.info('Device %d does not have “Wacom Rotation” property, use xinput and try xsetwacom.', device)
             map_rotate_input_device(device, matrix)
-            wacom_rotate_reset(device)
+            #wacom_rotate_reset(device)
 
 
 def map_rotate_wacom_device(device, output, direction):
