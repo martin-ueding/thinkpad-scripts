@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014-2016 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2017 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
 '''
@@ -76,11 +76,22 @@ def map_rotate_all_input_devices(output, orientation):
 
     logger.info('Mapping and rotating all input devices.')
     for device in wacom_device_ids:
-        map_rotate_input_device(device, matrix)
+        has_wacom_rotation = has_device_property(device, 'Wacom Rotation')
+        if has_wacom_rotation:
+            logger.info('Device %d has “Wacom Rotation” property, use xsetwacom.', device)
+            map_rotate_wacom_device(device, output, orientation)
+        else:
+            logger.info('Device %d does not have “Wacom Rotation” property, use xinput and try xsetwacom.', device)
+            map_rotate_input_device(device, matrix)
+            wacom_rotate_reset(device)
 
-    logger.info('Resetting “Wacom Rotation” property.')
-    for device in wacom_device_ids:
-        wacom_rotate_reset(device)
+
+def map_rotate_wacom_device(device, output, direction):
+    tps.check_call(['xsetwacom', 'set', str(device), 'rotate',
+                     direction.xsetwacom], logger)
+
+    tps.check_call(['xsetwacom', 'set', str(device), 'MapToOutput', output],
+                    logger)
 
 
 def wacom_rotate_reset(device):
