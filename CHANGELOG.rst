@@ -1,8 +1,14 @@
-.. Copyright © 2012-2016 Martin Ueding <dev@martin-ueding.de>
+.. Copyright © 2012-2017 Martin Ueding <dev@martin-ueding.de>
 
 #########
 Changelog
 #########
+
+v4.7.5
+    Released: 2017-01-14 20:40:37 +0100
+
+    - The program now does not crash in the case that the network connection
+      could not be restarted. Instead, a warning is logged (GH-121).
 
 v4.7.4
     Released: 2016-07-13 10:35:07 +0200
