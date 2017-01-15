@@ -130,8 +130,9 @@ Those are the possible options:
     lexicographically first connection name in the list provided by ``nmcli``
     that contains the case-insensitive string ``'ethernet'``.
 
-``screen.internal``
-    The ``xrandr`` name for the internal monitor. *Default: LVDS1*.
+``screen.internal_regex``
+    Regular expression to match the ``xrandr`` name for the internal monitor.
+    *Default: LVDS-?1|eDP-?1*
 
 ``screen.primary``
     The ``xrandr`` name for the primary monitor when docked or an empty string

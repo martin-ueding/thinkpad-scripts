@@ -163,8 +163,9 @@ You can set the following option:
 
     *Default: false*.
 
-``screen.internal``
-    The ``xrandr`` name for the internal monitor. *Default: LVDS1*
+``screen.internal_regex``
+    Regular expression to match the ``xrandr`` name for the internal monitor.
+    *Default: LVDS-?1|eDP-?1*
 
 ``trigger.enable_rotate``
     Sets whether the rotation should be executed by the hardware trigger.
