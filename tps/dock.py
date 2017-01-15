@@ -125,7 +125,7 @@ def dock(on, config):
             tps.screen.set_brightness(config['screen']['brightness'])
 
         primary, secondary, others = select_docking_screens(
-            config['screen']['internal'],
+            tps.screen.get_internal(config),
             config['screen']['primary'],
             config['screen']['secondary'])
 
@@ -153,7 +153,7 @@ def dock(on, config):
             if not config['screen'].getboolean('internal_docked_on'):
                 logger.info('Internal screen is supposed to be off when '
                             'docked, turning it off.')
-                tps.screen.disable(config['screen']['internal'])
+                tps.screen.disable(tps.screen.get_internal(config))
 
         if config['network'].getboolean('disable_wifi') \
            and tps.network.has_ethernet():
@@ -171,23 +171,23 @@ def dock(on, config):
             except subprocess.CalledProcessError:
                 logger.warning('unable to restart ethernet connection')
 
-        if primary == config['screen']['internal'] or \
-           secondary == config['screen']['internal']:
+        if primary == tps.screen.get_internal(config) or \
+           secondary == tps.screen.get_internal(config):
             try:
                 tps.input.map_rotate_all_input_devices(
-                    config['screen']['internal'],
-                    tps.screen.get_rotation(config['screen']['internal']))
+                    tps.screen.get_internal(config),
+                    tps.screen.get_rotation(tps.screen.get_internal(config)))
             except tps.screen.ScreenNotFoundException as e:
                 logger.error('Unable to map input devices to "{}": {}'.format(
-                    config['screen']['internal'], e))
+                    tps.screen.get_internal(config), e))
 
     else:
-        externals = tps.screen.get_externals(config['screen']['internal'])
+        externals = tps.screen.get_externals(tps.screen.get_internal(config))
         # Disable all but one screen (xrandr complains otherwise).
         for external in externals[:-1]:
             tps.screen.disable(external)
         # Enable the internal screen.
-        tps.screen.enable(config['screen']['internal'], primary=True)
+        tps.screen.enable(tps.screen.get_internal(config), primary=True)
         # It's now safe to disable the last external screen.
         if externals:
             tps.screen.disable(externals[-1])
@@ -200,11 +200,11 @@ def dock(on, config):
 
         try:
             tps.input.map_rotate_all_input_devices(
-                config['screen']['internal'],
-                tps.screen.get_rotation(config['screen']['internal']))
+                tps.screen.get_internal(config),
+                tps.screen.get_rotation(tps.screen.get_internal(config)))
         except tps.screen.ScreenNotFoundException as e:
             logger.error('Unable to map input devices to "{}": {}'.format(
-                config['screen']['internal'], e))
+                tps.screen.get_internal(config), e))
 
     tps.hooks.postdock(on, config)
 
