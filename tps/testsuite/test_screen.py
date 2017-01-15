@@ -39,3 +39,14 @@ DP-2 connected primary 1920x1080+0+0 (normal left inverted right x axis y axis) 
 DP-3 disconnected (normal left inverted right x axis y axis)'''
 
         self.assertEqual(tps.screen.get_available_screens(output), ['DP-2', 'LVDS-1'])
+
+    def test_filter_outputs(self):
+        outputs = ['DP-2', 'LVDS-1']
+        regex = r'LVDS-?1|eDP-?1'
+        self.assertEqual(tps.screen.filter_outputs(outputs, regex), 'LVDS-1')
+
+    def test_filter_outputs_assert(self):
+        outputs = ['eDP1', 'LVDS-1']
+        regex = r'LVDS-?1|eDP-?1'
+        with self.assertRaises(AssertionError):
+            tps.screen.filter_outputs(outputs, regex)

@@ -241,6 +241,12 @@ def get_internal(config):
 
     # There is no such option, therefore we need to match the regular
     # expression against the output of XRandR now.
+    output = tps.check_output(['xrandr'], logger).decode().strip()
+    screens = get_available_screens(output)
+    logger.debug('Screens available on this system are %s.', ', '.join(screens))
+    internal = filter_outputs(screens, config['screen']['internal_regex'])
+    logger.debug('Internal screen is determined to be %s.', internal)
+    return internal
 
 
 def get_available_screens(output):
@@ -253,3 +259,9 @@ def get_available_screens(output):
             results.append(m.groupdict()['name'])
     results.sort()
     return results
+
+
+def filter_outputs(outputs, regex):
+    matched = list(filter(lambda output: re.match(regex, output), outputs))
+    assert len(matched) == 1, 'There should be exactly one matching screen for the `screen.internal_regex`. The outputs detected are {}, the regular expression is `{}`. If you have tinkered with that configuration option, please check it. Otherwise please file a bug report.'.format(', '.join(outputs), regex)
+    return matched[0]
