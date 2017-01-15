@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014-2016 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2017 Martin Ueding <dev@martin-ueding.de>
 # Copyright © 2015 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
@@ -90,7 +90,6 @@ def select_docking_screens(internal, primary='', secondary=''):
     output of ``xrandr``. See
     :py:class:`tps.testsuite.test_dock.SelectDockingScreensTestCase` for more
     examples.
-
     '''
     screens = tps.screen.get_externals(internal) + [internal]
     for index, screen in enumerate([primary, secondary]):
