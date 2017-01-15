@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2015, 2017 Martin Ueding <dev@martin-ueding.de>
 # Copyright © 2015 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
@@ -217,3 +217,39 @@ def get_resolution_and_shift(output):
             'report a bug otherwise.'.format(output))
 
     return result
+
+
+def get_internal(config):
+    '''
+    Matches the regular expression in the config and retrieves the actual name
+    of the internal screen.
+
+    The names of the outputs that XRandR reports may be ``LVDS1`` or
+    ``LVDS-1``. The former happens with the Intel driver, the latter with the
+    generic kernel modesetting driver. We do not know what the system will
+    provide, therefore it was decided in GH-125 to use a regular expression in
+    the configuration file. This also gives out-of-the-box support for Yoga
+    users where the internal screen is called ``eDP1`` or ``eDP-1``.
+    '''
+
+    if 'internal' in config['screen']:
+        # The user has this key in his configuration. The default does not have
+        # it any more, so this must be manual. The user could have specified
+        # that by hand, it is perhaps not really what is wanted.
+        logger.warning('You have specified the screen.internal option in your configuration file. Since version 4.8.0 this option is not used by default but screen.internal_regex (valued `%s`) is used instead. Please take a look at the new default regular expression and see whether that covers your use case already. In that case you can delete the entry from your own configuration file. This program will use your value and not try to match the regular expression.', config['screen']['internal_regex'])
+        return config['screen']['internal']
+
+    # There is no such option, therefore we need to match the regular
+    # expression against the output of XRandR now.
+
+
+def get_available_screens(output):
+    lines = output.split('\n')
+    pattern = re.compile(r'^(?P<name>[\w\d-]+) connected')
+    results = []
+    for line in lines:
+        m = pattern.search(line)
+        if m:
+            results.append(m.groupdict()['name'])
+    results.sort()
+    return results

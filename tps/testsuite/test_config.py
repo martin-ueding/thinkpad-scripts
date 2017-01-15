@@ -29,8 +29,8 @@ class ConfigTestCase(unittest.TestCase):
         self.assertEqual({sect:dict(first[sect]) for sect in first.sections()},
                          {sect:dict(second[sect]) for sect in second.sections()})
 
-class InterpretShellLineTestCase(ConfigTestCase):
 
+class InterpretShellLineTestCase(ConfigTestCase):
     def test_interpret_shell_line_normal(self):
         '''
         `interpret_shell_line` should work properly with normal input.

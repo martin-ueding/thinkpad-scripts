@@ -91,6 +91,10 @@ def select_docking_screens(internal, primary='', secondary=''):
     :py:class:`tps.testsuite.test_dock.SelectDockingScreensTestCase` for more
     examples.
     '''
+
+    logger.debug('select_docking_screens(internal=%s, primary=%s, secondary=%s)', str(internal),
+                 str(primary), str(secondary))
+
     screens = tps.screen.get_externals(internal) + [internal]
     for index, screen in enumerate([primary, secondary]):
         if screen in screens:
