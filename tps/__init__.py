@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014-2016 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2017 Martin Ueding <dev@martin-ueding.de>
 # Copyright © 2014 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
@@ -145,6 +145,25 @@ def assert_python3():
     Asserts that this is running with Python 3
     '''
     assert sys.version_info >= (3, 0), 'You need Python 3 to run this!'
+
+
+def static_vars(**kwargs):
+    '''
+    Attach static variables to a function.
+
+    Python does not have static variables. There is a workaround since all
+    Python functions are objects really. Therefore one can attach attributes to
+    it. This decorator conveniently does that.
+
+    Taken from a `Stack Overflow answer` by *Claudiu* and *ony*.
+
+    __ http://stackoverflow.com/a/279586
+    '''
+    def decorated(func):
+        for name, value in kwargs.items():
+            setattr(func, name, value)
+        return func
+    return decorated
 
 
 check_call = print_command_decorate(subprocess.check_call)

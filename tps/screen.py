@@ -219,7 +219,8 @@ def get_resolution_and_shift(output):
     return result
 
 
-def get_internal(config):
+@tps.static_vars(cached_internal=None)
+def get_internal(config, cache=True):
     '''
     Matches the regular expression in the config and retrieves the actual name
     of the internal screen.
@@ -230,22 +231,31 @@ def get_internal(config):
     provide, therefore it was decided in GH-125 to use a regular expression in
     the configuration file. This also gives out-of-the-box support for Yoga
     users where the internal screen is called ``eDP1`` or ``eDP-1``.
+
+    :param config: Configuration parser instance
+    :param bool cache: Compute the value again even if it is cached
     '''
+
+    if cache and get_internal.cached_internal is not None:
+        return get_internal.cached_internal
 
     if 'internal' in config['screen']:
         # The user has this key in his configuration. The default does not have
         # it any more, so this must be manual. The user could have specified
         # that by hand, it is perhaps not really what is wanted.
         logger.warning('You have specified the screen.internal option in your configuration file. Since version 4.8.0 this option is not used by default but screen.internal_regex (valued `%s`) is used instead. Please take a look at the new default regular expression and see whether that covers your use case already. In that case you can delete the entry from your own configuration file. This program will use your value and not try to match the regular expression.', config['screen']['internal_regex'])
-        return config['screen']['internal']
+        internal = config['screen']['internal']
+    else:
+        # There is no such option, therefore we need to match the regular
+        # expression against the output of XRandR now.
+        output = tps.check_output(['xrandr'], logger).decode().strip()
+        screens = get_available_screens(output)
+        logger.debug('Screens available on this system are %s.', ', '.join(screens))
+        internal = filter_outputs(screens, config['screen']['internal_regex'])
+        logger.debug('Internal screen is determined to be %s.', internal)
 
-    # There is no such option, therefore we need to match the regular
-    # expression against the output of XRandR now.
-    output = tps.check_output(['xrandr'], logger).decode().strip()
-    screens = get_available_screens(output)
-    logger.debug('Screens available on this system are %s.', ', '.join(screens))
-    internal = filter_outputs(screens, config['screen']['internal_regex'])
-    logger.debug('Internal screen is determined to be %s.', internal)
+    get_internal.cached_internal = internal
+
     return internal
 
 
