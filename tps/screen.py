@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2015, 2017 Martin Ueding <dev@martin-ueding.de>
 # Copyright © 2015 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
@@ -124,7 +124,9 @@ def set_brightness(brightness):
         logger.warning('xbacklight is not installed')
         return
 
-    tps.check_call(['xbacklight', '-set', brightness], logger)
+    status = tps.call(['xbacklight', '-set', brightness], logger)
+    if status != 0:
+        logger.warning('`xbacklight` cannot set the brightness, this is ignored.')
 
 
 def disable(screen):
