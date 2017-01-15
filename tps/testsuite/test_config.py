@@ -29,15 +29,15 @@ class ConfigTestCase(unittest.TestCase):
         self.assertEqual({sect:dict(first[sect]) for sect in first.sections()},
                          {sect:dict(second[sect]) for sect in second.sections()})
 
-class InterpretShellLineTestCase(ConfigTestCase):
 
+class InterpretShellLineTestCase(ConfigTestCase):
     def test_interpret_shell_line_normal(self):
         '''
         `interpret_shell_line` should work properly with normal input.
         '''
         expected = ConfigParser(interpolation=None)
         expected.read_dict({'network': {'disable_wifi': 'true'},
-                            'screen': {'internal': 'LVDS1',
+                            'screen': {'internal_regex': 'LVDS1',
                                        'set_brightness': 'true',
                                        'brightness': '100%',
                                        'relative_position': 'right'},
@@ -71,7 +71,7 @@ class InterpretShellLineTestCase(ConfigTestCase):
         expected = ConfigParser(interpolation=None)
         expected.read_dict({'screen': {'brightness': ' 50%',
                                        'set_brightness': 'true ',
-                                       'internal': 'LVDS1',
+                                       'internal_regex': 'LVDS1',
                                        'relative_position': 'foo bar'},
                             'gui': {'kdialog': 'true'}})
 

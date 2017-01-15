@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014-2016 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2017 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
 import argparse
@@ -37,14 +37,14 @@ def main():
 
     try:
         new_direction = new_rotation(
-            tps.screen.get_rotation(config['screen']['internal']),
+            tps.screen.get_rotation(tps.screen.get_internal(config)),
             options.direction, config, options.force_direction)
     except tps.UnknownDirectionException:
         logger.error('Direction cannot be understood.')
         sys.exit(1)
     except tps.screen.ScreenNotFoundException as e:
         logger.error('Unable to determine rotation of "{}": {}'.format(
-            config['screen']['internal'], e))
+            tps.screen.get_internal(config), e))
         sys.exit(1)
 
     rotate_to(new_direction, config)
@@ -56,13 +56,13 @@ def rotate_to(direction, config):
     '''
     tps.hooks.prerotate(direction, config)
 
-    tps.screen.rotate(config['screen']['internal'], direction)
-    tps.input.map_rotate_all_input_devices(config['screen']['internal'],
+    tps.screen.rotate(tps.screen.get_internal(config), direction)
+    tps.input.map_rotate_all_input_devices(tps.screen.get_internal(config),
                                            direction)
 
     if config['rotate'].getboolean('subpixels'):
         if config['rotate'].getboolean('subpixels_with_external') \
-           or not tps.screen.get_externals(config['screen']['internal']):
+           or not tps.screen.get_externals(tps.screen.get_internal(config)):
             tps.screen.set_subpixel_order(direction)
 
     if config['unity'].getboolean('toggle_launcher'):
@@ -165,7 +165,7 @@ def has_external_screens(config):
     '''
     Checks whether any external screens are attached.
     '''
-    externals = tps.screen.get_externals(config['screen']['internal'])
+    externals = tps.screen.get_externals(tps.screen.get_internal(config))
     return len(externals) > 0
 
 
