@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2015, 2017 Martin Ueding <dev@martin-ueding.de>
 # Copyright © 2015 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 
@@ -124,7 +124,9 @@ def set_brightness(brightness):
         logger.warning('xbacklight is not installed')
         return
 
-    tps.check_call(['xbacklight', '-set', brightness], logger)
+    status = tps.call(['xbacklight', '-set', brightness], logger)
+    if status != 0:
+        logger.warning('`xbacklight` cannot set the brightness, this is ignored.')
 
 
 def disable(screen):
@@ -217,3 +219,61 @@ def get_resolution_and_shift(output):
             'report a bug otherwise.'.format(output))
 
     return result
+
+
+@tps.static_vars(cached_internal=None)
+def get_internal(config, cache=True):
+    '''
+    Matches the regular expression in the config and retrieves the actual name
+    of the internal screen.
+
+    The names of the outputs that XRandR reports may be ``LVDS1`` or
+    ``LVDS-1``. The former happens with the Intel driver, the latter with the
+    generic kernel modesetting driver. We do not know what the system will
+    provide, therefore it was decided in GH-125 to use a regular expression in
+    the configuration file. This also gives out-of-the-box support for Yoga
+    users where the internal screen is called ``eDP1`` or ``eDP-1``.
+
+    :param config: Configuration parser instance
+    :param bool cache: Compute the value again even if it is cached
+    '''
+
+    if cache and get_internal.cached_internal is not None:
+        return get_internal.cached_internal
+
+    if 'internal' in config['screen']:
+        # The user has this key in his configuration. The default does not have
+        # it any more, so this must be manual. The user could have specified
+        # that by hand, it is perhaps not really what is wanted.
+        logger.warning('You have specified the screen.internal option in your configuration file. Since version 4.8.0 this option is not used by default but screen.internal_regex (valued `%s`) is used instead. Please take a look at the new default regular expression and see whether that covers your use case already. In that case you can delete the entry from your own configuration file. This program will use your value and not try to match the regular expression.', config['screen']['internal_regex'])
+        internal = config['screen']['internal']
+    else:
+        # There is no such option, therefore we need to match the regular
+        # expression against the output of XRandR now.
+        output = tps.check_output(['xrandr'], logger).decode().strip()
+        screens = get_available_screens(output)
+        logger.debug('Screens available on this system are %s.', ', '.join(screens))
+        internal = filter_outputs(screens, config['screen']['internal_regex'])
+        logger.debug('Internal screen is determined to be %s.', internal)
+
+    get_internal.cached_internal = internal
+
+    return internal
+
+
+def get_available_screens(output):
+    lines = output.split('\n')
+    pattern = re.compile(r'^(?P<name>[\w\d-]+) connected')
+    results = []
+    for line in lines:
+        m = pattern.search(line)
+        if m:
+            results.append(m.groupdict()['name'])
+    results.sort()
+    return results
+
+
+def filter_outputs(outputs, regex):
+    matched = list(filter(lambda output: re.match(regex, output), outputs))
+    assert len(matched) == 1, 'There should be exactly one matching screen for the `screen.internal_regex`. The outputs detected are {}, the regular expression is `{}`. If you have tinkered with that configuration option, please check it. Otherwise please file a bug report.'.format(', '.join(outputs), regex)
+    return matched[0]

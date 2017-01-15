@@ -4,6 +4,17 @@
 Changelog
 #########
 
+v4.8.0
+    - Ignore a failure by ``xbacklight``. On Martin's laptop, the modesetting
+      driver currently has no access to the brightness setting. Therefore the
+      docking will always fail at the brightness step. This update converts the
+      failure into a warning.
+
+    - Change the configuration option ``screen.internal`` to
+      ``screen.internal_regex`` and give a sensible default value that matches
+      the output name variant reported by the modesetting driver. This change
+      should also help Yoga users.
+
 v4.7.5
     Released: 2017-01-14 20:40:37 +0100
 

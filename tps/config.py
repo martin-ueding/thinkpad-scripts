@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014-2015 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014-2015, 2017 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
 '''
@@ -135,7 +135,7 @@ def interpret_shell_line(line, config):
 
     known_options = {
         'disable_wifi': ('network', 'disable_wifi'),
-        'internal': ('screen', 'internal'),
+        'internal': ('screen', 'internal_regex'),
         'unmute': ('sound', 'unmute'),
         'dock_loudness': ('sound', 'dock_loudness'),
         'undock_loudness': ('sound', 'undock_loudness'),
