@@ -37,7 +37,7 @@ class InterpretShellLineTestCase(ConfigTestCase):
         '''
         expected = ConfigParser(interpolation=None)
         expected.read_dict({'network': {'disable_wifi': 'true'},
-                            'screen': {'internal': 'LVDS1',
+                            'screen': {'internal_regex': 'LVDS1',
                                        'set_brightness': 'true',
                                        'brightness': '100%',
                                        'relative_position': 'right'},
@@ -71,7 +71,7 @@ class InterpretShellLineTestCase(ConfigTestCase):
         expected = ConfigParser(interpolation=None)
         expected.read_dict({'screen': {'brightness': ' 50%',
                                        'set_brightness': 'true ',
-                                       'internal': 'LVDS1',
+                                       'internal_regex': 'LVDS1',
                                        'relative_position': 'foo bar'},
                             'gui': {'kdialog': 'true'}})
 
