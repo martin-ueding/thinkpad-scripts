@@ -96,6 +96,7 @@ def main_rotate_hook():
     parser.add_argument('ignored_two')
     parser.add_argument('ignored_three')
     parser.add_argument('key', help='Keycode')
+    parser.add_argument('ignored_k', nargs='?')
     parser.add_argument("-v", dest='verbose', action="count",
                         help='Enable verbose output. Can be supplied multiple '
                              'times for even more verbosity.')
