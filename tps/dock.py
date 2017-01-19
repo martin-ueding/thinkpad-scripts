@@ -12,6 +12,7 @@ Logic related to the UltraBase® docks.
 import argparse
 import glob
 import logging
+import subprocess
 import sys
 
 import tps
