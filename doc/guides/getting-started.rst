@@ -1,4 +1,4 @@
-.. Copyright © 2012-2015 Martin Ueding <dev@martin-ueding.de>
+.. Copyright © 2012-2015, 2017 Martin Ueding <dev@martin-ueding.de>
 .. Copyright © 2013 Jim Turner <jturner314@gmail.com>
 
 ###############
@@ -179,15 +179,16 @@ Optional
 These programs enhance the functionality of the scripts, but are not strictly
 required.
 
-============== ================== ================== =========================================
-Needed Program Debian package     Arch Linux package For
-============== ================== ================== =========================================
-gsettings      libglib2.0-bin     glib2              subpixel anti-alias order with GNOME/XFCE
-kvkbd          kvkbd              kvkbd              virtual keyboard
-nmcli          network-manager    networkmanager     changing wifi
-pactl          pulseaudio-utils   libpulse           volume control when docking
-xbacklight     xbacklight         xorg-xbacklight    adjusting brightness
-============== ================== ================== =========================================
+============== ======================== ================== =========================================
+Needed Program Debian package           Arch Linux package For
+============== ======================== ================== =========================================
+gsettings      libglib2.0-bin           glib2              subpixel anti-alias order with GNOME/XFCE
+kvkbd          kvkbd                    kvkbd              virtual keyboard
+nmcli          network-manager          networkmanager     changing wifi
+pactl          pulseaudio-utils         libpulse           volume control when docking
+xbacklight     xbacklight               xorg-xbacklight    adjusting brightness
+xsetwacom      xserver-xorg-input-wacom xf86-input-wacom   Wacom device rotation
+============== ======================== ================== =========================================
 
 Setup
 =====
