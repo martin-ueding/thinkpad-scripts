@@ -4,6 +4,15 @@
 Changelog
 #########
 
+v4.8.1
+    Released: 2017-01-20 09:26:34 +0100
+
+    - Ignore an additional command line argument to the hooks (GH-127)
+    - Fix the missing import of ``subprocess`` (GH-128)
+    - Update the documentation (GH-126)
+    - Use ``xsetwacom`` for the rotation and screen mapping if the input device
+      supports it (GH-124)
+
 v4.8.0
     - Ignore a failure by ``xbacklight``. On Martin's laptop, the modesetting
       driver currently has no access to the brightness setting. Therefore the

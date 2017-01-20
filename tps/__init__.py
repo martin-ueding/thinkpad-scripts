@@ -17,39 +17,40 @@ import shlex
 import subprocess
 
 Direction = collections.namedtuple(
-    'Direction', ['xrandr', 'subpixel', 'physically_closed', 'rot_mat']
+    'Direction', ['xrandr', 'xsetwacom', 'subpixel', 'physically_closed',
+                  'rot_mat']
 )
 '''
 Holds the direction names of different tools.
 
-``xrandr`` and other programs use different names for the rotations. To avoid
+``xrandr`` and ``xsetwacom`` use different names for the rotations. To avoid
 proliferation of various names, this class holds the differing names. The
 module provides constants which have to be used within :mod:`tps`.
 '''
 
-LEFT = Direction('left', 'vrgb', True, [0, -1, 1,
-                                        1, 0, 0,
-                                        0, 0, 1])
+LEFT = Direction('left', 'ccw', 'vrgb', True, [0, -1, 1,
+                                               1, 0, 0,
+                                               0, 0, 1])
 'Left'
 
-RIGHT = Direction('right', 'vbgr', True, [0, 1, 0,
-                                          -1, 0, 1,
-                                          0, 0, 1])
+RIGHT = Direction('right', 'cw', 'vbgr', True, [0, 1, 0,
+                                                -1, 0, 1,
+                                                0, 0, 1])
 'Right'
 
-NORMAL = Direction('normal', 'rgb', False, [1, 0, 0,
-                                            0, 1, 0,
-                                            0, 0, 1])
+NORMAL = Direction('normal', 'none', 'rgb', False, [1, 0, 0,
+                                                    0, 1, 0,
+                                                    0, 0, 1])
 'Normal'
 
-INVERTED = Direction('inverted', 'bgr', True, [-1, 0, 1,
-                                               0, -1, 1,
-                                               0, 0, 1])
+INVERTED = Direction('inverted', 'half', 'bgr', True, [-1, 0, 1,
+                                                       0, -1, 1,
+                                                       0, 0, 1])
 'Inverted'
 
-TABLET_NORMAL = Direction('normal', 'rgb', True, [1, 0, 0,
-                                                  0, 1, 0,
-                                                  0, 0, 1])
+TABLET_NORMAL = Direction('normal', 'none', 'rgb', True, [1, 0, 0,
+                                                          0, 1, 0,
+                                                          0, 0, 1])
 'Tablet normal'
 
 logger = logging.getLogger(__name__)
