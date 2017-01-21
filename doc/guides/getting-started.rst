@@ -87,7 +87,6 @@ Then, you can build and install with:
 
     $ make
     # make install
-    # ./setup.py install
 
 To make the ACPI hooks take effect, you will need to restart ``acpid`` with the
 following on SysVinit/Upstart systems:

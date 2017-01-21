@@ -22,6 +22,8 @@ common-install:
 	install -m 644 thinkpad-rotate-acpi-hook-1 -t "$(DESTDIR)/etc/acpi/events/"
 	install -m 644 thinkpad-rotate-acpi-hook-2 -t "$(DESTDIR)/etc/acpi/events/"
 #
+	./setup.py install --root="$(or $(DESTDIR),/)"
+#
 	cd desktop && $(MAKE) install
 	cd doc && $(MAKE) install
 #
