@@ -12,6 +12,7 @@ Logic related to the UltraBase® docks.
 import argparse
 import glob
 import logging
+import re
 import subprocess
 import sys
 
@@ -26,14 +27,32 @@ import tps.sound
 logger = logging.getLogger(__name__)
 
 
-def is_docked():
+def is_docked(config):
     '''
     Determines whether the laptop is on a docking station.
 
     This checks for ``/sys/devices/platform/dock.*/docked``.
+    In issue 129__ it
+    became apparent that this is not a sufficient solution. Therefore a
+    configuration option allows to alternatively check for USB devices that are
+    present.
+
+    __ https://github.com/martin-ueding/thinkpad-scripts/issues/129
 
     :returns: True if laptop is docked
     :rtype: bool
+    '''
+    regex = config['dock']['lsusb_indicator_regex']
+    if len(regex) > 0:
+        logger.debug('Using lsusb to determine docking status.')
+        return _is_docked_lsusb(regex)
+    else:
+        logger.debug('Using sysfs to determine docking status.')
+        return _is_docked_sys_platform()
+
+def _is_docked_sys_platform():
+    '''
+    Determines the docking status from ``/sys/devices/platform/dock.*/docked``.
     '''
     dockfiles = glob.glob('/sys/devices/platform/dock.*/docked')
     for dockfile in dockfiles:
@@ -45,6 +64,16 @@ def is_docked():
                 return True
     logger.info('No docking station found.')
     return False
+
+
+def _is_docked_lsusb(regex):
+    '''
+    Queries ``lsusb`` and checks whether the devices are present.
+    '''
+    output = tps.check_output(['lsusb'], logger).decode().strip()
+    match = re.search(regex, output)
+    return bool(match)
+
 
 
 def select_docking_screens(internal, primary='', secondary=''):
@@ -228,7 +257,7 @@ def main():
     elif options.state == 'off':
         desired = False
     elif options.state is None:
-        desired = is_docked()
+        desired = is_docked(config)
     else:
         logging.error('Desired state “%s” cannot be understood.',
                       options.state)

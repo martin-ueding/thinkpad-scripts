@@ -4,6 +4,11 @@
 Changelog
 #########
 
+v4.9.0
+    Released: 2017-02-19 18:03:31 +0100
+
+    - Add ``lsusb`` check for docking.
+
 v4.8.1
     Released: 2017-01-20 09:26:34 +0100
 
