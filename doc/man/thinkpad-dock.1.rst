@@ -111,6 +111,33 @@ Those are the possible options:
     ``lsusb`` is searched for that regular expression. If a match is found, the
     laptop is assumed to be on the docking station.
 
+    .. admonition:: Example
+
+        The output of ``lsusb`` might contain lines like the following:
+
+            Bus 002 Device 003: ID 056a:00e6 Wacom Co., Ltd TPCE6
+            Bus 002 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+            Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+            Bus 001 Device 003: ID 04f2:b217 Chicony Electronics Co., Ltd Lenovo Integrated Camera (0.3MP)
+            Bus 001 Device 006: ID 046d:c05a Logitech, Inc. M90/M100 Optical Mouse
+            Bus 001 Device 008: ID 273f:1007  
+            Bus 001 Device 005: ID 0424:2514 Standard Microsystems Corp. USB 2.0 Hub
+            Bus 001 Device 004: ID 0424:2514 Standard Microsystems Corp. USB 2.0 Hub
+            Bus 001 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+            Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
+        Some of these devices might be integrated in the docking station. One
+        of the USB hubs is the one in my external screen. That does not help
+        much because its ID is not unique. The unnamed device with ID
+        ``273f:1007`` is only present on the docking station. Therefore I would
+        set the configuration value to ``273f:1007``.
+
+        At the office, I have a second docking station. There I have some other
+        device, say ID ``1234:1234``. Since this configuration option is a
+        regular expression, I could specify the following:
+        ``273f:1007|1234:1234``. Then both devices can trigger the docking
+        state.
+
 ``gui.kdialog``
     Please see the appropriate section in thinkpad-rotate(1), it has the same
     option. *Default:*.
