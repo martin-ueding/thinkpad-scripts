@@ -1,4 +1,4 @@
-..  Copyright © 2013-2015 Martin Ueding <dev@martin-ueding.de>
+..  Copyright © 2013-2015, 2017 Martin Ueding <dev@martin-ueding.de>
     Copyright © 2015 Jim Turner <jturner314@gmail.com>
     Licensed under The GNU Public License Version 2 (or later)
 
@@ -35,7 +35,7 @@ There will be an udev rule installed that will automatically dock it when set
 onto the station and un-dock when you press the eject button. Technically, this
 rule calls the ``thinkpad-dock-hook``.
 
-what it does
+What it does
 ------------
 
 When docking, the following things are done:
@@ -101,6 +101,15 @@ hierarchical, I will denote the options with a dot. The first one would be
 ``sound.dock_loudness`` for example.
 
 Those are the possible options:
+
+``dock.lsusb_indicator_regex``
+    Some docks might not have a docking indicator in the sysfs. In `Issue 129
+    <https://github.com/martin-ueding/thinkpad-scripts/issues/129>`_ it has
+    been discussed to use a particular USB device that is attached only at the
+    dock to function as an indicator. If this option is set to a non-zero
+    length string, it will be used as a regular expression. The output of
+    ``lsusb`` is searched for that regular expression. If a match is found, the
+    laptop is assumed to be on the docking station.
 
 ``gui.kdialog``
     Please see the appropriate section in thinkpad-rotate(1), it has the same
