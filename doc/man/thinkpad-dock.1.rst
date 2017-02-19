@@ -113,7 +113,7 @@ Those are the possible options:
 
     .. admonition:: Example
 
-        The output of ``lsusb`` might contain lines like the following:
+        The output of ``lsusb`` might contain lines like the following::
 
             Bus 002 Device 003: ID 056a:00e6 Wacom Co., Ltd TPCE6
             Bus 002 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
