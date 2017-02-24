@@ -76,7 +76,12 @@ def postdock(state, config):
 def get_graphicsl_user():
     pattern = re.compile(r'\(:0(\.0)?\)')
 
-    lines = tps.check_output(['who', '-u'], logger).decode().split('\n')
+    lines = tps.check_output(['who', '-u'], logger)\
+               .decode().strip().split('\n')
+    # If there is a single user, choose them.
+    if len(lines) == 1:
+        return lines[0].split()[0]
+    # Otherwise, search for a user description that matches the regex.
     for line in lines:
         m = pattern.search(line)
         if m:

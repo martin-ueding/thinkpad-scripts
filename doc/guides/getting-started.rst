@@ -184,6 +184,7 @@ Needed Program Debian package           Arch Linux package For
 ============== ======================== ================== =========================================
 gsettings      libglib2.0-bin           glib2              subpixel anti-alias order with GNOME/XFCE
 kvkbd          kvkbd                    kvkbd              virtual keyboard
+lsusb          usbutils                 usbutils           docking detection with a USB device
 nmcli          network-manager          networkmanager     changing wifi
 pactl          pulseaudio-utils         libpulse           volume control when docking
 xbacklight     xbacklight               xorg-xbacklight    adjusting brightness

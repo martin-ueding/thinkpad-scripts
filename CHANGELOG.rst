@@ -4,6 +4,12 @@
 Changelog
 #########
 
+v4.9.1
+    Released: 2017-02-24 22:35:30 +0100
+
+    - Update documentation
+    - Improve determination of the username that is logged in using X.
+
 v4.9.0
     Released: 2017-02-19 18:03:31 +0100
 
