@@ -2,5 +2,5 @@
 # Copyright © 2013-2014 Martin Ueding <dev@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
-event=ibm/hotkey HKEY 00000080 0000500[9a]
-action=/usr/bin/thinkpad-rotate-hook %e
+event=ibm/hotkey HKEY 00000080 00005009
+action=/usr/bin/thinkpad-rotate-hook --via-hook acpi1_rotated

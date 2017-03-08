@@ -29,10 +29,19 @@ def main():
 
     # Quickly abort if the call is by the hook and the user disabled the
     # trigger.
-    if options.via_hook and not config['trigger'].getboolean('enable_rotate'):
-        sys.exit(0)
+    if options.via_hook is not None:
+        if 'enable_rotate' in config['trigger']:
+            # The user has this key in his configuration. The default does not
+            # have it anymore, so this must be manual.
+            if config['trigger'].getboolean('enable_rotate'):
+                logger.warning('You have specified the deprecated trigger.enable_rotate option in your configuration file. The new config option is trigger.rotate_triggers, which is a list of enabled triggers. This program will use your existing trigger.enable_rotate value, but please update your config. To update your config while keeping the behavior of your current config, simply remove trigger.enable_rotate from your config file.')
+            else:
+                logger.warning('You have specified the deprecated trigger.enable_rotate option in your configuration file. The new config option is trigger.rotate_triggers, which is a list of enabled triggers. This program will use your existing trigger.enable_rotate value, but please update your config. To update your config while keeping the behavior of your current config, remove trigger.enable_rotate from your config file and set trigger.rotate_triggers to an empty value.')
+                sys.exit(0)
+        elif options.via_hook not in config['trigger']['rotate_triggers'].split():
+            sys.exit(0)
 
-    if options.via_hook:
+    if options.via_hook is not None:
         xrandr_bug_fail_early(config)
 
     try:
@@ -220,7 +229,7 @@ def _parse_args():
     parser.add_argument("-v", dest='verbose', action="count",
                         help='Enable verbose output. Can be supplied multiple '
                              'times for even more verbosity.')
-    parser.add_argument('--via-hook', action='store_true', help='Let the program know that it was called using the hook. This will then enable some workarounds. You do not need to care about this.')
+    parser.add_argument('--via-hook', help='Let the program know that it was called using the specified hook. You do not need to care about this.')
     parser.add_argument('--force-direction', action='store_true', help='Do not try to be smart. Actually rotate in the direction given even it already is the case.')
 
     options = parser.parse_args()

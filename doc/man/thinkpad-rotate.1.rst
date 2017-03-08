@@ -63,10 +63,6 @@ Options
     Enable verbose output. Can be supplied multiple times for even more
     verbosity.
 
-``--via-hook``
-    Let the program know that it was called using the hook. This will then
-    enable some workarounds. You do not need to care about this.
-
 ``--force-direction``
     Do not try to be smart. Actually rotate in the direction given even it
     already is the case.
@@ -167,9 +163,11 @@ You can set the following option:
     Regular expression to match the ``xrandr`` name for the internal monitor.
     *Default: LVDS-?1|eDP-?1*
 
-``trigger.enable_rotate``
-    Sets whether the rotation should be executed by the hardware trigger.
-    *Default: true*.
+``trigger.rotate_triggers``
+    Whitespace-delimited list of the enabled hardware triggers to execute
+    rotation. The available triggers are ``acpi1_normal``, ``acpi1_rotated``,
+    ``acpi2_normal``, and ``acpi2_rotated``.
+    *Default:* ``acpi1_normal acpi1_rotated acpi2_normal acpi2_rotated``
 
 ``touch.regex``
     Regular expression to match Wacom devices against. If your devices do not

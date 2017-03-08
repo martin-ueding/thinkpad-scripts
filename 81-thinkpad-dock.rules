@@ -4,7 +4,7 @@
 
 KERNEL=="dock.*", ATTR{type}=="dock_station", ATTR{docked}=="0", RUN+="/usr/bin/logger -t thinkpad-dock Event caught: off"
 KERNEL=="dock.*", ATTR{type}=="dock_station", ATTR{docked}=="1", RUN+="/usr/bin/logger -t thinkpad-dock Event caught: on"
-KERNEL=="dock.*", ATTR{type}=="dock_station", ATTR{docked}=="0", RUN+="/usr/bin/thinkpad-dock-hook off"
-KERNEL=="dock.*", ATTR{type}=="dock_station", ATTR{docked}=="1", RUN+="/usr/bin/thinkpad-dock-hook on"
+KERNEL=="dock.*", ATTR{type}=="dock_station", ATTR{docked}=="0", RUN+="/usr/bin/thinkpad-dock-hook off --via-hook udev1_off"
+KERNEL=="dock.*", ATTR{type}=="dock_station", ATTR{docked}=="1", RUN+="/usr/bin/thinkpad-dock-hook on --via-hook udev1_on"
 
 # vim: ft=udevrules
