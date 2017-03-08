@@ -201,9 +201,10 @@ Those are the possible options:
 ``sound.undock_loudness``
     Volume to set to when undocking. *Default: 50%*.
 
-``trigger.enable_dock``
-    Sets whether the docking should be executed by the hardware trigger.
-    *Default: true*.
+``trigger.dock_triggers``
+    Whitespace-delimited list of the enabled hardware triggers to execute
+    docking/undocking. The available triggers are ``udev1_on`` and
+    ``udev1_off``. *Default:* ``udev1_on udev1_off``
 
 Hooks
 -----

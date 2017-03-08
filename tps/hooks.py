@@ -97,28 +97,19 @@ def main_rotate_hook():
     interpreter with the actual ``thinkpad-rotate`` script.
     '''
     parser = argparse.ArgumentParser()
-    parser.add_argument('ignored_one')
-    parser.add_argument('ignored_two')
-    parser.add_argument('ignored_three')
-    parser.add_argument('key', help='Keycode')
-    parser.add_argument('ignored_k', nargs='?')
+    parser.add_argument('direction', nargs='?', help='Direction to rotate to.')
+    parser.add_argument('--via-hook', required=True,
+                        help='ID of hook that called this program')
     parser.add_argument("-v", dest='verbose', action="count",
                         help='Enable verbose output. Can be supplied multiple '
                              'times for even more verbosity.')
     options = parser.parse_args()
     tps.config.set_up_logging(options.verbose)
 
-    key = options.key
-
-    if key in ('00000001', '00005009'):
-        set_to = ''
-
-    elif key in ('00000000', '0000500a'):
-        set_to = 'normal'
-
+    if options.direction is not None:
+        direction = [options.direction, '--force-direction']
     else:
-        logger.error('Unexpected keycode %s given in rotate-hook', key)
-        sys.exit(1)
+        direction = []
 
     user = get_graphicsl_user()
     if user is None:
@@ -128,7 +119,7 @@ def main_rotate_hook():
     tps.check_call([
         'sudo', '-u', user, '-i',
         'env', 'DISPLAY=:0.0',
-        '/usr/bin/thinkpad-rotate', set_to, '--via-hook',
+        '/usr/bin/thinkpad-rotate', *direction, '--via-hook', options.via_hook,
     ], logger)
 
 
@@ -140,12 +131,20 @@ def main_dock_hook():
     interpreter with the actual ``thinkpad-dock`` script.
     '''
     parser = argparse.ArgumentParser()
-    parser.add_argument('action', help='`on` or `off`')
+    parser.add_argument('action', nargs='?', choices=['on', 'off'],
+                        help='`on` or `off`')
+    parser.add_argument('--via-hook', required=True,
+                        help='ID of hook that called this program')
     parser.add_argument("-v", dest='verbose', action="count",
                         help='Enable verbose output. Can be supplied multiple '
                              'times for even more verbosity.')
     options = parser.parse_args()
     tps.config.set_up_logging(options.verbose)
+
+    if options.action is not None:
+        action = [options.action]
+    else:
+        action = []
 
     user = get_graphicsl_user()
     if user is None:
@@ -155,5 +154,5 @@ def main_dock_hook():
     tps.check_call([
         'sudo', '-u', user, '-i',
         'env', 'DISPLAY=:0.0',
-        '/usr/bin/thinkpad-dock', options.action, '--via-hook'
+        '/usr/bin/thinkpad-dock', *action, '--via-hook', options.via_hook,
     ], logger)

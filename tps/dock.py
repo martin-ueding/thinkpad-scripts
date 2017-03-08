@@ -248,9 +248,19 @@ def main():
     options = _parse_args()
     config = tps.config.get_config()
 
-    # Quickly abort if the call is by the hook and the user disabled the trigger.
-    if options.via_hook and not config['trigger'].getboolean('enable_dock'):
-        sys.exit(0)
+    # Quickly abort if the call is by the hook and the user disabled the
+    # trigger.
+    if options.via_hook is not None:
+        if 'enable_dock' in config['trigger']:
+            # The user has this key in his configuration. The default does not
+            # have it anymore, so this must be manual.
+            if config['trigger'].getboolean('enable_dock'):
+                logger.warning('You have specified the deprecated trigger.enable_dock option in your configuration file. The new config option is trigger.dock_triggers, which is a list of enabled triggers. This program will use your existing trigger.enable_dock value, but please update your config. To update your config while keeping the behavior of your current config, simply remove trigger.enable_dock from your config file.')
+            else:
+                logger.warning('You have specified the deprecated trigger.enable_dock option in your configuration file. The new config option is trigger.dock_triggers, which is a list of enabled triggers. This program will use your existing trigger.enable_dock value, but please update your config. To update your config while keeping the behavior of your current config, remove trigger.enable_dock from your config file and set trigger.dock_triggers to an empty value.')
+                sys.exit(0)
+        elif options.via_hook not in config['trigger']['dock_triggers'].split():
+            sys.exit(0)
 
     if options.state == 'on':
         desired = True
@@ -279,11 +289,12 @@ def _parse_args():
     :rtype: Namespace
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument("state", nargs='?', help="`on` or `off`")
+    parser.add_argument("state", nargs='?', choices=['on', 'off'],
+                        help="`on` or `off`")
     parser.add_argument("-v", dest='verbose', action="count",
                         help='Enable verbose output. Can be supplied multiple '
                              'times for even more verbosity.')
-    parser.add_argument('--via-hook', action='store_true', help='Let the program know that it was called using the hook. This will then enable some workarounds. You do not need to care about this.')
+    parser.add_argument('--via-hook', help='Let the program know that it was called using the specified hook. You do not need to care about this.')
 
     options = parser.parse_args()
 

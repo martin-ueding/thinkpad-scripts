@@ -19,8 +19,10 @@ common-install:
 #
 	install -d "$(DESTDIR)/etc/acpi/events/"
 	install -m 644 thinkpad-mutemic-acpi-hook -t "$(DESTDIR)/etc/acpi/events/"
-	install -m 644 thinkpad-rotate-acpi-hook-1 -t "$(DESTDIR)/etc/acpi/events/"
-	install -m 644 thinkpad-rotate-acpi-hook-2 -t "$(DESTDIR)/etc/acpi/events/"
+	install -m 644 thinkpad-rotate-acpi-hook-1-normal -t "$(DESTDIR)/etc/acpi/events/"
+	install -m 644 thinkpad-rotate-acpi-hook-1-rotated -t "$(DESTDIR)/etc/acpi/events/"
+	install -m 644 thinkpad-rotate-acpi-hook-2-normal -t "$(DESTDIR)/etc/acpi/events/"
+	install -m 644 thinkpad-rotate-acpi-hook-2-rotated -t "$(DESTDIR)/etc/acpi/events/"
 #
 	cd desktop && $(MAKE) install
 	cd doc && $(MAKE) install
