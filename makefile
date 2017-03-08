@@ -23,6 +23,9 @@ common-install:
 	install -m 644 thinkpad-rotate-acpi-hook-1-rotated -t "$(DESTDIR)/etc/acpi/events/"
 	install -m 644 thinkpad-rotate-acpi-hook-2-normal -t "$(DESTDIR)/etc/acpi/events/"
 	install -m 644 thinkpad-rotate-acpi-hook-2-rotated -t "$(DESTDIR)/etc/acpi/events/"
+	install -m 644 thinkpad-dock-acpi-hook-1-on -t "$(DESTDIR)/etc/acpi/events/"
+	install -m 644 thinkpad-dock-acpi-hook-1-off -t "$(DESTDIR)/etc/acpi/events/"
+	install -m 644 thinkpad-dock-acpi-hook-2 -t "$(DESTDIR)/etc/acpi/events/"
 #
 	cd desktop && $(MAKE) install
 	cd doc && $(MAKE) install
