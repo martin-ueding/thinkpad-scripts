@@ -1,0 +1,5 @@
+# Copyright © 2017 Jim Turner <jturner314@gmail.com>
+# Licensed under The GNU Public License Version 2 (or later)
+
+event=ibm/hotkey LEN0068:00 00000080 00004011
+action=/usr/bin/thinkpad-dock-hook off --via-hook acpi1_off

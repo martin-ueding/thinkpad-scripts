@@ -203,8 +203,9 @@ Those are the possible options:
 
 ``trigger.dock_triggers``
     Whitespace-delimited list of the enabled hardware triggers to execute
-    docking/undocking. The available triggers are ``udev1_on`` and
-    ``udev1_off``. *Default:* ``udev1_on udev1_off``
+    docking/undocking. The available triggers are ``udev1_on``, ``udev1_off``,
+    ``acpi1_on``, ``acpi1_off``, and ``acpi2``.
+    *Default:* ``udev1_on udev1_off``
 
 Hooks
 -----
