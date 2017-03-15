@@ -74,19 +74,26 @@ def postdock(state, config):
 
 
 def get_graphicsl_user():
-    pattern = re.compile(r'\(:0(\.0)?\)')
-
     lines = tps.check_output(['who', '-u'], logger)\
                .decode().strip().split('\n')
+    return parse_graphical_user(lines)
+
+
+def parse_graphical_user(lines):
+    '''Determine the graphical user from the output of ``who -u``.'''
     # If there is a single user, choose them.
     if len(lines) == 1:
         return lines[0].split()[0]
     # Otherwise, search for a user description that matches the regex.
+    # 'z' is always greater than any match by the regular expression.
+    display = 'z'
+    user = None
     for line in lines:
-        m = pattern.search(line)
-        if m:
-            words = line.split()
-            return words[0]
+        m = re.search(r'\(:\d+(\.\d+)?\)', line)
+        if m and m.group(0) < display:
+            display = m.group(0)
+            user = line.split()[0]
+    return user
 
 
 def main_rotate_hook():
