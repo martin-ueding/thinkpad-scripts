@@ -4,6 +4,12 @@
 Changelog
 #########
 
+v4.10.0
+    Released: 2017-03-19 18:40:09 +0100
+
+    - Add a configuration option to select hardware triggers
+    - Graphical user detection can now handle display ``:1``
+
 v4.9.1
     Released: 2017-02-24 22:35:30 +0100
 
