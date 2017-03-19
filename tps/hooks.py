@@ -74,19 +74,26 @@ def postdock(state, config):
 
 
 def get_graphicsl_user():
-    pattern = re.compile(r'\(:0(\.0)?\)')
-
     lines = tps.check_output(['who', '-u'], logger)\
                .decode().strip().split('\n')
+    return parse_graphical_user(lines)
+
+
+def parse_graphical_user(lines):
+    '''Determine the graphical user from the output of ``who -u``.'''
     # If there is a single user, choose them.
     if len(lines) == 1:
         return lines[0].split()[0]
     # Otherwise, search for a user description that matches the regex.
+    # 'z' is always greater than any match by the regular expression.
+    display = 'z'
+    user = None
     for line in lines:
-        m = pattern.search(line)
-        if m:
-            words = line.split()
-            return words[0]
+        m = re.search(r'\(:\d+(\.\d+)?\)', line)
+        if m and m.group(0) < display:
+            display = m.group(0)
+            user = line.split()[0]
+    return user
 
 
 def main_rotate_hook():
@@ -97,39 +104,32 @@ def main_rotate_hook():
     interpreter with the actual ``thinkpad-rotate`` script.
     '''
     parser = argparse.ArgumentParser()
-    parser.add_argument('ignored_one')
-    parser.add_argument('ignored_two')
-    parser.add_argument('ignored_three')
-    parser.add_argument('key', help='Keycode')
-    parser.add_argument('ignored_k', nargs='?')
+    parser.add_argument('direction', nargs='?', help='Direction to rotate to.')
+    parser.add_argument('--via-hook', required=True,
+                        help='ID of hook that called this program')
     parser.add_argument("-v", dest='verbose', action="count",
                         help='Enable verbose output. Can be supplied multiple '
                              'times for even more verbosity.')
     options = parser.parse_args()
     tps.config.set_up_logging(options.verbose)
 
-    key = options.key
-
-    if key in ('00000001', '00005009'):
-        set_to = ''
-
-    elif key in ('00000000', '0000500a'):
-        set_to = 'normal'
-
+    if options.direction is not None:
+        direction = [options.direction, '--force-direction']
     else:
-        logger.error('Unexpected keycode %s given in rotate-hook', key)
-        sys.exit(1)
+        direction = []
 
     user = get_graphicsl_user()
     if user is None:
         logger.warning('Unable to get graphical user. Ignoring trigger.')
         sys.exit(0)
 
-    tps.check_call([
-        'sudo', '-u', user, '-i',
-        'env', 'DISPLAY=:0.0',
-        '/usr/bin/thinkpad-rotate', set_to, '--via-hook',
-    ], logger)
+    tps.check_call(
+        ['sudo', '-u', user, '-i',
+         'env', 'DISPLAY=:0.0',
+         '/usr/bin/thinkpad-rotate'] +
+        direction +
+        ['--via-hook', options.via_hook],
+        logger)
 
 
 def main_dock_hook():
@@ -140,20 +140,30 @@ def main_dock_hook():
     interpreter with the actual ``thinkpad-dock`` script.
     '''
     parser = argparse.ArgumentParser()
-    parser.add_argument('action', help='`on` or `off`')
+    parser.add_argument('action', nargs='?', choices=['on', 'off'],
+                        help='`on` or `off`')
+    parser.add_argument('--via-hook', required=True,
+                        help='ID of hook that called this program')
     parser.add_argument("-v", dest='verbose', action="count",
                         help='Enable verbose output. Can be supplied multiple '
                              'times for even more verbosity.')
     options = parser.parse_args()
     tps.config.set_up_logging(options.verbose)
 
+    if options.action is not None:
+        action = [options.action]
+    else:
+        action = []
+
     user = get_graphicsl_user()
     if user is None:
         logger.warning('Unable to get graphical user. Ignoring trigger.')
         sys.exit(0)
 
-    tps.check_call([
-        'sudo', '-u', user, '-i',
-        'env', 'DISPLAY=:0.0',
-        '/usr/bin/thinkpad-dock', options.action, '--via-hook'
-    ], logger)
+    tps.check_call(
+        ['sudo', '-u', user, '-i',
+         'env', 'DISPLAY=:0.0',
+         '/usr/bin/thinkpad-dock'] +
+        action +
+        ['--via-hook', options.via_hook],
+        logger)
