@@ -29,7 +29,7 @@ On Ubuntu and its derivatives, you can install from `Martin's PPA
     $ sudo -s
     # add-apt-repository ppa:martin-ueding/stable
     # apt-get update
-    # apt-get install thinkpad-scripts
+    # apt-get install --no-install-recommends thinkpad-scripts
 
 Arch Linux
 ~~~~~~~~~~
