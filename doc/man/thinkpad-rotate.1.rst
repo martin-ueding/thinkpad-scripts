@@ -1,4 +1,4 @@
-..  Copyright © 2012-2015 Martin Ueding <dev@martin-ueding.de>
+..  Copyright © 2012-2015, 2017 Martin Ueding <dev@martin-ueding.de>
     Licensed under The GNU Public License Version 2 (or later)
 
 ###############
@@ -113,6 +113,16 @@ You can set the following option:
 ``hooks.prerotate``
     Executable file to run before rotation.
     *Default: ~/.config/thinkpad-scripts/hooks/prerotate*
+
+``input.use_xsetwacom_if_available``
+    When an input device has a Wacom rotation property, we will use
+    ``xsetwacom`` to rotate it. Desktop environments like GNOME 3 might also
+    rotate the input devices, but by applying a rotation matrix via ``xinput``.
+    This results in a double rotation, effectively no rotation at all. `We have
+    decided <https://github.com/martin-ueding/thinkpad-scripts/issues/139>`_
+    that we cannot reliably guess what the desktop environment does. Therefore
+    we offer an option for the user to override the default behavior. *Default:
+    true*
 
 ``rotate.default_rotation``
     Default rotation if device is in normal rotation and no arguments are

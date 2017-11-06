@@ -4,6 +4,13 @@
 Changelog
 #########
 
+v4.11.0
+    Released: 2017-11-06 20:50:08 +0100
+
+    - Add a configuration option ``input.use_xsetwacom_if_available`` in order
+      to let the user choose whether to use ``xsetwacom`` or ``xinput``
+      (GH-139)
+
 v4.10.0
     Released: 2017-03-19 18:40:09 +0100
 
