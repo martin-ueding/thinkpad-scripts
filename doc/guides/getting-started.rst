@@ -125,6 +125,7 @@ python3        python3                python             python3-devel      pyth
 *setuptools*   python3-setuptools     python-setuptools  python3-setuptools python3-setuptools
 sphinx-build   python3-sphinx         python-sphinx      python3-sphinx     python3-Sphinx
 xgettext       gettext                gettext            gettext            gettext
+make           make
 ============== ====================== ================== ================== ==================
 
 Run
