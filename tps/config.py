@@ -211,6 +211,8 @@ def set_up_logging(verbosity):
         dev_log = '/dev/log'
         if os.path.exists(dev_log):
             kwargs['address'] = dev_log
+        else:
+            kwargs['address'] = 'localhost'
         syslog = logging.handlers.SysLogHandler(**kwargs)
         syslog.setLevel(logging.DEBUG)
         formatter = logging.Formatter(syslog_format)
