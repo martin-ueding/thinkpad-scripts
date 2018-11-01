@@ -1,0 +1,3 @@
+version=3
+opts=filenamemangle=s/.+\/v?(\d\S+)\.tar\.gz/thinkpad-scripts-$1\.tar\.gz/ \
+  https://github.com/martin-ueding/thinkpad-scripts/tags .*/v?(\d\S+)\.tar\.gz
