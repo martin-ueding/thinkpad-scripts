@@ -4,6 +4,12 @@
 Changelog
 #########
 
+v4.12.0
+    Released: 2019-01-21 20:32:13 +0100
+
+    - Update documentation.
+    - Proper release on ``master`` branch.
+
 v4.11.0
     Released: 2017-11-06 20:50:08 +0100
 
