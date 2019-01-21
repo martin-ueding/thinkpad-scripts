@@ -1,0 +1,9 @@
+#!/bin/bash
+# Copyright © 2012-2013 Martin Ueding <dev@martin-ueding.de>
+
+set -e
+set -u
+
+service acpid restart
+
+#DEBHELPER#

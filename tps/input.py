@@ -70,13 +70,16 @@ def map_rotate_all_input_devices(output, orientation):
     '''
     Maps all Wacom® devices.
     '''
+    config = tps.config.get_config()
+
     matrix = generate_xinput_coordinate_transformation_matrix(output,
                                                               orientation)
     wacom_device_ids = get_wacom_device_ids()
 
     logger.info('Mapping and rotating all input devices.')
     for device in wacom_device_ids:
-        if has_device_property(device, 'Wacom Rotation'):
+        if has_device_property(device, 'Wacom Rotation') \
+           and config['input'].getboolean('use_xsetwacom_if_available'):
             logger.info('Device %d has “Wacom Rotation” property, use xsetwacom.', device)
             map_rotate_wacom_device(device, output, orientation)
         else:

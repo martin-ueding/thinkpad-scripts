@@ -1,4 +1,4 @@
-.. Copyright © 2012-2015, 2017 Martin Ueding <dev@martin-ueding.de>
+.. Copyright © 2012-2015, 2017-2018 Martin Ueding <dev@martin-ueding.de>
 .. Copyright © 2013 Jim Turner <jturner314@gmail.com>
 
 ###############
@@ -40,40 +40,27 @@ On Arch Linux, you can install the ``thinkpad-scripts`` package from the `AUR
 Fedora
 ~~~~~~
 
-I, Martin Ueding, just (2015-01-24) tried out to package this for Fedora using
+For Fedora, there is a RPM repository via
 the `Open Build Service <https://build.opensuse.org/>`_.
 
-.. _`Open Build Service`: https://build.opensuse.org/
+You have to download the ``home:martinueding.repo`` file from the `list of
+repositories <https://build.opensuse.org/repositories/home:martinueding>`_ into
+``/etc/yum.repos.d/``. Then you can use ``dnf`` to install |project|.
 
-As far as I have understood and tested this, you have to download
-`home:martinueding.repo
-<http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/home:martinueding.repo>`_
-into ``/etc/yum.repos.d/``. Then you can use ``yum`` to install |project|.
+The following commands will do these steps. Just be careful to have the correct
+Fedora version in the URL.
 
 .. code-block:: console
 
     $ sudo -s
-    # wget http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/home:martinueding.repo -O /etc/yum.repos.d/home:martinueding.repo
-    # yum install thinkpad-scripts
-
-.. warning::
-
-    I only have a Fedora 21 VM right now, so I could only test it there. The
-    virtual screen of the virtual machine could not be rotated, so I got an error
-    message by ``xrandr``. It seems like it would work on a real machine. I would
-    be very grateful if somebody could test this and tell me about it.
-
-- `Repository overview page <https://build.opensuse.org/package/binaries/home:martinueding/thinkpad-scripts?repository=Fedora_21>`_
-- `Repository download page <http://download.opensuse.org/repositories/home:/martinueding/Fedora_21/>`_
+    # wget http://download.opensuse.org/repositories/home:/martinueding/Fedora_27/home:martinueding.repo -O /etc/yum.repos.d/home:martinueding.repo
+    # dnf install thinkpad-scripts
 
 openSUSE
 ~~~~~~~~
 
-Same as Fedora_, I tried to create an RPM package for openSUSE with the `Open
-Build Service`_. There is a repository__ on my home project. Feedback is
-greatly appreciated.
-
-__ http://download.opensuse.org/repositories/home:/martinueding/openSUSE_13.2/
+Currently not packaged, but if you need it, I can try to tweak the Fedora RPM
+such that it works on openSUSE.
 
 .. _installation-build-manually:
 
@@ -138,6 +125,7 @@ python3        python3                python             python3-devel      pyth
 *setuptools*   python3-setuptools     python-setuptools  python3-setuptools python3-setuptools
 sphinx-build   python3-sphinx         python-sphinx      python3-sphinx     python3-Sphinx
 xgettext       gettext                gettext            gettext            gettext
+make           make
 ============== ====================== ================== ================== ==================
 
 Run
