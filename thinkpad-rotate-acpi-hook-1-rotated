@@ -3,4 +3,4 @@
 # Licensed under The GNU Public License Version 2 (or later)
 
 event=ibm/hotkey HKEY 00000080 00005009
-action=/usr/bin/thinkpad-rotate-hook --via-hook acpi1_rotated
+action=/usr/bin/local/thinkpad-rotate-hook --via-hook acpi1_rotated
