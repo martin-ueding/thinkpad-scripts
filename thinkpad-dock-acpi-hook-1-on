@@ -2,4 +2,4 @@
 # Licensed under The GNU Public License Version 2 (or later)
 
 event=ibm/hotkey LEN0068:00 00000080 00004010
-action=/usr/bin/local/thinkpad-dock-hook on --via-hook acpi1_on
+action=/usr/local/bin/thinkpad-dock-hook on --via-hook acpi1_on
