@@ -8,61 +8,8 @@ Getting Started
 Installation
 ============
 
-The easiest way to install |project| on Ubuntu, Arch Linux, Fedora and openSUSE
-is with your package manager, as described in :ref:`installation-from-package`.
-If you are on another distribution, then you can build and install it manually
-using the instructions in :ref:`installation-build-manually`.
-
-.. _installation-from-package:
-
-From Package
-------------
-
-Ubuntu
-~~~~~~
-
-On Ubuntu and its derivatives, you can install from `Martin's PPA
-<https://launchpad.net/~martin-ueding/+archive/stable>`_:
-
-.. code-block:: console
-
-    $ sudo -s
-    # add-apt-repository ppa:martin-ueding/stable
-    # apt-get update
-    # apt-get install thinkpad-scripts
-
-Arch Linux
-~~~~~~~~~~
-
-On Arch Linux, you can install the ``thinkpad-scripts`` package from the `AUR
-<https://aur.archlinux.org/packages/thinkpad-scripts>`_.
-
-Fedora
-~~~~~~
-
-For Fedora, there is a RPM repository via
-the `Open Build Service <https://build.opensuse.org/>`_.
-
-You have to download the ``home:martinueding.repo`` file from the `list of
-repositories <https://build.opensuse.org/repositories/home:martinueding>`_ into
-``/etc/yum.repos.d/``. Then you can use ``dnf`` to install |project|.
-
-The following commands will do these steps. Just be careful to have the correct
-Fedora version in the URL.
-
-.. code-block:: console
-
-    $ sudo -s
-    # wget http://download.opensuse.org/repositories/home:/martinueding/Fedora_27/home:martinueding.repo -O /etc/yum.repos.d/home:martinueding.repo
-    # dnf install thinkpad-scripts
-
-openSUSE
-~~~~~~~~
-
-Currently not packaged, but if you need it, I can try to tweak the Fedora RPM
-such that it works on openSUSE.
-
-.. _installation-build-manually:
+Due to a lack of time there are no current packages of |project| available. You
+will have to install from source.
 
 Build Manually
 --------------
