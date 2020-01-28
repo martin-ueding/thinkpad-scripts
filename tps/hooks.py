@@ -126,7 +126,7 @@ def main_rotate_hook():
     tps.check_call(
         ['sudo', '-u', user, '-i',
          'env', 'DISPLAY=:0.0',
-         '/usr/bin/thinkpad-rotate'] +
+         '/usr/local/bin/thinkpad-rotate'] +
         direction +
         ['--via-hook', options.via_hook],
         logger)
@@ -163,7 +163,7 @@ def main_dock_hook():
     tps.check_call(
         ['sudo', '-u', user, '-i',
          'env', 'DISPLAY=:0.0',
-         '/usr/bin/thinkpad-dock'] +
+         '/usr/local/bin/thinkpad-dock'] +
         action +
         ['--via-hook', options.via_hook],
         logger)
