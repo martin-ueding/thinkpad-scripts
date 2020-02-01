@@ -213,15 +213,15 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('man/thinkpad-dock.1', 'thinkpad-dock', 'set the screens when going to and from the docking station',
-     ['Martin Ueding <dev@martin-ueding.de>'], 1),
+     ['Martin Ueding <martin-ueding.de>'], 1),
     ('man/thinkpad-mutemic.1', 'thinkpad-mutemic', 'toggle the microphone mute status',
-     ['Martin Ueding <dev@martin-ueding.de>'], 1),
+     ['Martin Ueding <martin-ueding.de>'], 1),
     ('man/thinkpad-rotate.1', 'thinkpad-rotate', 'ThinkPad X220 Tablet screen rotation script',
-     ['Martin Ueding <dev@martin-ueding.de>'], 1),
+     ['Martin Ueding <martin-ueding.de>'], 1),
     ('man/thinkpad-touch.1', 'thinkpad-touch', 'enable/disable the touch screen',
      ['Jim Turner <jturner314@gmail.com>'], 1),
     ('man/thinkpad-touchpad.1', 'thinkpad-touchpad', 'Thinkpad TouchPad toggle script',
-     ['Martin Ueding <dev@martin-ueding.de>'], 1),
+     ['Martin Ueding <martin-ueding.de>'], 1),
 ]
 
 # If true, show URL addresses after external links.

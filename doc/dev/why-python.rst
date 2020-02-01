@@ -1,10 +1,10 @@
-.. Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+.. Copyright © 2014 Martin Ueding <martin-ueding.de>
 
 ###########
 Why Python?
 ###########
 
-:Author: Martin Ueding <dev@martin-ueding.de>
+:Author: Martin Ueding <martin-ueding.de>
 
 Advantages
 ==========

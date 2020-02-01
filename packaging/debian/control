@@ -1,7 +1,7 @@
 Source: thinkpad-scripts
 Section: utils
 Priority: optional
-Maintainer: Martin Ueding <dev@martin-ueding.de>
+Maintainer: Martin Ueding <martin-ueding.de>
 Build-Depends: debhelper (>= 9.0.0), python3, python3-setuptools, python3-sphinx, gettext, dh-python, python3-termcolor
 Standards-Version: 3.9.5
 Homepage: http://martin-ueding.de/en/projects/thinkpad-scripts/
