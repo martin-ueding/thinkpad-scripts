@@ -18,7 +18,6 @@ if __name__ == '__main__':
 
     setup(
         author="Martin Ueding",
-        author_email="dev@martin-ueding.de",
         description="Scripts for ThinkPad®",
         license="GNU GPLv2+",
         classifiers=[

@@ -3,9 +3,8 @@
 Epilogue
 ========
 
-This file is part of |project| by `Martin Ueding
-<mailto:dev@martin-ueding.de>`_ and `Jim Turner
-<mailto:jturner314@gmail.com>`_.
+This file is part of |project| by `Martin Ueding <martin-ueding.de>`__ and `Jim
+Turner <mailto:jturner314@gmail.com>`__.
 
 We hope that this collection of scripts is useful to you. If you experience
 bugs, find the documentation lacking or have a new kind of hardware that we do
