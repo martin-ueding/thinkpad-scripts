@@ -1,4 +1,4 @@
-..  Copyright © 2015 Martin Ueding <martin-ueding.de>
+..  Copyright © 2015 Martin Ueding <mu@martin-ueding.de>
     Licensed under The GNU Public License Version 2 (or later)
 
 #################################
@@ -9,7 +9,7 @@ thinkpad-scripts-config-migration
 
     migrates the config from versions 3.x to 4.x
 
-    :Author: Martin Ueding <martin-ueding.de>
+    :Author: Martin Ueding <mu@martin-ueding.de>
     :Manual section: 1
 
 Synopsis

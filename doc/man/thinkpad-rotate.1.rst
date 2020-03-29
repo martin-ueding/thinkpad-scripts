@@ -1,4 +1,4 @@
-..  Copyright © 2012-2015, 2017 Martin Ueding <martin-ueding.de>
+..  Copyright © 2012-2015, 2017 Martin Ueding <mu@martin-ueding.de>
     Licensed under The GNU Public License Version 2 (or later)
 
 ###############
@@ -9,7 +9,7 @@ thinkpad-rotate
 
     ThinkPad X220 Tablet screen rotation script
 
-    :Author: Martin Ueding <martin-ueding.de>
+    :Author: Martin Ueding <mu@martin-ueding.de>
     :Manual section: 1
 
 Synopsis

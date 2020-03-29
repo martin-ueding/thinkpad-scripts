@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2013-2014 Martin Ueding <martin-ueding.de>
+# Copyright © 2013-2014 Martin Ueding <mu@martin-ueding.de>
 
 import argparse
 import os.path

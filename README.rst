@@ -1,4 +1,4 @@
-.. Copyright © 2012-2015 Martin Ueding <martin-ueding.de>
+.. Copyright © 2012-2015 Martin Ueding <mu@martin-ueding.de>
 .. Copyright © 2013 Jim Turner <jturner314@gmail.com>
 
 ################

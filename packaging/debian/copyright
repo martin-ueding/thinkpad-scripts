@@ -3,7 +3,7 @@ Upstream-Name: thinkpad-scripts
 Source: http://martin-ueding.de/projects/thinkpad-scripts/
 
 Files: *
-Copyright: 2012, 2014 Martin Ueding <martin-ueding.de>
+Copyright: 2012, 2014 Martin Ueding <mu@martin-ueding.de>
 License: GPL-2+
  This package is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ License: GPL-2+
  Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
 
 Files: debian/*
-Copyright: 2012 Martin Ueding <martin-ueding.de>
+Copyright: 2012 Martin Ueding <mu@martin-ueding.de>
 License: GPL-2+
  This package is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by

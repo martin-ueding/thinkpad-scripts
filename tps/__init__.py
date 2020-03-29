@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014-2017 Martin Ueding <martin-ueding.de>
+# Copyright © 2014-2017 Martin Ueding <mu@martin-ueding.de>
 # Copyright © 2014 Jim Turner <jturner314@gmail.com>
 # Licensed under The GNU Public License Version 2 (or later)
 

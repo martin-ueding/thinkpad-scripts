@@ -1,5 +1,5 @@
 ..  Copyright © 2013 Jim Turner <jturner314@gmail.com>
-    Copyright © 2014-2015 Martin Ueding <martin-ueding.de>
+    Copyright © 2014-2015 Martin Ueding <mu@martin-ueding.de>
 
 ###################################################################
 |project|: Scripts for ThinkPad X220 Tablet rotation, docking, etc.

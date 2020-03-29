@@ -1,4 +1,4 @@
-.. Copyright © 2014 Martin Ueding <martin-ueding.de>
+.. Copyright © 2014 Martin Ueding <mu@martin-ueding.de>
 
 ###
 API

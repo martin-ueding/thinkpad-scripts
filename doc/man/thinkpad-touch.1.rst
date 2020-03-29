@@ -1,5 +1,5 @@
 ..  Copyright © 2012 Jim Turner <jturner314@gmail.com>
-    Copyright © 2015 Martin Ueding <martin-ueding.de>
+    Copyright © 2015 Martin Ueding <mu@martin-ueding.de>
     Licensed under The GNU Public License Version 2 (or later)
 
 ##############

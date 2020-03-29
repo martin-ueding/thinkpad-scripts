@@ -1,4 +1,4 @@
-.. Copyright © 2015 Martin Ueding <martin-ueding.de>
+.. Copyright © 2015 Martin Ueding <mu@martin-ueding.de>
    Licensed under The GNU Public License Version 2 (or later)
 
 ###############
@@ -9,7 +9,7 @@ thinkpad-config
 
     Show the |project| configuration
 
-    :Author: Martin Ueding <martin-ueding.de>
+    :Author: Martin Ueding <mu@martin-ueding.de>
     :Manual section: 1
 
 Synopsis

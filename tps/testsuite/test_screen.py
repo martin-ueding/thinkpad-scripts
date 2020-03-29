@@ -1,4 +1,4 @@
-# Copyright © 2017 Martin Ueding <martin-ueding.de>
+# Copyright © 2017 Martin Ueding <mu@martin-ueding.de>
 # Licensed under The GNU Public License Version 2 (or later)
 
 import unittest

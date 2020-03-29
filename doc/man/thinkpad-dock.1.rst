@@ -1,4 +1,4 @@
-..  Copyright © 2013-2015, 2017 Martin Ueding <martin-ueding.de>
+..  Copyright © 2013-2015, 2017 Martin Ueding <mu@martin-ueding.de>
     Copyright © 2015 Jim Turner <jturner314@gmail.com>
     Licensed under The GNU Public License Version 2 (or later)
 
@@ -10,7 +10,7 @@ thinkpad-dock
 
     set the screens when going to and from the docking station
 
-    :Author: Martin Ueding <martin-ueding.de>
+    :Author: Martin Ueding <mu@martin-ueding.de>
     :Manual section: 1
 
 Synopsis

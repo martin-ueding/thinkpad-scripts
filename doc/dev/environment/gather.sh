@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright © 2014 Martin Ueding <martin-ueding.de>
+# Copyright © 2014 Martin Ueding <mu@martin-ueding.de>
 
 env | sort > env-user.txt
 sudo env | sort > env-root.txt

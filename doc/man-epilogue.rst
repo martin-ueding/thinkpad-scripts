@@ -1,9 +1,9 @@
-.. Copyright © 2015 Martin Ueding <martin-ueding.de>
+.. Copyright © 2015 Martin Ueding <mu@martin-ueding.de>
 
 Epilogue
 ========
 
-This file is part of |project| by `Martin Ueding <martin-ueding.de>`__ and `Jim
+This file is part of |project| by `Martin Ueding <mu@martin-ueding.de>`__ and `Jim
 Turner <mailto:jturner314@gmail.com>`__.
 
 We hope that this collection of scripts is useful to you. If you experience
