@@ -95,6 +95,13 @@ def map_rotate_wacom_device(device, output, direction):
     tps.check_call(['xsetwacom', 'set', str(device), 'MapToOutput', output],
                     logger)
 
+    # In March 2020 I first noticed that the pen input did not work any more
+    # after rotating. Restarting the X11 server got it to work again. It seems
+    # that for some reason the device gets disabled when it is rotated in the
+    # latest versions of `xsetwacom`. Just enabling it afterwards is a simple
+    # fix for that issue.
+    set_xinput_state(str(device), True)
+
 
 def wacom_rotate_reset(device):
     '''
